@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 1244562779}
   - component: {fileID: 1244562778}
   - component: {fileID: 1244562777}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card2
   m_TagString: interactable
   m_Icon: {fileID: 0}
@@ -428,8 +428,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244562776}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -61.7, y: 1, z: 30.7}
-  m_LocalScale: {x: 4, y: 0.1, z: 6}
+  m_LocalPosition: {x: -67.16, y: 1.1, z: 30.7}
+  m_LocalScale: {x: 5, y: 0.1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543422463}
@@ -545,12 +545,12 @@ GameObject:
   - component: {fileID: 2061309244}
   - component: {fileID: 2061309243}
   m_Layer: 0
-  m_Name: Card3
+  m_Name: SpriteCardTest
   m_TagString: interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2061309242
 Transform:
   m_ObjectHideFlags: 0
@@ -559,7 +559,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061309241}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -26.6, y: 1, z: 34.2}
+  m_LocalPosition: {x: -26.2, y: 1, z: 38.9}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 2062466811}
   - component: {fileID: 2062466810}
   - component: {fileID: 2062466809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card1
   m_TagString: interactable
   m_Icon: {fileID: 0}
@@ -721,8 +721,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062466808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -73.2, y: 1, z: 34.1}
-  m_LocalScale: {x: 4, y: 0.1, z: 6}
+  m_LocalPosition: {x: -45.4, y: 1, z: 29.9}
+  m_LocalScale: {x: 5, y: 0.1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543422463}
