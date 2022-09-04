@@ -4,9 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CardGlobal;
-
-
-// Z = Y
+using Helpers;
 
 public class DragAndDrop : MonoBehaviour
 {
@@ -27,6 +25,8 @@ public class DragAndDrop : MonoBehaviour
 
     private LayerMask cardLayerMask;
 
+
+    // ################ MonoBehaviour FUNCTION ################
 
     private void Awake()
     {
@@ -61,7 +61,7 @@ public class DragAndDrop : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100, cardLayerMask))
         {
-            Card hitCard = getCardFromGameObject(hit.collider.gameObject);
+            Card hitCard = DragAndDropHelper.getCardFromGameObject(hit.collider.gameObject);
             StartCoroutine(dragUpdate(hitCard));
         }
     }
@@ -69,13 +69,17 @@ public class DragAndDrop : MonoBehaviour
     private IEnumerator dragUpdate(Card hitCard)
     {
 
-        Vector3 mousePosition = Mouse.current.position.ReadValue();
-        Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
-        Vector3 clickedDifferenceInWorld = new Vector3(hitCard.gameObject.transform.position.x - mousePositionInWorld.x, 0, hitCard.gameObject.transform.position.z - mousePositionInWorld.z);
+        Vector3 findclickedDifferenceInWorld()
+        {
+            Vector3 mousePosition = Mouse.current.position.ReadValue();
+            Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
+            Vector3 clickedDifferenceInWorld = new Vector3(hitCard.gameObject.transform.position.x - mousePositionInWorld.x, 0, hitCard.gameObject.transform.position.z - mousePositionInWorld.z);
+            return clickedDifferenceInWorld;
+        }
+
+        Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld();
 
         List<Card> draggingCards = new List<Card>();
-
-
         hitCard.gameObject.transform.position = new Vector3(hitCard.gameObject.transform.position.x, baseDraggingPositionY, hitCard.gameObject.transform.position.z);
         draggingCards.Add(hitCard);
 
@@ -85,17 +89,12 @@ public class DragAndDrop : MonoBehaviour
         float checkIntervel = 1;
         bool intervalChecked = false;
         Vector3 initialPostionOfCard = hitCard.gameObject.transform.position;
-
-
         while (mouseClick.ReadValue<float>() != 0)
         {
-
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             Vector3 movingToPoint = ray.GetPoint(initialDistance);
-            // movingToPoint.y = hitCard.gameObject.transform.position.y;
             movingToPoint = movingToPoint + clickedDifferenceInWorld;
-            this.moveDraggingCard(movingToPoint, draggingCards);
-
+            DragAndDropHelper.moveDraggingCard(movingToPoint, draggingCards);
 
             timer += Time.deltaTime;
             float timerCheck = checkIntervel * initialCheckIntervel;
@@ -110,10 +109,9 @@ public class DragAndDrop : MonoBehaviour
                     {
                         intervalChecked = false;
                         checkIntervel++;
-                    } 
+                    }
                 }
             }
-
             yield return null;
         }
         dragFinishHandler(draggingCards);
@@ -122,7 +120,7 @@ public class DragAndDrop : MonoBehaviour
     private bool handleDownLogic(Card hitCard, Vector3 initialPostionOfCard, List<Card> draggingCards)
     {
         Vector3 currentPositionOfCard = hitCard.gameObject.transform.position;
-        bool isDraggingMoreCardsFromStack = this.getDraggingCardsAngle(initialPostionOfCard, currentPositionOfCard);
+        bool isDraggingMoreCardsFromStack = DragAndDropHelper.getDraggingCardsAngle(initialPostionOfCard, currentPositionOfCard);
         if (isDraggingMoreCardsFromStack)
         {
             this.applyDownDragLogic(hitCard, initialPostionOfCard, draggingCards);
@@ -130,7 +128,7 @@ public class DragAndDrop : MonoBehaviour
         }
         else
         {
-            // draggingCards[0].joinedStack.removeCardsFromStack(draggingCards);
+            draggingCards[0].joinedStack.removeCardsFromStack(draggingCards);
             return false;
         }
 
@@ -156,49 +154,29 @@ public class DragAndDrop : MonoBehaviour
         }
     }
 
-    private void moveDraggingCard(Vector3 movingToPoint, List<Card> draggingCards)
-    {
-        foreach (Card singleDraggingCard in draggingCards)
-        {
-            Vector3 finalMovingPoint = movingToPoint;
-            finalMovingPoint.y = singleDraggingCard.gameObject.transform.position.y;
-            singleDraggingCard.gameObject.transform.position = finalMovingPoint;
-        }
-    }
-
     private void dragFinishHandler(List<Card> draggingCards)
     {
-        // Card hitCard = draggingCards[0];
-        Card bottomCard =draggingCards[draggingCards.Count - 1];
-        Card stackCard = findCardToStack(bottomCard);
-        int i = 1;
-        foreach(Card singleDraggingCard in draggingCards){
-      
-            singleDraggingCard.gameObject.transform.position = new Vector3(singleDraggingCard.gameObject.transform.position.x, 
-                Card.cardBaseY + ((draggingCards.Count - i) * CardStack.distancePerCards), 
-                singleDraggingCard.gameObject.transform.position.z);
-            i++;  
-        }
 
-        if (stackCard != null)
+        Card bottomCard = draggingCards[draggingCards.Count - 1];
+        Stackable stackableObject = findTargetToStack(bottomCard);
+        if (stackableObject != null)
         {
-            // found a card to stack
-            if (stackCard.isStacked)
+            stackableObject.stackOnThis(draggingCards);
+        }
+        else
+        {
+            int i = 1;
+            foreach (Card singleDraggingCard in draggingCards)
             {
-                CardStack existingstack = stackCard.joinedStack;
-                existingstack.addCardToStack(bottomCard);
+                singleDraggingCard.gameObject.transform.position = new Vector3(singleDraggingCard.gameObject.transform.position.x,
+                    Card.cardBaseY + ((draggingCards.Count - i) * CardStack.distancePerCards),
+                    singleDraggingCard.gameObject.transform.position.z);
+                i++;
             }
-            else
-            {
-                CardStack newStack = new CardStack(stackCard, bottomCard);
-            }
-
-        } else {
-            
         }
     }
 
-    private Card findCardToStack(Card hitCard)
+    private Stackable findTargetToStack(Card hitCard)
     {
         hitCard.generateTheCorners();
         RaycastHit cornerHit;
@@ -206,48 +184,15 @@ public class DragAndDrop : MonoBehaviour
         int i = 0;
         while (i < 4)
         {
-            if (Physics.Raycast(corners[i], transform.TransformDirection(Vector3.down), out cornerHit, 20, cardLayerMask))
+            if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, cardLayerMask))
             {
                 hitCard.gameObject.transform.position = new Vector3(hitCard.gameObject.transform.position.x, hitCard.gameObject.transform.position.y - 1, hitCard.gameObject.transform.position.z);
-                Card stackingCard = getCardFromGameObject(cornerHit.collider.gameObject);
+                Card stackingCard = DragAndDropHelper.getCardFromGameObject(cornerHit.collider.gameObject);
                 return stackingCard;
             }
             i++;
         }
         return null;
-    }
-
-
-
-
-
-    private bool getDraggingCardsAngle(Vector3 initalPostion, Vector3 currentPosition)
-    {
-        // get the angle of attack on the postions
-        Vector2 initalPostion2d = new Vector2(initalPostion.x, initalPostion.z);
-        Vector2 currentPosition2d = new Vector2(currentPosition.x, currentPosition.z);
-        float angle = Vector2.Angle(currentPosition2d - initalPostion2d, Vector2.up);
-        float directionalAngle = Vector3.Angle((currentPosition2d - initalPostion2d), Vector2.right);
-        if (directionalAngle > 90)
-        {
-            angle = 360 - angle;
-        }
-        if (angle > 150 && angle < 210)
-        {
-            return true;
-        }
-        return false;
-    }
-
-
-    private Card getCardFromGameObject(GameObject cardObject)
-    {
-        Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
-        if (hitCard == null)
-        {
-            hitCard = cardObject.AddComponent<Card>();
-        }
-        return hitCard;
     }
 
 

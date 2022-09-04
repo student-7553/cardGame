@@ -1,12 +1,16 @@
 
 using UnityEngine;
-using System.Linq;
 using System.Collections.Generic;
+
 namespace CardGlobal
 {
-    public class Card : MonoBehaviour
+    public interface Stackable
     {
+        void stackOnThis(List<Card> draggingCards);
+    }
 
+    public class Card : MonoBehaviour, Stackable
+    {
         public bool isStacked;
         [System.NonSerialized]
         public Vector3 leftTopCorner;
@@ -14,16 +18,12 @@ namespace CardGlobal
         public Vector3 rightTopCorner;
         [System.NonSerialized]
         public Vector3 leftBottomCorner;
-
         [System.NonSerialized]
         public Vector3 rightBottomCorner;
-
-        // [System.NonSerialized]
+        [System.NonSerialized]
         public CardStack joinedStack;
-
         [System.NonSerialized]
         public static float cardBaseY = 1;
-
 
         private float baseCardX = 5;
         private float baseCardY = 8;
@@ -54,33 +54,44 @@ namespace CardGlobal
             rightBottomCorner = rightBottomCornerPoint;
         }
 
-        public void removeFromCardStack(){
+        public void removeFromCardStack()
+        {
             isStacked = false;
             joinedStack = null;
         }
 
-        public void addToCardStack(CardStack newCardStack){
+        public void addToCardStack(CardStack newCardStack)
+        {
             isStacked = true;
             joinedStack = newCardStack;
         }
 
-
-
+        public void stackOnThis( List<Card> draggingCards)
+        {
+            if (isStacked)
+            {
+                CardStack existingstack = joinedStack;
+                existingstack.addCardsToStack(draggingCards);
+            }
+            else
+            {
+                List<Card> newCardStackCards = new List<Card>(new Card[] { this });
+                newCardStackCards.AddRange(draggingCards);
+                CardStack newStack = new CardStack(newCardStackCards);
+            }
+        }
     }
 
     public class CardStack
     {
-
-
         private static float stackDistance = 5;
         public static float distancePerCards = 0.01f;
 
         // we are assuming that origin card is 0 indexed on array
         public List<Card> cards;
-
-        public CardStack(Card originCard, Card newCard)
+        public CardStack(List<Card> cardStackCards)
         {
-            cards = new List<Card>(new Card[] { originCard, newCard });
+            cards = cardStackCards;
             foreach (Card singleCard in cards)
             {
                 singleCard.isStacked = true;
@@ -97,7 +108,7 @@ namespace CardGlobal
             for (int i = from; i < cards.Count; i++)
             {
                 Card cardInSubject = cards[i];
-                Vector3 newPostionForCardInSubject = new Vector3(originCard.transform.position.x, originCard.transform.position.y + (i * distancePerCards), originCard.transform.position.z - (stackDistance* i));
+                Vector3 newPostionForCardInSubject = new Vector3(originCard.transform.position.x, originCard.transform.position.y + (i * distancePerCards), originCard.transform.position.z - (stackDistance * i));
                 cardInSubject.transform.position = newPostionForCardInSubject;
                 cardInSubject.generateTheCorners();
             }
@@ -105,46 +116,85 @@ namespace CardGlobal
 
         public void removeCardsFromStack(List<Card> removingCards)
         {
-            foreach(Card singleCard in removingCards){
+            foreach (Card singleCard in removingCards)
+            {
                 cards.Remove(singleCard);
                 singleCard.removeFromCardStack();
             }
-
-            if(cards.Count > 1){
+            if (cards.Count > 1)
+            {
                 this.alignCards(1);
-            } else {
+            }
+            else
+            {
                 this.checkIfDead();
             }
         }
 
-        public void addCardToStack(Card addingCard)
+        public void addCardsToStack(List<Card> addingCards)
         {
             int previousLength = cards.Count;
-            cards.Add(addingCard);
-            addingCard.addToCardStack(this);
+            cards.AddRange(addingCards);
+            foreach (Card singleCard in cards)
+            {
+                singleCard.addToCardStack(this);
+            }
             this.alignCards(previousLength);
         }
 
-        private void printCards(){
-            foreach(Card singleCard in cards){
+        private void printCards()
+        {
+            foreach (Card singleCard in cards)
+            {
                 Debug.Log(singleCard);
             }
         }
 
-        private void checkIfDead(){
-            if(cards.Count > 1){
+        private void checkIfDead()
+        {
+            if (cards.Count > 1)
+            {
                 return;
             }
-            foreach(Card singleCard in cards){
+            foreach (Card singleCard in cards)
+            {
                 singleCard.removeFromCardStack();
             }
-
-            
         }
     }
 
-    public class Node
+    public class Node : MonoBehaviour, Stackable
     {
+        enum nodeStateTypes
+        {
+            low,
+            medium,
+        };
 
+        [System.NonSerialized]
+        public CardStack activeStack;
+
+        nodeStateTypes nodeState;
+
+        private void Awake()
+        {
+            nodeState = nodeStateTypes.low;
+        }
+
+        public void stackOnThis( List<Card> draggingCards )
+        {
+            
+        }
+
+        public void setCardStackOfNode(CardStack cardStack)
+        {
+            activeStack = cardStack;
+        }
+
+        public void clearCardStack()
+        {
+            activeStack = null;
+        }
+        
     }
 }
