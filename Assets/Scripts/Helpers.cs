@@ -1,6 +1,6 @@
 
 using UnityEngine;
-using CardGlobal;
+using Core;
 // using System.Linq;
 using System.Collections.Generic;
 namespace Helpers
@@ -30,18 +30,34 @@ namespace Helpers
             Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
             if (hitCard == null)
             {
-                hitCard = cardObject.AddComponent<Card>();
+                 return null;
             }
             return hitCard;
         }
 
-        public static void moveDraggingCard(Vector3 movingToPoint, List<Card> draggingCards)
+        public static bool isObjectDraggable(GameObject cardObject)
         {
-            foreach (Card singleDraggingCard in draggingCards)
+            Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
+            if (hitCard == null)
+            {
+                 return false;
+            }
+            return true;
+        }
+        
+
+        public static Card generateCardClassOnObject(GameObject subject){
+            Card newCard = subject.AddComponent<Card>();
+            return newCard;
+        }
+
+        public static void moveDraggingCard(Vector3 movingToPoint, List<GameObject> draggingObjects)
+        {
+            foreach (GameObject singleDraggingObject in draggingObjects)
             {
                 Vector3 finalMovingPoint = movingToPoint;
-                finalMovingPoint.y = singleDraggingCard.gameObject.transform.position.y;
-                singleDraggingCard.gameObject.transform.position = finalMovingPoint;
+                finalMovingPoint.y = singleDraggingObject.gameObject.transform.position.y;
+                singleDraggingObject.gameObject.transform.position = finalMovingPoint;
             }
         }
     }
