@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 236367120}
   m_Layer: 6
   m_Name: SpriteCardTestBlue2
-  m_TagString: interactable
+  m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 740947484}
   m_Layer: 6
   m_Name: SpriteCardTestBlue1
-  m_TagString: interactable
+  m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 864524098}
   m_Layer: 6
   m_Name: TestNode1
-  m_TagString: interactable
+  m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 2061309243}
   m_Layer: 6
   m_Name: SpriteCardTestPink
-  m_TagString: interactable
+  m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

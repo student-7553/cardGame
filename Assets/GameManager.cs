@@ -1,13 +1,14 @@
 using UnityEngine;
-// using System.Collections;
-// using UnityEngine.SceneManagement;
-// using System.Collections.Generic;
+using Core;
 
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
 
     static GameManager current;
+
+    private GameObject[] cards;
+    private GameObject[] nodes;
 
     void Start()
     {
@@ -20,28 +21,44 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         gameSettings();
+        findTempLogic();
+
         awakeGameLogic();
 
     }
 
-    public static void awakeGameLogic()
+    private void awakeGameLogic()
     {
+        foreach(GameObject singleCard in cards){
+            singleCard.AddComponent<Card>();
+            singleCard.AddComponent<Interactable>();
+        }
 
+
+        foreach(GameObject singleNode in nodes){
+            singleNode.AddComponent<Node>();
+            singleNode.AddComponent<Interactable>();
+        }
     }
 
+    public void findTempLogic()
+    {
+        if (cards == null)
+        {
+            cards = GameObject.FindGameObjectsWithTag("Cards");
+        }
+
+        if (nodes == null)
+        {
+            cards = GameObject.FindGameObjectsWithTag("Nodes");
+        }
+
+    }
 
     private void gameSettings()
     {
         Application.targetFrameRate = 60;
     }
-
-    // void Update()
-    // {
-
-    // }
-
-
-
 
 }
 
