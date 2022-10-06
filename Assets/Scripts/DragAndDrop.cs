@@ -28,12 +28,15 @@ public class DragAndDrop : MonoBehaviour
     private LayerMask cardLayerMask;
 
 
+    private int BASE_SORTING_ORDER_WHILE_DRAGGING = 1000;
+
+
     // ################ MonoBehaviour FUNCTION ################
 
     private void Awake()
     {
         mainCamera = Camera.main;
-        cardLayerMask = LayerMask.GetMask("Cards");
+        cardLayerMask = LayerMask.GetMask("Interactable");
     }
 
     private void OnEnable()
@@ -81,6 +84,8 @@ public class DragAndDrop : MonoBehaviour
                 hit.collider.gameObject.transform.position.z);
             draggingObjects.Add(interactableObject);
 
+            interactableObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING;
+
             StartCoroutine(dragUpdate(draggingObjects, clickedDifferenceInWorld));
         }
     }
@@ -88,11 +93,11 @@ public class DragAndDrop : MonoBehaviour
     private IEnumerator dragUpdate(List<Interactable> draggingObjects, Vector3 clickedDifferenceInWorld)
     {
 
-        Card dragableCardObject = DragAndDropHelper.getCardFromGameObject(draggingObjects[0].gameObject);
+        Card baseDragableCardObject = DragAndDropHelper.getCardFromGameObject(draggingObjects[0].gameObject);
 
-        bool applyMiddleLogic = doApplyMiddleLogic();
+        bool isGonnaApplyMiddleLogic = doApplyMiddleLogic();
 
-        float initialStackDistanceToCamera = Vector3.Distance(draggingObjects[0].transform.position, mainCamera.transform.position);
+        float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].transform.position, mainCamera.transform.position);
 
         const float initialCheckIntervel = 0.05f;
         float checkIntervel = initialCheckIntervel;
@@ -104,13 +109,13 @@ public class DragAndDrop : MonoBehaviour
         while (mouseClick.ReadValue<float>() != 0)
         {
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Vector3 movingToPoint = ray.GetPoint(initialStackDistanceToCamera);
+            Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera);
             movingToPoint = movingToPoint + clickedDifferenceInWorld;
             DragAndDropHelper.moveDraggingObjects(movingToPoint, draggingObjects);
 
 
             dragTimer += Time.deltaTime;
-            if (applyMiddleLogic == true)
+            if (isGonnaApplyMiddleLogic == true)
             {
                 handleMiddleLogic();
 
@@ -125,33 +130,31 @@ public class DragAndDrop : MonoBehaviour
             if (!intervalChecked && dragTimer > checkIntervel)
             {
                 intervalChecked = true;
-                if (this.handleSpecialLogic(dragableCardObject, initialPostionOfStack, draggingObjects))
+                if (this.handleSpecialLogic(baseDragableCardObject, initialPostionOfStack, draggingObjects))
                 {
                     intervalChecked = false;
                     checkIntervel = checkIntervel + initialCheckIntervel;
                 }
                 else
                 {
-                    applyMiddleLogic = false;
+                    isGonnaApplyMiddleLogic = false;
                 }
             }
         }
 
         bool doApplyMiddleLogic()
         {
-            if (draggingObjects[0]._interactableTypes != InteractableTypes.card)
+            if (draggingObjects[0]._interactableTypes != InteractableTypes.Cards)
             {
-
                 return false;
-
             }
-            bool applyMiddleLogic = false;
+            bool isGonnaApplyMiddleLogic = false;
 
-            if (dragableCardObject != null && dragableCardObject.isStacked)
+            if (baseDragableCardObject != null && baseDragableCardObject.isStacked)
             {
-                applyMiddleLogic = true;
+                isGonnaApplyMiddleLogic = true;
             }
-            return applyMiddleLogic;
+            return isGonnaApplyMiddleLogic;
         }
     }
 
@@ -192,11 +195,13 @@ public class DragAndDrop : MonoBehaviour
         {
             if (hitCard.gameObject.transform.position.z < singleCard.gameObject.transform.position.z && initialPostionOfCard.z > singleCard.gameObject.transform.position.z)
             {
+                Interactable interactableGameObject = DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject);
+                draggingObjects.Add(interactableGameObject);
+                interactableGameObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING - draggingObjects.Count;
                 singleCard.gameObject.transform.position = new Vector3(
                     singleCard.gameObject.transform.position.x,
                     baseDraggingPositionY,
                     singleCard.gameObject.transform.position.z);
-                draggingObjects.Add(DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject));
             }
         }
     }
@@ -207,38 +212,40 @@ public class DragAndDrop : MonoBehaviour
         // WE ARE ALWAYS ASSUMING THAT EVERYTHING IN A LIST IS THE SAME CLASSES
         Interactable bottomInteractable = draggingObjects[draggingObjects.Count - 1];
 
-
-        // if (bottomCard != null)
-        if (bottomInteractable._interactableTypes == InteractableTypes.card)
+        if (bottomInteractable._interactableTypes == InteractableTypes.Cards)
         {
             Card bottomCard = DragAndDropHelper.getCardFromGameObject(bottomInteractable.gameObject);
-            //  every single one in array is a card
+            Stackable stackableObject = findTargetToStack(bottomCard);
+
             List<Card> draggingCards = new List<Card>();
-            foreach (Interactable singleDraggingObject in draggingObjects)
+            for (int i = 0; i < draggingObjects.Count; i++)
             {
-                Card singleCard = DragAndDropHelper.getCardFromGameObject(singleDraggingObject.gameObject);
+                Card singleCard = DragAndDropHelper.getCardFromGameObject(draggingObjects[i].gameObject);
                 draggingCards.Add(singleCard);
             }
-            Stackable stackableObject = findTargetToStack(bottomCard);
+
             if (stackableObject != null)
             {
                 stackableObject.stackOnThis(draggingCards);
             }
             else
             {
-                int i = 1;
-                foreach (Card singleDraggingCard in draggingCards)
+                for (int i = 0; i < draggingObjects.Count; i++)
                 {
-                    singleDraggingCard.gameObject.transform.position = new Vector3(singleDraggingCard.gameObject.transform.position.x,
-                        Card.cardBaseY + ((draggingCards.Count - i) * CardStack.distancePerCards),
-                        singleDraggingCard.gameObject.transform.position.z);
-                    i++;
+                    draggingObjects[i].gameObject.transform.position = new Vector3(draggingObjects[i].gameObject.transform.position.x,
+                        Card.cardBaseY + ((draggingCards.Count - i) * 0.01f),
+                        draggingObjects[i].gameObject.transform.position.z);
                 }
             }
         }
-        else
+        else if (bottomInteractable._interactableTypes == InteractableTypes.Nodes)
         {
-            // is not a card
+            for (int i = 0; i < draggingObjects.Count; i++)
+            {
+                draggingObjects[i].gameObject.transform.position = new Vector3(draggingObjects[i].gameObject.transform.position.x,
+                    1,
+                    draggingObjects[i].gameObject.transform.position.z);
+            }
         }
     }
 

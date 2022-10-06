@@ -19,23 +19,23 @@ public class GameManager : MonoBehaviour
         }
         current = this;
         DontDestroyOnLoad(gameObject);
-
         gameSettings();
         findTempLogic();
-
         awakeGameLogic();
 
     }
 
     private void awakeGameLogic()
     {
-        foreach(GameObject singleCard in cards){
+        foreach (GameObject singleCard in cards)
+        {
             singleCard.AddComponent<Card>();
             singleCard.AddComponent<Interactable>();
         }
 
 
-        foreach(GameObject singleNode in nodes){
+        foreach (GameObject singleNode in nodes)
+        {
             singleNode.AddComponent<Node>();
             singleNode.AddComponent<Interactable>();
         }
@@ -50,8 +50,17 @@ public class GameManager : MonoBehaviour
 
         if (nodes == null)
         {
-            cards = GameObject.FindGameObjectsWithTag("Nodes");
+            nodes = GameObject.FindGameObjectsWithTag("Nodes");
         }
+
+        // foreach (GameObject singleCardGameObject in cards)
+        // {
+        //     Card hitCard = singleCardGameObject.GetComponent(typeof(Card)) as Card;
+        //     if (hitCard == null)
+        //     {
+        //         singleCardGameObject.AddComponent<Card>();
+        //     }
+        // }
 
     }
 

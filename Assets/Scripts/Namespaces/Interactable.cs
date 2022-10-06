@@ -4,8 +4,8 @@ namespace Core
 {
     public enum InteractableTypes
     {
-        card,
-        node
+        Cards,
+        Nodes
     }
 
     public class Interactable : MonoBehaviour
@@ -14,13 +14,17 @@ namespace Core
 
         public InteractableTypes _interactableTypes;
 
-        private SpriteRenderer _spriteRenderer;
+        public SpriteRenderer spriteRenderer;
 
 
         private void Awake()
         {
-            _spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
-            _interactableTypes = InteractableTypes.card;
+            spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+            if( this.tag == InteractableTypes.Cards.ToString()){
+                _interactableTypes = InteractableTypes.Cards;
+            } else if (this.tag == InteractableTypes.Nodes.ToString()){
+                _interactableTypes = InteractableTypes.Nodes;
+            }
         }
     }
 }
