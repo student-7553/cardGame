@@ -10,7 +10,6 @@ namespace Core
 
     public class Interactable : MonoBehaviour
     {
-        public bool isStacked;
 
         public InteractableTypes _interactableTypes;
 

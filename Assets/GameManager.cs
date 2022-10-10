@@ -33,11 +33,14 @@ public class GameManager : MonoBehaviour
             singleCard.AddComponent<Interactable>();
         }
 
-
+        int index = 1;
         foreach (GameObject singleNode in nodes)
         {
-            singleNode.AddComponent<Node>();
+            Node createdNode = singleNode.AddComponent<Node>();
+            createdNode.title = $"Sentry {index}" ;
+            createdNode.init();
             singleNode.AddComponent<Interactable>();
+            index++;
         }
     }
 

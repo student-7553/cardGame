@@ -67,6 +67,7 @@ public class DragAndDrop : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100, cardLayerMask))
         {
             Interactable interactableObject = hit.collider.gameObject.GetComponent(typeof(Interactable)) as Interactable;
+            
 
             Vector3 findclickedDifferenceInWorld()
             {
