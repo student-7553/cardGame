@@ -25,7 +25,7 @@ public class DragAndDrop : MonoBehaviour
     private Camera mainCamera;
     private WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
 
-    private LayerMask cardLayerMask;
+    private LayerMask interactableLayerMask;
 
 
     private int BASE_SORTING_ORDER_WHILE_DRAGGING = 1000;
@@ -36,7 +36,7 @@ public class DragAndDrop : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
-        cardLayerMask = LayerMask.GetMask("Interactable");
+        interactableLayerMask = LayerMask.GetMask("Interactable");
     }
 
     private void OnEnable()
@@ -53,21 +53,21 @@ public class DragAndDrop : MonoBehaviour
 
     private void MousePressed(InputAction.CallbackContext context)
     {
-        handleClickingOnACard();
+        handleClickingOnAInteractable();
     }
 
 
     // ################ CUSTOM FUNCTION ################
 
-    private void handleClickingOnACard()
+    private void handleClickingOnAInteractable()
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100, cardLayerMask))
+        if (Physics.Raycast(ray, out hit, 100, interactableLayerMask))
         {
             Interactable interactableObject = hit.collider.gameObject.GetComponent(typeof(Interactable)) as Interactable;
-            
+
 
             Vector3 findclickedDifferenceInWorld()
             {
@@ -85,7 +85,7 @@ public class DragAndDrop : MonoBehaviour
                 hit.collider.gameObject.transform.position.z);
             draggingObjects.Add(interactableObject);
 
-            interactableObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING;
+            // interactableObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING;
 
             StartCoroutine(dragUpdate(draggingObjects, clickedDifferenceInWorld));
         }
@@ -100,10 +100,10 @@ public class DragAndDrop : MonoBehaviour
 
         float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].transform.position, mainCamera.transform.position);
 
-        const float initialCheckIntervel = 0.05f;
+        const float initialCheckIntervel = 0.01f;
         float checkIntervel = initialCheckIntervel;
         float dragTimer = 0;
-        bool intervalChecked = false;
+        // bool intervalChecked = false;
 
         Vector3 initialPostionOfStack = draggingObjects[0].transform.position;
 
@@ -128,18 +128,19 @@ public class DragAndDrop : MonoBehaviour
 
         void handleMiddleLogic()
         {
-            if (!intervalChecked && dragTimer > checkIntervel)
+            if (dragTimer > checkIntervel)
             {
-                intervalChecked = true;
-                if (this.handleSpecialLogic(baseDragableCardObject, initialPostionOfStack, draggingObjects))
+                dragTimer = 0;
+                if (!this.handleSpecialLogic(baseDragableCardObject, initialPostionOfStack, draggingObjects))
                 {
-                    intervalChecked = false;
-                    checkIntervel = checkIntervel + initialCheckIntervel;
+                     isGonnaApplyMiddleLogic = false;
+                    // intervalChecked = false;
+                    // checkIntervel = checkIntervel + initialCheckIntervel;
                 }
-                else
-                {
-                    isGonnaApplyMiddleLogic = false;
-                }
+                // else
+                // {
+                //     intervalChecked = true
+                // }
             }
         }
 
@@ -198,7 +199,7 @@ public class DragAndDrop : MonoBehaviour
             {
                 Interactable interactableGameObject = DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject);
                 draggingObjects.Add(interactableGameObject);
-                interactableGameObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING - draggingObjects.Count;
+                // interactableGameObject.spriteRenderer.sortingOrder = BASE_SORTING_ORDER_WHILE_DRAGGING - draggingObjects.Count;
                 singleCard.gameObject.transform.position = new Vector3(
                     singleCard.gameObject.transform.position.x,
                     baseDraggingPositionY,
@@ -258,11 +259,10 @@ public class DragAndDrop : MonoBehaviour
         int i = 0;
         while (i < 4)
         {
-            if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, cardLayerMask))
+            if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, interactableLayerMask))
             {
-                hitCard.gameObject.transform.position = new Vector3(hitCard.gameObject.transform.position.x, hitCard.gameObject.transform.position.y - 1, hitCard.gameObject.transform.position.z);
-                Card stackingCard = DragAndDropHelper.getCardFromGameObject(cornerHit.collider.gameObject);
-                return stackingCard;
+                Interactable interactableObject = cornerHit.collider.gameObject.GetComponent(typeof(Interactable)) as Interactable;
+                return interactableObject.getStackable();
             }
             i++;
         }

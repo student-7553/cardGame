@@ -9,19 +9,21 @@ namespace Core
 
         // we are assuming that origin card is 0 indexed on array
         public List<Card> cards;
-        public CardStack(List<Card> cardStackCards)
+        public bool isNodeStack;
+
+        public CardStack(bool isNode)
         {
-            cards = cardStackCards;
-            foreach (Card singleCard in cards)
-            {
-                singleCard.isStacked = true;
-                singleCard.joinedStack = this;
-            }
-            this.alignCards(1);
+            isNodeStack = isNode;
+            cards = new List<Card>();
         }
 
         public void alignCards(int from)
         {
+            if (cards.Count <= 1)
+            {
+                return;
+            }
+
             Card originCard = cards[0];
             originCard.transform.position = new Vector3(originCard.transform.position.x, Card.cardBaseY, originCard.transform.position.z);
             // we are not loopting through first card because it's the origin point
@@ -34,6 +36,14 @@ namespace Core
             }
         }
 
+        public void hideAllCards(){
+           foreach (Card singleCard in cards)
+            {
+                singleCard.gameObject.SetActive(false);
+            } 
+
+        }
+
         public void removeCardsFromStack(List<Card> removingCards)
         {
             foreach (Card singleCard in removingCards)
@@ -41,33 +51,23 @@ namespace Core
                 cards.Remove(singleCard);
                 singleCard.removeFromCardStack();
             }
-            if (cards.Count > 1)
-            {
-                this.alignCards(1);
-            }
-            else
-            {
-                this.checkIfDead();
-            }
+            this.checkIfDead();
+            this.alignCards(1);
         }
 
         public void addCardsToStack(List<Card> addingCards)
         {
-            int previousLength = cards.Count;
             cards.AddRange(addingCards);
-            foreach (Card singleCard in cards)
+            foreach (Card singleCard in addingCards)
             {
                 singleCard.addToCardStack(this);
             }
-            this.alignCards(previousLength);
         }
 
-        private void printCards()
+        public void addCardToStack(Card addingCard)
         {
-            foreach (Card singleCard in cards)
-            {
-                Debug.Log(singleCard);
-            }
+            cards.Add(addingCard);
+            addingCard.addToCardStack(this);
         }
 
         private void checkIfDead()
@@ -79,6 +79,14 @@ namespace Core
             foreach (Card singleCard in cards)
             {
                 singleCard.removeFromCardStack();
+            }
+        }
+
+        private void logCards()
+        {
+            foreach (Card singleCard in cards)
+            {
+                Debug.Log(singleCard);
             }
         }
     }

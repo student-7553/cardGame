@@ -66,12 +66,15 @@ namespace Core
             {
                 CardStack existingstack = joinedStack;
                 existingstack.addCardsToStack(draggingCards);
+                existingstack.alignCards(1);
             }
             else
             {
                 List<Card> newCardStackCards = new List<Card>(new Card[] { this });
                 newCardStackCards.AddRange(draggingCards);
-                CardStack newStack = new CardStack(newCardStackCards);
+                CardStack newStack = new CardStack(false);
+                newStack.addCardsToStack(newCardStackCards);
+                newStack.alignCards(1);
             }
         }
     }

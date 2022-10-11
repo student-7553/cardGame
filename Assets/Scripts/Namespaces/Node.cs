@@ -12,12 +12,12 @@ namespace Core
             medium,
         };
 
-        [System.NonSerialized]
-        public CardStack activeStack;
 
 
         private TextMeshPro titleTextMesh;
         private TextMeshPro availableInventoryTextMesh;
+        private TextMeshPro hungerTextMesh;
+
         public string title;
 
 
@@ -30,28 +30,41 @@ namespace Core
             set { _inventoryLimit = value; }
         }
 
-        private int _availableInventory;
-        public int availableInventory
+        private int _currentAvailableInventory;
+        public int currentAvailableInventory
         {
-            get { return _availableInventory; }
-            set { _availableInventory = value; }
+            get { return _currentAvailableInventory; }
+            set { _currentAvailableInventory = value; }
         }
 
+        private int _currentHungerCheck;
+        public int currentHungerCheck
+        {
+            get { return _currentHungerCheck; }
+            set { _currentHungerCheck = value; }
+        }
+
+        private int _hungerSetIntervalTimer; // sec, next time the check is applied 
+        public int hungerSetIntervalTimer
+        {
+            get { return _hungerSetIntervalTimer; }
+            set { _hungerSetIntervalTimer = value; }
+        }
+
+        private float intervalTimer;
 
 
         // --------------------INTERVAL CHECK-------------------------
 
-        private float intervalTimer = 0;
-        private int hungerSetIntervalTimer; // sec
-        private int currentHungerCheck; 
 
         nodeStateTypes nodeState;
 
-        private void initlizeBaseStats(){
+        private void initlizeBaseStats()
+        {
             _inventoryLimit = 10;
-            _availableInventory = 10;
-            hungerSetIntervalTimer = 60; 
-            currentHungerCheck = 1;
+            _currentAvailableInventory = 10;
+            _hungerSetIntervalTimer = 60;
+            _currentHungerCheck = 1;
         }
 
         private void Awake()
@@ -60,46 +73,73 @@ namespace Core
             Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
             titleTextMesh = textMeshes[0] as TextMeshPro;
             availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
+            hungerTextMesh = textMeshes[2] as TextMeshPro;
             initlizeBaseStats();
         }
 
         public void init()
         {
-            reflectOnScreen();
+            reflectToScreen();
         }
 
-        private void reflectOnScreen () {
+        private void handleHungerInterval()
+        {
+
+        }
+
+
+
+        public void stackOnThis(List<Card> newCards)
+        {
+            CardStack currentActiveStack = this.getActiveStack();
+            currentActiveStack.addCardsToStack(newCards);
+            currentActiveStack.hideAllCards();
+
+            computeStatsFormCards();
+        }
+
+        private void computeStatsFormCards(){
+
+        }
+
+        private void reflectToScreen()
+        {
             titleTextMesh.text = title;
-            availableInventoryTextMesh.text = "" + _inventoryLimit + "/" + _availableInventory;
+            availableInventoryTextMesh.text = "" + _inventoryLimit + "/" + _currentAvailableInventory;
+            hungerTextMesh.text = "" + _currentHungerCheck;
         }
 
-        private void Update() {
+        private void Update()
+        {
             intervalTimer = intervalTimer + Time.deltaTime;
-            if (intervalTimer > hungerSetIntervalTimer){
+            if (intervalTimer > hungerSetIntervalTimer)
+            {
                 handleHungerInterval();
                 intervalTimer = 0;
             }
         }
 
-        private void handleHungerInterval(){
 
-        }
+        [System.NonSerialized]
+        private CardStack _activeStack;
 
-        
-
-        public void stackOnThis(List<Card> draggingCards)
+        private CardStack getActiveStack()
         {
-            Debug.Log("Are we called??");
-        }
-
-        public void setCardStackOfNode(CardStack cardStack)
-        {
-            activeStack = cardStack;
+            if (_activeStack == null)
+            {
+                CardStack currentActiveStack = new CardStack(true);
+                _activeStack = currentActiveStack;
+                return currentActiveStack;
+            }
+            else
+            {
+                return _activeStack;
+            }
         }
 
         public void clearCardStack()
         {
-            activeStack = null;
+            _activeStack = null;
         }
 
     }
