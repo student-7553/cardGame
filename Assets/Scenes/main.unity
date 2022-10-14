@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 199300347}
-  - component: {fileID: 199300346}
+  - component: {fileID: 199300348}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -140,18 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &199300346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199300345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f36a87bbb382964b9e61930e0a14001, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &199300347
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +155,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &199300348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199300345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d09419a6c1c2884f842b04286980e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodePlane: {fileID: 6011946785565684050, guid: 18f7a059345d62746833b1311497bc08, type: 3}
 --- !u!1 &236367118
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 236367118}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -9.3, y: 1, z: 9.5}
+  m_LocalPosition: {x: -17.7, y: 1, z: 9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -274,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 457010007}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864524094}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 29.7, y: 1, z: 31.7}
+  m_LocalPosition: {x: 29.7, y: 1, z: 22.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -541,7 +542,7 @@ GameObject:
   - component: {fileID: 888678503}
   - component: {fileID: 888678505}
   - component: {fileID: 888678504}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -829,7 +830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170330589}
-  - component: {fileID: 1170330588}
+  - component: {fileID: 1170330590}
   m_Layer: 0
   m_Name: MouseManager
   m_TagString: Untagged
@@ -837,37 +838,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1170330588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170330587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3273165743922204b9690057d87c4f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseClick:
-    m_Name: Mouse Click
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 06641d2a-9bc0-4bcb-810e-1e198f69050a
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 7e99ed92-8bac-40c9-9436-2f6a19521ca7
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Mouse Click
-      m_Flags: 0
-    m_Flags: 0
-  mouseDragPhysicSpeed: 10
-  mouseDragSpeed: 0.05
 --- !u!4 &1170330589
 Transform:
   m_ObjectHideFlags: 0
@@ -883,6 +853,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1170330590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170330587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e025a3d9d3073b74480b28ee16b600df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1509064223
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +876,7 @@ GameObject:
   - component: {fileID: 1509064224}
   - component: {fileID: 1509064226}
   - component: {fileID: 1509064225}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1147,7 +1129,7 @@ Transform:
   m_GameObject: {fileID: 1658122567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3, y: 0, z: 37.1}
-  m_LocalScale: {x: 20, y: 10, z: 9}
+  m_LocalScale: {x: 20, y: 1, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1211,7 +1193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061309241}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -18.2, y: 1, z: 29.9}
+  m_LocalPosition: {x: -32.1, y: 1, z: 22.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1294,7 +1276,7 @@ GameObject:
   - component: {fileID: 2080613022}
   - component: {fileID: 2080613024}
   - component: {fileID: 2080613023}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HungerTax
   m_TagString: Untagged
   m_Icon: {fileID: 0}

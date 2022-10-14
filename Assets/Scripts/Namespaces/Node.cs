@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 namespace Core
 {
-    public class Node : MonoBehaviour, Stackable, Dragable
+    public class Node : MonoBehaviour, Stackable
     {
-        enum nodeStateTypes
+        enum NodeStateTypes
         {
             low,
             medium,
         };
-
 
 
         private TextMeshPro titleTextMesh;
@@ -55,9 +54,7 @@ namespace Core
 
 
         // --------------------INTERVAL CHECK-------------------------
-
-
-        nodeStateTypes nodeState;
+        NodeStateTypes nodeState;
 
         private void initlizeBaseStats()
         {
@@ -69,7 +66,7 @@ namespace Core
 
         private void Awake()
         {
-            nodeState = nodeStateTypes.low;
+            nodeState = NodeStateTypes.low;
             Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
             titleTextMesh = textMeshes[0] as TextMeshPro;
             availableInventoryTextMesh = textMeshes[1] as TextMeshPro;

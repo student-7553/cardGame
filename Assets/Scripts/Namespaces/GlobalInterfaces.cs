@@ -9,8 +9,14 @@ namespace Core
         void stackOnThis(List<Card> draggingCards);
     }
 
-    public interface Dragable
+    public interface IClickable
     {
-        // void stackOnThis(List<Card> draggingCards);
+        void OnClick();
     }
+    public enum InteractableType
+    {
+        Cards,
+        Nodes
+    }
+
 }

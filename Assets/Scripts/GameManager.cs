@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     static GameManager current;
 
+    public GameObject nodePlane;
+
     private GameObject[] cards;
     private GameObject[] nodes;
 
@@ -37,10 +39,13 @@ public class GameManager : MonoBehaviour
         foreach (GameObject singleNode in nodes)
         {
             Node createdNode = singleNode.AddComponent<Node>();
-            createdNode.title = $"Sentry {index}" ;
+            createdNode.title = $"Sentry {index}";
+            index++;
             createdNode.init();
             singleNode.AddComponent<Interactable>();
-            index++;
+            NodePlaneManagers nodePlaneManagers = singleNode.AddComponent<NodePlaneManagers>();
+            nodePlaneManagers.rootNodePlane = nodePlane;
+            nodePlaneManagers.init();
         }
     }
 

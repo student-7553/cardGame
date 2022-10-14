@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 namespace Core
 {
-    public class Card : MonoBehaviour, Stackable, Dragable
+    public class Card : MonoBehaviour, Stackable
     {
         public bool isStacked;
         [System.NonSerialized]
