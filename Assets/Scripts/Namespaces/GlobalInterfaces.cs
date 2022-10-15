@@ -18,5 +18,9 @@ namespace Core
         Cards,
         Nodes
     }
+    public enum CardStackType {
+        Cards,
+        Nodes
+    }
 
 }

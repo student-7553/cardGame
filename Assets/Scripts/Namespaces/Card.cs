@@ -16,8 +16,7 @@ namespace Core
         public Vector3 rightBottomCorner;
         [System.NonSerialized]
         public CardStack joinedStack;
-        [System.NonSerialized]
-        public static float cardBaseY = 1;
+
 
         private float baseCardX = 5;
         private float baseCardY = 8;
@@ -66,15 +65,13 @@ namespace Core
             {
                 CardStack existingstack = joinedStack;
                 existingstack.addCardsToStack(draggingCards);
-                existingstack.alignCards(1);
             }
             else
             {
                 List<Card> newCardStackCards = new List<Card>(new Card[] { this });
                 newCardStackCards.AddRange(draggingCards);
-                CardStack newStack = new CardStack(false);
+                CardStack newStack = new CardStack(CardStackType.Cards);
                 newStack.addCardsToStack(newCardStackCards);
-                newStack.alignCards(1);
             }
         }
     }

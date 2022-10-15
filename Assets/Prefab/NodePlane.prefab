@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainPlanes
       objectReference: {fileID: 0}
+    - target: {fileID: 2049100105777925397, guid: 895774b6189104e4dae2da23f5478f01, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7869501360967101993, guid: 895774b6189104e4dae2da23f5478f01, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -145,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7869501360967101993, guid: 895774b6189104e4dae2da23f5478f01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7869501360967101993, guid: 895774b6189104e4dae2da23f5478f01, type: 3}
       propertyPath: m_LocalPosition.z

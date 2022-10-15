@@ -17,7 +17,15 @@ namespace Core
         private TextMeshPro availableInventoryTextMesh;
         private TextMeshPro hungerTextMesh;
 
+        public bool isActive;
+
         public string title;
+
+
+        [System.NonSerialized]
+        private CardStack activeStack;
+
+        private NodePlaneManagers nodePlaneManagers;
 
 
         // --------------------STATS-------------------------
@@ -67,6 +75,9 @@ namespace Core
         private void Awake()
         {
             nodeState = NodeStateTypes.low;
+            isActive = false;
+            activeStack = new CardStack(CardStackType.Nodes);
+
             Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
             titleTextMesh = textMeshes[0] as TextMeshPro;
             availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
@@ -77,6 +88,7 @@ namespace Core
         public void init()
         {
             reflectToScreen();
+            nodePlaneManagers = gameObject.GetComponent(typeof(NodePlaneManagers)) as NodePlaneManagers;
         }
 
         private void handleHungerInterval()
@@ -84,14 +96,17 @@ namespace Core
 
         }
 
-
-
         public void stackOnThis(List<Card> newCards)
         {
-            CardStack currentActiveStack = this.getActiveStack();
-            currentActiveStack.addCardsToStack(newCards);
-            currentActiveStack.hideAllCards();
-
+            bool isRootCardChanged = activeStack.cards.Count == 0 ? true  : false;
+            activeStack.addCardsToStack(newCards);
+            if(isActive == false){
+                activeStack.changeActiveStateOfAllCards(false);
+            } 
+            if(isRootCardChanged){
+                nodePlaneManagers.notifyCardsChanged(isRootCardChanged);
+            }
+        
             computeStatsFormCards();
         }
 
@@ -117,26 +132,13 @@ namespace Core
         }
 
 
-        [System.NonSerialized]
-        private CardStack _activeStack;
-
-        private CardStack getActiveStack()
-        {
-            if (_activeStack == null)
-            {
-                CardStack currentActiveStack = new CardStack(true);
-                _activeStack = currentActiveStack;
-                return currentActiveStack;
-            }
-            else
-            {
-                return _activeStack;
-            }
-        }
-
         public void clearCardStack()
         {
-            _activeStack = null;
+            activeStack = null;
+        }
+
+        public CardStack getCardStack(){
+            return activeStack;
         }
 
     }

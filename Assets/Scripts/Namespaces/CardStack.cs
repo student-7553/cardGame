@@ -5,43 +5,47 @@ namespace Core
     public class CardStack
     {
         private static float stackDistance = 5;
-        public static float distancePerCards = 0.01f;
+        private static float distancePerCards = 0.01f;
 
-        // we are assuming that origin card is 0 indexed on array
+        public float cardBaseY;
+
+        public CardStackType cardStackType;
+
         public List<Card> cards;
-        public bool isNodeStack;
 
-        public CardStack(bool isNode)
+        public CardStack(CardStackType givenStackType)
         {
-            isNodeStack = isNode;
+            cardStackType = givenStackType;
+            cardBaseY = 1;
             cards = new List<Card>();
         }
 
-        public void alignCards(int from)
+
+        public void alignCards()
         {
             if (cards.Count <= 1)
             {
                 return;
             }
 
-            Card originCard = cards[0];
-            originCard.transform.position = new Vector3(originCard.transform.position.x, Card.cardBaseY, originCard.transform.position.z);
+            Card rootCard = this.getRootCard();
+            rootCard.transform.position = new Vector3(rootCard.transform.position.x, cardBaseY, rootCard.transform.position.z);
             // we are not loopting through first card because it's the origin point
-            for (int i = from; i < cards.Count; i++)
+            for (int i = 1; i < cards.Count; i++)
             {
                 Card cardInSubject = cards[i];
-                Vector3 newPostionForCardInSubject = new Vector3(originCard.transform.position.x, originCard.transform.position.y + (i * distancePerCards), originCard.transform.position.z - (stackDistance * i));
+                Vector3 newPostionForCardInSubject = new Vector3(rootCard.transform.position.x, rootCard.transform.position.y + (i * distancePerCards), rootCard.transform.position.z - (stackDistance * i));
                 cardInSubject.transform.position = newPostionForCardInSubject;
                 cardInSubject.generateTheCorners();
             }
         }
 
-        public void hideAllCards(){
-           foreach (Card singleCard in cards)
+        public void changeActiveStateOfAllCards(bool isActive)
+        {
+            foreach (Card singleCard in cards)
             {
-                singleCard.gameObject.SetActive(false);
-            } 
-
+                singleCard.gameObject.SetActive(isActive);
+            }
         }
 
         public void removeCardsFromStack(List<Card> removingCards)
@@ -52,7 +56,16 @@ namespace Core
                 singleCard.removeFromCardStack();
             }
             this.checkIfDead();
-            this.alignCards(1);
+            this.alignCards();
+        }
+
+        public Card getRootCard()
+        {
+            if (cards.Count > 0)
+            {
+                return cards[0];
+            }
+            return null;
         }
 
         public void addCardsToStack(List<Card> addingCards)
@@ -62,12 +75,8 @@ namespace Core
             {
                 singleCard.addToCardStack(this);
             }
-        }
 
-        public void addCardToStack(Card addingCard)
-        {
-            cards.Add(addingCard);
-            addingCard.addToCardStack(this);
+            this.alignCards();
         }
 
         private void checkIfDead()
@@ -89,6 +98,21 @@ namespace Core
                 Debug.Log(singleCard);
             }
         }
+
+        public void moveRootCardToPosition(float newX, float newZ)
+        {
+            Card rootCard = this.getRootCard();
+            if (rootCard == null)
+            {
+                return;
+            }
+            rootCard.gameObject.transform.position = new Vector3(
+                newX,
+                rootCard.gameObject.transform.position.y,
+                newZ);
+            alignCards();
+        }
+
     }
 
 

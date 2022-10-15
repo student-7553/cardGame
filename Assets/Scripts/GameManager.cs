@@ -41,11 +41,12 @@ public class GameManager : MonoBehaviour
             Node createdNode = singleNode.AddComponent<Node>();
             createdNode.title = $"Sentry {index}";
             index++;
-            createdNode.init();
             singleNode.AddComponent<Interactable>();
             NodePlaneManagers nodePlaneManagers = singleNode.AddComponent<NodePlaneManagers>();
             nodePlaneManagers.rootNodePlane = nodePlane;
+            createdNode.init();
             nodePlaneManagers.init();
+
         }
     }
 

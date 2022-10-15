@@ -22,7 +22,7 @@ public class LeftClickHandler : MonoBehaviour
 
     private float clickTimer = 0.1f;
 
-    private float baseDraggingPositionY = 2;
+    private float baseDraggingPositionY = 10;
 
     // ################ MonoBehaviour FUNCTION ################
 
@@ -52,6 +52,7 @@ public class LeftClickHandler : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100, interactableLayerMask))
         {
+            Debug.Log(hit.collider.gameObject);
             handleLeftMouseButtonDown(hit.collider.gameObject);
         }
     }
