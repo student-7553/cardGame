@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject singleCard in cards)
         {
             singleCard.AddComponent<Card>();
-            singleCard.AddComponent<Interactable>();
+            singleCard.AddComponent<CoreInteractable>();
         }
 
         int index = 1;
@@ -41,11 +41,14 @@ public class GameManager : MonoBehaviour
             Node createdNode = singleNode.AddComponent<Node>();
             createdNode.title = $"Sentry {index}";
             index++;
-            singleNode.AddComponent<Interactable>();
-            NodePlaneManagers nodePlaneManagers = singleNode.AddComponent<NodePlaneManagers>();
-            nodePlaneManagers.rootNodePlane = nodePlane;
+            singleNode.AddComponent<CoreInteractable>();
+            createdNode.rootNodePlane = nodePlane;
+
             createdNode.init();
-            nodePlaneManagers.init();
+
+            // NodePlaneHandler nodePlaneManagers = singleNode.AddComponent<NodePlaneHandler>();
+            // nodePlaneManagers.rootNodePlane = nodePlane;
+            // nodePlaneManagers.init();
 
         }
     }

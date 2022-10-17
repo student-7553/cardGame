@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Core
 {
-    public class Interactable : MonoBehaviour
+    public class CoreInteractable : MonoBehaviour
     {
 
-        public InteractableType interactableType;
+        public CoreInteractableType interactableType;
 
         public SpriteRenderer spriteRenderer;
 
@@ -13,24 +13,24 @@ namespace Core
         private void Awake()
         {
             spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
-            if (this.tag == InteractableType.Cards.ToString())
+            if (this.tag == CoreInteractableType.Cards.ToString())
             {
-                interactableType = InteractableType.Cards;
+                interactableType = CoreInteractableType.Cards;
             }
-            else if (this.tag == InteractableType.Nodes.ToString())
+            else if (this.tag == CoreInteractableType.Nodes.ToString())
             {
-                interactableType = InteractableType.Nodes;
+                interactableType = CoreInteractableType.Nodes;
             }
         }
 
         public Stackable getStackable()
         {
-            if (interactableType == InteractableType.Cards)
+            if (interactableType == CoreInteractableType.Cards)
             {
                 Card card = gameObject.GetComponent(typeof(Card)) as Card;
                 return card;
             }
-            else if (interactableType == InteractableType.Nodes)
+            else if (interactableType == CoreInteractableType.Nodes)
             {
                 Node node = gameObject.GetComponent(typeof(Node)) as Node;
                 return node;
@@ -40,7 +40,7 @@ namespace Core
 
         public Card getCard()
         {
-            if (interactableType == InteractableType.Cards)
+            if (interactableType == CoreInteractableType.Cards)
             {
                 Card card = gameObject.GetComponent(typeof(Card)) as Card;
                 return card;
@@ -50,7 +50,7 @@ namespace Core
 
         public Node getNode()
         {
-            if (interactableType == InteractableType.Nodes)
+            if (interactableType == CoreInteractableType.Nodes)
             {
                 Node node = gameObject.GetComponent(typeof(Node)) as Node;
                 return node;

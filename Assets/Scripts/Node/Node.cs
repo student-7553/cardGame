@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 namespace Core
 {
-    public class Node : MonoBehaviour, Stackable
+    public class Node : MonoBehaviour, Stackable, IClickable
     {
         enum NodeStateTypes
         {
@@ -25,7 +25,7 @@ namespace Core
         [System.NonSerialized]
         private CardStack activeStack;
 
-        private NodePlaneManagers nodePlaneManagers;
+        private NodePlaneHandler nodePlaneManagers;
 
 
         // --------------------STATS-------------------------
@@ -64,6 +64,10 @@ namespace Core
         // --------------------INTERVAL CHECK-------------------------
         NodeStateTypes nodeState;
 
+        public GameObject rootNodePlane;
+        private float nodePlaneBaseY = 3f;
+
+
         private void initlizeBaseStats()
         {
             _inventoryLimit = 10;
@@ -71,6 +75,7 @@ namespace Core
             _hungerSetIntervalTimer = 60;
             _currentHungerCheck = 1;
         }
+
 
         private void Awake()
         {
@@ -88,7 +93,11 @@ namespace Core
         public void init()
         {
             reflectToScreen();
-            nodePlaneManagers = gameObject.GetComponent(typeof(NodePlaneManagers)) as NodePlaneManagers;
+            Vector3 spawningPosition = new Vector3(70, nodePlaneBaseY, 40);
+            GameObject newNodePlane = Instantiate(rootNodePlane, spawningPosition, Quaternion.identity, gameObject.transform);
+            newNodePlane.SetActive(false);
+            activeStack.cardBaseY = spawningPosition.y + 1f;
+            nodePlaneManagers = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
         }
 
         private void handleHungerInterval()
@@ -96,21 +105,40 @@ namespace Core
 
         }
 
+        public void OnClick()
+        {
+            if (isActive == true)
+            {
+                isActive = false;
+                nodePlaneManagers.gameObject.SetActive(false);
+                activeStack.changeActiveStateOfAllCards(false);
+            }
+            else
+            {
+                isActive = true;
+                nodePlaneManagers.gameObject.SetActive(true);
+                activeStack.changeActiveStateOfAllCards(true);
+            }
+        }
+
         public void stackOnThis(List<Card> newCards)
         {
-            bool isRootCardChanged = activeStack.cards.Count == 0 ? true  : false;
+            bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
             activeStack.addCardsToStack(newCards);
-            if(isActive == false){
+            if (isActive == false)
+            {
                 activeStack.changeActiveStateOfAllCards(false);
-            } 
-            if(isRootCardChanged){
-                nodePlaneManagers.notifyCardsChanged(isRootCardChanged);
             }
-        
+            if (isRootCardChanged)
+            {
+                activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x, nodePlaneManagers.gameObject.transform.position.z);
+            }
+
             computeStatsFormCards();
         }
 
-        private void computeStatsFormCards(){
+        private void computeStatsFormCards()
+        {
 
         }
 
@@ -137,7 +165,8 @@ namespace Core
             activeStack = null;
         }
 
-        public CardStack getCardStack(){
+        public CardStack getCardStack()
+        {
             return activeStack;
         }
 

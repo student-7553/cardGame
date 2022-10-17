@@ -55,7 +55,6 @@ namespace Core
                 cards.Remove(singleCard);
                 singleCard.removeFromCardStack();
             }
-            this.checkIfDead();
             this.alignCards();
         }
 
@@ -77,18 +76,6 @@ namespace Core
             }
 
             this.alignCards();
-        }
-
-        private void checkIfDead()
-        {
-            if (cards.Count > 1)
-            {
-                return;
-            }
-            foreach (Card singleCard in cards)
-            {
-                singleCard.removeFromCardStack();
-            }
         }
 
         private void logCards()

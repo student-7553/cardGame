@@ -34,9 +34,9 @@ namespace Helpers
             return hitCard;
         }
 
-        public static Interactable getInteractableFromGameObject(GameObject cardObject)
+        public static CoreInteractable getInteractableFromGameObject(GameObject cardObject)
         {
-            Interactable interactable = cardObject.GetComponent(typeof(Interactable)) as Interactable;
+            CoreInteractable interactable = cardObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
             if (interactable == null)
             {
                  return null;
@@ -60,9 +60,9 @@ namespace Helpers
         //     return newCard;
         // }
 
-        public static void moveDraggingObjects(Vector3 movingToPoint, List<Interactable> draggingObjects)
+        public static void moveDraggingObjects(Vector3 movingToPoint, List<CoreInteractable> draggingObjects)
         {
-            foreach (Interactable singleDraggingObject in draggingObjects)
+            foreach (CoreInteractable singleDraggingObject in draggingObjects)
             {
                 Vector3 finalMovingPoint = movingToPoint;
                 finalMovingPoint.y = singleDraggingObject.gameObject.transform.position.y;

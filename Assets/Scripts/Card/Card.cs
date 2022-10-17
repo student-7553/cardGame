@@ -64,6 +64,7 @@ namespace Core
             if (isStacked)
             {
                 CardStack existingstack = joinedStack;
+                Debug.Log("we are stacked indeed :)/" + existingstack.cardBaseY);
                 existingstack.addCardsToStack(draggingCards);
             }
             else

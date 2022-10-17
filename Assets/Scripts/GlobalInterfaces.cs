@@ -13,7 +13,7 @@ namespace Core
     {
         void OnClick();
     }
-    public enum InteractableType
+    public enum CoreInteractableType
     {
         Cards,
         Nodes
