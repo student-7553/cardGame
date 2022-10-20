@@ -1,50 +1,20 @@
 using UnityEngine;
 using Core;
+using System.Collections.Generic;
 
-public class NodePlaneHandler : MonoBehaviour
+public class NodePlaneHandler : MonoBehaviour, Stackable
 {
-    //   This script handles opening and closing of the node plane
-
-    // public GameObject rootNodePlane;
-    // private GameObject currentNodePlane;
-    // private Node currentNode;
-
-
+    private Node currentNode;
+    
     private void Awake()
     {
-
+        currentNode = GetComponentInParent(typeof(Node)) as Node;
     }
 
-    // private void OnDisable()
-    // {
-
-    // }
-
-    // public void notifyCardsChanged(bool rootChanged)
-    // {
-    //     CardStack nodeStack = currentNode.getCardStack();
-    //     if (rootChanged)
-    //     {
-    //         nodeStack.moveRootCardToPosition(transform.position.x, transform.position.z);
-    //     }
-
-    // }
-
-    // public void handleActive()
-    // {
-    // currentNodePlane.SetActive(true);
-    // currentNode.isActive = true;
-    // CardStack nodeStack = currentNode.getCardStack();
-    // nodeStack.changeActiveStateOfAllCards(true);
-
-    // }
-    // public void handleDeActive()
-    // {
-    //     currentNodePlane.SetActive(false);
-    //     currentNode.isActive = false;
-    // CardStack nodeStack = currentNode.getCardStack();
-    // // nodeStack.moveRootCardToPosition(currentNodePlane.transform.position.x, currentNodePlane.transform.position.z);
-    // nodeStack.changeActiveStateOfAllCards(false);
-    // }
-
+    public void stackOnThis(List<Card> draggingCards)
+    {
+        CardStack currentStack = currentNode.getCardStack();
+        currentNode.getCardStack().addCardsToStack(draggingCards);
+        currentStack.moveRootCardToPosition(gameObject.transform.position.x, gameObject.transform.position.z);
+    }
 }

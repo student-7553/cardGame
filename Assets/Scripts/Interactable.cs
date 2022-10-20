@@ -1,61 +1,59 @@
 using UnityEngine;
+using Core;
 
-namespace Core
+public class CoreInteractable : MonoBehaviour
 {
-    public class CoreInteractable : MonoBehaviour
+
+    public CoreInteractableType interactableType;
+
+    public SpriteRenderer spriteRenderer;
+
+
+    private void Awake()
     {
-
-        public CoreInteractableType interactableType;
-
-        public SpriteRenderer spriteRenderer;
-
-
-        private void Awake()
+        spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+        if (this.tag == CoreInteractableType.Cards.ToString())
         {
-            spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
-            if (this.tag == CoreInteractableType.Cards.ToString())
-            {
-                interactableType = CoreInteractableType.Cards;
-            }
-            else if (this.tag == CoreInteractableType.Nodes.ToString())
-            {
-                interactableType = CoreInteractableType.Nodes;
-            }
+            interactableType = CoreInteractableType.Cards;
         }
-
-        public Stackable getStackable()
+        else if (this.tag == CoreInteractableType.Nodes.ToString())
         {
-            if (interactableType == CoreInteractableType.Cards)
-            {
-                Card card = gameObject.GetComponent(typeof(Card)) as Card;
-                return card;
-            }
-            else if (interactableType == CoreInteractableType.Nodes)
-            {
-                Node node = gameObject.GetComponent(typeof(Node)) as Node;
-                return node;
-            }
-            return null;
+            interactableType = CoreInteractableType.Nodes;
         }
+    }
 
-        public Card getCard()
+    public Stackable getStackable()
+    {
+        if (interactableType == CoreInteractableType.Cards)
         {
-            if (interactableType == CoreInteractableType.Cards)
-            {
-                Card card = gameObject.GetComponent(typeof(Card)) as Card;
-                return card;
-            }
-            return null;
+            Card card = gameObject.GetComponent(typeof(Card)) as Card;
+            return card;
         }
+        else if (interactableType == CoreInteractableType.Nodes)
+        {
+            Node node = gameObject.GetComponent(typeof(Node)) as Node;
+            return node;
+        }
+        return null;
+    }
 
-        public Node getNode()
+    public Card getCard()
+    {
+        if (interactableType == CoreInteractableType.Cards)
         {
-            if (interactableType == CoreInteractableType.Nodes)
-            {
-                Node node = gameObject.GetComponent(typeof(Node)) as Node;
-                return node;
-            }
-            return null;
+            Card card = gameObject.GetComponent(typeof(Card)) as Card;
+            return card;
         }
+        return null;
+    }
+
+    public Node getNode()
+    {
+        if (interactableType == CoreInteractableType.Nodes)
+        {
+            Node node = gameObject.GetComponent(typeof(Node)) as Node;
+            return node;
+        }
+        return null;
     }
 }

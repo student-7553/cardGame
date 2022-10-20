@@ -46,10 +46,6 @@ public class GameManager : MonoBehaviour
 
             createdNode.init();
 
-            // NodePlaneHandler nodePlaneManagers = singleNode.AddComponent<NodePlaneHandler>();
-            // nodePlaneManagers.rootNodePlane = nodePlane;
-            // nodePlaneManagers.init();
-
         }
     }
 

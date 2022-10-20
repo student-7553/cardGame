@@ -26,7 +26,6 @@ public class LeftClickHandler : MonoBehaviour
 
     private readonly float baseDraggingPositionY = 10;
 
-    // ################ MonoBehaviour FUNCTION ################
 
     private void Awake()
     {
@@ -63,7 +62,6 @@ public class LeftClickHandler : MonoBehaviour
     private void handleLeftMouseButtonDown(GameObject hitGameObject)
     {
         CoreInteractable interactableObject = hitGameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
-        Debug.Log(interactableObject);
         IEnumerator task = interactableObject == null ?
             handleClickingOnAGameObject(hitGameObject) : handleClickingOnACoreInteractable(interactableObject);
         StartCoroutine(task);
@@ -129,17 +127,18 @@ public class LeftClickHandler : MonoBehaviour
                 if (dragTimer > checkIntervel)
                 {
                     dragTimer = 0;
-                    if (!this.handleSpecialLogic(baseDragableCardObject, initialPostionOfStack, draggingObjects))
-                    {
-                        isGonnaApplyMiddleLogic = false;
-                    }
+                    isGonnaApplyMiddleLogic = this.handleSpecialLogic(baseDragableCardObject, initialPostionOfStack, draggingObjects);
                 }
-
             }
             yield return null;
         }
 
+        if (isGonnaApplyMiddleLogic)
+        {
+            endingSpecialLogic(baseDragableCardObject, draggingObjects);
+        }
         dragFinishHandler(draggingObjects);
+
 
         bool doApplyMiddleLogic()
         {
@@ -168,19 +167,24 @@ public class LeftClickHandler : MonoBehaviour
         }
         else
         {
-            List<Card> draggingCards = new List<Card>();
-            foreach (CoreInteractable singleDraggingObject in draggingObjects)
-            {
-                Card singleCard = singleDraggingObject.getCard();
-                if (singleCard != null)
-                {
-                    draggingCards.Add(singleCard);
-                }
-            }
-            hitCard.joinedStack.removeCardsFromStack(draggingCards);
+            endingSpecialLogic(hitCard, draggingObjects);
             return false;
         }
 
+    }
+
+    private void endingSpecialLogic(Card hitCard, List<CoreInteractable> draggingObjects)
+    {
+        List<Card> draggingCards = new List<Card>();
+        foreach (CoreInteractable singleDraggingObject in draggingObjects)
+        {
+            Card singleCard = singleDraggingObject.getCard();
+            if (singleCard != null)
+            {
+                draggingCards.Add(singleCard);
+            }
+        }
+        hitCard.joinedStack.removeCardsFromStack(draggingCards);
     }
 
     private void applyDownDragLogic(Card hitCard, Vector3 initialPostionOfCard, List<CoreInteractable> draggingObjects)
@@ -217,6 +221,7 @@ public class LeftClickHandler : MonoBehaviour
             Stackable stackableObject = findTargetToStack(bottomCard);
             if (stackableObject != null)
             {
+                // stacking on a coreInteractable
                 List<Card> stackingCards = new List<Card>();
                 for (int i = 0; i < draggingObjects.Count; i++)
                 {
@@ -227,6 +232,7 @@ public class LeftClickHandler : MonoBehaviour
             }
             else
             {
+                // stacking on a plane
                 if (draggingObjects.Count > 1)
                 {
                     // stacking on the top card of dragging
@@ -245,7 +251,6 @@ public class LeftClickHandler : MonoBehaviour
                     GameObject bottomGameObject = this.findInteractableGameObject(bottomCard);
                     if (bottomGameObject != null)
                     {
-                        Debug.Log(bottomGameObject);
                         draggingObjects[0].gameObject.transform.position = new Vector3(draggingObjects[0].gameObject.transform.position.x,
                             bottomGameObject.transform.position.y + 1f,
                             draggingObjects[0].gameObject.transform.position.z);
@@ -281,10 +286,10 @@ public class LeftClickHandler : MonoBehaviour
         {
             if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, interactableLayerMask))
             {
-                CoreInteractable interactableObject = cornerHit.collider.gameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
-                if (interactableObject)
+                Stackable stackableObject = cornerHit.collider.gameObject.GetComponent(typeof(Stackable)) as Stackable;
+                if (stackableObject != null)
                 {
-                    return interactableObject.getStackable();
+                    return stackableObject;
                 }
             }
             i++;
