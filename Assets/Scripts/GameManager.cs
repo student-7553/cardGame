@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
         findTempLogic();
         awakeGameLogic();
 
+        CardDictionary.init();
+
     }
 
     private void awakeGameLogic()

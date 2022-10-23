@@ -1,0 +1,12 @@
+{
+  "Items": [
+    {
+      "baseId": 1,
+      "requiredIds": [],
+      "requiredGold": 1,
+      "requiredElectricity": 0,
+      "time": 0.1,
+      "processedIds": [2]
+    }
+  ]
+}

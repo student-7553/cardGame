@@ -1,0 +1,82 @@
+{
+  "Items": [
+    {
+      "id": 1,
+      "name": "Rock plain",
+      "type": "Resource",
+      "inventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "timeCost": 5,
+      "foodCost": 0
+    },
+    {
+      "id": 2,
+      "name": "Space rock",
+      "type": "Resource",
+      "inventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "timeCost": 0.5,
+      "foodCost": 0
+    },
+    {
+      "id": 3,
+      "name": "Space car",
+      "type": "Infrastructure",
+      "inventoryCount": 2,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "timeCost": 0.5,
+      "foodCost": 0
+    },
+
+    {
+      "id": 1000,
+      "name": "1 Gold",
+      "type": "Gold",
+      "inventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 1,
+      "timeCost": 0.1,
+      "foodCost": 0
+    },
+    {
+      "id": 1001,
+      "name": "10 Gold",
+      "type": "Gold",
+      "inventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 10,
+      "timeCost": 1,
+      "foodCost": 0
+    },
+    {
+      "id": 1100,
+      "name": "1 Electricity",
+      "type": "Electricity",
+      "inventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 1,
+      "timeCost": 0.1,
+      "foodCost": 0
+    },
+    {
+      "id": 2000,
+      "name": "Starting Market",
+      "type": "Infrastrucutre",
+      "inventoryCount": 1,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "timeCost": 5,
+      "foodCost": 2
+    }
+  ]
+}

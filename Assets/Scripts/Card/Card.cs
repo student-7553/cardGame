@@ -6,23 +6,6 @@ using Core;
 public class Card : MonoBehaviour, Stackable
 {
 
-    // -------------------- Card Own Stats -------------------------
-
-    // private int _inventoryCount;
-    // public int inventoryCount
-    // {
-    //     get { return _inventoryCount; }
-    //     set { _inventoryCount = value; }
-    // }
-
-    // private float _travelTime;
-    // public float travelTime
-    // {
-    //     get { return _travelTime; }
-    //     set { _travelTime = value; }
-    // }
-
-
     // -------------------- Meta Stats -------------------------
     public bool isStacked;
     public CardStack joinedStack;

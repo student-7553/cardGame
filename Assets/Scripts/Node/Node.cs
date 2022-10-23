@@ -17,7 +17,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
     private NodePlaneHandler nodePlaneManagers;
 
 
-    // -------------------- Card Stats -------------------------
+    // -------------------- Node Stats -------------------------
 
     private int _inventoryLimit;
     public int inventoryLimit
@@ -40,12 +40,20 @@ public class Node : MonoBehaviour, Stackable, IClickable
         set { _currentHungerCheck = value; }
     }
 
-    private int _hungerSetIntervalTimer; // ********* sec, next time the check is applied  *********
-    public int hungerSetIntervalTimer
+    private int _currentElectricity;
+    public int currentElectricity
     {
-        get { return _hungerSetIntervalTimer; }
-        set { _hungerSetIntervalTimer = value; }
+        get { return _currentElectricity; }
+        set { _currentElectricity = value; }
     }
+
+    private int _currentGold;
+    public int currentGold
+    {
+        get { return _currentGold; }
+        set { _currentGold = value; }
+    }
+
 
 
     // -------------------- Meta Stats -------------------------
@@ -58,6 +66,12 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     NodeStateTypes nodeState;
 
+    private int _hungerSetIntervalTimer; // ********* sec, next time the check is applied  *********
+    public int hungerSetIntervalTimer
+    {
+        get { return _hungerSetIntervalTimer; }
+        set { _hungerSetIntervalTimer = value; }
+    }
 
 
     // --------------------Readonly Stats-------------------------
@@ -130,8 +144,20 @@ public class Node : MonoBehaviour, Stackable, IClickable
         computeStats();
     }
 
-    private void computeStats()
+    public void computeStats()
     {
+        List<int> cardIds = activeStack.getCardIds();
+
+        foreach (int id in cardIds)
+        {
+            if (CardDictionary.globalCardDictionary.ContainsKey(id))
+            {
+                // CardDictionary.globalCardDictionary[id]
+            }
+        }
+
+        // get the cards info from dictionary
+        // compute our stats
 
     }
 
@@ -149,7 +175,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     private void handleHungerInterval()
     {
-
+        computeStats();
     }
 
     public CardStack getCardStack()

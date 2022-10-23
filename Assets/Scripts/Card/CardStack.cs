@@ -86,6 +86,16 @@ public class CardStack
         }
     }
 
+    public List<int> getCardIds()
+    {
+        List<int> ids = new List<int>();
+        foreach (Card singleCard in cards)
+        {
+            ids.Add(singleCard.id);
+        }
+        return ids;
+    }
+
     public void moveRootCardToPosition(float newX, float newZ)
     {
         Card rootCard = this.getRootCard();
