@@ -4,6 +4,16 @@ using System.Collections.Generic;
 using TMPro;
 using Core;
 
+[System.Serializable]
+public class BaseNodeStats
+{
+    public int totalInfraInventory;
+    public int totalResourceInventory;
+    public int currentHungerCheck;
+    public int goldGeneration;
+    public int hungerSetIntervalTimer;
+}
+
 public class Node : MonoBehaviour, Stackable, IClickable
 {
     // -------------------- Unity Component -------------------------
@@ -19,18 +29,34 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     // -------------------- Node Stats -------------------------
 
-    private int _inventoryLimit;
-    public int inventoryLimit
+    private BaseNodeStats baseNodeStat;
+
+    private int _resourceInventoryLimit;
+    public int resourceInventoryLimit
     {
-        get { return _inventoryLimit; }
-        set { _inventoryLimit = value; }
+        get { return _resourceInventoryLimit; }
+        set { _resourceInventoryLimit = value; }
     }
 
-    private int _currentAvailableInventory;
-    public int currentAvailableInventory
+    private int _currentAvailableResourceInventory;
+    public int currentAvailableResourceInventory
     {
-        get { return _currentAvailableInventory; }
-        set { _currentAvailableInventory = value; }
+        get { return _currentAvailableResourceInventory; }
+        set { _currentAvailableResourceInventory = value; }
+    }
+
+    private int _infraInventoryLimit;
+    public int infraInventoryLimit
+    {
+        get { return _infraInventoryLimit; }
+        set { _infraInventoryLimit = value; }
+    }
+
+    private int _currentAvailableInfraInventory;
+    public int currentAvailableInfraInventory
+    {
+        get { return _currentAvailableInfraInventory; }
+        set { _currentAvailableInfraInventory = value; }
     }
 
     private int _currentHungerCheck;
@@ -54,6 +80,12 @@ public class Node : MonoBehaviour, Stackable, IClickable
         set { _currentGold = value; }
     }
 
+    private int _goldGeneration;
+    public int goldGeneration
+    {
+        get { return _goldGeneration; }
+        set { _goldGeneration = value; }
+    }
 
 
     // -------------------- Meta Stats -------------------------
@@ -81,10 +113,20 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     private void initlizeBaseStats()
     {
-        _inventoryLimit = 10;
-        _currentAvailableInventory = 10;
-        _hungerSetIntervalTimer = 60;
-        _currentHungerCheck = 1;
+        BaseNodeStats baseNodeStat = new BaseNodeStats();
+        baseNodeStat.totalInfraInventory = 10;
+        baseNodeStat.totalResourceInventory = 10;
+        baseNodeStat.currentHungerCheck = 1;
+        baseNodeStat.goldGeneration = 1;
+        baseNodeStat.hungerSetIntervalTimer = 60;
+        this.baseNodeStat = baseNodeStat;
+
+        _resourceInventoryLimit = baseNodeStat.totalResourceInventory;
+        _currentHungerCheck = baseNodeStat.currentHungerCheck;
+        _goldGeneration = baseNodeStat.goldGeneration;
+        _hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
+        _infraInventoryLimit = baseNodeStat.totalInfraInventory;
+
     }
 
 
@@ -147,12 +189,31 @@ public class Node : MonoBehaviour, Stackable, IClickable
     public void computeStats()
     {
         List<int> cardIds = activeStack.getCardIds();
+        float calcTotalResourceInventory = 0;
+        float calcUsedResourceInventory = 0;
+        float calcHungerCheck = 0;
+        float calcElectricity = 0;
+        float calcGold = 0;
 
         foreach (int id in cardIds)
         {
             if (CardDictionary.globalCardDictionary.ContainsKey(id))
             {
-                // CardDictionary.globalCardDictionary[id]
+                calcUsedResourceInventory += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
+                calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
+                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Electricity)
+                {
+                    calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
+                }
+                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Gold)
+                {
+                    calcGold += CardDictionary.globalCardDictionary[id].typeValue;
+                }
+                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Module)
+                {
+                    calcTotalResourceInventory += CardDictionary.globalCardDictionary[id].module.resourceInventory;
+                }
+
             }
         }
 
@@ -187,7 +248,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
     private void reflectToScreen()
     {
         titleTextMesh.text = title;
-        availableInventoryTextMesh.text = "" + _inventoryLimit + "/" + _currentAvailableInventory;
+        availableInventoryTextMesh.text = "" + resourceInventoryLimit + "/" + currentAvailableResourceInventory;
         hungerTextMesh.text = "" + _currentHungerCheck;
     }
 

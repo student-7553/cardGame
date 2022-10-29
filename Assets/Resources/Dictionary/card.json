@@ -4,7 +4,8 @@
       "id": 1,
       "name": "Rock plain",
       "type": "Resource",
-      "inventoryCount": 0,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
@@ -15,7 +16,8 @@
       "id": 2,
       "name": "Space rock",
       "type": "Resource",
-      "inventoryCount": 0,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
@@ -26,7 +28,8 @@
       "id": 3,
       "name": "Space car",
       "type": "Infrastructure",
-      "inventoryCount": 2,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
@@ -35,10 +38,11 @@
     },
 
     {
-      "id": 1000,
+      "id": 10000,
       "name": "1 Gold",
       "type": "Gold",
-      "inventoryCount": 0,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
@@ -46,10 +50,11 @@
       "foodCost": 0
     },
     {
-      "id": 1001,
+      "id": 10001,
       "name": "10 Gold",
       "type": "Gold",
-      "inventoryCount": 0,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 10,
@@ -57,10 +62,11 @@
       "foodCost": 0
     },
     {
-      "id": 1100,
+      "id": 10100,
       "name": "1 Electricity",
       "type": "Electricity",
-      "inventoryCount": 0,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
@@ -71,12 +77,33 @@
       "id": 2000,
       "name": "Starting Market",
       "type": "Infrastrucutre",
-      "inventoryCount": 1,
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
       "timeCost": 5,
       "foodCost": 2
+    },
+    {
+      "id": 3000,
+      "name": "Basic Warehouse",
+      "type": "Module",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
+      "isSellable": true,
+      "sellingPrice": 2,
+      "typeValue": 0,
+      "timeCost": 10,
+      "foodCost": 2,
+      "module": {
+        "minusInterval": {
+          "time": 2,
+          "processIds": []
+        },
+        "resourceInventory": 10,
+        "minusMovement": 0
+      }
     }
   ]
 }
