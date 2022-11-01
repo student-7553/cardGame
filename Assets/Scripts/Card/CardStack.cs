@@ -7,7 +7,7 @@ public class CardStack
     private static float stackDistance = 5;
     private static float distancePerCards = 0.01f;
 
-    public float cardBaseY;
+    public float cardBaseZ;
 
     public CardStackType cardStackType;
 
@@ -16,7 +16,7 @@ public class CardStack
     public CardStack(CardStackType givenStackType)
     {
         cardStackType = givenStackType;
-        cardBaseY = 1;
+        cardBaseZ = 1;
         cards = new List<Card>();
     }
 
@@ -29,12 +29,14 @@ public class CardStack
         }
 
         Card rootCard = this.getRootCard();
-        rootCard.transform.position = new Vector3(rootCard.transform.position.x, cardBaseY, rootCard.transform.position.z);
+        rootCard.transform.position = new Vector3(rootCard.transform.position.x, rootCard.transform.position.y, cardBaseZ);
         // we are not loopting through first card because it's the origin point
         for (int i = 1; i < cards.Count; i++)
         {
             Card cardInSubject = cards[i];
-            Vector3 newPostionForCardInSubject = new Vector3(rootCard.transform.position.x, rootCard.transform.position.y + (i * distancePerCards), rootCard.transform.position.z - (stackDistance * i));
+            Vector3 newPostionForCardInSubject = new Vector3(rootCard.transform.position.x,
+                rootCard.transform.position.y - (stackDistance * i),
+                rootCard.transform.position.z + (i * distancePerCards));
             cardInSubject.transform.position = newPostionForCardInSubject;
             cardInSubject.generateTheCorners();
         }
@@ -96,7 +98,7 @@ public class CardStack
         return ids;
     }
 
-    public void moveRootCardToPosition(float newX, float newZ)
+    public void moveRootCardToPosition(float newX, float newY)
     {
         Card rootCard = this.getRootCard();
         if (rootCard == null)
@@ -105,8 +107,8 @@ public class CardStack
         }
         rootCard.gameObject.transform.position = new Vector3(
             newX,
-            rootCard.gameObject.transform.position.y,
-            newZ);
+            newY,
+            rootCard.gameObject.transform.position.z);
         alignCards();
     }
 

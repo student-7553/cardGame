@@ -1,15 +1,18 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 using TMPro;
 using Core;
 
 [System.Serializable]
 public class BaseNodeStats
 {
-    public int totalInfraInventory;
-    public int totalResourceInventory;
-    public int currentHungerCheck;
+    public int infraInventoryLimit;
+    public int resourceInventoryLimit;
+
+    public int currentFoodCheck;
     public int goldGeneration;
     public int hungerSetIntervalTimer;
 }
@@ -38,11 +41,11 @@ public class Node : MonoBehaviour, Stackable, IClickable
         set { _resourceInventoryLimit = value; }
     }
 
-    private int _currentAvailableResourceInventory;
-    public int currentAvailableResourceInventory
+    private int _resourceInventoryUsed;
+    public int resourceInventoryUsed
     {
-        get { return _currentAvailableResourceInventory; }
-        set { _currentAvailableResourceInventory = value; }
+        get { return _resourceInventoryUsed; }
+        set { _resourceInventoryUsed = value; }
     }
 
     private int _infraInventoryLimit;
@@ -52,18 +55,18 @@ public class Node : MonoBehaviour, Stackable, IClickable
         set { _infraInventoryLimit = value; }
     }
 
-    private int _currentAvailableInfraInventory;
+    private int _infraInventoryUsed;
     public int currentAvailableInfraInventory
     {
-        get { return _currentAvailableInfraInventory; }
-        set { _currentAvailableInfraInventory = value; }
+        get { return _infraInventoryUsed; }
+        set { _infraInventoryUsed = value; }
     }
 
-    private int _currentHungerCheck;
-    public int currentHungerCheck
+    private int _currentFoodCheck;
+    public int currentFoodCheck
     {
-        get { return _currentHungerCheck; }
-        set { _currentHungerCheck = value; }
+        get { return _currentFoodCheck; }
+        set { _currentFoodCheck = value; }
     }
 
     private int _currentElectricity;
@@ -87,6 +90,13 @@ public class Node : MonoBehaviour, Stackable, IClickable
         set { _goldGeneration = value; }
     }
 
+    private int _currentFood;
+    public int currentFood
+    {
+        get { return _currentFood; }
+        set { _currentFood = value; }
+    }
+
 
     // -------------------- Meta Stats -------------------------
 
@@ -94,38 +104,31 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public bool isActive;
 
-    private float intervalTimer;  // ********* Loop timer *********
-
     NodeStateTypes nodeState;
 
-    private int _hungerSetIntervalTimer; // ********* sec, next time the check is applied  *********
-    public int hungerSetIntervalTimer
-    {
-        get { return _hungerSetIntervalTimer; }
-        set { _hungerSetIntervalTimer = value; }
-    }
+    private float intervalTimer;  // ********* Loop timer *********
+
+    private int hungerSetIntervalTimer; // ********* sec, next time the check is applied  *********
+
+    private bool isProccessing; // ********* sec, next time the check is applied  *********
 
 
     // --------------------Readonly Stats-------------------------
 
-    private readonly float nodePlaneBaseY = 3f;
+    private readonly float nodePlaneBaseZ = 3f;
 
 
     private void initlizeBaseStats()
     {
         BaseNodeStats baseNodeStat = new BaseNodeStats();
-        baseNodeStat.totalInfraInventory = 10;
-        baseNodeStat.totalResourceInventory = 10;
-        baseNodeStat.currentHungerCheck = 1;
+        baseNodeStat.infraInventoryLimit = 10;
+        baseNodeStat.resourceInventoryLimit = 10;
+        baseNodeStat.currentFoodCheck = 1;
         baseNodeStat.goldGeneration = 1;
         baseNodeStat.hungerSetIntervalTimer = 60;
         this.baseNodeStat = baseNodeStat;
 
-        _resourceInventoryLimit = baseNodeStat.totalResourceInventory;
-        _currentHungerCheck = baseNodeStat.currentHungerCheck;
-        _goldGeneration = baseNodeStat.goldGeneration;
-        _hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
-        _infraInventoryLimit = baseNodeStat.totalInfraInventory;
+        computeStats();
 
     }
 
@@ -134,6 +137,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
     {
         nodeState = NodeStateTypes.low;
         isActive = false;
+        isProccessing = false;
         activeStack = new CardStack(CardStackType.Nodes);
 
         Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
@@ -146,10 +150,12 @@ public class Node : MonoBehaviour, Stackable, IClickable
     public void init()
     {
         reflectToScreen();
-        Vector3 spawningPosition = new Vector3(70, nodePlaneBaseY, 40);
-        GameObject newNodePlane = Instantiate(rootNodePlane, spawningPosition, Quaternion.identity, gameObject.transform);
+        Vector3 spawningPosition = new Vector3(120, 0, 5);
+        // GameObject newNodePlane = Instantiate(rootNodePlane, spawningPosition, Quaternion.identity, gameObject.transform, false);
+        GameObject newNodePlane = Instantiate(rootNodePlane, gameObject.transform);
+        newNodePlane.transform.position = spawningPosition;
         newNodePlane.SetActive(false);
-        activeStack.cardBaseY = spawningPosition.y + 1f;
+        activeStack.cardBaseZ = spawningPosition.z + 1f;
         nodePlaneManagers = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
     }
 
@@ -180,45 +186,73 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
         if (isRootCardChanged)
         {
-            activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x, nodePlaneManagers.gameObject.transform.position.z);
+            activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
+                nodePlaneManagers.gameObject.transform.position.y);
         }
 
         computeStats();
+        processCards();
     }
 
     public void computeStats()
     {
         List<int> cardIds = activeStack.getCardIds();
-        float calcTotalResourceInventory = 0;
-        float calcUsedResourceInventory = 0;
-        float calcHungerCheck = 0;
-        float calcElectricity = 0;
-        float calcGold = 0;
+        int calcResourceInventoryUsed = 0;
+        int calcResourceInventoryLimit = 0;
+
+        int calcInfraInventoryUsed = 0;
+        int calcInfraInventoryLimit = 0;
+
+        int calcGoldGeneration = 0;
+
+        int calcHungerCheck = 0;
+        int calcElectricity = 0;
+        int calcGold = 0;
+        int calcFood = 0;
 
         foreach (int id in cardIds)
         {
             if (CardDictionary.globalCardDictionary.ContainsKey(id))
             {
-                calcUsedResourceInventory += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
+                calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
+                calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;
                 calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
-                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Electricity)
+                switch (CardDictionary.globalCardDictionary[id].type)
                 {
-                    calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
-                }
-                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Gold)
-                {
-                    calcGold += CardDictionary.globalCardDictionary[id].typeValue;
-                }
-                if (CardDictionary.globalCardDictionary[id].type == CardsTypes.Module)
-                {
-                    calcTotalResourceInventory += CardDictionary.globalCardDictionary[id].module.resourceInventory;
+                    case CardsTypes.Electricity:
+                        calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Gold:
+                        calcGold += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Food:
+                        calcFood += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Module:
+                        calcResourceInventoryLimit += CardDictionary.globalCardDictionary[id].module.resourceInventoryIncrease;
+                        calcInfraInventoryLimit += CardDictionary.globalCardDictionary[id].module.infraInventoryIncrease;
+                        calcGoldGeneration += CardDictionary.globalCardDictionary[id].module.increaseGoldGeneration;
+                        break;
+                    default:
+                        break;
+
                 }
 
             }
         }
+        _resourceInventoryUsed = calcResourceInventoryUsed;
+        _resourceInventoryLimit = baseNodeStat.resourceInventoryLimit + calcResourceInventoryLimit;
 
-        // get the cards info from dictionary
-        // compute our stats
+        _infraInventoryUsed = calcInfraInventoryUsed;
+        _infraInventoryLimit = baseNodeStat.infraInventoryLimit + calcInfraInventoryLimit;
+
+        _goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
+        _currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
+        _currentElectricity = calcElectricity;
+        _currentGold = calcGold;
+        _currentFood = calcFood;
+
+        hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
 
     }
 
@@ -232,11 +266,64 @@ public class Node : MonoBehaviour, Stackable, IClickable
             handleHungerInterval();
             intervalTimer = 0;
         }
+        if (!isProccessing)
+        {
+            isProccessing = true;
+            StartCoroutine(processCards());
+
+        }
+        // que up the next cards
     }
+
+    public IEnumerator processCards()
+    {
+        List<int> cardIds = activeStack.getCardIds();
+        for (int index = 0; index < cardIds.Count; index++)
+        {
+            if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
+            {
+                List<int> clonedCardIds = new List<int>(cardIds);
+                clonedCardIds.RemoveAt(index);
+
+                foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
+                {
+                    int[] requiredIds = singleProcess.requiredIds;
+                    IEnumerable<int> result = clonedCardIds.Intersect(requiredIds);
+                    foreach (int single in result)
+                    {
+                        Debug.Log(single);
+                    }
+                }
+            }
+        }
+
+
+        // yield return new WaitForSeconds(1);
+        yield return null;
+
+
+    }
+
+
+
 
     private void handleHungerInterval()
     {
         computeStats();
+        _currentFood = _currentFood - _currentFoodCheck;
+        if (_currentFood <= 0)
+        {
+            handleFoodEmpty();
+        }
+        else
+        {
+            // Todo: handle food deletion
+        }
+    }
+
+    private void handleFoodEmpty()
+    {
+        // Todo: handle empty food 
     }
 
     public CardStack getCardStack()
@@ -248,8 +335,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
     private void reflectToScreen()
     {
         titleTextMesh.text = title;
-        availableInventoryTextMesh.text = "" + resourceInventoryLimit + "/" + currentAvailableResourceInventory;
-        hungerTextMesh.text = "" + _currentHungerCheck;
+        availableInventoryTextMesh.text = "" + resourceInventoryUsed + "/" + resourceInventoryLimit;
+        hungerTextMesh.text = "" + _currentFoodCheck;
     }
 
 }

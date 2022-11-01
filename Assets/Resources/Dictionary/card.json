@@ -74,6 +74,18 @@
       "foodCost": 0
     },
     {
+      "id": 10200,
+      "name": "1 Food",
+      "type": "Food",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 1,
+      "timeCost": 0.1,
+      "foodCost": 0
+    },
+    {
       "id": 2000,
       "name": "Starting Market",
       "type": "Infrastrucutre",
@@ -101,8 +113,10 @@
           "time": 2,
           "processIds": []
         },
-        "resourceInventory": 10,
-        "minusMovement": 0
+        "resourceInventoryIncrease": 10,
+        "infraInventoryIncrease": 0,
+        "increaseGoldGeneration": 0,
+        "minusMovementTime": 0
       }
     }
   ]

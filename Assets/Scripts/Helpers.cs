@@ -9,8 +9,8 @@ namespace Helpers
         public static bool getDraggingCardsAngle(Vector3 initalPostion, Vector3 currentPosition)
         {
             // get the angle of attack on the postions
-            Vector2 initalPostion2d = new Vector2(initalPostion.x, initalPostion.z);
-            Vector2 currentPosition2d = new Vector2(currentPosition.x, currentPosition.z);
+            Vector2 initalPostion2d = new Vector2(initalPostion.x, initalPostion.y);
+            Vector2 currentPosition2d = new Vector2(currentPosition.x, currentPosition.y);
             float angle = Vector2.Angle(currentPosition2d - initalPostion2d, Vector2.up);
             float directionalAngle = Vector3.Angle((currentPosition2d - initalPostion2d), Vector2.right);
             if (directionalAngle > 90)
@@ -29,7 +29,7 @@ namespace Helpers
             Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
             if (hitCard == null)
             {
-                 return null;
+                return null;
             }
             return hitCard;
         }
@@ -39,7 +39,7 @@ namespace Helpers
             CoreInteractable interactable = cardObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
             if (interactable == null)
             {
-                 return null;
+                return null;
             }
             return interactable;
         }
@@ -49,11 +49,11 @@ namespace Helpers
             Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
             if (hitCard == null)
             {
-                 return false;
+                return false;
             }
             return true;
         }
-        
+
 
         // public static Card generateCardClassOnObject(GameObject subject){
         //     Card newCard = subject.AddComponent<Card>();
@@ -65,7 +65,7 @@ namespace Helpers
             foreach (CoreInteractable singleDraggingObject in draggingObjects)
             {
                 Vector3 finalMovingPoint = movingToPoint;
-                finalMovingPoint.y = singleDraggingObject.gameObject.transform.position.y;
+                finalMovingPoint.z = singleDraggingObject.gameObject.transform.position.z;
                 singleDraggingObject.gameObject.transform.position = finalMovingPoint;
             }
         }

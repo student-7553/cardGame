@@ -1,8 +1,8 @@
 {
   "Items": [
     {
-      "processId": 1,
       "baseCardId": 1,
+      "processId": 1,
       "requiredIds": [],
       "requiredGold": 1,
       "requiredElectricity": 0,

@@ -17,14 +17,14 @@ public class LeftClickHandler : MonoBehaviour
     // private WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
     // private int BASE_SORTING_ORDER_WHILE_DRAGGING = 1000;
 
-    private float basePlaneY = 1;
+    private float basePlaneZ = 1;
 
     private Camera mainCamera;
     private LayerMask interactableLayerMask;
 
     private float clickTimer = 0.1f;
 
-    private readonly float baseDraggingPositionY = 10;
+    private readonly float baseDraggingPositionZ = 10;
 
 
     private void Awake()
@@ -50,9 +50,10 @@ public class LeftClickHandler : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100, interactableLayerMask))
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, interactableLayerMask);
+        if (hit.collider != null)
         {
+            // Debug.Log(hit.collider.gameObject);
             handleLeftMouseButtonDown(hit.collider.gameObject);
         }
 
@@ -91,13 +92,16 @@ public class LeftClickHandler : MonoBehaviour
             // dragging
             List<CoreInteractable> draggingObjects = new List<CoreInteractable>();
             interactableObject.gameObject.transform.position = new Vector3(interactableObject.gameObject.transform.position.x,
-                baseDraggingPositionY,
-                interactableObject.gameObject.transform.position.z);
+                interactableObject.gameObject.transform.position.y,
+                baseDraggingPositionZ
+            );
             draggingObjects.Add(interactableObject);
 
             StartCoroutine(dragUpdate(draggingObjects, clickedDifferenceInWorld));
         }
     }
+
+
 
     private IEnumerator dragUpdate(List<CoreInteractable> draggingObjects, Vector3 clickedDifferenceInWorld)
     {
@@ -196,14 +200,14 @@ public class LeftClickHandler : MonoBehaviour
             }));
         foreach (Card singleCard in qualifiedCards)
         {
-            if (hitCard.gameObject.transform.position.z < singleCard.gameObject.transform.position.z && initialPostionOfCard.z > singleCard.gameObject.transform.position.z)
+            if (hitCard.gameObject.transform.position.y < singleCard.gameObject.transform.position.y && initialPostionOfCard.y > singleCard.gameObject.transform.position.y)
             {
                 CoreInteractable interactableGameObject = DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject);
                 draggingObjects.Add(interactableGameObject);
                 singleCard.gameObject.transform.position = new Vector3(
                     singleCard.gameObject.transform.position.x,
-                    baseDraggingPositionY - ((draggingObjects.Count - 1) * 0.01f),
-                    singleCard.gameObject.transform.position.z);
+                    singleCard.gameObject.transform.position.y,
+                    baseDraggingPositionZ - ((draggingObjects.Count - 1) * 0.01f));
             }
         }
     }
@@ -252,14 +256,15 @@ public class LeftClickHandler : MonoBehaviour
                     if (bottomGameObject != null)
                     {
                         draggingObjects[0].gameObject.transform.position = new Vector3(draggingObjects[0].gameObject.transform.position.x,
-                            bottomGameObject.transform.position.y + 1f,
-                            draggingObjects[0].gameObject.transform.position.z);
+                            draggingObjects[0].gameObject.transform.position.y,
+                            bottomGameObject.transform.position.z + 1f);
                     }
                     else
                     {
+                        Debug.Log("are we called?");
                         draggingObjects[0].gameObject.transform.position = new Vector3(draggingObjects[0].gameObject.transform.position.x,
-                            basePlaneY,
-                            draggingObjects[0].gameObject.transform.position.z);
+                            draggingObjects[0].gameObject.transform.position.y,
+                            basePlaneZ);
                     }
 
                 }
@@ -270,8 +275,9 @@ public class LeftClickHandler : MonoBehaviour
             for (int i = 0; i < draggingObjects.Count; i++)
             {
                 draggingObjects[i].gameObject.transform.position = new Vector3(draggingObjects[i].gameObject.transform.position.x,
-                    basePlaneY,
-                    draggingObjects[i].gameObject.transform.position.z);
+                    draggingObjects[i].gameObject.transform.position.y,
+                    basePlaneZ
+               );
             }
         }
     }
@@ -279,12 +285,15 @@ public class LeftClickHandler : MonoBehaviour
     private Stackable findTargetToStack(Card hitCard)
     {
         hitCard.generateTheCorners();
-        RaycastHit cornerHit;
         Vector3[] corners = { hitCard.leftTopCorner, hitCard.rightTopCorner, hitCard.leftBottomCorner, hitCard.rightBottomCorner };
         int i = 0;
         while (i < 4)
         {
-            if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, interactableLayerMask))
+            // Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, interactableLayerMask)
+            // RaycastHit2D cornerHit = Physics2D.Raycast(corners[i], Vector2.down, 20, interactableLayerMask);
+            Ray ray = new Ray(corners[i], Vector3.back);
+            RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, interactableLayerMask);
+            if (cornerHit.collider != null)
             {
                 Stackable stackableObject = cornerHit.collider.gameObject.GetComponent(typeof(Stackable)) as Stackable;
                 if (stackableObject != null)
@@ -300,12 +309,14 @@ public class LeftClickHandler : MonoBehaviour
     private GameObject findInteractableGameObject(Card hitCard)
     {
         hitCard.generateTheCorners();
-        RaycastHit cornerHit;
         Vector3[] corners = { hitCard.leftTopCorner, hitCard.rightTopCorner, hitCard.leftBottomCorner, hitCard.rightBottomCorner };
         int i = 0;
         while (i < corners.Length)
         {
-            if (Physics.Raycast(corners[i], Vector3.down, out cornerHit, 20, interactableLayerMask))
+            Ray ray = new Ray(corners[i], Vector3.back);
+            RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, interactableLayerMask);
+            // RaycastHit2D cornerHit = Physics2D.Raycast(corners[i], Vector2.down, 20, interactableLayerMask);
+            if (cornerHit.collider != null)
             {
                 return cornerHit.collider.gameObject;
             }
@@ -318,7 +329,7 @@ public class LeftClickHandler : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
-        Vector3 clickedDifferenceInWorld = new Vector3(interactableObject.gameObject.transform.position.x - mousePositionInWorld.x, 0, interactableObject.transform.position.z - mousePositionInWorld.z);
+        Vector3 clickedDifferenceInWorld = new Vector3(interactableObject.gameObject.transform.position.x - mousePositionInWorld.x, interactableObject.transform.position.y - mousePositionInWorld.y, 0);
         return clickedDifferenceInWorld;
     }
 

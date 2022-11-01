@@ -27,8 +27,8 @@ public class Card : MonoBehaviour, Stackable
 
 
     // --------------------Readonly Stats-------------------------
-    private readonly float baseCardX = 5;
-    private readonly float baseCardY = 8;
+    public static float baseCardX = 5;
+    public static float baseCardY = 8;
 
     private void Awake()
     {
@@ -39,16 +39,20 @@ public class Card : MonoBehaviour, Stackable
     public void generateTheCorners()
     {
         Vector3 leftTopCornerPoint = new Vector3(gameObject.transform.position.x - (baseCardX / 2),
-        gameObject.transform.position.y, gameObject.transform.position.z + (baseCardY / 2));
+            gameObject.transform.position.y + (baseCardY / 2),
+            gameObject.transform.position.z);
 
         Vector3 rightTopCornerPoint = new Vector3(gameObject.transform.position.x + (baseCardX / 2),
-        gameObject.transform.position.y, gameObject.transform.position.z + (baseCardY / 2));
+            gameObject.transform.position.y + (baseCardY / 2),
+            gameObject.transform.position.z);
 
         Vector3 leftBottomCornerPoint = new Vector3(gameObject.transform.position.x - (baseCardX / 2),
-        gameObject.transform.position.y, gameObject.transform.position.z - (baseCardY / 2));
+            gameObject.transform.position.y - (baseCardY / 2),
+            gameObject.transform.position.z);
 
         Vector3 rightBottomCornerPoint = new Vector3(gameObject.transform.position.x + (baseCardX / 2),
-        gameObject.transform.position.y, gameObject.transform.position.z - (baseCardY / 2));
+            gameObject.transform.position.y - (baseCardY / 2),
+            gameObject.transform.position.z);
 
         leftTopCorner = leftTopCornerPoint;
         rightTopCorner = rightTopCornerPoint;

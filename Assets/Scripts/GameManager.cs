@@ -4,13 +4,16 @@ using Core;
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
+    // ---------------------- REFERENCES ------------------------------
+    public GameObject cardHandlerGameObject;
+    public GameObject nodePlane;
 
     static GameManager current;
 
-    public GameObject nodePlane;
-
     private GameObject[] cards;
     private GameObject[] nodes;
+
+    private CardHandler cardHandler;
 
     void Start()
     {
@@ -24,6 +27,10 @@ public class GameManager : MonoBehaviour
         gameSettings();
         findTempLogic();
         awakeGameLogic();
+        if (cardHandlerGameObject != null)
+        {
+            cardHandler = cardHandlerGameObject.GetComponent(typeof(CardHandler)) as CardHandler;
+        }
 
         CardDictionary.init();
 
@@ -33,8 +40,18 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject singleCard in cards)
         {
-            singleCard.AddComponent<Card>();
+            // CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
+            // if (cardData != null)
+            // {
+            //     Card cardObject = singleCard.AddComponent<Card>();
+            //     cardObject.id = cardData.cardId;
+            //     singleCard.AddComponent<CoreInteractable>();
+            //     // initlize that card
+            // }
+
+            Card cardObject = singleCard.AddComponent<Card>();
             singleCard.AddComponent<CoreInteractable>();
+
         }
 
         int index = 1;
@@ -62,15 +79,6 @@ public class GameManager : MonoBehaviour
         {
             nodes = GameObject.FindGameObjectsWithTag("Nodes");
         }
-
-        // foreach (GameObject singleCardGameObject in cards)
-        // {
-        //     Card hitCard = singleCardGameObject.GetComponent(typeof(Card)) as Card;
-        //     if (hitCard == null)
-        //     {
-        //         singleCardGameObject.AddComponent<Card>();
-        //     }
-        // }
 
     }
 

@@ -1,74 +1,78 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Core;
 
 
-public enum CardsTypes
-{
-    Resource,
-    Gold,
-    Electricity,
-    Infrastructure,
-    Module
-}
-[System.Serializable]
-public class ModuleMinusInterval
-{
-    public int time;
-    public int[] processIds;
-}
+// public enum CardsTypes
+// {
+//     Resource,
+//     Gold,
+//     Electricity,
+//     Food,
+//     Infrastructure,
+//     Module
+// }
+// [System.Serializable]
+// public class ModuleMinusInterval
+// {
+//     public int time;
+//     public int[] processIds;
+// }
 
 
-[System.Serializable]
-public class CardModuleObject
-{
-    public int resourceInventory;
-    public float minusMovement;
-    public ModuleMinusInterval minusInterval;
-}
+// [System.Serializable]
+// public class CardModuleObject
+// {
+//     public int resourceInventoryIncrease;
+//     public int infraInventoryIncrease;
+//     public int increaseGoldGeneration;
+//     public float minusMovementTime;
+//     public ModuleMinusInterval minusInterval;
+// }
 
 
-[System.Serializable]
-public class RawCardObject
-{
-    public int id;
-    public string name;
-    public string type;
-    public int resourceInventoryCount;
-    public int infraInventoryCount;
-    public bool isSellable;
-    public int sellingPrice;
-    public int typeValue;
-    public float timeCost;
-    public int foodCost;
-    public CardModuleObject module;
-}
+// [System.Serializable]
+// public class RawCardObject
+// {
+//     public int id;
+//     public string name;
+//     public string type;
+//     public int resourceInventoryCount;
+//     public int infraInventoryCount;
+//     public bool isSellable;
+//     public int sellingPrice;
+//     public int typeValue;
+//     public float timeCost;
+//     public int foodCost;
+//     public CardModuleObject module;
+// }
 
-public class CardObject
-{
-    public int id;
-    public string name;
-    public CardsTypes type;
-    public int resourceInventoryCount;
-    public int infraInventoryCount;
-    public bool isSellable;
-    public int sellingPrice;
-    public int typeValue;
-    public float timeCost;
-    public int foodCost;
-    public CardModuleObject module;
-}
+// public class CardObject
+// {
+//     public int id;
+//     public string name;
+//     public CardsTypes type;
+//     public int resourceInventoryCount;
+//     public int infraInventoryCount;
+//     public bool isSellable;
+//     public int sellingPrice;
+//     public int typeValue;
+//     public float timeCost;
+//     public int foodCost;
+//     public CardModuleObject module;
+// }
 
-[System.Serializable]
-public class RawProcessObject
-{
-    public int processId;
-    public int baseCardId;
-    public int[] requiredIds;
-    public int[] processedIds;
-    public int requiredGold;
-    public int requiredElectricity;
-    public float time;
-}
+// [System.Serializable]
+// public class RawProcessObject
+// {
+//     public int processId;
+//     public int baseCardId;
+//     public int[] requiredIds;
+//     public int[] processedIds;
+//     public int requiredGold;
+//     public int requiredElectricity;
+//     public float time;
+// }
 
 public static class CardDictionary
 {
@@ -141,6 +145,9 @@ public static class CardDictionary
                 break;
             case "Electricity":
                 newEntry.type = CardsTypes.Electricity;
+                break;
+            case "Food":
+                newEntry.type = CardsTypes.Food;
                 break;
             case "Module":
                 newEntry.type = CardsTypes.Module;
