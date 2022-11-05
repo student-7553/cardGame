@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public GameObject cardHandlerGameObject;
     public GameObject nodePlane;
 
+    // public Sprite[] cardSprites;
+    // public Sprite[] nodeSprites;
+
     static GameManager current;
 
     private GameObject[] cards;
@@ -23,16 +26,21 @@ public class GameManager : MonoBehaviour
             return;
         }
         current = this;
-        DontDestroyOnLoad(gameObject);
-        gameSettings();
-        findTempLogic();
-        awakeGameLogic();
+
+        CardDictionary.init();
+
+
         if (cardHandlerGameObject != null)
         {
             cardHandler = cardHandlerGameObject.GetComponent(typeof(CardHandler)) as CardHandler;
         }
 
-        CardDictionary.init();
+        DontDestroyOnLoad(gameObject);
+        gameSettings();
+        findTempLogic();
+        awakeGameLogic();
+
+
 
     }
 
@@ -40,17 +48,12 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject singleCard in cards)
         {
-            // CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
-            // if (cardData != null)
-            // {
-            //     Card cardObject = singleCard.AddComponent<Card>();
-            //     cardObject.id = cardData.cardId;
-            //     singleCard.AddComponent<CoreInteractable>();
-            //     // initlize that card
-            // }
 
-            Card cardObject = singleCard.AddComponent<Card>();
-            singleCard.AddComponent<CoreInteractable>();
+            CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
+            if (cardData != null)
+            {
+                cardHandler.createCard(cardData.cardId, singleCard, singleCard.transform.position);
+            }
 
         }
 

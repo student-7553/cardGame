@@ -151,7 +151,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
     {
         reflectToScreen();
         Vector3 spawningPosition = new Vector3(120, 0, 5);
-        // GameObject newNodePlane = Instantiate(rootNodePlane, spawningPosition, Quaternion.identity, gameObject.transform, false);
         GameObject newNodePlane = Instantiate(rootNodePlane, gameObject.transform);
         newNodePlane.transform.position = spawningPosition;
         newNodePlane.SetActive(false);
@@ -191,7 +190,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
 
         computeStats();
-        processCards();
+        // processCards();
     }
 
     public void computeStats()
@@ -268,7 +267,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
         if (!isProccessing)
         {
-            isProccessing = true;
             StartCoroutine(processCards());
 
         }
@@ -277,7 +275,13 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public IEnumerator processCards()
     {
+        isProccessing = true;
+
+
+
         List<int> cardIds = activeStack.getCardIds();
+        Debug.Log("Proccessing Card ..." + cardIds.Count);
+
         for (int index = 0; index < cardIds.Count; index++)
         {
             if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
@@ -285,21 +289,33 @@ public class Node : MonoBehaviour, Stackable, IClickable
                 List<int> clonedCardIds = new List<int>(cardIds);
                 clonedCardIds.RemoveAt(index);
 
+                Debug.Log("clonedCardIds/ [" + string.Join(",", clonedCardIds) + "]");
+
                 foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
                 {
                     int[] requiredIds = singleProcess.requiredIds;
-                    IEnumerable<int> result = clonedCardIds.Intersect(requiredIds);
-                    foreach (int single in result)
-                    {
-                        Debug.Log(single);
-                    }
+                    Debug.Log("requiredIds/ [" + string.Join(",", requiredIds) + "]");
+                    // IEnumerable<int> result = clonedCardIds.Intersect(requiredIds);
+
+                    List<int> result = requiredIds.Where(i => clonedCardIds.Contains(i)).ToList();
+
+                    Debug.Log("List Count/" + result.Count);
+
+                    // int indexTemp = 0;
+                    // foreach (int single in result)
+                    // {
+                    //     indexTemp++;
+                    // }
+                    // Debug.Log("indexTemp result /" + indexTemp);
                 }
             }
         }
 
 
-        // yield return new WaitForSeconds(1);
-        yield return null;
+        yield return new WaitForSeconds(6);
+        // yield return null;
+
+        isProccessing = false;
 
 
     }

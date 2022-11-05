@@ -1,13 +1,22 @@
 {
   "Items": [
     {
-      "baseCardId": 1,
+      "baseCardId": 5,
       "processId": 1,
       "requiredIds": [],
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 0.1,
-      "processedIds": [2]
+      "processedIds": [4]
+    },
+    {
+      "baseCardId": 2,
+      "processId": 2,
+      "requiredIds": [2, 2, 2],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 0.1,
+      "processedIds": [4]
     }
   ]
 }

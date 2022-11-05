@@ -36,6 +36,18 @@
       "timeCost": 0.5,
       "foodCost": 0
     },
+    {
+      "id": 4,
+      "name": "Space brick",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "timeCost": 0.5,
+      "foodCost": 0
+    },
 
     {
       "id": 10000,

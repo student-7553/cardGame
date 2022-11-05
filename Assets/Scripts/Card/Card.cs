@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Core;
+using TMPro;
 
 public class Card : MonoBehaviour, Stackable
 {
@@ -25,6 +26,8 @@ public class Card : MonoBehaviour, Stackable
 
     private float remainingDisabledTime;
 
+    private TextMeshPro titleTextMesh;
+
 
     // --------------------Readonly Stats-------------------------
     public static float baseCardX = 5;
@@ -34,6 +37,13 @@ public class Card : MonoBehaviour, Stackable
     {
         this.generateTheCorners();
         isStacked = false;
+
+        Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
+        if (textMeshes.Length > 0)
+        {
+            titleTextMesh = textMeshes[0] as TextMeshPro;
+        }
+
     }
 
     public void generateTheCorners()
@@ -85,6 +95,22 @@ public class Card : MonoBehaviour, Stackable
             newCardStackCards.AddRange(draggingCards);
             CardStack newStack = new CardStack(CardStackType.Cards);
             newStack.addCardsToStack(newCardStackCards);
+        }
+    }
+    public void init()
+    {
+        reflectScreen();
+    }
+
+    private void reflectScreen()
+    {
+        if (CardDictionary.globalCardDictionary.ContainsKey(id))
+        {
+            if (titleTextMesh != null)
+            {
+                titleTextMesh.text = CardDictionary.globalCardDictionary[id].name;
+            }
+
         }
     }
 }
