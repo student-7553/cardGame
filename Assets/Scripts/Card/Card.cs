@@ -8,8 +8,6 @@ public class Card : MonoBehaviour, Stackable
 {
 
     // -------------------- Meta Stats -------------------------
-    public bool isStacked;
-    public CardStack joinedStack;
     [System.NonSerialized]
     public Vector3 leftTopCorner;
     [System.NonSerialized]
@@ -20,11 +18,15 @@ public class Card : MonoBehaviour, Stackable
     public Vector3 rightBottomCorner;
     [System.NonSerialized]
 
+    public bool isStacked;
+
+    public CardStack joinedStack;
+
     public int id;
 
-    public bool isDisabled;
+    public bool isGettingProccessed;
 
-    private float remainingDisabledTime;
+    // private float remainingDisabledTime;
 
     private TextMeshPro titleTextMesh;
 
@@ -37,6 +39,7 @@ public class Card : MonoBehaviour, Stackable
     {
         this.generateTheCorners();
         isStacked = false;
+        isGettingProccessed = false;
 
         Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
         if (textMeshes.Length > 0)

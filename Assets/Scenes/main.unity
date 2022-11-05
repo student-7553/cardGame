@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 150831127}
   - component: {fileID: 150831126}
   m_Layer: 6
-  m_Name: SpriteCardTest1
+  m_Name: Card-Stone1
   m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ Transform:
   m_Children:
   - {fileID: 970988566}
   m_Father: {fileID: 543422463}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &150831126
 BoxCollider2D:
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 236367122}
   - component: {fileID: 236367123}
   m_Layer: 6
-  m_Name: SpriteCardTest3
+  m_Name: Card-Stone2
   m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 419293407}
   - component: {fileID: 419293406}
   m_Layer: 6
-  m_Name: SpriteCardTest4
+  m_Name: Card-Stone3
   m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,8 +816,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 150831125}
   - {fileID: 2061309242}
+  - {fileID: 150831125}
   - {fileID: 236367119}
   - {fileID: 419293405}
   m_Father: {fileID: 0}
@@ -2241,7 +2241,7 @@ GameObject:
   - component: {fileID: 2061309245}
   - component: {fileID: 2061309246}
   m_Layer: 6
-  m_Name: SpriteCardTest2
+  m_Name: Card-Gold
   m_TagString: Cards
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,7 +2261,7 @@ Transform:
   m_Children:
   - {fileID: 1933865443}
   m_Father: {fileID: 543422463}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2061309243
 SpriteRenderer:

@@ -22,7 +22,7 @@ public class LeftClickHandler : MonoBehaviour
     private Camera mainCamera;
     private LayerMask interactableLayerMask;
 
-    private float clickTimer = 0.1f;
+    private float clickTimer = 0.08f;
 
     private readonly float baseDraggingPositionZ = 10;
 
@@ -53,7 +53,6 @@ public class LeftClickHandler : MonoBehaviour
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, interactableLayerMask);
         if (hit.collider != null)
         {
-            // Debug.Log(hit.collider.gameObject);
             handleLeftMouseButtonDown(hit.collider.gameObject);
         }
 
@@ -261,7 +260,6 @@ public class LeftClickHandler : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("are we called?");
                         draggingObjects[0].gameObject.transform.position = new Vector3(draggingObjects[0].gameObject.transform.position.x,
                             draggingObjects[0].gameObject.transform.position.y,
                             basePlaneZ);

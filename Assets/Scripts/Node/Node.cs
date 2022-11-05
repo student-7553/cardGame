@@ -190,7 +190,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
 
         computeStats();
-        // processCards();
     }
 
     public void computeStats()
@@ -270,56 +269,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
             StartCoroutine(processCards());
 
         }
-        // que up the next cards
     }
-
-    public IEnumerator processCards()
-    {
-        isProccessing = true;
-
-
-
-        List<int> cardIds = activeStack.getCardIds();
-        Debug.Log("Proccessing Card ..." + cardIds.Count);
-
-        for (int index = 0; index < cardIds.Count; index++)
-        {
-            if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
-            {
-                List<int> clonedCardIds = new List<int>(cardIds);
-                clonedCardIds.RemoveAt(index);
-
-                Debug.Log("clonedCardIds/ [" + string.Join(",", clonedCardIds) + "]");
-
-                foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
-                {
-                    int[] requiredIds = singleProcess.requiredIds;
-                    Debug.Log("requiredIds/ [" + string.Join(",", requiredIds) + "]");
-                    // IEnumerable<int> result = clonedCardIds.Intersect(requiredIds);
-
-                    List<int> result = requiredIds.Where(i => clonedCardIds.Contains(i)).ToList();
-
-                    Debug.Log("List Count/" + result.Count);
-
-                    // int indexTemp = 0;
-                    // foreach (int single in result)
-                    // {
-                    //     indexTemp++;
-                    // }
-                    // Debug.Log("indexTemp result /" + indexTemp);
-                }
-            }
-        }
-
-
-        yield return new WaitForSeconds(6);
-        // yield return null;
-
-        isProccessing = false;
-
-
-    }
-
 
 
 
@@ -355,4 +305,108 @@ public class Node : MonoBehaviour, Stackable, IClickable
         hungerTextMesh.text = "" + _currentFoodCheck;
     }
 
+    public IEnumerator processCards()
+    {
+        isProccessing = true;
+        List<int> cardIds = activeStack.getCardIds();
+        RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
+        if (pickedProcess != null)
+        {
+            List<int> proccessingCardIds = this.getProccessingCardIds(cardIds, pickedProcess);
+            // signal that the cards arae getting proccessed
+
+            yield return new WaitForSeconds(pickedProcess.time);
+
+        }
+        yield return new WaitForSeconds(2);
+        isProccessing = false;
+    }
+
+
+    private List<int> getProccessingCardIds(List<int> cardIds, RawProcessObject pickedProcess)
+    {
+        List<int> proccessingCardIds = new List<int>();
+        proccessingCardIds.Add(pickedProcess.baseCardId);
+        foreach (int requiredId in pickedProcess.requiredIds)
+        {
+            proccessingCardIds.Add(requiredId);
+        }
+
+        // pickedProcess.requiredGold;
+        // pickedProcess.requiredElectricity;
+
+        // find the minium required gold, electricity cards
+
+        // give the exchange gold, electricity card
+
+
+
+
+        return proccessingCardIds;
+    }
+
+
+    private RawProcessObject getAvailableProcess(List<int> cardIds)
+    {
+        RawProcessObject possibleProcesses = null;
+
+        for (int index = 0; index < cardIds.Count; index++)
+        {
+            // looping through all cards
+            if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
+            {
+                List<int> clonedCardIds = new List<int>(cardIds);
+                clonedCardIds.RemoveAt(index);
+                foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
+                {
+                    // looping through all process on that card
+                    Dictionary<int, int> indexedRequiredIds = this.indexRequiredIds(singleProcess.requiredIds);
+                    bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
+                    if (isAvailableToProcess)
+                    {
+                        possibleProcesses = singleProcess;
+                        break;
+                    }
+                }
+            }
+            if (possibleProcesses != null)
+            {
+                break;
+            }
+        }
+        return possibleProcesses;
+    }
+
+    private Dictionary<int, int> indexRequiredIds(int[] requiredIds)
+    {
+        Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
+        foreach (int requiredId in requiredIds)
+        {
+            if (indexedRequiredIds.ContainsKey(requiredId))
+            {
+                indexedRequiredIds[requiredId] = indexedRequiredIds[requiredId] + 1;
+            }
+            else
+            {
+                indexedRequiredIds.Add(requiredId, 1);
+            }
+        }
+        return indexedRequiredIds;
+    }
+
+    private bool getIsAvailableToProcess(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
+    {
+        bool isAvailableToProcess = true;
+        foreach (int requiredId in indexedRequiredIds.Keys)
+        {
+            int howManyRequired = indexedRequiredIds[requiredId];
+            int howManyIsAvailable = clonedCardIds.Where(x => x.Equals(requiredId)).Count();
+            if (howManyIsAvailable < howManyRequired)
+            {
+                isAvailableToProcess = false;
+                break;
+            }
+        }
+        return isAvailableToProcess;
+    }
 }
