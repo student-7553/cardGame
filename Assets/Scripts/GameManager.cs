@@ -1,7 +1,7 @@
 using UnityEngine;
-using Core;
+// using Core;
 
-[DefaultExecutionOrder(-100)]
+// [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
 {
     // ---------------------- REFERENCES ------------------------------
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] cards;
     private GameObject[] nodes;
 
-    private CardHandler cardHandler;
+    // private CardHandler cardHandler;
 
     void Start()
     {
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         if (cardHandlerGameObject != null)
         {
-            cardHandler = cardHandlerGameObject.GetComponent(typeof(CardHandler)) as CardHandler;
+            // cardHandler = cardHandlerGameObject.GetComponent(typeof(CardHandler)) as CardHandler;
         }
 
         DontDestroyOnLoad(gameObject);
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
             CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
             if (cardData != null)
             {
-                cardHandler.createCard(cardData.cardId, singleCard, singleCard.transform.position);
+                // cardHandler.createCard(cardData.cardId, singleCard, singleCard.transform.position);
+                CardHandler.current.createCard(cardData.cardId, singleCard, singleCard.transform.position);
             }
 
         }

@@ -68,7 +68,7 @@ using Core;
 //     public int processId;
 //     public int baseCardId;
 //     public int[] requiredIds;
-//     public int[] processedIds;
+//     public int[] addingCardIds;
 //     public int requiredGold;
 //     public int requiredElectricity;
 //     public float time;
@@ -164,4 +164,17 @@ public static class CardDictionary
         return newEntry;
     }
 
+    public static List<CardObject> getAllCardTypeCards(CardsTypes cardType)
+    {
+        List<CardObject> cardIds = new List<CardObject>();
+        foreach (int singleKey in globalCardDictionary.Keys)
+        {
+            if (globalCardDictionary[singleKey].type == cardType)
+            {
+                cardIds.Add(globalCardDictionary[singleKey]);
+            }
+        }
+        return cardIds;
+
+    }
 }

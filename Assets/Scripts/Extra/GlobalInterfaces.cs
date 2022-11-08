@@ -93,7 +93,7 @@ namespace Core
         public int processId;
         public int baseCardId;
         public int[] requiredIds;
-        public int[] processedIds;
+        public int[] addingCardIds;
         public int requiredGold;
         public int requiredElectricity;
         public float time;

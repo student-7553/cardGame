@@ -100,6 +100,7 @@ public class Card : MonoBehaviour, Stackable
             newStack.addCardsToStack(newCardStackCards);
         }
     }
+
     public void init()
     {
         reflectScreen();
@@ -116,4 +117,16 @@ public class Card : MonoBehaviour, Stackable
 
         }
     }
+
+    // public void deleteSelf()
+    // {
+    //     if (joinedStack != null)
+    //     {
+    //         joinedStack.removeCardsFromStack(this);
+    //     }
+    //     Destroy(gameObject);
+    //     isStacked = false;
+    //     joinedStack = null;
+    // }
+
 }

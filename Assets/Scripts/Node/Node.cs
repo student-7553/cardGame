@@ -5,6 +5,7 @@ using System.Collections;
 using System.Linq;
 using TMPro;
 using Core;
+using Helpers;
 
 [System.Serializable]
 public class BaseNodeStats
@@ -312,38 +313,122 @@ public class Node : MonoBehaviour, Stackable, IClickable
         RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
         if (pickedProcess != null)
         {
-            List<int> proccessingCardIds = this.getProccessingCardIds(cardIds, pickedProcess);
-            // signal that the cards arae getting proccessed
+            List<int> removingCardIds = new List<int>();
+            List<int> addingCardIds = new List<int>(pickedProcess.addingCardIds);
+
+            this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+
+            Debug.Log("removingCardIds/ [" + string.Join(",", removingCardIds) + "]");
+
+            // signal that the cards are getting proccessed
+
+            Dictionary<int, int> indexedRemovingCardIds = this.indexRequiredIds(removingCardIds);
+            List<Card> removedCards = new List<Card>();
+            foreach (Card singleCard in activeStack.cards)
+            {
+                if (indexedRemovingCardIds.ContainsKey(singleCard.id))
+                {
+                    singleCard.isGettingProccessed = true;
+                    removedCards.Add(singleCard);
+                    indexedRemovingCardIds[singleCard.id]--;
+                    if (indexedRemovingCardIds[singleCard.id] == 0)
+                    {
+                        indexedRemovingCardIds.Remove(singleCard.id);
+                    }
+                }
+            }
 
             yield return new WaitForSeconds(pickedProcess.time);
 
+
+            // todo:
+            activeStack.removeCardsFromStack(removedCards);
+            foreach (Card singleRemovingCard in removedCards)
+            {
+                Destroy(singleRemovingCard.gameObject);
+
+            }
+
+            foreach (int singleAddingCardId in addingCardIds)
+            {
+                Card createdCard = CardHandler.current.createCard(singleAddingCardId);
+                activeStack.addCardToStack(createdCard);
+
+                // CardHandler.current.createCard(cardData.cardId, singleCard, singleCard.transform.position);
+                // Destroy(singleRemovingCard.gameObject);
+
+            }
+
+
+            yield return new WaitForSeconds(30);
+            //  add the cards
+
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         isProccessing = false;
     }
 
 
-    private List<int> getProccessingCardIds(List<int> cardIds, RawProcessObject pickedProcess)
+    private List<int> insertRemovingAddingCardIds(List<int> cardIds, RawProcessObject pickedProcess, ref List<int> removingCardIds, ref List<int> addingCardIds)
     {
-        List<int> proccessingCardIds = new List<int>();
-        proccessingCardIds.Add(pickedProcess.baseCardId);
-        foreach (int requiredId in pickedProcess.requiredIds)
+
+        removingCardIds.Add(pickedProcess.baseCardId);
+        removingCardIds.AddRange(pickedProcess.requiredIds);
+
+        if (pickedProcess.requiredGold > 0)
         {
-            proccessingCardIds.Add(requiredId);
+            int totalSum = 0;
+            List<int> ascGoldCardIds = CardHelpers.getAscTypeValueCardIds(CardsTypes.Gold, cardIds);
+            foreach (int goldCardId in ascGoldCardIds)
+            {
+                removingCardIds.Add(goldCardId);
+                totalSum = totalSum + CardDictionary.globalCardDictionary[goldCardId].typeValue;
+                if (totalSum == pickedProcess.requiredGold)
+                {
+                    break;
+                }
+                if (totalSum > pickedProcess.requiredGold)
+                {
+                    int addingTypeValue = totalSum - pickedProcess.requiredGold;
+                    List<int> addingCards = CardHelpers.generateTypeValueCards(CardsTypes.Gold, addingTypeValue);
+                    addingCardIds.AddRange(addingCards);
+                    break;
+                }
+            }
         }
 
-        // pickedProcess.requiredGold;
-        // pickedProcess.requiredElectricity;
+        if (pickedProcess.requiredElectricity > 0)
+        {
+            int totalSum = 0;
+            List<int> ascElectricityCardIds = CardHelpers.getAscTypeValueCardIds(CardsTypes.Electricity, cardIds);
+            foreach (int cardId in ascElectricityCardIds)
+            {
+                removingCardIds.Add(cardId);
+                totalSum = totalSum + CardDictionary.globalCardDictionary[cardId].typeValue;
+                if (totalSum == pickedProcess.requiredElectricity)
+                {
+                    break;
+                }
+                if (totalSum > pickedProcess.requiredElectricity)
+                {
+                    int addingTypeValue = totalSum - pickedProcess.requiredElectricity;
+                    List<int> addingCards = CardHelpers.generateTypeValueCards(CardsTypes.Electricity, addingTypeValue);
+                    addingCardIds.AddRange(addingCards);
+                    break;
+                }
+            }
+        }
 
-        // find the minium required gold, electricity cards
-
-        // give the exchange gold, electricity card
-
-
-
-
-        return proccessingCardIds;
+        return removingCardIds;
     }
+
+    private List<int> getAddingCardIds(List<int> removingCardIds, RawProcessObject pickedProcess)
+    {
+        List<int> addingCardIds = new List<int>();
+        return addingCardIds;
+    }
+
+    // AndAdding
 
 
     private RawProcessObject getAvailableProcess(List<int> cardIds)
@@ -353,21 +438,46 @@ public class Node : MonoBehaviour, Stackable, IClickable
         for (int index = 0; index < cardIds.Count; index++)
         {
             // looping through all cards
-            if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
+            List<int> clonedCardIds = new List<int>(cardIds);
+            clonedCardIds.RemoveAt(index);
+            foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
             {
-                List<int> clonedCardIds = new List<int>(cardIds);
-                clonedCardIds.RemoveAt(index);
-                foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
+                // looping through all process on that card
+                Dictionary<int, int> indexedRequiredIds = this.indexRequiredIds(singleProcess.requiredIds.ToList());
+                bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
+                if (isAvailableToProcess)
                 {
-                    // looping through all process on that card
-                    Dictionary<int, int> indexedRequiredIds = this.indexRequiredIds(singleProcess.requiredIds);
-                    bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
-                    if (isAvailableToProcess)
-                    {
-                        possibleProcesses = singleProcess;
-                        break;
-                    }
+                    possibleProcesses = singleProcess;
+                    break;
                 }
+
+                // singleProcess.requiredIds
+                // clonedCardIds
+                // int[] mergedArray = singleProcess.requiredIds.Concat(clonedCardIds).ToArray();
+                // Debug.Log("" + mergedArray.Length + "/" + singleProcess.requiredIds.Length);
+                // //  Debug.Log("clonedCardIds/ [" + string.Join(",", clonedCardIds) + "]");
+                // Debug.Log("mergedArray/ [" + string.Join(",", mergedArray) + "]");
+
+                // static Dictionary<int, string[]> MergeArrays(
+                //     int[] idCollection,
+                //     params string[][] valueCollections)
+                // {
+                //     var ret = new Dictionary<int, string[]>();
+                //     for (int i = 0; i < idCollection.Length; i++)
+                //     {
+                //         ret[idCollection[i]] = valueCollections.Select
+                //             (array => array[i]).ToArray();
+                //     }
+                //     return ret;
+                // }
+
+                // if (mergedArray.Length == singleProcess.requiredIds.Length)
+                // {
+                //     possibleProcesses = singleProcess;
+                //     break;
+                // }
+
+
             }
             if (possibleProcesses != null)
             {
@@ -377,7 +487,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return possibleProcesses;
     }
 
-    private Dictionary<int, int> indexRequiredIds(int[] requiredIds)
+    private Dictionary<int, int> indexRequiredIds(List<int> requiredIds)
     {
         Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
         foreach (int requiredId in requiredIds)

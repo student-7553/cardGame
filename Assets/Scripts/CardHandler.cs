@@ -1,8 +1,10 @@
 using UnityEngine;
-
+[DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public static CardHandler current;
+
     private Vector3 defaultCardPoint;
     public GameObject cardPrefab;
 
@@ -11,14 +13,21 @@ public class CardHandler : MonoBehaviour
 
     void Start()
     {
+        if (current != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        current = this;
+
         defaultCardPoint = new Vector3();
     }
 
-    public void createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
+    public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
     {
         if (!CardDictionary.globalCardDictionary.ContainsKey(cardId))
         {
-            return;
+            return null;
         }
         cardGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
         cardGameObject.tag = "Cards";
@@ -33,6 +42,7 @@ public class CardHandler : MonoBehaviour
 
         SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
         cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
+        return cardObject;
     }
 
     // public void deleteCard(GameObject cardGameObject)
@@ -53,19 +63,19 @@ public class CardHandler : MonoBehaviour
 
 
 
-    public void createCard(int cardId, Vector3 cardOriginPoint)
+    public Card createCard(int cardId, Vector3 cardOriginPoint)
     {
 
         GameObject newNodePlane = Instantiate(cardPrefab);
         newNodePlane.transform.position = cardOriginPoint;
         newNodePlane.SetActive(true);
 
-        createCard(cardId, newNodePlane, cardOriginPoint);
+        return createCard(cardId, newNodePlane, cardOriginPoint);
 
     }
-    public void createCard(int cardId)
+    public Card createCard(int cardId)
     {
-        createCard(cardId, defaultCardPoint);
+        return createCard(cardId, defaultCardPoint);
     }
 
 }

@@ -80,6 +80,12 @@ public class CardStack
         this.alignCards();
     }
 
+    public void addCardToStack(Card addingCard)
+    {
+        List<Card> addingCards = new List<Card>(new Card[] { addingCard });
+        addCardsToStack(addingCards);
+    }
+
     private void logCards()
     {
         foreach (Card singleCard in cards)
