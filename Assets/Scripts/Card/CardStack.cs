@@ -76,7 +76,6 @@ public class CardStack
         {
             singleCard.addToCardStack(this);
         }
-
         this.alignCards();
     }
 
@@ -114,7 +113,9 @@ public class CardStack
         rootCard.gameObject.transform.position = new Vector3(
             newX,
             newY,
-            rootCard.gameObject.transform.position.z);
+            cardBaseZ
+            );
+
         alignCards();
     }
 

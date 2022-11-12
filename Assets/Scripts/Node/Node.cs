@@ -178,17 +178,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public void stackOnThis(List<Card> newCards)
     {
-        bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
-        activeStack.addCardsToStack(newCards);
-        if (isActive == false)
-        {
-            activeStack.changeActiveStateOfAllCards(false);
-        }
-        if (isRootCardChanged)
-        {
-            activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
-                nodePlaneManagers.gameObject.transform.position.y);
-        }
+        this.addCardsToCardStack(newCards);
 
         computeStats();
     }
@@ -318,30 +308,28 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
             this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
-            Debug.Log("removingCardIds/ [" + string.Join(",", removingCardIds) + "]");
+            // Debug.Log("removingCardIds/ [" + string.Join(",", removingCardIds) + "]");
 
-            // signal that the cards are getting proccessed
-
-            Dictionary<int, int> indexedRemovingCardIds = this.indexRequiredIds(removingCardIds);
+            Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
             List<Card> removedCards = new List<Card>();
             foreach (Card singleCard in activeStack.cards)
             {
                 if (indexedRemovingCardIds.ContainsKey(singleCard.id))
                 {
-                    singleCard.isGettingProccessed = true;
-                    removedCards.Add(singleCard);
                     indexedRemovingCardIds[singleCard.id]--;
                     if (indexedRemovingCardIds[singleCard.id] == 0)
                     {
                         indexedRemovingCardIds.Remove(singleCard.id);
                     }
+
+                    singleCard.isGettingProccessed = true;
+                    removedCards.Add(singleCard);
                 }
             }
 
             yield return new WaitForSeconds(pickedProcess.time);
 
 
-            // todo:
             activeStack.removeCardsFromStack(removedCards);
             foreach (Card singleRemovingCard in removedCards)
             {
@@ -349,22 +337,23 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
             }
 
+            List<Card> addingCards = new List<Card>();
             foreach (int singleAddingCardId in addingCardIds)
             {
                 Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-                activeStack.addCardToStack(createdCard);
-
-                // CardHandler.current.createCard(cardData.cardId, singleCard, singleCard.transform.position);
-                // Destroy(singleRemovingCard.gameObject);
-
+                addingCards.Add(createdCard);
+                // activeStack.addCardToStack(createdCard);
             }
 
+            this.addCardsToCardStack(addingCards);
 
-            yield return new WaitForSeconds(30);
-            //  add the cards
+            // yield return new WaitForSeconds(30);
+
 
         }
-        yield return new WaitForSeconds(4);
+        // yield return new WaitForSeconds(4);
+
+        yield return new WaitForSeconds(8);
         isProccessing = false;
     }
 
@@ -428,7 +417,26 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return addingCardIds;
     }
 
-    // AndAdding
+    private void addCardsToCardStack(List<Card> newCards)
+    {
+        bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
+        activeStack.addCardsToStack(newCards);
+        if (isRootCardChanged) this.alignCardStacksPosition();
+
+        if (isActive == false)
+        {
+            activeStack.changeActiveStateOfAllCards(false);
+        }
+        // activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
+        //     nodePlaneManagers.gameObject.transform.position.y);
+    }
+
+    private void alignCardStacksPosition()
+    {
+        activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
+            nodePlaneManagers.gameObject.transform.position.y);
+    }
+
 
 
     private RawProcessObject getAvailableProcess(List<int> cardIds)
@@ -440,45 +448,22 @@ public class Node : MonoBehaviour, Stackable, IClickable
             // looping through all cards
             List<int> clonedCardIds = new List<int>(cardIds);
             clonedCardIds.RemoveAt(index);
-            foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
+            if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
             {
-                // looping through all process on that card
-                Dictionary<int, int> indexedRequiredIds = this.indexRequiredIds(singleProcess.requiredIds.ToList());
-                bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
-                if (isAvailableToProcess)
+                foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
                 {
-                    possibleProcesses = singleProcess;
-                    break;
+                    // looping through all process on that card
+                    Dictionary<int, int> indexedRequiredIds = this.indexCardIds(singleProcess.requiredIds.ToList());
+                    bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
+                    if (isAvailableToProcess)
+                    {
+                        possibleProcesses = singleProcess;
+                        break;
+                    }
+                    // Debug.Log("mergedArray/ [" + string.Join(",", mergedArray) + "]");
                 }
-
-                // singleProcess.requiredIds
-                // clonedCardIds
-                // int[] mergedArray = singleProcess.requiredIds.Concat(clonedCardIds).ToArray();
-                // Debug.Log("" + mergedArray.Length + "/" + singleProcess.requiredIds.Length);
-                // //  Debug.Log("clonedCardIds/ [" + string.Join(",", clonedCardIds) + "]");
-                // Debug.Log("mergedArray/ [" + string.Join(",", mergedArray) + "]");
-
-                // static Dictionary<int, string[]> MergeArrays(
-                //     int[] idCollection,
-                //     params string[][] valueCollections)
-                // {
-                //     var ret = new Dictionary<int, string[]>();
-                //     for (int i = 0; i < idCollection.Length; i++)
-                //     {
-                //         ret[idCollection[i]] = valueCollections.Select
-                //             (array => array[i]).ToArray();
-                //     }
-                //     return ret;
-                // }
-
-                // if (mergedArray.Length == singleProcess.requiredIds.Length)
-                // {
-                //     possibleProcesses = singleProcess;
-                //     break;
-                // }
-
-
             }
+
             if (possibleProcesses != null)
             {
                 break;
@@ -487,7 +472,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return possibleProcesses;
     }
 
-    private Dictionary<int, int> indexRequiredIds(List<int> requiredIds)
+    private Dictionary<int, int> indexCardIds(List<int> requiredIds)
     {
         Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
         foreach (int requiredId in requiredIds)

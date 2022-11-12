@@ -90,7 +90,7 @@ namespace Core
     [System.Serializable]
     public class RawProcessObject
     {
-        public int processId;
+        public int uniqueId;
         public int baseCardId;
         public int[] requiredIds;
         public int[] addingCardIds;

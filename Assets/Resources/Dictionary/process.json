@@ -2,7 +2,7 @@
   "Items": [
     {
       "baseCardId": 5,
-      "processId": 1,
+      "uniqueId": 1,
       "requiredIds": [],
       "requiredGold": 1,
       "requiredElectricity": 0,
@@ -11,7 +11,7 @@
     },
     {
       "baseCardId": 2,
-      "processId": 2,
+      "uniqueId": 2,
       "requiredIds": [2],
       "requiredGold": 0,
       "requiredElectricity": 0,

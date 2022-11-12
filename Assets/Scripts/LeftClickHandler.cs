@@ -22,7 +22,7 @@ public class LeftClickHandler : MonoBehaviour
     private Camera mainCamera;
     private LayerMask interactableLayerMask;
 
-    private float clickTimer = 0.08f;
+    private float clickTimer = 0.1f;
 
     private readonly float baseDraggingPositionZ = 10;
 
