@@ -20,16 +20,15 @@ public class CardStack
         cards = new List<Card>();
     }
 
-
-    public void alignCards()
+    public void alignCards(Vector3 originPoint)
     {
-        if (cards.Count <= 1)
+        if (cards.Count == 0)
         {
             return;
         }
-
         Card rootCard = this.getRootCard();
-        rootCard.transform.position = new Vector3(rootCard.transform.position.x, rootCard.transform.position.y, cardBaseZ);
+        rootCard.transform.position = new Vector3(originPoint.x, originPoint.y, cardBaseZ);
+
         // we are not loopting through first card because it's the origin point
         for (int i = 1; i < cards.Count; i++)
         {
@@ -42,6 +41,18 @@ public class CardStack
         }
     }
 
+
+    public void alignCards()
+    {
+        if (cards.Count <= 1)
+        {
+            return;
+        }
+
+        Card rootCard = this.getRootCard();
+        this.alignCards(rootCard.transform.position);
+    }
+
     public void changeActiveStateOfAllCards(bool isActive)
     {
         foreach (Card singleCard in cards)
@@ -52,12 +63,20 @@ public class CardStack
 
     public void removeCardsFromStack(List<Card> removingCards)
     {
+        Card rootCard = this.getRootCard();
+        Vector3 rootCardPosition = rootCard.transform.position;
+
         foreach (Card singleCard in removingCards)
         {
             cards.Remove(singleCard);
             singleCard.removeFromCardStack();
         }
-        this.alignCards();
+        if (cards.Count == 0)
+        {
+            return;
+        }
+        this.alignCards(rootCardPosition);
+
     }
 
     public Card getRootCard()

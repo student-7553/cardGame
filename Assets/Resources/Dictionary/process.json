@@ -1,22 +1,121 @@
 {
   "Items": [
     {
-      "baseCardId": 5,
       "uniqueId": 1,
+      "baseCardId": 1,
+      "requiredIds": [],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 5,
+      "addingCardIds": [2, 4, 5]
+    },
+    {
+      "uniqueId": 2,
+      "baseCardId": 2,
+      "requiredIds": [2],
+      "requiredGold": 1,
+      "requiredElectricity": 0,
+      "time": 6,
+      "addingCardIds": [3]
+    },
+    {
+      "uniqueId": 3,
+      "baseCardId": 4,
       "requiredIds": [],
       "requiredGold": 1,
       "requiredElectricity": 0,
-      "time": 0.1,
-      "addingCardIds": [4]
+      "time": 5,
+      "addingCardIds": [9]
     },
     {
-      "baseCardId": 2,
-      "uniqueId": 2,
-      "requiredIds": [2],
+      "uniqueId": 4,
+      "baseCardId": 5,
+      "requiredIds": [],
+      "requiredGold": 1,
+      "requiredElectricity": 0,
+      "time": 10,
+      "addingCardIds": [6, 7, 8]
+    },
+    {
+      "uniqueId": 5,
+      "baseCardId": 1003,
+      "requiredIds": [],
+      "requiredGold": 1,
+      "requiredElectricity": 0,
+      "time": 10,
+      "addingCardIds": []
+    },
+    {
+      "uniqueId": 6,
+      "baseCardId": 1001,
+      "requiredIds": [9],
+      "requiredGold": 1,
+      "requiredElectricity": 0,
+      "time": 5,
+      "addingCardIds": [10200]
+    },
+    {
+      "uniqueId": 7,
+      "baseCardId": 1002,
+      "requiredIds": [],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 0.1,
-      "addingCardIds": [4]
+      "time": 10,
+      "addingCardIds": [10100]
+    },
+    {
+      "uniqueId": 8,
+      "baseCardId": 10,
+      "requiredIds": [],
+      "requiredGold": 3,
+      "requiredElectricity": 0,
+      "time": 35,
+      "addingCardIds": [1003]
+    },
+    {
+      "uniqueId": 9,
+      "baseCardId": 2,
+      "requiredIds": [2, 2, 2, 2, 2],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 15,
+      "addingCardIds": [1000]
+    },
+    {
+      "uniqueId": 10,
+      "baseCardId": 6,
+      "requiredIds": [3, 3, 3],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 15,
+      "addingCardIds": [1001]
+    },
+    {
+      "uniqueId": 11,
+      "baseCardId": 6,
+      "requiredIds": [6],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 20,
+      "addingCardIds": [1002]
+    },
+    {
+      "uniqueId": 12,
+      "baseCardId": 3,
+      "requiredIds": [2, 2],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 60,
+      "addingCardIds": [3001]
+    },
+    {
+      "uniqueId": 13,
+      "baseCardId": 3,
+      "requiredIds": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+      "requiredGold": 0,
+      "requiredElectricity": 3,
+      "time": 60,
+      "addingCardIds": [3002]
     }
   ]
 }

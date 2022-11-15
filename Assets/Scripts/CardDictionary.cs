@@ -57,7 +57,7 @@ public static class CardDictionary
         newEntry.isSellable = rawCardObject.isSellable;
         newEntry.sellingPrice = rawCardObject.sellingPrice;
         newEntry.typeValue = rawCardObject.typeValue;
-        newEntry.timeCost = rawCardObject.timeCost;
+        newEntry.nodeTimeCost = rawCardObject.nodeTimeCost;
         newEntry.foodCost = rawCardObject.foodCost;
 
 
@@ -80,6 +80,12 @@ public static class CardDictionary
                 break;
             case "Module":
                 newEntry.type = CardsTypes.Module;
+                break;
+            case "Idea":
+                newEntry.type = CardsTypes.Idea;
+                break;
+            case "Node":
+                newEntry.type = CardsTypes.Node;
                 break;
             default:
                 newEntry.type = CardsTypes.Resource;

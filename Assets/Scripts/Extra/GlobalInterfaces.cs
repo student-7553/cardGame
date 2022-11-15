@@ -35,7 +35,9 @@ namespace Core
         Electricity,
         Food,
         Infrastructure,
-        Module
+        Module,
+        Idea,
+        Node
     }
     [System.Serializable]
     public class ModuleMinusInterval
@@ -67,7 +69,7 @@ namespace Core
         public bool isSellable;
         public int sellingPrice;
         public int typeValue;
-        public float timeCost;
+        public float nodeTimeCost;
         public int foodCost;
         public CardModuleObject module;
     }
@@ -82,7 +84,7 @@ namespace Core
         public bool isSellable;
         public int sellingPrice;
         public int typeValue;
-        public float timeCost;
+        public float nodeTimeCost;
         public int foodCost;
         public CardModuleObject module;
     }

@@ -351,9 +351,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
 
         }
-        // yield return new WaitForSeconds(4);
-
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(2);
+        // yield return new WaitForSeconds(8);
         isProccessing = false;
     }
 
