@@ -57,6 +57,13 @@ namespace Core
         public ModuleMinusInterval minusInterval;
     }
 
+    [System.Serializable]
+    public class AddingCardsObject
+    {
+        public float odds;
+        public int[] addingCardIds;
+    }
+
 
     [System.Serializable]
     public class RawCardObject
@@ -95,10 +102,10 @@ namespace Core
         public int uniqueId;
         public int baseCardId;
         public int[] requiredIds;
-        public int[] addingCardIds;
         public int requiredGold;
         public int requiredElectricity;
         public float time;
+        public AddingCardsObject[] addingCardObjects;
     }
 
 

@@ -304,11 +304,30 @@ public class Node : MonoBehaviour, Stackable, IClickable
         if (pickedProcess != null)
         {
             List<int> removingCardIds = new List<int>();
-            List<int> addingCardIds = new List<int>(pickedProcess.addingCardIds);
+            List<int> addingCardIds = new List<int>();
+
+            float rndNumber = Random.value;
+            float oddCount = 0;
+            AddingCardsObject pickedAddingCardIds = pickedProcess.addingCardObjects.ToList().Find(addingCardObject =>
+            {
+                oddCount = oddCount + addingCardObject.odds;
+                if (rndNumber < oddCount)
+                {
+                    return true;
+                }
+                return false;
+            });
+            if (pickedAddingCardIds == null)
+            {
+                pickedAddingCardIds = pickedProcess.addingCardObjects[0];
+            }
+            addingCardIds.AddRange(pickedAddingCardIds.addingCardIds);
+
+            Debug.Log("addingCardIds/ [" + string.Join(",", addingCardIds) + "]");
 
             this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
-            // Debug.Log("removingCardIds/ [" + string.Join(",", removingCardIds) + "]");
+
 
             Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
             List<Card> removedCards = new List<Card>();
@@ -378,8 +397,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
                 if (totalSum > pickedProcess.requiredGold)
                 {
                     int addingTypeValue = totalSum - pickedProcess.requiredGold;
-                    List<int> addingCards = CardHelpers.generateTypeValueCards(CardsTypes.Gold, addingTypeValue);
-                    addingCardIds.AddRange(addingCards);
+                    List<int> newCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, addingTypeValue);
+                    addingCardIds.AddRange(newCardIds);
                     break;
                 }
             }
@@ -410,11 +429,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return removingCardIds;
     }
 
-    private List<int> getAddingCardIds(List<int> removingCardIds, RawProcessObject pickedProcess)
-    {
-        List<int> addingCardIds = new List<int>();
-        return addingCardIds;
-    }
 
     private void addCardsToCardStack(List<Card> newCards)
     {

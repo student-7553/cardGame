@@ -7,7 +7,20 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 5,
-      "addingCardIds": [2, 4, 5]
+      "addingCardObjects": [
+        {
+          "odds": 0.5,
+          "addCardIds": [2]
+        },
+        {
+          "odds": 0.25,
+          "addCardIds": [4]
+        },
+        {
+          "odds": 0.25,
+          "addCardIds": [5]
+        }
+      ]
     },
     {
       "uniqueId": 2,
@@ -16,7 +29,12 @@
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 6,
-      "addingCardIds": [3]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [3]
+        }
+      ]
     },
     {
       "uniqueId": 3,
@@ -25,7 +43,12 @@
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 5,
-      "addingCardIds": [9]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [9]
+        }
+      ]
     },
     {
       "uniqueId": 4,
@@ -34,7 +57,20 @@
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 10,
-      "addingCardIds": [6, 7, 8]
+      "addingCardObjects": [
+        {
+          "odds": 0.9,
+          "addCardIds": [6]
+        },
+        {
+          "odds": 0.09,
+          "addCardIds": [7]
+        },
+        {
+          "odds": 0.01,
+          "addCardIds": [8]
+        }
+      ]
     },
     {
       "uniqueId": 5,
@@ -43,7 +79,7 @@
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 10,
-      "addingCardIds": []
+      "addingCardObjects": []
     },
     {
       "uniqueId": 6,
@@ -52,7 +88,12 @@
       "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 5,
-      "addingCardIds": [10200]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [10200]
+        }
+      ]
     },
     {
       "uniqueId": 7,
@@ -61,7 +102,12 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 10,
-      "addingCardIds": [10100]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [10100]
+        }
+      ]
     },
     {
       "uniqueId": 8,
@@ -70,7 +116,12 @@
       "requiredGold": 3,
       "requiredElectricity": 0,
       "time": 35,
-      "addingCardIds": [1003]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [1003]
+        }
+      ]
     },
     {
       "uniqueId": 9,
@@ -79,7 +130,12 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 15,
-      "addingCardIds": [1000]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [1000]
+        }
+      ]
     },
     {
       "uniqueId": 10,
@@ -88,7 +144,12 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 15,
-      "addingCardIds": [1001]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [1001]
+        }
+      ]
     },
     {
       "uniqueId": 11,
@@ -97,7 +158,12 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 20,
-      "addingCardIds": [1002]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [1002]
+        }
+      ]
     },
     {
       "uniqueId": 12,
@@ -106,7 +172,12 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 60,
-      "addingCardIds": [3001]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [3001]
+        }
+      ]
     },
     {
       "uniqueId": 13,
@@ -115,7 +186,12 @@
       "requiredGold": 0,
       "requiredElectricity": 3,
       "time": 60,
-      "addingCardIds": [3002]
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addCardIds": [3002]
+        }
+      ]
     }
   ]
 }
