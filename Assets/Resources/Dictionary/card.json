@@ -9,7 +9,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTimeCost": 5,
+      "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
     {
@@ -21,7 +21,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 5,
+      "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
     {
@@ -33,7 +33,7 @@
       "isSellable": true,
       "sellingPrice": 3,
       "typeValue": 0,
-      "nodeTimeCost": 5,
+      "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
     {
@@ -45,7 +45,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -57,7 +57,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -69,7 +69,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 3,
+      "nodeTransferTimeCost": 3,
       "foodCost": 0
     },
     {
@@ -81,7 +81,7 @@
       "isSellable": true,
       "sellingPrice": 3,
       "typeValue": 0,
-      "nodeTimeCost": 3,
+      "nodeTransferTimeCost": 3,
       "foodCost": 0
     },
     {
@@ -93,7 +93,7 @@
       "isSellable": true,
       "sellingPrice": 10,
       "typeValue": 0,
-      "nodeTimeCost": 3,
+      "nodeTransferTimeCost": 3,
       "foodCost": 0
     },
     {
@@ -105,7 +105,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 5,
+      "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
     {
@@ -117,7 +117,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 5,
+      "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
 
@@ -130,7 +130,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 2
     },
     {
@@ -142,7 +142,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 2
     },
     {
@@ -154,7 +154,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 2
     },
     {
@@ -166,7 +166,7 @@
       "isSellable": true,
       "sellingPrice": 3,
       "typeValue": 0,
-      "nodeTimeCost": 20,
+      "nodeTransferTimeCost": 20,
       "foodCost": 2
     },
     {
@@ -178,7 +178,7 @@
       "isSellable": true,
       "sellingPrice": 2,
       "typeValue": 0,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 2,
       "module": {
         "minusInterval": {
@@ -196,11 +196,11 @@
       "name": "Small base",
       "type": "Idea",
       "resourceInventoryCount": 0,
-      "infraInventoryCount": 1,
+      "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 0,
+      "nodeTransferTimeCost": 0,
       "foodCost": 0
     },
     {
@@ -208,11 +208,11 @@
       "name": "Space dome",
       "type": "Idea",
       "resourceInventoryCount": 0,
-      "infraInventoryCount": 1,
+      "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 0,
+      "nodeTransferTimeCost": 0,
       "foodCost": 0
     },
     {
@@ -220,11 +220,47 @@
       "name": "Hive of Space domes",
       "type": "Idea",
       "resourceInventoryCount": 0,
-      "infraInventoryCount": 1,
+      "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTimeCost": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2003,
+      "name": "Small Market",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2004,
+      "name": "Basic hydroponic farming",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2005,
+      "name": "Solar power",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
       "foodCost": 0
     },
     {
@@ -251,7 +287,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTimeCost": 0.5,
+      "nodeTransferTimeCost": 0.5,
       "foodCost": 0
     },
     {
@@ -263,7 +299,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTimeCost": 2.5,
+      "nodeTransferTimeCost": 2.5,
       "foodCost": 0
     },
     {
@@ -275,7 +311,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTimeCost": 12.5,
+      "nodeTransferTimeCost": 12.5,
       "foodCost": 0
     },
     {
@@ -287,7 +323,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTimeCost": 0.1,
+      "nodeTransferTimeCost": 0.1,
       "foodCost": 0
     },
     {
@@ -299,7 +335,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTimeCost": 0.1,
+      "nodeTransferTimeCost": 0.1,
       "foodCost": 0
     },
     {
@@ -311,7 +347,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTimeCost": 0.1,
+      "nodeTransferTimeCost": 0.1,
       "foodCost": 0
     },
 
@@ -324,7 +360,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTimeCost": 2,
+      "nodeTransferTimeCost": 2,
       "foodCost": 0
     },
     {
@@ -336,7 +372,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTimeCost": 10,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -348,7 +384,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTimeCost": 50,
+      "nodeTransferTimeCost": 50,
       "foodCost": 0
     }
   ]

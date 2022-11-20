@@ -1,7 +1,7 @@
 {
   "Items": [
     {
-      "uniqueId": 1,
+      "id": 1,
       "baseCardId": 1,
       "requiredIds": [],
       "requiredGold": 0,
@@ -23,7 +23,7 @@
       ]
     },
     {
-      "uniqueId": 2,
+      "id": 2,
       "baseCardId": 2,
       "requiredIds": [2],
       "requiredGold": 1,
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "uniqueId": 3,
+      "id": 3,
       "baseCardId": 4,
       "requiredIds": [],
       "requiredGold": 1,
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "uniqueId": 4,
+      "id": 4,
       "baseCardId": 5,
       "requiredIds": [],
       "requiredGold": 1,
@@ -72,17 +72,24 @@
         }
       ]
     },
+
     {
-      "uniqueId": 5,
+      "id": 5,
       "baseCardId": 1003,
       "requiredIds": [],
-      "requiredGold": 1,
+      "requiredGold": 5,
       "requiredElectricity": 0,
       "time": 10,
-      "addingCardObjects": []
+      "addingCardObjects": [
+        {
+          "odds": 0.01,
+          "addCardIds": [8]
+        }
+      ]
     },
+
     {
-      "uniqueId": 6,
+      "id": 6,
       "baseCardId": 1001,
       "requiredIds": [9],
       "requiredGold": 1,
@@ -96,7 +103,7 @@
       ]
     },
     {
-      "uniqueId": 7,
+      "id": 7,
       "baseCardId": 1002,
       "requiredIds": [],
       "requiredGold": 0,
@@ -110,7 +117,7 @@
       ]
     },
     {
-      "uniqueId": 8,
+      "id": 8,
       "baseCardId": 10,
       "requiredIds": [],
       "requiredGold": 3,
@@ -124,7 +131,7 @@
       ]
     },
     {
-      "uniqueId": 9,
+      "id": 9,
       "baseCardId": 2,
       "requiredIds": [2, 2, 2, 2, 2],
       "requiredGold": 0,
@@ -138,7 +145,7 @@
       ]
     },
     {
-      "uniqueId": 10,
+      "id": 10,
       "baseCardId": 6,
       "requiredIds": [3, 3, 3],
       "requiredGold": 0,
@@ -152,7 +159,7 @@
       ]
     },
     {
-      "uniqueId": 11,
+      "id": 11,
       "baseCardId": 6,
       "requiredIds": [6],
       "requiredGold": 0,
@@ -166,7 +173,7 @@
       ]
     },
     {
-      "uniqueId": 12,
+      "id": 12,
       "baseCardId": 3,
       "requiredIds": [2, 2],
       "requiredGold": 0,
@@ -180,7 +187,7 @@
       ]
     },
     {
-      "uniqueId": 13,
+      "id": 13,
       "baseCardId": 3,
       "requiredIds": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
       "requiredGold": 0,

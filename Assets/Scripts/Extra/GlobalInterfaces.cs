@@ -76,7 +76,7 @@ namespace Core
         public bool isSellable;
         public int sellingPrice;
         public int typeValue;
-        public float nodeTimeCost;
+        public float nodeTransferTimeCost;
         public int foodCost;
         public CardModuleObject module;
     }
@@ -91,7 +91,7 @@ namespace Core
         public bool isSellable;
         public int sellingPrice;
         public int typeValue;
-        public float nodeTimeCost;
+        public float nodeTransferTimeCost;
         public int foodCost;
         public CardModuleObject module;
     }
@@ -99,7 +99,7 @@ namespace Core
     [System.Serializable]
     public class RawProcessObject
     {
-        public int uniqueId;
+        public int id;
         public int baseCardId;
         public int[] requiredIds;
         public int requiredGold;

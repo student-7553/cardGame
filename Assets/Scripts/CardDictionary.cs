@@ -57,7 +57,7 @@ public static class CardDictionary
         newEntry.isSellable = rawCardObject.isSellable;
         newEntry.sellingPrice = rawCardObject.sellingPrice;
         newEntry.typeValue = rawCardObject.typeValue;
-        newEntry.nodeTimeCost = rawCardObject.nodeTimeCost;
+        newEntry.nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost;
         newEntry.foodCost = rawCardObject.foodCost;
 
 
