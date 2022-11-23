@@ -62,6 +62,8 @@ namespace Core
     {
         public float odds;
         public int[] addingCardIds;
+        public int[] extraUnlockCardIds;
+        public bool isOneTime;
     }
 
 
@@ -101,6 +103,7 @@ namespace Core
     {
         public int id;
         public int baseCardId;
+        public int[] unlockCardIds;
         public int[] requiredIds;
         public int requiredGold;
         public int requiredElectricity;

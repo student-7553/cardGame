@@ -257,7 +257,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
         if (!isProccessing)
         {
-            StartCoroutine(processCards());
+            this.processCards();
 
         }
     }
@@ -296,85 +296,103 @@ public class Node : MonoBehaviour, Stackable, IClickable
         hungerTextMesh.text = "" + _currentFoodCheck;
     }
 
-    public IEnumerator processCards()
+    public void processCards()
     {
         isProccessing = true;
         List<int> cardIds = activeStack.getCardIds();
         RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
         if (pickedProcess != null)
         {
-            List<int> removingCardIds = new List<int>();
-            List<int> addingCardIds = new List<int>();
+            StartCoroutine(handleProcess(pickedProcess));
+        }
+        else
+        {
+            StartCoroutine(finishProcessWait());
+        }
+    }
 
-            float rndNumber = Random.value;
-            float oddCount = 0;
-            AddingCardsObject pickedAddingCardIds = pickedProcess.addingCardObjects.ToList().Find(addingCardObject =>
+    private IEnumerator handleProcess(RawProcessObject pickedProcess)
+    {
+
+        List<int> removingCardIds = new List<int>();
+        List<int> addingCardIds = new List<int>();
+
+        float totalOddCount = 0;
+        List<AddingCardsObject> addingCardList = pickedProcess.addingCardObjects.ToList();
+        addingCardList.ForEach(addingCardObject =>
+        {
+            totalOddCount = totalOddCount + addingCardObject.odds;
+        });
+        float rndNumber = Random.Range(0f, totalOddCount);
+        float oddCount = 0;
+        AddingCardsObject pickedAddingCardId = addingCardList.Find(addingCardObject =>
+        {
+            oddCount = oddCount + addingCardObject.odds;
+            return oddCount > rndNumber;
+        });
+
+        if (pickedAddingCardId == null)
+        {
+            // error catch: This should never happen 
+            Debug.Log("This should never happen (processCards)");
+            pickedAddingCardId = pickedProcess.addingCardObjects[0];
+        }
+
+        addingCardIds.AddRange(pickedAddingCardId.addingCardIds);
+
+        Debug.Log("addingCardIds/ [" + string.Join(",", addingCardIds) + "]");
+
+        List<int> cardIds = activeStack.getCardIds();
+
+        this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+
+        Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
+        List<Card> removedCards = new List<Card>();
+        foreach (Card singleCard in activeStack.cards)
+        {
+            if (indexedRemovingCardIds.ContainsKey(singleCard.id))
             {
-                oddCount = oddCount + addingCardObject.odds;
-                if (rndNumber < oddCount)
+                indexedRemovingCardIds[singleCard.id]--;
+                if (indexedRemovingCardIds[singleCard.id] == 0)
                 {
-                    return true;
+                    indexedRemovingCardIds.Remove(singleCard.id);
                 }
-                return false;
-            });
-            if (pickedAddingCardIds == null)
-            {
-                pickedAddingCardIds = pickedProcess.addingCardObjects[0];
+
+                singleCard.isGettingProccessed = true;
+                removedCards.Add(singleCard);
             }
-            addingCardIds.AddRange(pickedAddingCardIds.addingCardIds);
+        }
 
-            Debug.Log("addingCardIds/ [" + string.Join(",", addingCardIds) + "]");
-
-            this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+        yield return new WaitForSeconds(pickedProcess.time);
 
 
-
-            Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
-            List<Card> removedCards = new List<Card>();
-            foreach (Card singleCard in activeStack.cards)
-            {
-                if (indexedRemovingCardIds.ContainsKey(singleCard.id))
-                {
-                    indexedRemovingCardIds[singleCard.id]--;
-                    if (indexedRemovingCardIds[singleCard.id] == 0)
-                    {
-                        indexedRemovingCardIds.Remove(singleCard.id);
-                    }
-
-                    singleCard.isGettingProccessed = true;
-                    removedCards.Add(singleCard);
-                }
-            }
-
-            yield return new WaitForSeconds(pickedProcess.time);
-
-
-            activeStack.removeCardsFromStack(removedCards);
-            foreach (Card singleRemovingCard in removedCards)
-            {
-                Destroy(singleRemovingCard.gameObject);
-
-            }
-
-            List<Card> addingCards = new List<Card>();
-            foreach (int singleAddingCardId in addingCardIds)
-            {
-                Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-                addingCards.Add(createdCard);
-                // activeStack.addCardToStack(createdCard);
-            }
-
-            this.addCardsToCardStack(addingCards);
-
-            // yield return new WaitForSeconds(30);
-
+        activeStack.removeCardsFromStack(removedCards);
+        foreach (Card singleRemovingCard in removedCards)
+        {
+            Destroy(singleRemovingCard.gameObject);
 
         }
+
+        List<Card> addingCards = new List<Card>();
+        foreach (int singleAddingCardId in addingCardIds)
+        {
+            Card createdCard = CardHandler.current.createCard(singleAddingCardId);
+            addingCards.Add(createdCard);
+        }
+
+        this.addCardsToCardStack(addingCards);
+
+        StartCoroutine(finishProcessWait());
+
+    }
+
+
+    private IEnumerator finishProcessWait()
+    {
         yield return new WaitForSeconds(2);
         // yield return new WaitForSeconds(8);
         isProccessing = false;
     }
-
 
     private List<int> insertRemovingAddingCardIds(List<int> cardIds, RawProcessObject pickedProcess, ref List<int> removingCardIds, ref List<int> addingCardIds)
     {
@@ -440,8 +458,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         {
             activeStack.changeActiveStateOfAllCards(false);
         }
-        // activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
-        //     nodePlaneManagers.gameObject.transform.position.y);
+
     }
 
     private void alignCardStacksPosition()
