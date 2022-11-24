@@ -8,15 +8,10 @@ public class GameManager : MonoBehaviour
     public GameObject cardHandlerGameObject;
     public GameObject nodePlane;
 
-    // public Sprite[] cardSprites;
-    // public Sprite[] nodeSprites;
-
     static GameManager current;
 
     private GameObject[] cards;
     private GameObject[] nodes;
-
-    // private CardHandler cardHandler;
 
     void Start()
     {
@@ -52,7 +47,6 @@ public class GameManager : MonoBehaviour
             CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
             if (cardData != null)
             {
-                // cardHandler.createCard(cardData.cardId, singleCard, singleCard.transform.position);
                 CardHandler.current.createCard(cardData.cardId, singleCard, singleCard.transform.position);
             }
 

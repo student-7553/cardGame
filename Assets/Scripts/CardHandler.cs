@@ -45,11 +45,6 @@ public class CardHandler : MonoBehaviour
         return cardObject;
     }
 
-    // public void deleteCard(GameObject cardGameObject)
-    // {
-    //     Destroy(cardGameObject);
-    // }
-
     private T ensureComponent<T>(GameObject gameObject) where T : Component
     {
         var cardSpriteRenderer = gameObject.GetComponent(typeof(T)) as T;

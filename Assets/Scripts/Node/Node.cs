@@ -333,8 +333,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
         if (pickedAddingCardId == null)
         {
-            // error catch: This should never happen 
-            Debug.Log("This should never happen (processCards)");
+            Debug.LogError("This should never happen (processCards)");             // error catch: This should never happen 
             pickedAddingCardId = pickedProcess.addingCardObjects[0];
         }
 
