@@ -23,10 +23,12 @@ namespace Core
         Nodes
     }
 
-    enum NodeStateTypes
+    public enum NodeStateTypes
     {
-        low,
-        medium,
+        base_1, // low
+        base_2, // medium
+        base_3, // high
+        market_1, // market low
     };
     public enum CardsTypes
     {

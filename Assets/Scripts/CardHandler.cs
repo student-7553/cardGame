@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core;
 [DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class CardHandler : MonoBehaviour
 
     private Vector3 defaultCardPoint;
     public GameObject cardPrefab;
+    public GameObject nodePrefab;
+    public GameObject nodePlanePrefab;
 
     public Sprite[] cardSprites;
     public Sprite[] nodeSprites;
@@ -71,6 +74,47 @@ public class CardHandler : MonoBehaviour
     public Card createCard(int cardId)
     {
         return createCard(cardId, defaultCardPoint);
+    }
+
+    public Node createNode(int cardId)
+    {
+        GameObject newNodeGameObject = Instantiate(nodePrefab);
+        return this.createNode(cardId, newNodeGameObject);
+
+    }
+
+
+
+    public Node createNode(int cardId, GameObject nodeGameObject)
+    {
+        Node newNode = ensureComponent<Node>(nodeGameObject);
+        newNode.title = $"Sentry {cardId}";
+
+        switch (cardId)
+        {
+            case 3000:
+                newNode.nodeState = NodeStateTypes.base_1;
+                break;
+            case 3001:
+                newNode.nodeState = NodeStateTypes.base_2;
+                break;
+            case 3002:
+                newNode.nodeState = NodeStateTypes.base_3;
+                break;
+            case 3003:
+                newNode.nodeState = NodeStateTypes.market_1;
+                break;
+        }
+
+        ensureComponent<CoreInteractable>(nodeGameObject);
+
+        Vector3 spawningPosition = new Vector3(120, 0, 5);
+        GameObject newNodePlane = Instantiate(nodePlanePrefab);
+        newNodePlane.transform.position = spawningPosition;
+        newNodePlane.SetActive(false);
+        newNode.nodePlaneManagers = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
+        newNode.init();
+        return newNode;
     }
 
 }

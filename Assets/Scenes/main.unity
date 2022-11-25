@@ -133,8 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 150831125}
   - component: {fileID: 150831128}
-  - component: {fileID: 150831127}
   - component: {fileID: 150831126}
+  - component: {fileID: 150831129}
   m_Layer: 6
   m_Name: Card-Stone1
   m_TagString: Cards
@@ -184,20 +184,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 8}
   m_EdgeRadius: 0
---- !u!114 &150831127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150831124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardId: 2
-  nodeId: 0
 --- !u!212 &150831128
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -250,6 +236,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &150831129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150831124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &199300345
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,8 +305,8 @@ GameObject:
   m_Component:
   - component: {fileID: 236367119}
   - component: {fileID: 236367120}
-  - component: {fileID: 236367122}
   - component: {fileID: 236367123}
+  - component: {fileID: 236367124}
   m_Layer: 6
   m_Name: Card-Stone2
   m_TagString: Cards
@@ -383,20 +382,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &236367122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 236367118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardId: 2
-  nodeId: 0
 --- !u!61 &236367123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -423,6 +408,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 8}
   m_EdgeRadius: 0
+--- !u!114 &236367124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236367118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &368918147
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,8 +463,8 @@ GameObject:
   m_Component:
   - component: {fileID: 419293405}
   - component: {fileID: 419293408}
-  - component: {fileID: 419293407}
   - component: {fileID: 419293406}
+  - component: {fileID: 419293409}
   m_Layer: 6
   m_Name: Card-Stone3
   m_TagString: Cards
@@ -516,20 +514,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 8}
   m_EdgeRadius: 0
---- !u!114 &419293407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419293404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardId: 2
-  nodeId: 0
 --- !u!212 &419293408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -582,6 +566,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &419293409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419293404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &457010006
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +883,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 7099274538970382496, guid: 48a74d524d025bc49b853e2459875588, type: 3}
+  nodePrefab: {fileID: 5000079141684730325, guid: 1e7e095b15ebd4a489137bf13cea1dee, type: 3}
+  nodePlanePrefab: {fileID: 7721505031344563643, guid: 23503702044b6744ea388c7c0eab0533, type: 3}
   cardSprites:
   - {fileID: 21300000, guid: 66693d3f49e49b34a8f4b65cdc90b068, type: 3}
   - {fileID: 21300000, guid: 0ea0e185a344f3b42bf5aa0c9f1a96be, type: 3}
@@ -903,7 +902,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &864524094
 GameObject:
@@ -1027,11 +1026,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 864524094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardId: 0
-  nodeId: 0
+  id: 3000
 --- !u!1 &888678502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,7 +1382,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1170330590
 MonoBehaviour:
@@ -2379,8 +2377,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1734939334}
   - component: {fileID: 1734939337}
-  - component: {fileID: 1734939336}
   - component: {fileID: 1734939335}
+  - component: {fileID: 1734939338}
   m_Layer: 6
   m_Name: Card-Stone4
   m_TagString: Cards
@@ -2430,20 +2428,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 8}
   m_EdgeRadius: 0
---- !u!114 &1734939336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734939333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardId: 2
-  nodeId: 0
 --- !u!212 &1734939337
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2496,6 +2480,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1734939338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734939333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &1933865442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,8 +2567,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2061309242}
   - component: {fileID: 2061309243}
-  - component: {fileID: 2061309245}
   - component: {fileID: 2061309246}
+  - component: {fileID: 2061309247}
   m_Layer: 6
   m_Name: Card-Gold
   m_TagString: Cards
@@ -2647,20 +2644,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2061309245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061309241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardId: 10000
-  nodeId: 0
 --- !u!61 &2061309246
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2687,6 +2670,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 8}
   m_EdgeRadius: 0
+--- !u!114 &2061309247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061309241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6312e309bb85c40bb1207d1f4fa102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 10000
 --- !u!1 &2080613021
 GameObject:
   m_ObjectHideFlags: 0

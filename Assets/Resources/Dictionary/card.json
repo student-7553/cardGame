@@ -120,19 +120,6 @@
       "nodeTransferTimeCost": 5,
       "foodCost": 0
     },
-
-    {
-      "id": 1000,
-      "name": "Small Market",
-      "type": "Infrastrucutre",
-      "resourceInventoryCount": 0,
-      "infraInventoryCount": 1,
-      "isSellable": false,
-      "sellingPrice": 0,
-      "typeValue": 0,
-      "nodeTransferTimeCost": 10,
-      "foodCost": 2
-    },
     {
       "id": 1001,
       "name": "Basic hydroponic farming",
@@ -266,17 +253,26 @@
     {
       "id": 3000,
       "name": "Small base",
-      "type": "Node"
+      "type": "Node",
+      "foodCost": 2
     },
     {
       "id": 3001,
       "name": "Space dome",
-      "type": "Node"
+      "type": "Node",
+      "foodCost": 2
     },
     {
       "id": 3002,
       "name": "Hive of Space domes",
-      "type": "Node"
+      "type": "Node",
+      "foodCost": 2
+    },
+    {
+      "id": 3003,
+      "name": "Small Market",
+      "type": "Node",
+      "foodCost": 2
     },
     {
       "id": 10000,

@@ -44,24 +44,21 @@ public class GameManager : MonoBehaviour
         foreach (GameObject singleCard in cards)
         {
 
-            CardStaticData cardData = singleCard.GetComponent(typeof(CardStaticData)) as CardStaticData;
+            StaticData cardData = singleCard.GetComponent(typeof(StaticData)) as StaticData;
             if (cardData != null)
             {
-                CardHandler.current.createCard(cardData.cardId, singleCard, singleCard.transform.position);
+                CardHandler.current.createCard(cardData.id, singleCard, singleCard.transform.position);
             }
 
         }
 
-        int index = 1;
         foreach (GameObject singleNode in nodes)
         {
-            Node createdNode = singleNode.AddComponent<Node>();
-            createdNode.title = $"Sentry {index}";
-            index++;
-            singleNode.AddComponent<CoreInteractable>();
-            createdNode.rootNodePlane = nodePlane;
-
-            createdNode.init();
+            StaticData nodeData = singleNode.GetComponent(typeof(StaticData)) as StaticData;
+            if (nodeData != null)
+            {
+                CardHandler.current.createNode(nodeData.id, singleNode);
+            }
 
         }
     }

@@ -28,7 +28,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     // -------------------- Custom Class -------------------------
     private CardStack activeStack;
-    private NodePlaneHandler nodePlaneManagers;
+    public NodePlaneHandler nodePlaneManagers;
 
 
     // -------------------- Node Stats -------------------------
@@ -105,7 +105,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public bool isActive;
 
-    NodeStateTypes nodeState;
+    public NodeStateTypes nodeState;
 
     private float intervalTimer;  // ********* Loop timer *********
 
@@ -136,7 +136,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     private void Awake()
     {
-        nodeState = NodeStateTypes.low;
+        // nodeState = NodeStateTypes.base_1;
         isActive = false;
         isProccessing = false;
         activeStack = new CardStack(CardStackType.Nodes);
@@ -152,13 +152,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
     {
         reflectToScreen();
         Vector3 spawningPosition = new Vector3(120, 0, 5);
-        GameObject newNodePlane = Instantiate(rootNodePlane, gameObject.transform);
-        newNodePlane.transform.position = spawningPosition;
-        newNodePlane.SetActive(false);
         activeStack.cardBaseZ = spawningPosition.z + 1f;
-        nodePlaneManagers = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
     }
-
 
     public void OnClick()
     {
@@ -178,12 +173,22 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public void stackOnThis(List<Card> newCards)
     {
-        this.addCardsToCardStack(newCards);
+        if (nodeState == NodeStateTypes.market_1)
+        {
+            //  market
+            List<int> cardIds = activeStack.getCardIds();
+            sellCards(cardIds);
+        }
+        else
+        {
+            // base nodes
+            this.addCardsToCardStack(newCards);
+            computeStats();
+        }
 
-        computeStats();
     }
 
-    public void computeStats()
+    private void computeStats()
     {
         List<int> cardIds = activeStack.getCardIds();
         int calcResourceInventoryUsed = 0;
@@ -245,8 +250,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     }
 
-
-
     private void Update()
     {
         intervalTimer = intervalTimer + Time.deltaTime;
@@ -261,8 +264,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
         }
     }
-
-
 
     private void handleHungerInterval()
     {
@@ -296,6 +297,13 @@ public class Node : MonoBehaviour, Stackable, IClickable
         hungerTextMesh.text = "" + _currentFoodCheck;
     }
 
+    public void sellCards(List<int> cardIds)
+    {
+        int goldAmount = this.getGoldAmount(cardIds);
+        this.hadleRemovingCards(cardIds);
+
+    }
+
     public void processCards()
     {
         isProccessing = true;
@@ -307,7 +315,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         }
         else
         {
-            StartCoroutine(finishProcessWait());
+            StartCoroutine(handleProcessFinish());
         }
     }
 
@@ -339,14 +347,14 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
         addingCardIds.AddRange(pickedAddingCardId.addingCardIds);
 
-        Debug.Log("addingCardIds/ [" + string.Join(",", addingCardIds) + "]");
-
         List<int> cardIds = activeStack.getCardIds();
 
-        this.insertRemovingAddingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+        this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
         Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
-        List<Card> removedCards = new List<Card>();
+
+        // List<Card> removedCards = new List<Card>();
+
         foreach (Card singleCard in activeStack.cards)
         {
             if (indexedRemovingCardIds.ContainsKey(singleCard.id))
@@ -358,42 +366,49 @@ public class Node : MonoBehaviour, Stackable, IClickable
                 }
 
                 singleCard.isGettingProccessed = true;
-                removedCards.Add(singleCard);
+                // removedCards.Add(singleCard);
             }
         }
 
         yield return new WaitForSeconds(pickedProcess.time);
 
+        this.hadleRemovingCards(removingCardIds);
 
-        activeStack.removeCardsFromStack(removedCards);
-        foreach (Card singleRemovingCard in removedCards)
-        {
-            Destroy(singleRemovingCard.gameObject);
-
-        }
+        // activeStack.removeCardsFromStack(removedCards);
+        // foreach (Card singleRemovingCard in removedCards)
+        // {
+        //     Destroy(singleRemovingCard.gameObject);
+        // }
 
         List<Card> addingCards = new List<Card>();
         foreach (int singleAddingCardId in addingCardIds)
         {
-            Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-            addingCards.Add(createdCard);
+            if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
+            {
+                // we are creating a Node
+                CardHandler.current.createNode(singleAddingCardId);
+            }
+            else
+            {
+                Card createdCard = CardHandler.current.createCard(singleAddingCardId);
+                addingCards.Add(createdCard);
+            }
+
         }
 
         this.addCardsToCardStack(addingCards);
 
-        StartCoroutine(finishProcessWait());
+        StartCoroutine(handleProcessFinish());
 
     }
 
-
-    private IEnumerator finishProcessWait()
+    private IEnumerator handleProcessFinish()
     {
         yield return new WaitForSeconds(2);
-        // yield return new WaitForSeconds(8);
         isProccessing = false;
     }
 
-    private List<int> insertRemovingAddingCardIds(List<int> cardIds, RawProcessObject pickedProcess, ref List<int> removingCardIds, ref List<int> addingCardIds)
+    private List<int> handleProcessCardIds(List<int> cardIds, RawProcessObject pickedProcess, ref List<int> removingCardIds, ref List<int> addingCardIds)
     {
 
         removingCardIds.Add(pickedProcess.baseCardId);
@@ -446,7 +461,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return removingCardIds;
     }
 
-
     private void addCardsToCardStack(List<Card> newCards)
     {
         bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
@@ -465,8 +479,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         activeStack.moveRootCardToPosition(nodePlaneManagers.gameObject.transform.position.x,
             nodePlaneManagers.gameObject.transform.position.y);
     }
-
-
 
     private RawProcessObject getAvailableProcess(List<int> cardIds)
     {
@@ -532,5 +544,45 @@ public class Node : MonoBehaviour, Stackable, IClickable
             }
         }
         return isAvailableToProcess;
+    }
+
+    private int getGoldAmount(List<int> cardIds)
+    {
+        int goldAmount = 0;
+        foreach (int cardId in cardIds)
+        {
+            if (CardDictionary.globalCardDictionary[cardId].sellingPrice > 0)
+            {
+                goldAmount = goldAmount + CardDictionary.globalCardDictionary[cardId].sellingPrice;
+            }
+
+        }
+        return goldAmount;
+    }
+
+    private void hadleRemovingCards(List<int> cardIds)
+    {
+        Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(cardIds);
+
+        List<Card> removedCards = new List<Card>();
+
+        foreach (Card singleCard in activeStack.cards)
+        {
+            if (indexedRemovingCardIds.ContainsKey(singleCard.id))
+            {
+                indexedRemovingCardIds[singleCard.id]--;
+                if (indexedRemovingCardIds[singleCard.id] == 0)
+                {
+                    indexedRemovingCardIds.Remove(singleCard.id);
+                }
+                removedCards.Add(singleCard);
+            }
+        }
+        activeStack.removeCardsFromStack(removedCards);
+
+        foreach (Card singleRemovingCard in removedCards)
+        {
+            Destroy(singleRemovingCard.gameObject);
+        }
     }
 }
