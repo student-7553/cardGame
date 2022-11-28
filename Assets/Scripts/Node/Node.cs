@@ -33,6 +33,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     // -------------------- Node Stats -------------------------
 
+    public int id;
+
     private BaseNodeStats baseNodeStat;
 
     private int _resourceInventoryLimit;
@@ -101,8 +103,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     // -------------------- Meta Stats -------------------------
 
-    public string title;
-
     public bool isActive;
 
     public NodeStateTypes nodeState;
@@ -132,7 +132,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
         computeStats();
 
     }
-
 
     private void Awake()
     {
@@ -173,19 +172,25 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     public void stackOnThis(List<Card> newCards)
     {
-        if (nodeState == NodeStateTypes.market_1)
+        // base nodes
+        this.addCardsToCardStack(newCards);
+        computeStats();
+        if (isMarket())
         {
             //  market
-            List<int> cardIds = activeStack.getCardIds();
-            sellCards(cardIds);
-        }
-        else
-        {
-            // base nodes
-            this.addCardsToCardStack(newCards);
-            computeStats();
-        }
+            List<int> cardIds = activeStack.getNonTypeCardIds();
 
+            StartCoroutine(sellCards(cardIds));
+        }
+    }
+
+    private bool isMarket()
+    {
+        if (nodeState == NodeStateTypes.market_1)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void computeStats()
@@ -289,23 +294,48 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return activeStack;
     }
 
-
     private void reflectToScreen()
     {
-        titleTextMesh.text = title;
+
+        if (CardDictionary.globalCardDictionary.ContainsKey(id))
+        {
+            if (titleTextMesh != null)
+            {
+                titleTextMesh.text = CardDictionary.globalCardDictionary[id].name;
+            }
+        }
         availableInventoryTextMesh.text = "" + resourceInventoryUsed + "/" + resourceInventoryLimit;
         hungerTextMesh.text = "" + _currentFoodCheck;
     }
 
-    public void sellCards(List<int> cardIds)
+    public IEnumerator sellCards(List<int> cardIds)
     {
+        if (cardIds.Count == 0)
+        {
+            yield break;
+        }
+
         int goldAmount = this.getGoldAmount(cardIds);
-        this.hadleRemovingCards(cardIds);
+        List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
+
+
+        List<Card> removingCards = this.handleMarkingForRemoval(cardIds);
+
+        // I think we are going to sell them one at a time (but for now we are having a hard static)
+        yield return new WaitForSeconds(5f);
+
+        this.hadleRemovingCards(removingCards);
+        this.handleCreatingCards(addingGoldCardIds);
 
     }
 
     public void processCards()
     {
+        if (isMarket())
+        {
+            return;
+        }
+
         isProccessing = true;
         List<int> cardIds = activeStack.getCardIds();
         RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
@@ -351,52 +381,13 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
         this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
-        Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(removingCardIds);
-
-        // List<Card> removedCards = new List<Card>();
-
-        foreach (Card singleCard in activeStack.cards)
-        {
-            if (indexedRemovingCardIds.ContainsKey(singleCard.id))
-            {
-                indexedRemovingCardIds[singleCard.id]--;
-                if (indexedRemovingCardIds[singleCard.id] == 0)
-                {
-                    indexedRemovingCardIds.Remove(singleCard.id);
-                }
-
-                singleCard.isGettingProccessed = true;
-                // removedCards.Add(singleCard);
-            }
-        }
+        List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds);
 
         yield return new WaitForSeconds(pickedProcess.time);
 
-        this.hadleRemovingCards(removingCardIds);
+        this.hadleRemovingCards(removingCards);
 
-        // activeStack.removeCardsFromStack(removedCards);
-        // foreach (Card singleRemovingCard in removedCards)
-        // {
-        //     Destroy(singleRemovingCard.gameObject);
-        // }
-
-        List<Card> addingCards = new List<Card>();
-        foreach (int singleAddingCardId in addingCardIds)
-        {
-            if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
-            {
-                // we are creating a Node
-                CardHandler.current.createNode(singleAddingCardId);
-            }
-            else
-            {
-                Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-                addingCards.Add(createdCard);
-            }
-
-        }
-
-        this.addCardsToCardStack(addingCards);
+        this.handleCreatingCards(addingCardIds);
 
         StartCoroutine(handleProcessFinish());
 
@@ -560,12 +551,42 @@ public class Node : MonoBehaviour, Stackable, IClickable
         return goldAmount;
     }
 
-    private void hadleRemovingCards(List<int> cardIds)
+    private void hadleRemovingCards(List<Card> removingCards)
     {
+
+        activeStack.removeCardsFromStack(removingCards);
+
+        foreach (Card singleRemovingCard in removingCards)
+        {
+            Destroy(singleRemovingCard.gameObject);
+        }
+    }
+
+    private void handleCreatingCards(List<int> cardIds)
+    {
+        List<Card> addingCards = new List<Card>();
+        foreach (int singleAddingCardId in cardIds)
+        {
+            if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
+            {
+                // we are creating a Node
+                CardHandler.current.createNode(singleAddingCardId);
+            }
+            else
+            {
+                Card createdCard = CardHandler.current.createCard(singleAddingCardId);
+                addingCards.Add(createdCard);
+            }
+
+        }
+        this.addCardsToCardStack(addingCards);
+    }
+
+    private List<Card> handleMarkingForRemoval(List<int> cardIds)
+    {
+
         Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(cardIds);
-
         List<Card> removedCards = new List<Card>();
-
         foreach (Card singleCard in activeStack.cards)
         {
             if (indexedRemovingCardIds.ContainsKey(singleCard.id))
@@ -576,13 +597,10 @@ public class Node : MonoBehaviour, Stackable, IClickable
                     indexedRemovingCardIds.Remove(singleCard.id);
                 }
                 removedCards.Add(singleCard);
+                singleCard.isGettingProccessed = true;
             }
         }
-        activeStack.removeCardsFromStack(removedCards);
 
-        foreach (Card singleRemovingCard in removedCards)
-        {
-            Destroy(singleRemovingCard.gameObject);
-        }
+        return removedCards;
     }
 }

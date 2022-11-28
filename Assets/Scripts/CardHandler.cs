@@ -85,12 +85,17 @@ public class CardHandler : MonoBehaviour
 
 
 
-    public Node createNode(int cardId, GameObject nodeGameObject)
+    public Node createNode(int nodeId, GameObject nodeGameObject)
     {
-        Node newNode = ensureComponent<Node>(nodeGameObject);
-        newNode.title = $"Sentry {cardId}";
+        nodeGameObject.name = CardDictionary.globalCardDictionary[nodeId].name;
+        nodeGameObject.tag = "Nodes";
+        nodeGameObject.layer = 6;
 
-        switch (cardId)
+        Node newNode = ensureComponent<Node>(nodeGameObject);
+        newNode.id = nodeId;
+        // newNode.title = $"Sentry {cardId}";
+
+        switch (nodeId)
         {
             case 3000:
                 newNode.nodeState = NodeStateTypes.base_1;

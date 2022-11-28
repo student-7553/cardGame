@@ -114,7 +114,6 @@ public class Card : MonoBehaviour, Stackable
             {
                 titleTextMesh.text = CardDictionary.globalCardDictionary[id].name;
             }
-
         }
     }
 

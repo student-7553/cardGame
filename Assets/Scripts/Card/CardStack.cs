@@ -122,6 +122,24 @@ public class CardStack
         return ids;
     }
 
+    public List<int> getNonTypeCardIds()
+    {
+        List<int> ids = new List<int>();
+        foreach (Card singleCard in cards)
+        {
+            if (
+                CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Gold &&
+                CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Electricity &&
+                CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Food
+            )
+            {
+                ids.Add(singleCard.id);
+            }
+
+        }
+        return ids;
+    }
+
     public void moveRootCardToPosition(float newX, float newY)
     {
         Card rootCard = this.getRootCard();
