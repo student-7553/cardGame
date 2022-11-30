@@ -16,7 +16,8 @@ public class Card : MonoBehaviour, Stackable
     public Vector3 leftBottomCorner;
     [System.NonSerialized]
     public Vector3 rightBottomCorner;
-    [System.NonSerialized]
+
+    private CoreInteractable coreInteractable;
 
     public bool isStacked;
 
@@ -24,9 +25,21 @@ public class Card : MonoBehaviour, Stackable
 
     public int id;
 
-    public bool isGettingProccessed;
+    private bool _isDisabled;
+    public bool isDisabled
+    {
+        get { return _isDisabled; }
+        set
+        {
+            if (_isDisabled != value)
+            {
+                coreInteractable.isDisabled = value;
+            }
+            _isDisabled = value;
+        }
+    }
 
-    // private float remainingDisabledTime;
+    public float timer;
 
     private TextMeshPro titleTextMesh;
 
@@ -39,14 +52,31 @@ public class Card : MonoBehaviour, Stackable
     {
         this.generateTheCorners();
         isStacked = false;
-        isGettingProccessed = false;
+        isDisabled = false;
+        timer = 0;
 
         Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
         if (textMeshes.Length > 0)
         {
             titleTextMesh = textMeshes[0] as TextMeshPro;
         }
+    }
 
+    private void FixedUpdate()
+    {
+        if (timer != 0f)
+        {
+            Debug.Log(timer);
+            if (timer > 0.1f)
+            {
+                timer = timer - Time.deltaTime;
+            }
+            else
+            {
+                timer = 0f;
+            }
+            reflectScreen();
+        }
     }
 
     public void generateTheCorners()
@@ -104,18 +134,27 @@ public class Card : MonoBehaviour, Stackable
     public void init()
     {
         reflectScreen();
+        coreInteractable = gameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
     }
 
-    private void reflectScreen()
+    public void reflectScreen()
     {
+        string cardTitle = "";
         if (CardDictionary.globalCardDictionary.ContainsKey(id))
         {
             if (titleTextMesh != null)
             {
-                titleTextMesh.text = CardDictionary.globalCardDictionary[id].name;
+                cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
             }
         }
+        if (isDisabled)
+        {
+            cardTitle = "[DISABLED] " + cardTitle;
+        }
+        if (timer > 0)
+        {
+            cardTitle = cardTitle + $"({(int)timer})";
+        }
+        titleTextMesh.text = cardTitle;
     }
-
-
 }

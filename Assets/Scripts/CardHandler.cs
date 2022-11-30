@@ -38,13 +38,12 @@ public class CardHandler : MonoBehaviour
         cardGameObject.transform.position = cardOriginPoint;
 
         Card cardObject = ensureComponent<Card>(cardGameObject);
-        cardObject.id = cardId;
-        cardObject.init();
-
         ensureComponent<CoreInteractable>(cardGameObject);
-
+        cardObject.id = cardId;
         SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
         cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
+
+        cardObject.init();
         return cardObject;
     }
 
@@ -93,7 +92,6 @@ public class CardHandler : MonoBehaviour
 
         Node newNode = ensureComponent<Node>(nodeGameObject);
         newNode.id = nodeId;
-        // newNode.title = $"Sentry {cardId}";
 
         switch (nodeId)
         {

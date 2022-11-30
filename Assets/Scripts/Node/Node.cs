@@ -118,7 +118,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     private readonly float nodePlaneBaseZ = 3f;
 
-
     private void initlizeBaseStats()
     {
         BaseNodeStats baseNodeStat = new BaseNodeStats();
@@ -135,7 +134,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
     private void Awake()
     {
-        // nodeState = NodeStateTypes.base_1;
         isActive = false;
         isProccessing = false;
         activeStack = new CardStack(CardStackType.Nodes);
@@ -177,9 +175,8 @@ public class Node : MonoBehaviour, Stackable, IClickable
         computeStats();
         if (isMarket())
         {
-            //  market
+            //  Market
             List<int> cardIds = activeStack.getNonTypeCardIds();
-
             StartCoroutine(sellCards(cardIds));
         }
     }
@@ -191,68 +188,6 @@ public class Node : MonoBehaviour, Stackable, IClickable
             return true;
         }
         return false;
-    }
-
-    private void computeStats()
-    {
-        List<int> cardIds = activeStack.getCardIds();
-        int calcResourceInventoryUsed = 0;
-        int calcResourceInventoryLimit = 0;
-
-        int calcInfraInventoryUsed = 0;
-        int calcInfraInventoryLimit = 0;
-
-        int calcGoldGeneration = 0;
-
-        int calcHungerCheck = 0;
-        int calcElectricity = 0;
-        int calcGold = 0;
-        int calcFood = 0;
-
-        foreach (int id in cardIds)
-        {
-            if (CardDictionary.globalCardDictionary.ContainsKey(id))
-            {
-                calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
-                calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;
-                calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
-                switch (CardDictionary.globalCardDictionary[id].type)
-                {
-                    case CardsTypes.Electricity:
-                        calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
-                        break;
-                    case CardsTypes.Gold:
-                        calcGold += CardDictionary.globalCardDictionary[id].typeValue;
-                        break;
-                    case CardsTypes.Food:
-                        calcFood += CardDictionary.globalCardDictionary[id].typeValue;
-                        break;
-                    case CardsTypes.Module:
-                        calcResourceInventoryLimit += CardDictionary.globalCardDictionary[id].module.resourceInventoryIncrease;
-                        calcInfraInventoryLimit += CardDictionary.globalCardDictionary[id].module.infraInventoryIncrease;
-                        calcGoldGeneration += CardDictionary.globalCardDictionary[id].module.increaseGoldGeneration;
-                        break;
-                    default:
-                        break;
-
-                }
-
-            }
-        }
-        _resourceInventoryUsed = calcResourceInventoryUsed;
-        _resourceInventoryLimit = baseNodeStat.resourceInventoryLimit + calcResourceInventoryLimit;
-
-        _infraInventoryUsed = calcInfraInventoryUsed;
-        _infraInventoryLimit = baseNodeStat.infraInventoryLimit + calcInfraInventoryLimit;
-
-        _goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
-        _currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
-        _currentElectricity = calcElectricity;
-        _currentGold = calcGold;
-        _currentFood = calcFood;
-
-        hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
-
     }
 
     private void Update()
@@ -319,7 +254,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
 
-        List<Card> removingCards = this.handleMarkingForRemoval(cardIds);
+        List<Card> removingCards = this.handleMarkingForRemoval(cardIds, 5f);
 
         // I think we are going to sell them one at a time (but for now we are having a hard static)
         yield return new WaitForSeconds(5f);
@@ -381,7 +316,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
 
         this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
-        List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds);
+        List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds, pickedProcess.time);
 
         yield return new WaitForSeconds(pickedProcess.time);
 
@@ -582,7 +517,7 @@ public class Node : MonoBehaviour, Stackable, IClickable
         this.addCardsToCardStack(addingCards);
     }
 
-    private List<Card> handleMarkingForRemoval(List<int> cardIds)
+    private List<Card> handleMarkingForRemoval(List<int> cardIds, float timer = 0)
     {
 
         Dictionary<int, int> indexedRemovingCardIds = this.indexCardIds(cardIds);
@@ -597,10 +532,78 @@ public class Node : MonoBehaviour, Stackable, IClickable
                     indexedRemovingCardIds.Remove(singleCard.id);
                 }
                 removedCards.Add(singleCard);
-                singleCard.isGettingProccessed = true;
+                singleCard.isDisabled = true;
+                if (timer > 0)
+                {
+                    singleCard.timer = timer;
+                }
+                singleCard.reflectScreen();
             }
         }
 
         return removedCards;
     }
+
+    private void computeStats()
+    {
+        List<int> cardIds = activeStack.getCardIds();
+        int calcResourceInventoryUsed = 0;
+        int calcResourceInventoryLimit = 0;
+
+        int calcInfraInventoryUsed = 0;
+        int calcInfraInventoryLimit = 0;
+
+        int calcGoldGeneration = 0;
+
+        int calcHungerCheck = 0;
+        int calcElectricity = 0;
+        int calcGold = 0;
+        int calcFood = 0;
+
+        foreach (int id in cardIds)
+        {
+            if (CardDictionary.globalCardDictionary.ContainsKey(id))
+            {
+                calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
+                calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;
+                calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
+                switch (CardDictionary.globalCardDictionary[id].type)
+                {
+                    case CardsTypes.Electricity:
+                        calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Gold:
+                        calcGold += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Food:
+                        calcFood += CardDictionary.globalCardDictionary[id].typeValue;
+                        break;
+                    case CardsTypes.Module:
+                        calcResourceInventoryLimit += CardDictionary.globalCardDictionary[id].module.resourceInventoryIncrease;
+                        calcInfraInventoryLimit += CardDictionary.globalCardDictionary[id].module.infraInventoryIncrease;
+                        calcGoldGeneration += CardDictionary.globalCardDictionary[id].module.increaseGoldGeneration;
+                        break;
+                    default:
+                        break;
+
+                }
+
+            }
+        }
+        _resourceInventoryUsed = calcResourceInventoryUsed;
+        _resourceInventoryLimit = baseNodeStat.resourceInventoryLimit + calcResourceInventoryLimit;
+
+        _infraInventoryUsed = calcInfraInventoryUsed;
+        _infraInventoryLimit = baseNodeStat.infraInventoryLimit + calcInfraInventoryLimit;
+
+        _goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
+        _currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
+        _currentElectricity = calcElectricity;
+        _currentGold = calcGold;
+        _currentFood = calcFood;
+
+        hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
+
+    }
+
 }

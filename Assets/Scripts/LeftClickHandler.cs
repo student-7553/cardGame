@@ -9,13 +9,6 @@ using Helpers;
 public class LeftClickHandler : MonoBehaviour
 {
     private InputAction leftClick;
-    // [SerializeField]
-    // private float mouseDragPhysicSpeed = 10;
-    // [SerializeField]
-    // private float mouseDragSpeed = .1f;
-    // private Vector3 velocity = Vector3.zero;
-    // private WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-    // private int BASE_SORTING_ORDER_WHILE_DRAGGING = 1000;
 
     private float basePlaneZ = 1;
 
@@ -79,6 +72,10 @@ public class LeftClickHandler : MonoBehaviour
 
     private IEnumerator handleClickingOnACoreInteractable(CoreInteractable interactableObject)
     {
+        if (interactableObject.isDisabled)
+        {
+            yield break;
+        }
         Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld(interactableObject);
         yield return new WaitForSeconds(clickTimer);
         if (leftClick.ReadValue<float>() == 0f)

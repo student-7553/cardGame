@@ -8,9 +8,11 @@ public class CoreInteractable : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
+    public bool isDisabled;
 
     private void Awake()
     {
+        isDisabled = false;
         spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
         if (this.tag == CoreInteractableType.Cards.ToString())
         {
