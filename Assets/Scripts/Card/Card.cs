@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Core;
 using TMPro;
 
-public class Card : MonoBehaviour, Stackable
+public class Card : MonoBehaviour, IStackable
 {
 
     // -------------------- Meta Stats -------------------------

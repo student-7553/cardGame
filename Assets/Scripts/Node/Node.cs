@@ -18,7 +18,7 @@ public class BaseNodeStats
     public int hungerSetIntervalTimer;
 }
 
-public class Node : MonoBehaviour, Stackable, IClickable
+public class Node : MonoBehaviour, IStackable, IClickable
 {
     // -------------------- Unity Component -------------------------
     private TextMeshPro titleTextMesh;
@@ -150,21 +150,20 @@ public class Node : MonoBehaviour, Stackable, IClickable
         reflectToScreen();
         Vector3 spawningPosition = new Vector3(120, 0, 5);
         activeStack.cardBaseZ = spawningPosition.z + 1f;
+
+        nodePlaneManagers = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
+
     }
 
     public void OnClick()
     {
         if (isActive == true)
         {
-            isActive = false;
             nodePlaneManagers.gameObject.SetActive(false);
-            activeStack.changeActiveStateOfAllCards(false);
         }
         else
         {
-            isActive = true;
             nodePlaneManagers.gameObject.SetActive(true);
-            activeStack.changeActiveStateOfAllCards(true);
         }
     }
 

@@ -1,5 +1,7 @@
 using UnityEngine;
 using Core;
+
+
 [DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class CardHandler : MonoBehaviour
 
     public Sprite[] cardSprites;
     public Sprite[] nodeSprites;
+
+
+    readonly float NODE_BOARD_Z = 5f;
+
 
     void Start()
     {
@@ -111,12 +117,15 @@ public class CardHandler : MonoBehaviour
 
         ensureComponent<CoreInteractable>(nodeGameObject);
 
-        Vector3 spawningPosition = new Vector3(120, 0, 5);
-        GameObject newNodePlane = Instantiate(nodePlanePrefab);
-        newNodePlane.transform.position = spawningPosition;
+        Vector3 spawningPosition = nodeGameObject.transform.position;
+        spawningPosition.z = NODE_BOARD_Z;
+
+        GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
+
         newNodePlane.SetActive(false);
-        newNode.nodePlaneManagers = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
+
         newNode.init();
+
         return newNode;
     }
 

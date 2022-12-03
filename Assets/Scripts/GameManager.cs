@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
     public GameObject cardHandlerGameObject;
     public GameObject nodePlane;
 
-    static GameManager current;
+    public static GameManager current;
 
     private GameObject[] cards;
     private GameObject[] nodes;
+
+    public BoardPlaneHandler boardPlaneHandler;
 
     void Start()
     {
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     private void awakeGameLogic()
     {
+        this.boardPlaneHandler = GameObject.FindObjectOfType<BoardPlaneHandler>();
+
         foreach (GameObject singleCard in cards)
         {
 
@@ -67,6 +71,7 @@ public class GameManager : MonoBehaviour
     {
         if (cards == null)
         {
+            // GameObject.FindObjectsOfType
             cards = GameObject.FindGameObjectsWithTag("Cards");
         }
 

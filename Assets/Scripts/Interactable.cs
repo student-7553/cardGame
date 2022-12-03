@@ -24,7 +24,7 @@ public class CoreInteractable : MonoBehaviour
         }
     }
 
-    public Stackable getStackable()
+    public IStackable getStackable()
     {
         if (interactableType == CoreInteractableType.Cards)
         {

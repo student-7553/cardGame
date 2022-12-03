@@ -295,6 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardHandlerGameObject: {fileID: 827736726}
   nodePlane: {fileID: 7721505031344563643, guid: 23503702044b6744ea388c7c0eab0533, type: 3}
+  boardPlaneHandler: {fileID: 0}
 --- !u!1 &236367118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,8 +2944,9 @@ GameObject:
   - component: {fileID: 1658122571}
   - component: {fileID: 1658122573}
   - component: {fileID: 1658122572}
+  - component: {fileID: 1658122574}
   m_Layer: 6
-  m_Name: Plane
+  m_Name: BoardPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3043,6 +3045,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1658122574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658122567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029767409025a0f4094deb1ecdb47726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734939333
 GameObject:
   m_ObjectHideFlags: 0

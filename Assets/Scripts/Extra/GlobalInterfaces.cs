@@ -1,9 +1,9 @@
 
-using UnityEngine;
+// using UnityEngine;
 using System.Collections.Generic;
 namespace Core
 {
-    public interface Stackable
+    public interface IStackable
     {
         void stackOnThis(List<Card> draggingCards);
     }

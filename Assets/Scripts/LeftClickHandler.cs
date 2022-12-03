@@ -218,7 +218,7 @@ public class LeftClickHandler : MonoBehaviour
         {
             // is card
             Card bottomCard = bottomInteractable.getCard();
-            Stackable stackableObject = findTargetToStack(bottomCard);
+            IStackable stackableObject = findTargetToStack(bottomCard);
             if (stackableObject != null)
             {
                 // stacking on a coreInteractable
@@ -277,7 +277,7 @@ public class LeftClickHandler : MonoBehaviour
         }
     }
 
-    private Stackable findTargetToStack(Card hitCard)
+    private IStackable findTargetToStack(Card hitCard)
     {
         hitCard.generateTheCorners();
         Vector3[] corners = { hitCard.leftTopCorner, hitCard.rightTopCorner, hitCard.leftBottomCorner, hitCard.rightBottomCorner };
@@ -290,7 +290,7 @@ public class LeftClickHandler : MonoBehaviour
             RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, interactableLayerMask);
             if (cornerHit.collider != null)
             {
-                Stackable stackableObject = cornerHit.collider.gameObject.GetComponent(typeof(Stackable)) as Stackable;
+                IStackable stackableObject = cornerHit.collider.gameObject.GetComponent(typeof(IStackable)) as IStackable;
                 if (stackableObject != null)
                 {
                     return stackableObject;
