@@ -112,12 +112,26 @@ public class CardStack
         }
     }
 
-    public List<int> getCardIds()
+    public List<int> getAllCardIds()
     {
         List<int> ids = new List<int>();
         foreach (Card singleCard in cards)
         {
             ids.Add(singleCard.id);
+        }
+        return ids;
+    }
+
+    public List<int> getActiveCardIds()
+    {
+        List<int> ids = new List<int>();
+        foreach (Card singleCard in cards)
+        {
+            if (!singleCard.isDisabled)
+            {
+
+                ids.Add(singleCard.id);
+            }
         }
         return ids;
     }

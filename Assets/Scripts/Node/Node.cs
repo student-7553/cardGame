@@ -271,7 +271,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
         }
 
         isProccessing = true;
-        List<int> cardIds = activeStack.getCardIds();
+        List<int> cardIds = activeStack.getAllCardIds();
         RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
         if (pickedProcess != null)
         {
@@ -311,11 +311,12 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
         addingCardIds.AddRange(pickedAddingCardId.addingCardIds);
 
-        List<int> cardIds = activeStack.getCardIds();
+        List<int> cardIds = activeStack.getAllCardIds();
 
         this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
         List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds, pickedProcess.time);
+        computeStats();
 
         yield return new WaitForSeconds(pickedProcess.time);
 
@@ -418,18 +419,15 @@ public class Node : MonoBehaviour, IStackable, IClickable
             {
                 foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
                 {
-                    // looping through all process on that card
                     Dictionary<int, int> indexedRequiredIds = this.indexCardIds(singleProcess.requiredIds.ToList());
-                    bool isAvailableToProcess = this.getIsAvailableToProcess(indexedRequiredIds, clonedCardIds);
-                    if (isAvailableToProcess)
+                    bool ifRequiredCardsPassed = this.ifRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
+                    if (ifRequiredCardsPassed && currentGold >= singleProcess.requiredGold && currentElectricity >= singleProcess.requiredElectricity)
                     {
                         possibleProcesses = singleProcess;
                         break;
                     }
-                    // Debug.Log("mergedArray/ [" + string.Join(",", mergedArray) + "]");
                 }
             }
-
             if (possibleProcesses != null)
             {
                 break;
@@ -455,7 +453,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
         return indexedRequiredIds;
     }
 
-    private bool getIsAvailableToProcess(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
+    private bool ifRequiredCardsPassed(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
     {
         bool isAvailableToProcess = true;
         foreach (int requiredId in indexedRequiredIds.Keys)
@@ -545,7 +543,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
     private void computeStats()
     {
-        List<int> cardIds = activeStack.getCardIds();
+        List<int> cardIds = activeStack.getActiveCardIds();
         int calcResourceInventoryUsed = 0;
         int calcResourceInventoryLimit = 0;
 

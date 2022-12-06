@@ -8,7 +8,27 @@ public class CoreInteractable : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
 
-    public bool isDisabled;
+    private bool _isDisabled;
+    public bool isDisabled
+    {
+        get { return _isDisabled; }
+        set
+        {
+            if (_isDisabled != value)
+            {
+                if (value == true)
+                {
+                    spriteRenderer.color = Color.gray;
+                }
+                else
+                {
+                    spriteRenderer.color = Color.white;
+                }
+
+            }
+            _isDisabled = value;
+        }
+    }
 
     private void Awake()
     {
