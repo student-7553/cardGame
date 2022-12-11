@@ -50,6 +50,7 @@ public class CardHandler : MonoBehaviour
         cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
         cardObject.init();
+        PlayerCardTracker.current.ensureCardIdTracked(cardId);
         return cardObject;
     }
 

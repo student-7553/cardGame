@@ -289,29 +289,16 @@ public class Node : MonoBehaviour, IStackable, IClickable
         List<int> removingCardIds = new List<int>();
         List<int> addingCardIds = new List<int>();
 
-        float totalOddCount = 0;
-        List<AddingCardsObject> addingCardList = pickedProcess.addingCardObjects.ToList();
-        addingCardList.ForEach(addingCardObject =>
+        AddingCardsObject pickedAddingCardId = this.pickAddingCardsObject(pickedProcess);
+        if (pickedAddingCardId.isOneTime)
         {
-            totalOddCount = totalOddCount + addingCardObject.odds;
-        });
-        float rndNumber = Random.Range(0f, totalOddCount);
-        float oddCount = 0;
-        AddingCardsObject pickedAddingCardId = addingCardList.Find(addingCardObject =>
-        {
-            oddCount = oddCount + addingCardObject.odds;
-            return oddCount > rndNumber;
-        });
-
-        if (pickedAddingCardId == null)
-        {
-            Debug.LogError("This should never happen (processCards)");             // error catch: This should never happen 
-            pickedAddingCardId = pickedProcess.addingCardObjects[0];
+            PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardId.id);
         }
+
 
         addingCardIds.AddRange(pickedAddingCardId.addingCardIds);
 
-        List<int> cardIds = activeStack.getAllCardIds();
+        List<int> cardIds = activeStack.getActiveCardIds();
 
         this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
@@ -321,15 +308,19 @@ public class Node : MonoBehaviour, IStackable, IClickable
         yield return new WaitForSeconds(pickedProcess.time);
 
         this.hadleRemovingCards(removingCards);
-
         this.handleCreatingCards(addingCardIds);
 
         StartCoroutine(handleProcessFinish());
 
+
+
     }
+
+
 
     private IEnumerator handleProcessFinish()
     {
+        computeStats();
         yield return new WaitForSeconds(2);
         isProccessing = false;
     }
@@ -412,16 +403,18 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
         for (int index = 0; index < cardIds.Count; index++)
         {
-            // looping through all cards
-            List<int> clonedCardIds = new List<int>(cardIds);
-            clonedCardIds.RemoveAt(index);
             if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
             {
+                // looping through all cards
+                List<int> clonedCardIds = new List<int>(cardIds);
+                clonedCardIds.RemoveAt(index);
                 foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
                 {
                     Dictionary<int, int> indexedRequiredIds = this.indexCardIds(singleProcess.requiredIds.ToList());
+                    bool isUnlocked = this.isListUnlocked(singleProcess.unlockCardIds);
+
                     bool ifRequiredCardsPassed = this.ifRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
-                    if (ifRequiredCardsPassed && currentGold >= singleProcess.requiredGold && currentElectricity >= singleProcess.requiredElectricity)
+                    if (isUnlocked && ifRequiredCardsPassed && currentGold >= singleProcess.requiredGold && currentElectricity >= singleProcess.requiredElectricity)
                     {
                         possibleProcesses = singleProcess;
                         break;
@@ -603,4 +596,64 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
     }
 
+    private AddingCardsObject pickAddingCardsObject(RawProcessObject pickedProcess)
+    {
+        float totalOddCount = 0;
+        List<AddingCardsObject> addingCardList = pickedProcess.addingCardObjects.ToList();
+
+        List<AddingCardsObject> fitleredList = addingCardList.Where(addingCardObject =>
+            {
+                if (addingCardObject.isOneTime)
+                {
+                    // addingCardObject.id can't be inside CardTracker
+                    bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
+                    if (isOneTimeUnlocked)
+                    {
+                        // Player Already unlocked this oneTimeReward
+                        return false;
+                    }
+                }
+
+                bool isUnlocked = this.isListUnlocked(addingCardObject.extraUnlockCardIds);
+                return isUnlocked;
+            }).ToList();
+
+        // We need to filter here
+        fitleredList.ForEach(addingCardObject =>
+        {
+            totalOddCount = totalOddCount + addingCardObject.odds;
+        });
+        float rndNumber = Random.Range(0f, totalOddCount);
+        float oddCount = 0;
+        AddingCardsObject pickedAddingCardId = fitleredList.Find(addingCardObject =>
+        {
+            oddCount = oddCount + addingCardObject.odds;
+            return oddCount > rndNumber;
+        });
+
+
+        if (pickedAddingCardId == null)
+        {
+            Debug.LogError("This should never happen (processCards)");             // error catch: This should never happen 
+            pickedAddingCardId = pickedProcess.addingCardObjects[0];
+        }
+        return pickedAddingCardId;
+    }
+
+    private bool isListUnlocked(int[] unlockCardIds)
+    {
+        bool isUnlocked = true;
+        if (unlockCardIds.Length > 0)
+        {
+            foreach (int cardId in unlockCardIds)
+            {
+                if (!PlayerCardTracker.current.didPlayerUnlockCard(cardId))
+                {
+                    isUnlocked = false;
+                    break;
+                }
+            }
+        }
+        return isUnlocked;
+    }
 }

@@ -66,6 +66,7 @@ namespace Core
         public int[] addingCardIds;
         public int[] extraUnlockCardIds;
         public bool isOneTime;
+        public int id;
     }
 
 

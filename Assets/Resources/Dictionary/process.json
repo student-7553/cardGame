@@ -120,14 +120,15 @@
           "extraUnlockCardIds": [],
           "isOneTime": false
         },
-
         {
+          "id": 68098143,
           "odds": 0.2,
           "addingCardIds": [2003, 9, 10000],
           "extraUnlockCardIds": [],
           "isOneTime": true
         },
         {
+          "id": 45981358,
           "odds": 0.2,
           "addingCardIds": [2004, 2, 2],
           "extraUnlockCardIds": [2003],
@@ -135,13 +136,14 @@
         },
 
         {
+          "id": 7236556,
           "odds": 0.2,
           "addingCardIds": [2002, 9, 9, 9],
           "extraUnlockCardIds": [2004],
           "isOneTime": true
         },
-
         {
+          "id": 72394902,
           "odds": 0.666,
           "addingCardIds": [10201],
           "extraUnlockCardIds": [],
