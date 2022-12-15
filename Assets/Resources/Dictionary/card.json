@@ -121,6 +121,30 @@
       "foodCost": 0
     },
     {
+      "id": 11,
+      "name": "Steel",
+      "type": "Resource",
+      "resourceInventoryCount": 3,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 5,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 10,
+      "foodCost": 0
+    },
+    {
+      "id": 999,
+      "name": "Mining contract",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 5,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 15,
+      "foodCost": 0
+    },
+    {
       "id": 1001,
       "name": "Basic hydroponic farming",
       "type": "Infrastrucutre",
@@ -150,15 +174,39 @@
       "type": "Infrastrucutre",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
-      "isSellable": true,
+      "isSellable": false,
       "sellingPrice": 3,
       "typeValue": 0,
       "nodeTransferTimeCost": 20,
       "foodCost": 2
     },
     {
+      "id": 1004,
+      "name": "Planetary expedition",
+      "type": "Infrastrucutre",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 5,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 20,
+      "foodCost": 4
+    },
+    {
+      "id": 1005,
+      "name": "Forge",
+      "type": "Infrastrucutre",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 2,
+      "isSellable": true,
+      "sellingPrice": 5,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 3
+    },
+    {
       "id": 1100,
-      "name": "Basic Warehouse",
+      "name": "Warehouse",
       "type": "Module",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -168,19 +216,12 @@
       "nodeTransferTimeCost": 10,
       "foodCost": 2,
       "module": {
-        "minusInterval": {
-          "time": 2,
-          "processIds": []
-        },
-        "resourceInventoryIncrease": 10,
-        "infraInventoryIncrease": 0,
-        "increaseGoldGeneration": 0,
-        "minusMovementTime": 0
+        "resourceInventoryIncrease": 10
       }
     },
     {
       "id": 2000,
-      "name": "Small base",
+      "name": "Founding ship (Small base)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -251,6 +292,78 @@
       "foodCost": 0
     },
     {
+      "id": 2006,
+      "name": "Forge",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2007,
+      "name": "Forge: Steel",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2008,
+      "name": "Mining contract",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2009,
+      "name": "Warehouse",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2010,
+      "name": "Combat ship",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2011,
+      "name": "Tychon oribtal space base",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
       "id": 3000,
       "name": "Small base",
       "type": "Node",
@@ -271,6 +384,12 @@
     {
       "id": 3003,
       "name": "Small Market",
+      "type": "Node",
+      "foodCost": 2
+    },
+    {
+      "id": 3004,
+      "name": "Tychon oribtal space base",
       "type": "Node",
       "foodCost": 2
     },
@@ -381,6 +500,30 @@
       "sellingPrice": 0,
       "typeValue": 25,
       "nodeTransferTimeCost": 50,
+      "foodCost": 0
+    },
+    {
+      "id": 20000,
+      "name": "Combat ship",
+      "type": "CombatUnit",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 5,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 21000,
+      "name": "Space Pirate",
+      "type": "Enemy",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
       "foodCost": 0
     }
   ]

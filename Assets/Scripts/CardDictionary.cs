@@ -48,7 +48,6 @@ public static class CardDictionary
 
     private static CardObject processRawCardObject(RawCardObject rawCardObject)
     {
-
         CardObject newEntry = new CardObject();
         newEntry.id = rawCardObject.id;
         newEntry.name = rawCardObject.name;
@@ -60,7 +59,6 @@ public static class CardDictionary
         newEntry.nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost;
         newEntry.foodCost = rawCardObject.foodCost;
 
-
         switch (rawCardObject.type)
         {
             case "Resource":
@@ -68,6 +66,12 @@ public static class CardDictionary
                 break;
             case "Infrastructure":
                 newEntry.type = CardsTypes.Infrastructure;
+                break;
+            case "CombatUnit":
+                newEntry.type = CardsTypes.CombatUnit;
+                break;
+            case "Enemy":
+                newEntry.type = CardsTypes.Enemy;
                 break;
             case "Gold":
                 newEntry.type = CardsTypes.Gold;

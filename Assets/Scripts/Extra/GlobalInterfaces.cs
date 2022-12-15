@@ -39,7 +39,9 @@ namespace Core
         Infrastructure,
         Module,
         Idea,
-        Node
+        Node,
+        CombatUnit,
+        Enemy
     }
     [System.Serializable]
     public class ModuleMinusInterval

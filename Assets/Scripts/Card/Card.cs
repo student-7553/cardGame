@@ -64,19 +64,19 @@ public class Card : MonoBehaviour, IStackable
 
     private void FixedUpdate()
     {
-        if (timer != 0f)
-        {
-            Debug.Log(timer);
-            if (timer > 0.1f)
-            {
-                timer = timer - Time.deltaTime;
-            }
-            else
-            {
-                timer = 0f;
-            }
-            reflectScreen();
-        }
+        // if (timer != 0f)
+        // {
+        //     Debug.Log(timer);
+        //     if (timer > 0.1f)
+        //     {
+        //         timer = timer - Time.deltaTime;
+        //     }
+        //     else
+        //     {
+        //         timer = 0f;
+        //     }
+        //     reflectScreen();
+        // }
     }
 
     public void generateTheCorners()
@@ -150,10 +150,6 @@ public class Card : MonoBehaviour, IStackable
         if (isDisabled)
         {
             cardTitle = "[DISABLED] " + cardTitle;
-        }
-        if (timer > 0)
-        {
-            cardTitle = cardTitle + $"({(int)timer})";
         }
         titleTextMesh.text = cardTitle;
     }
