@@ -3,146 +3,79 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System;
-using TMPro;
 using Core;
 using Helpers;
 
-[System.Serializable]
-public class BaseNodeStats
-{
-	public int infraInventoryLimit;
-	public int resourceInventoryLimit;
-
-	public int currentFoodCheck;
-	public int goldGeneration;
-	public int hungerSetIntervalTimer;
-}
-
 public class Node : MonoBehaviour, IStackable, IClickable
 {
-	// -------------------- Unity Component -------------------------
-	private TextMeshPro titleTextMesh;
-	private TextMeshPro availableInventoryTextMesh;
-
-	// private TextMeshPro hungerTextMesh;
-	private TextMeshPro processTimerTextMesh;
-
-	public GameObject rootNodePlane;
-
 	// -------------------- Custom Class -------------------------
-	private CardStack activeStack;
-	public NodePlaneHandler nodePlaneManager;
+	public NodeCardQue nodeCardQue;
+	public NodeTextHandler nodeTextHandler;
+	public NodeStats nodeStats;
 
-	// -------------------- Node Stats -------------------------
+	public NodePlaneHandler nodePlaneManager;
+	public CardStack activeStack;
+
+	// // -------------------- Node Stats -------------------------
 
 	public int id;
-
-	private BaseNodeStats baseNodeStat;
-
-	private int resourceInventoryLimit;
-
-	private int resourceInventoryUsed;
-
-	private int infraInventoryLimit;
-
-	private int infraInventoryUsed;
-
-	private int currentFoodCheck;
-
-	private int currentElectricity;
-
-	private int currentGold;
-
-	private int goldGeneration;
-
-	private int currentFood;
 
 	public bool isActive;
 
 	// -------------------- Meta Stats -------------------------
 
-	public bool isNodePlaneActive;
-
 	public NodeStateTypes nodeState;
 
-	private float intervalTimer; // ********* Loop timer *********
+	public bool isProccessing; // ********* sec, next time the check is applied  *********
 
-	private int hungerSetIntervalTimer; // ********* sec, next time the check is applied  *********
-
-	private bool isProccessing; // ********* sec, next time the check is applied  *********
-
-	private float proccessingLeft; // ********* sec, how many seconds are left for process to finish  *********
+	public float proccessingLeft; // ********* sec, how many seconds are left for process to finish  *********
 
 	// --------------------Readonly Stats-------------------------
 
 	private readonly float nodePlaneBaseZ = 3f;
 
-	private void initlizeBaseStats()
-	{
-		BaseNodeStats baseNodeStat = new BaseNodeStats();
-		baseNodeStat.infraInventoryLimit = 10;
-		baseNodeStat.resourceInventoryLimit = 10;
-		baseNodeStat.currentFoodCheck = 1;
-		baseNodeStat.goldGeneration = 1;
-		baseNodeStat.hungerSetIntervalTimer = 60;
-		this.baseNodeStat = baseNodeStat;
-
-		computeStats();
-	}
-
 	private void Awake()
 	{
 		isActive = true;
-		isNodePlaneActive = false;
 		isProccessing = false;
-		activeStack = new CardStack(CardStackType.Nodes);
+		activeStack = new CardStack(CardStackType.Nodes, this);
 
-		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-		titleTextMesh = textMeshes[0] as TextMeshPro;
-		availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
-		processTimerTextMesh = textMeshes[2] as TextMeshPro;
-
-		initlizeBaseStats();
+		nodeCardQue = gameObject.AddComponent<NodeCardQue>();
+		nodeTextHandler = gameObject.AddComponent<NodeTextHandler>();
+		nodeStats = new NodeStats(this);
 	}
 
 	public void init()
 	{
-		if (CardDictionary.globalCardDictionary.ContainsKey(id))
-		{
-			if (titleTextMesh != null)
-			{
-				titleTextMesh.text = CardDictionary.globalCardDictionary[id].name;
-			}
-		}
-		reflectToScreen();
 		Vector3 spawningPosition = new Vector3(120, 0, 5);
 		activeStack.cardBaseZ = spawningPosition.z + 1f;
-
 		nodePlaneManager = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
 	}
 
 	public void OnClick()
 	{
-		if (isNodePlaneActive == true)
+		if (nodePlaneManager.gameObject.activeSelf == true)
 		{
 			nodePlaneManager.gameObject.SetActive(false);
 		}
 		else
 		{
+			// alignCardStacksPosition();
 			nodePlaneManager.gameObject.SetActive(true);
 		}
 	}
 
 	public void stackOnThis(List<Card> newCards)
 	{
-		// base nodes
 		this.addCardsToCardStack(newCards);
-		computeStats();
 		if (isMarket())
 		{
-			//  Market
 			List<int> cardIds = activeStack.getNonTypeCardIds();
 			StartCoroutine(sellCards(cardIds));
+		}
+		else
+		{
+			nodeCardQue.addCards(newCards);
 		}
 	}
 
@@ -157,12 +90,6 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 	private void FixedUpdate()
 	{
-		intervalTimer = intervalTimer + Time.deltaTime;
-		if (intervalTimer > hungerSetIntervalTimer)
-		{
-			handleHungerInterval();
-			intervalTimer = 0;
-		}
 		if (!isProccessing)
 		{
 			if (isActive)
@@ -174,35 +101,12 @@ public class Node : MonoBehaviour, IStackable, IClickable
 				this.handleInActiveNode();
 			}
 		}
+
+		nodeStats.computeStats();
+		nodeStats.handleLimits();
 	}
 
-	private void handleHungerInterval()
-	{
-		computeStats();
-		int foodMinus = currentFoodCheck;
-
-		if (currentFood - foodMinus <= 0)
-		{
-			handleFoodEmpty();
-		}
-		else
-		{
-			StartCoroutine(handleTypeDeletion(CardsTypes.Food, foodMinus, 3f, null));
-		}
-	}
-
-	private void handleFoodEmpty()
-	{
-		currentFood = 0;
-		isActive = false;
-	}
-
-	public CardStack getCardStack()
-	{
-		return activeStack;
-	}
-
-	public IEnumerator sellCards(List<int> cardIds)
+	private IEnumerator sellCards(List<int> cardIds)
 	{
 		if (cardIds.Count == 0)
 		{
@@ -249,14 +153,14 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		}
 
 		float timer = 5f;
-		int foodNeededToBeActive = currentFoodCheck * 3;
+		int foodNeededToBeActive = nodeStats.currentNodeStats.currentFoodCheck * 3;
 
 		isProccessing = true;
-		bool shouldBeActive = currentFood > foodNeededToBeActive;
+		bool shouldBeActive = nodeStats.currentNodeStats.currentFood > foodNeededToBeActive;
 		if (shouldBeActive)
 		{
 			StartCoroutine(
-				handleTypeDeletion(
+				handleCardTypeDeletion(
 					CardsTypes.Food,
 					foodNeededToBeActive,
 					timer,
@@ -274,7 +178,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		}
 	}
 
-	private IEnumerator handleTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
+	public IEnumerator handleCardTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
@@ -284,7 +188,6 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		this.handleTypeProcess(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
 
 		List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds, timer);
-		computeStats();
 
 		yield return new WaitForSeconds(timer);
 
@@ -302,7 +205,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
 
-		AddingCardsObject pickedAddingCardId = this.pickAddingCardsObject(pickedProcess);
+		AddingCardsObject pickedAddingCardId = pickAddingCardsObject(pickedProcess);
 		if (pickedAddingCardId.isOneTime)
 		{
 			PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardId.id);
@@ -312,10 +215,9 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 		List<int> cardIds = activeStack.getActiveCardIds();
 
-		this.handleProcessCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+		this.handleProcessAdjustingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
 		List<Card> removingCards = this.handleMarkingForRemoval(removingCardIds, pickedProcess.time);
-		computeStats();
 		StartCoroutine(handleProcessTimer(pickedProcess.time));
 
 		yield return new WaitForSeconds(pickedProcess.time);
@@ -326,6 +228,51 @@ public class Node : MonoBehaviour, IStackable, IClickable
 			this.handleCreatingCards(addingCardIds);
 		}
 		StartCoroutine(handleProcessFinish());
+
+		AddingCardsObject pickAddingCardsObject(RawProcessObject pickedProcess)
+		{
+			float totalOddCount = 0;
+			List<AddingCardsObject> addingCardList = pickedProcess.addingCardObjects.ToList();
+
+			List<AddingCardsObject> fitleredList = addingCardList
+				.Where(addingCardObject =>
+				{
+					if (addingCardObject.isOneTime)
+					{
+						// addingCardObject.id can't be inside CardTracker
+						bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
+						if (isOneTimeUnlocked)
+						{
+							// Player Already unlocked this oneTimeReward
+							return false;
+						}
+					}
+
+					bool isUnlocked = this.isUnlocked(addingCardObject.extraUnlockCardIds);
+					return isUnlocked;
+				})
+				.ToList();
+
+			// We need to filter here
+			fitleredList.ForEach(addingCardObject =>
+			{
+				totalOddCount = totalOddCount + addingCardObject.odds;
+			});
+			float rndNumber = UnityEngine.Random.Range(0f, totalOddCount);
+			float oddCount = 0;
+			AddingCardsObject pickedAddingCardId = fitleredList.Find(addingCardObject =>
+			{
+				oddCount = oddCount + addingCardObject.odds;
+				return oddCount > rndNumber;
+			});
+
+			if (pickedAddingCardId == null)
+			{
+				Debug.LogError("This should never happen (processCards)"); // error catch: This should never happen
+				pickedAddingCardId = pickedProcess.addingCardObjects[0];
+			}
+			return pickedAddingCardId;
+		}
 	}
 
 	private IEnumerator handleProcessTimer(float processTime)
@@ -335,19 +282,17 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		{
 			this.proccessingLeft -= 1f;
 			nodePlaneManager.textMesh.text = $"{this.proccessingLeft}";
-			reflectToScreen();
 			yield return new WaitForSeconds(1);
 		}
 	}
 
 	private IEnumerator handleProcessFinish()
 	{
-		computeStats();
 		yield return new WaitForSeconds(2);
 		isProccessing = false;
 	}
 
-	private List<int> handleProcessCardIds(
+	private List<int> handleProcessAdjustingCardIds(
 		List<int> cardIds,
 		RawProcessObject pickedProcess,
 		ref List<int> removingCardIds,
@@ -364,7 +309,13 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 		if (pickedProcess.requiredElectricity > 0)
 		{
-			this.handleTypeProcess(cardIds, CardsTypes.Electricity, pickedProcess.requiredElectricity, ref removingCardIds, ref addingCardIds);
+			this.handleTypeProcess(
+				cardIds,
+				CardsTypes.Electricity,
+				pickedProcess.requiredElectricity,
+				ref removingCardIds,
+				ref addingCardIds
+			);
 		}
 
 		return removingCardIds;
@@ -404,19 +355,9 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		activeStack.addCardsToStack(newCards);
 		if (isRootCardChanged)
 		{
-			this.alignCardStacksPosition();
+			// Todo: Move this to a hook inside cardStack
+			// this.alignCardStacksPosition();
 		}
-		;
-
-		if (isNodePlaneActive == false)
-		{
-			activeStack.changeActiveStateOfAllCards(false);
-		}
-	}
-
-	private void alignCardStacksPosition()
-	{
-		activeStack.moveRootCardToPosition(nodePlaneManager.gameObject.transform.position.x, nodePlaneManager.gameObject.transform.position.y);
 	}
 
 	private RawProcessObject getAvailableProcess(List<int> cardIds)
@@ -425,29 +366,29 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 		for (int index = 0; index < cardIds.Count; index++)
 		{
-			if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
+			// if (CardDictionary.globalProcessDictionary.ContainsKey(cardIds[index]))
+			// {
+			// looping through all cards
+			List<int> clonedCardIds = new List<int>(cardIds);
+			clonedCardIds.RemoveAt(index);
+			foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
 			{
-				// looping through all cards
-				List<int> clonedCardIds = new List<int>(cardIds);
-				clonedCardIds.RemoveAt(index);
-				foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
-				{
-					Dictionary<int, int> indexedRequiredIds = this.indexCardIds(singleProcess.requiredIds.ToList());
-					bool isUnlocked = this.isListUnlocked(singleProcess.unlockCardIds);
+				Dictionary<int, int> indexedRequiredIds = this.indexCardIds(singleProcess.requiredIds.ToList());
+				bool isUnlocked = this.isUnlocked(singleProcess.unlockCardIds);
 
-					bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
-					if (
-						isUnlocked
-						&& ifRequiredCardsPassed
-						&& currentGold >= singleProcess.requiredGold
-						&& currentElectricity >= singleProcess.requiredElectricity
-					)
-					{
-						possibleProcesses = singleProcess;
-						break;
-					}
+				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
+				if (
+					isUnlocked
+					&& ifRequiredCardsPassed
+					&& nodeStats.currentNodeStats.currentGold >= singleProcess.requiredGold
+					&& nodeStats.currentNodeStats.currentElectricity >= singleProcess.requiredElectricity
+				)
+				{
+					possibleProcesses = singleProcess;
+					break;
 				}
 			}
+			// }
 			if (possibleProcesses != null)
 			{
 				break;
@@ -504,12 +445,11 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 	private void hadleRemovingCards(List<Card> removingCards)
 	{
-		activeStack.removeCardsFromStack(removingCards);
-
 		foreach (Card singleRemovingCard in removingCards)
 		{
 			Destroy(singleRemovingCard.gameObject);
 		}
+		activeStack.removeCardsFromStack(removingCards);
 	}
 
 	private void handleCreatingCards(List<int> cardIds)
@@ -557,111 +497,25 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		return removedCards;
 	}
 
-	private void computeStats()
+	public void ejectCards(List<Card> cards)
 	{
-		List<int> cardIds = activeStack.getActiveCardIds();
-		int calcResourceInventoryUsed = 0;
-		int calcResourceInventoryLimit = 0;
+		int positionMinusInterval = 4;
+		Vector3 startingPosition = new Vector3(
+			gameObject.transform.position.x,
+			gameObject.transform.position.y - 10,
+			gameObject.transform.position.z
+		);
+		activeStack.removeCardsFromStack(cards);
 
-		int calcInfraInventoryUsed = 0;
-		int calcInfraInventoryLimit = 0;
-
-		int calcGoldGeneration = 0;
-
-		int calcHungerCheck = 0;
-		int calcElectricity = 0;
-		int calcGold = 0;
-		int calcFood = 0;
-
-		foreach (int id in cardIds)
+		foreach (Card card in cards)
 		{
-			if (CardDictionary.globalCardDictionary.ContainsKey(id))
-			{
-				calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
-				calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;
-				calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
-				switch (CardDictionary.globalCardDictionary[id].type)
-				{
-					case CardsTypes.Electricity:
-						calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
-						break;
-					case CardsTypes.Gold:
-						calcGold += CardDictionary.globalCardDictionary[id].typeValue;
-						break;
-					case CardsTypes.Food:
-						calcFood += CardDictionary.globalCardDictionary[id].typeValue;
-						break;
-					case CardsTypes.Module:
-						calcResourceInventoryLimit += CardDictionary.globalCardDictionary[id].module.resourceInventoryIncrease;
-						calcInfraInventoryLimit += CardDictionary.globalCardDictionary[id].module.infraInventoryIncrease;
-						calcGoldGeneration += CardDictionary.globalCardDictionary[id].module.increaseGoldGeneration;
-						break;
-					default:
-						break;
-				}
-			}
+			Vector3 cardPostion = startingPosition;
+			cardPostion.y = cardPostion.y - positionMinusInterval;
+			card.moveCard(cardPostion);
 		}
-		resourceInventoryUsed = calcResourceInventoryUsed;
-		resourceInventoryLimit = baseNodeStat.resourceInventoryLimit + calcResourceInventoryLimit;
-
-		infraInventoryUsed = calcInfraInventoryUsed;
-		infraInventoryLimit = baseNodeStat.infraInventoryLimit + calcInfraInventoryLimit;
-
-		goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
-		currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
-		currentElectricity = calcElectricity;
-		currentGold = calcGold;
-		currentFood = calcFood;
-
-		hungerSetIntervalTimer = baseNodeStat.hungerSetIntervalTimer;
 	}
 
-	private AddingCardsObject pickAddingCardsObject(RawProcessObject pickedProcess)
-	{
-		float totalOddCount = 0;
-		List<AddingCardsObject> addingCardList = pickedProcess.addingCardObjects.ToList();
-
-		List<AddingCardsObject> fitleredList = addingCardList
-			.Where(addingCardObject =>
-			{
-				if (addingCardObject.isOneTime)
-				{
-					// addingCardObject.id can't be inside CardTracker
-					bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
-					if (isOneTimeUnlocked)
-					{
-						// Player Already unlocked this oneTimeReward
-						return false;
-					}
-				}
-
-				bool isUnlocked = this.isListUnlocked(addingCardObject.extraUnlockCardIds);
-				return isUnlocked;
-			})
-			.ToList();
-
-		// We need to filter here
-		fitleredList.ForEach(addingCardObject =>
-		{
-			totalOddCount = totalOddCount + addingCardObject.odds;
-		});
-		float rndNumber = UnityEngine.Random.Range(0f, totalOddCount);
-		float oddCount = 0;
-		AddingCardsObject pickedAddingCardId = fitleredList.Find(addingCardObject =>
-		{
-			oddCount = oddCount + addingCardObject.odds;
-			return oddCount > rndNumber;
-		});
-
-		if (pickedAddingCardId == null)
-		{
-			Debug.LogError("This should never happen (processCards)"); // error catch: This should never happen
-			pickedAddingCardId = pickedProcess.addingCardObjects[0];
-		}
-		return pickedAddingCardId;
-	}
-
-	private bool isListUnlocked(int[] unlockCardIds)
+	private bool isUnlocked(int[] unlockCardIds)
 	{
 		bool isUnlocked = true;
 		if (unlockCardIds.Length > 0)
@@ -676,19 +530,5 @@ public class Node : MonoBehaviour, IStackable, IClickable
 			}
 		}
 		return isUnlocked;
-	}
-
-	private void reflectToScreen()
-	{
-		availableInventoryTextMesh.text = $"{resourceInventoryUsed}/{resourceInventoryLimit}";
-
-		if (isProccessing)
-		{
-			processTimerTextMesh.text = $"{proccessingLeft}";
-		}
-		else
-		{
-			processTimerTextMesh.text = "";
-		}
 	}
 }

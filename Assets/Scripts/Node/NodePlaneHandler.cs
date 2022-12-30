@@ -5,38 +5,36 @@ using TMPro;
 
 public class NodePlaneHandler : MonoBehaviour, IStackable
 {
-    private Node currentNode;
-    public TextMeshPro textMesh;
+	private Node connectedNode;
+	public TextMeshPro textMesh;
 
+	private void Awake()
+	{
+		connectedNode = GetComponentInParent(typeof(Node)) as Node;
+		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
+		textMesh = textMeshes[0] as TextMeshPro;
+	}
 
-    private void Awake()
-    {
-        currentNode = GetComponentInParent(typeof(Node)) as Node;
-        Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-        textMesh = textMeshes[0] as TextMeshPro;
-    }
+	private void OnDisable()
+	{
+		connectedNode.activeStack.changeActiveStateOfAllCards(false);
+		GameManager.current.boardPlaneHandler.clearActiveNodePlane();
+	}
 
-    private void OnDisable()
-    {
-        currentNode.getCardStack().changeActiveStateOfAllCards(false);
-        currentNode.isNodePlaneActive = false;
-        GameManager.current.boardPlaneHandler.clearActiveNodePlane();
-    }
+	private void OnEnable()
+	{
+		connectedNode.activeStack.changeActiveStateOfAllCards(true);
+		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
+		this.alignCardStackToPlane();
+	}
 
-    private void OnEnable()
-    {
-        currentNode.getCardStack().changeActiveStateOfAllCards(true);
-        currentNode.isNodePlaneActive = true;
-        GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
-    }
+	public void stackOnThis(List<Card> draggingCards)
+	{
+		connectedNode.stackOnThis(draggingCards);
+	}
 
-    public void stackOnThis(List<Card> draggingCards)
-    {
-        currentNode.stackOnThis(draggingCards);
-    }
-
-    // public void reflectToScreen()
-    // {
-
-    // }
+	private void alignCardStackToPlane()
+	{
+		connectedNode.activeStack.moveRootCardToPosition(gameObject.transform.position.x, gameObject.transform.position.y);
+	}
 }

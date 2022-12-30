@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections.Generic;
 using Core;
@@ -6,151 +5,176 @@ using TMPro;
 
 public class Card : MonoBehaviour, IStackable
 {
+	// -------------------- Meta Stats -------------------------
+	[System.NonSerialized]
+	public Vector3 leftTopCorner;
 
-    // -------------------- Meta Stats -------------------------
-    [System.NonSerialized]
-    public Vector3 leftTopCorner;
-    [System.NonSerialized]
-    public Vector3 rightTopCorner;
-    [System.NonSerialized]
-    public Vector3 leftBottomCorner;
-    [System.NonSerialized]
-    public Vector3 rightBottomCorner;
+	[System.NonSerialized]
+	public Vector3 rightTopCorner;
 
-    private CoreInteractable coreInteractable;
+	[System.NonSerialized]
+	public Vector3 leftBottomCorner;
 
-    public bool isStacked;
+	[System.NonSerialized]
+	public Vector3 rightBottomCorner;
 
-    public CardStack joinedStack;
+	private CoreInteractable coreInteractable;
 
-    public int id;
+	public bool isStacked;
 
-    private bool _isDisabled;
-    public bool isDisabled
-    {
-        get { return _isDisabled; }
-        set
-        {
-            if (_isDisabled != value)
-            {
-                coreInteractable.isDisabled = value;
-            }
-            _isDisabled = value;
-        }
-    }
+	public CardStack joinedStack;
 
-    public float timer;
+	public int id;
 
-    private TextMeshPro titleTextMesh;
+	private bool _isDisabled;
+	public bool isDisabled
+	{
+		get { return _isDisabled; }
+		set
+		{
+			if (_isDisabled != value)
+			{
+				coreInteractable.isDisabled = value;
+			}
+			_isDisabled = value;
+			reflectScreen();
+		}
+	}
 
+	public float timer;
 
-    // --------------------Readonly Stats-------------------------
-    public static float baseCardX = 5;
-    public static float baseCardY = 8;
+	private TextMeshPro titleTextMesh;
 
-    private void Awake()
-    {
-        this.generateTheCorners();
-        isStacked = false;
-        isDisabled = false;
-        timer = 0;
+	// --------------------Readonly Stats-------------------------
+	public static float baseCardX = 5;
+	public static float baseCardY = 8;
 
-        Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-        if (textMeshes.Length > 0)
-        {
-            titleTextMesh = textMeshes[0] as TextMeshPro;
-        }
-    }
+	private void Awake()
+	{
+		this.generateTheCorners();
+		isStacked = false;
+		isDisabled = false;
+		timer = 0;
 
-    private void FixedUpdate()
-    {
-        // if (timer != 0f)
-        // {
-        //     Debug.Log(timer);
-        //     if (timer > 0.1f)
-        //     {
-        //         timer = timer - Time.deltaTime;
-        //     }
-        //     else
-        //     {
-        //         timer = 0f;
-        //     }
-        //     reflectScreen();
-        // }
-    }
+		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
+		Debug.Log(textMeshes.Length);
+		if (textMeshes.Length > 0)
+		{
+			titleTextMesh = textMeshes[0] as TextMeshPro;
+		}
+	}
 
-    public void generateTheCorners()
-    {
-        Vector3 leftTopCornerPoint = new Vector3(gameObject.transform.position.x - (baseCardX / 2),
-            gameObject.transform.position.y + (baseCardY / 2),
-            gameObject.transform.position.z);
+	public void moveCard(Vector3 newPosition)
+	{
+		gameObject.transform.position = newPosition;
+		generateTheCorners();
+	}
 
-        Vector3 rightTopCornerPoint = new Vector3(gameObject.transform.position.x + (baseCardX / 2),
-            gameObject.transform.position.y + (baseCardY / 2),
-            gameObject.transform.position.z);
+	private void FixedUpdate()
+	{
+		// if (timer != 0f)
+		// {
+		//     Debug.Log(timer);
+		//     if (timer > 0.1f)
+		//     {
+		//         timer = timer - Time.deltaTime;
+		//     }
+		//     else
+		//     {
+		//         timer = 0f;
+		//     }
+		//     reflectScreen();
+		// }
+	}
 
-        Vector3 leftBottomCornerPoint = new Vector3(gameObject.transform.position.x - (baseCardX / 2),
-            gameObject.transform.position.y - (baseCardY / 2),
-            gameObject.transform.position.z);
+	public void generateTheCorners()
+	{
+		Vector3 leftTopCornerPoint = new Vector3(
+			gameObject.transform.position.x - (baseCardX / 2),
+			gameObject.transform.position.y + (baseCardY / 2),
+			gameObject.transform.position.z
+		);
 
-        Vector3 rightBottomCornerPoint = new Vector3(gameObject.transform.position.x + (baseCardX / 2),
-            gameObject.transform.position.y - (baseCardY / 2),
-            gameObject.transform.position.z);
+		Vector3 rightTopCornerPoint = new Vector3(
+			gameObject.transform.position.x + (baseCardX / 2),
+			gameObject.transform.position.y + (baseCardY / 2),
+			gameObject.transform.position.z
+		);
 
-        leftTopCorner = leftTopCornerPoint;
-        rightTopCorner = rightTopCornerPoint;
-        leftBottomCorner = leftBottomCornerPoint;
-        rightBottomCorner = rightBottomCornerPoint;
-    }
+		Vector3 leftBottomCornerPoint = new Vector3(
+			gameObject.transform.position.x - (baseCardX / 2),
+			gameObject.transform.position.y - (baseCardY / 2),
+			gameObject.transform.position.z
+		);
 
-    public void removeFromCardStack()
-    {
-        isStacked = false;
-        joinedStack = null;
-    }
+		Vector3 rightBottomCornerPoint = new Vector3(
+			gameObject.transform.position.x + (baseCardX / 2),
+			gameObject.transform.position.y - (baseCardY / 2),
+			gameObject.transform.position.z
+		);
 
-    public void addToCardStack(CardStack newCardStack)
-    {
-        isStacked = true;
-        joinedStack = newCardStack;
-    }
+		leftTopCorner = leftTopCornerPoint;
+		rightTopCorner = rightTopCornerPoint;
+		leftBottomCorner = leftBottomCornerPoint;
+		rightBottomCorner = rightBottomCornerPoint;
+	}
 
-    public void stackOnThis(List<Card> draggingCards)
-    {
-        if (isStacked)
-        {
-            CardStack existingstack = joinedStack;
-            existingstack.addCardsToStack(draggingCards);
-        }
-        else
-        {
-            List<Card> newCardStackCards = new List<Card>(new Card[] { this });
-            newCardStackCards.AddRange(draggingCards);
-            CardStack newStack = new CardStack(CardStackType.Cards);
-            newStack.addCardsToStack(newCardStackCards);
-        }
-    }
+	public void removeFromCardStack()
+	{
+		isStacked = false;
+		joinedStack = null;
+		if (gameObject.activeSelf == false)
+		{
+			gameObject.SetActive(true);
+		}
+	}
 
-    public void init()
-    {
-        reflectScreen();
-        coreInteractable = gameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
-    }
+	public void addToCardStack(CardStack newCardStack)
+	{
+		isStacked = true;
+		joinedStack = newCardStack;
+	}
 
-    public void reflectScreen()
-    {
-        string cardTitle = "";
-        if (CardDictionary.globalCardDictionary.ContainsKey(id))
-        {
-            if (titleTextMesh != null)
-            {
-                cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
-            }
-        }
-        if (isDisabled)
-        {
-            cardTitle = "[DISABLED] " + cardTitle;
-        }
-        titleTextMesh.text = cardTitle;
-    }
+	public void stackOnThis(List<Card> draggingCards)
+	{
+		if (isStacked)
+		{
+			CardStack existingstack = joinedStack;
+			existingstack.addCardsToStack(draggingCards);
+		}
+		else
+		{
+			List<Card> newCardStackCards = new List<Card>(new Card[] { this });
+			newCardStackCards.AddRange(draggingCards);
+			CardStack newStack = new CardStack(CardStackType.Cards, null);
+			newStack.addCardsToStack(newCardStackCards);
+		}
+	}
+
+	public void init()
+	{
+		reflectScreen();
+		coreInteractable = gameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
+	}
+
+	public void reflectScreen()
+	{
+		string cardTitle = "";
+		if (CardDictionary.globalCardDictionary.ContainsKey(id))
+		{
+			if (titleTextMesh != null)
+			{
+				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
+			}
+		}
+		if (isDisabled)
+		{
+			cardTitle = "[DISABLED] " + cardTitle;
+		}
+
+		if (titleTextMesh != null)
+		{
+			titleTextMesh.text = cardTitle;
+		}
+	}
 }

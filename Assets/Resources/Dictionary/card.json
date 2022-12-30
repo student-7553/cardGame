@@ -16,7 +16,7 @@
       "id": 2,
       "name": "Space rock",
       "type": "Resource",
-      "resourceInventoryCount": 0,
+      "resourceInventoryCount": 4,
       "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
