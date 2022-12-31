@@ -23,8 +23,6 @@ public class CardCorners
 public class Card : MonoBehaviour, IStackable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
-
-
 	private bool _isDisabled;
 	public bool isDisabled
 	{
@@ -32,8 +30,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		set
 		{
 			_isDisabled = value;
-
-			//  This might turn into the loop
 			reflectScreen();
 		}
 	}
@@ -92,12 +88,70 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	public void moveCard(Vector3 newPosition)
 	{
 		gameObject.transform.position = newPosition;
-		computeCorners();
+		this.computeCorners();
 	}
 
 	public void computeCorners()
 	{
 		this.corners = this.generateTheCorners();
+	}
+
+	public void removeFromCardStack()
+	{
+		isStacked = false;
+		joinedStack = null;
+		if (gameObject.activeSelf == false)
+		{
+			gameObject.SetActive(true);
+		}
+	}
+
+	public void addToCardStack(CardStack newCardStack)
+	{
+		isStacked = true;
+		joinedStack = newCardStack;
+	}
+
+	public void stackOnThis(Card draggingCard)
+	{
+		if (isStacked)
+		{
+			CardStack existingstack = joinedStack;
+			existingstack.addCardToStack(draggingCard);
+		}
+		else
+		{
+			List<Card> newCardStackCards = new List<Card>(new Card[] { this });
+			newCardStackCards.Add(draggingCard);
+			CardStack newStack = new CardStack(CardStackType.Cards, null);
+			newStack.addCardToStack(newCardStackCards);
+		}
+	}
+
+	public void init()
+	{
+		reflectScreen();
+	}
+
+	public void reflectScreen()
+	{
+		string cardTitle = "";
+		if (CardDictionary.globalCardDictionary.ContainsKey(id))
+		{
+			if (titleTextMesh != null)
+			{
+				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
+			}
+		}
+		if (isDisabled)
+		{
+			cardTitle = "[DISABLED] " + cardTitle;
+		}
+
+		if (titleTextMesh != null)
+		{
+			titleTextMesh.text = cardTitle;
+		}
 	}
 
 	private CardCorners generateTheCorners()
@@ -128,63 +182,5 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 		CardCorners newCorners = new CardCorners(leftTopCornerPoint, rightTopCornerPoint, leftBottomCornerPoint, rightBottomCornerPoint);
 		return newCorners;
-	}
-
-	public void removeFromCardStack()
-	{
-		isStacked = false;
-		joinedStack = null;
-		if (gameObject.activeSelf == false)
-		{
-			gameObject.SetActive(true);
-		}
-	}
-
-	public void addToCardStack(CardStack newCardStack)
-	{
-		isStacked = true;
-		joinedStack = newCardStack;
-	}
-
-	public void stackOnThis(List<Card> draggingCards)
-	{
-		if (isStacked)
-		{
-			CardStack existingstack = joinedStack;
-			existingstack.addCardsToStack(draggingCards);
-		}
-		else
-		{
-			List<Card> newCardStackCards = new List<Card>(new Card[] { this });
-			newCardStackCards.AddRange(draggingCards);
-			CardStack newStack = new CardStack(CardStackType.Cards, null);
-			newStack.addCardsToStack(newCardStackCards);
-		}
-	}
-
-	public void init()
-	{
-		reflectScreen();
-	}
-
-	public void reflectScreen()
-	{
-		string cardTitle = "";
-		if (CardDictionary.globalCardDictionary.ContainsKey(id))
-		{
-			if (titleTextMesh != null)
-			{
-				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
-			}
-		}
-		if (isDisabled)
-		{
-			cardTitle = "[DISABLED] " + cardTitle;
-		}
-
-		if (titleTextMesh != null)
-		{
-			titleTextMesh.text = cardTitle;
-		}
 	}
 }

@@ -4,7 +4,7 @@ namespace Core
 {
 	public interface IStackable
 	{
-		void stackOnThis(List<Card> draggingCards);
+		void stackOnThis(Card draggingCard);
 	}
 
 	public interface IClickable

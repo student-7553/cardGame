@@ -46,9 +46,9 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public bool isActive;
 
-	// -------------------- Meta Stats -------------------------
-
 	public NodeStateTypes nodeState;
+
+	// -------------------- Meta Stats -------------------------
 
 	public bool isProccessing; // ********* sec, next time the check is applied  *********
 
@@ -64,7 +64,9 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		nodeStats = new NodeStats(this);
 
 		isDisabled = false;
+
 		isActive = true;
+
 		isProccessing = false;
 
 		interactableType = CoreInteractableType.Nodes;
@@ -74,7 +76,6 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	{
 		Vector3 spawningPosition = new Vector3(120, 0, HelperData.nodeBoardZ);
 		nodePlaneManager = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
-
 		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
 		nodeTextHandler = gameObject.GetComponent(typeof(NodeTextHandler)) as NodeTextHandler;
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
@@ -88,14 +89,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 		else
 		{
-			// alignCardStacksPosition();
 			nodePlaneManager.gameObject.SetActive(true);
 		}
 	}
 
-	public void stackOnThis(List<Card> newCards)
+	public void stackOnThis(Card newCard)
 	{
-		this.addCardsToCardStack(newCards);
+		activeStack.addCardToStack(newCard);
 
 		if (isMarket())
 		{
@@ -104,12 +104,11 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 		else
 		{
-			Debug.Log(newCards.Count);
 			if (nodeCardQue == null)
 			{
 				Debug.Log("Yep is null :(");
 			}
-			nodeCardQue.addCards(newCards);
+			nodeCardQue.addCard(newCard);
 		}
 	}
 
@@ -383,16 +382,16 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 	}
 
-	private void addCardsToCardStack(List<Card> newCards)
-	{
-		bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
-		activeStack.addCardsToStack(newCards);
-		if (isRootCardChanged)
-		{
-			// Todo: Move this to a hook inside cardStack
-			// this.alignCardStacksPosition();
-		}
-	}
+	// private void addCardsToCardStack(List<Card> newCards)
+	// {
+	// 	// bool isRootCardChanged = activeStack.cards.Count == 0 ? true : false;
+	// 	activeStack.addCardsToStack(newCards);
+	// 	// if (isRootCardChanged)
+	// 	// {
+	// 	// 	// Todo: Move this to a hook inside cardStack
+	// 	// 	// this.alignCardStacksPosition();
+	// 	// }
+	// }
 
 	private RawProcessObject getAvailableProcess(List<int> cardIds)
 	{
@@ -502,7 +501,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				addingCards.Add(createdCard);
 			}
 		}
-		this.addCardsToCardStack(addingCards);
+		activeStack.addCardToStack(addingCards);
 	}
 
 	private List<Card> handleMarkingForRemoval(List<int> cardIds, float timer = 0)

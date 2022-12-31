@@ -12,13 +12,15 @@ public class NodeCardQue : MonoBehaviour
 		queCards = new List<Card>();
 	}
 
-	public void addCards(List<Card> cards)
+	public void addCard(Card card)
 	{
-		queCards.AddRange(cards);
-		foreach (Card card in cards)
-		{
-			StartCoroutine(singleCardQue(card));
-		}
+		queCards.Add(card);
+		StartCoroutine(singleCardQue(card));
+
+		// foreach (Card card in cards)
+		// {
+		// 	StartCoroutine(singleCardQue(card));
+		// }
 	}
 
 	private IEnumerator singleCardQue(Card card)

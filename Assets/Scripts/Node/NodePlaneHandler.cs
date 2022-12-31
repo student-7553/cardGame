@@ -28,9 +28,9 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 		this.alignCardStackToPlane();
 	}
 
-	public void stackOnThis(List<Card> draggingCards)
+	public void stackOnThis(Card draggingCard)
 	{
-		connectedNode.stackOnThis(draggingCards);
+		connectedNode.stackOnThis(draggingCard);
 	}
 
 	private void alignCardStackToPlane()

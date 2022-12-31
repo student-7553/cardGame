@@ -92,7 +92,7 @@ public class CardStack
 		return null;
 	}
 
-	public void addCardsToStack(List<Card> addingCards)
+	public void addCardToStack(List<Card> addingCards)
 	{
 		cards.AddRange(addingCards);
 		foreach (Card singleCard in addingCards)
@@ -112,8 +112,16 @@ public class CardStack
 
 	public void addCardToStack(Card addingCard)
 	{
-		List<Card> addingCards = new List<Card>(new Card[] { addingCard });
-		addCardsToStack(addingCards);
+		cards.Add(addingCard);
+		addingCard.addToCardStack(this);
+		this.alignCards();
+		if (cardStackType == CardStackType.Nodes && connectedNode != null)
+		{
+			if (connectedNode.nodePlaneManager.gameObject.activeSelf == false)
+			{
+				changeActiveStateOfAllCards(false);
+			}
+		}
 	}
 
 	private void logCards()

@@ -142,11 +142,8 @@ public class LeftClickHandler : MonoBehaviour
 			if (stackableObject != null)
 			{
 				Card stackingCard = draggingObject.getCard();
-				// List<Card> stackingCards = new List<Card> { stackingCard };
-				List<Card> stackingCards = new List<Card>();
-				stackingCards.Add(stackingCard);
 
-				stackableObject.stackOnThis(stackingCards);
+				stackableObject.stackOnThis(stackingCard);
 			}
 			else
 			{
