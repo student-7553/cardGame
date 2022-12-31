@@ -355,7 +355,9 @@ GameObject:
   - component: {fileID: 5000079141684730313}
   - component: {fileID: 5000079141684730314}
   - component: {fileID: 5000079141684730315}
-  - component: {fileID: 5000079141684730324}
+  - component: {fileID: 3009800624851652144}
+  - component: {fileID: 5339004459602594743}
+  - component: {fileID: 4769750301492736344}
   m_Layer: 6
   m_Name: NodePrefab
   m_TagString: Nodes
@@ -457,7 +459,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6, y: 10}
   m_EdgeRadius: 0
---- !u!114 &5000079141684730324
+--- !u!114 &3009800624851652144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -466,10 +468,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 5000079141684730325}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8efa9805c6da4283b6e735958fcef, type: 3}
+  m_Script: {fileID: 11500000, guid: 5905c63d6590ac642a0d3e5d3a690497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardId: 0
+  queCards: []
+--- !u!114 &5339004459602594743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5000079141684730325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbbe0ab79d1167a40b2624824981499b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodePlaneManager: {fileID: 0}
+  id: 0
+  isActive: 0
+  nodeState: 0
+  isProccessing: 0
+  proccessingLeft: 0
+--- !u!114 &4769750301492736344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5000079141684730325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e32410624beb34bb2d316cd6d0900a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5000079141775249430
 GameObject:
   m_ObjectHideFlags: 0

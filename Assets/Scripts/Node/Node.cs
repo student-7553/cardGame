@@ -6,11 +6,35 @@ using System;
 using Core;
 using Helpers;
 
-public class Node : MonoBehaviour, IStackable, IClickable
+public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 {
+	// -------------------- Interactable Members -------------------------
+	public bool isDisabled { get; set; }
+	public SpriteRenderer spriteRenderer { get; set; }
+	public CoreInteractableType interactableType { get; set; }
+
+	public GameObject getGameObject()
+	{
+		return gameObject;
+	}
+
+	public Card getCard()
+	{
+		if (interactableType != CoreInteractableType.Cards)
+		{
+			return null;
+		}
+		return this.GetComponent(typeof(Card)) as Card;
+	}
+
 	// -------------------- Custom Class -------------------------
+	[System.NonSerialized]
 	public NodeCardQue nodeCardQue;
+
+	[System.NonSerialized]
 	public NodeTextHandler nodeTextHandler;
+
+	[System.NonSerialized]
 	public NodeStats nodeStats;
 
 	public NodePlaneHandler nodePlaneManager;
@@ -32,24 +56,28 @@ public class Node : MonoBehaviour, IStackable, IClickable
 
 	// --------------------Readonly Stats-------------------------
 
-	private readonly float nodePlaneBaseZ = 3f;
 
 	private void Awake()
 	{
-		isActive = true;
-		isProccessing = false;
 		activeStack = new CardStack(CardStackType.Nodes, this);
 
-		nodeCardQue = gameObject.AddComponent<NodeCardQue>();
-		nodeTextHandler = gameObject.AddComponent<NodeTextHandler>();
 		nodeStats = new NodeStats(this);
+
+		isDisabled = false;
+		isActive = true;
+		isProccessing = false;
+
+		interactableType = CoreInteractableType.Nodes;
 	}
 
 	public void init()
 	{
-		Vector3 spawningPosition = new Vector3(120, 0, 5);
-		activeStack.cardBaseZ = spawningPosition.z + 1f;
+		Vector3 spawningPosition = new Vector3(120, 0, HelperData.nodeBoardZ);
 		nodePlaneManager = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
+
+		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
+		nodeTextHandler = gameObject.GetComponent(typeof(NodeTextHandler)) as NodeTextHandler;
+		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 	}
 
 	public void OnClick()
@@ -68,6 +96,7 @@ public class Node : MonoBehaviour, IStackable, IClickable
 	public void stackOnThis(List<Card> newCards)
 	{
 		this.addCardsToCardStack(newCards);
+
 		if (isMarket())
 		{
 			List<int> cardIds = activeStack.getNonTypeCardIds();
@@ -75,6 +104,11 @@ public class Node : MonoBehaviour, IStackable, IClickable
 		}
 		else
 		{
+			Debug.Log(newCards.Count);
+			if (nodeCardQue == null)
+			{
+				Debug.Log("Yep is null :(");
+			}
 			nodeCardQue.addCards(newCards);
 		}
 	}

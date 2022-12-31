@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Core;
+using Helpers;
 
 public class CardStack
 {
@@ -9,7 +10,7 @@ public class CardStack
 
 	private Node connectedNode;
 
-	public float cardBaseZ;
+	// public float baseZ;
 
 	public CardStackType cardStackType;
 
@@ -18,7 +19,7 @@ public class CardStack
 	public CardStack(CardStackType givenStackType, Node spawningNode)
 	{
 		cardStackType = givenStackType;
-		cardBaseZ = 1;
+		// baseZ = HelperData.baseZ;
 		cards = new List<Card>();
 		connectedNode = spawningNode;
 	}
@@ -30,7 +31,7 @@ public class CardStack
 			return;
 		}
 		Card rootCard = this.getRootCard();
-		rootCard.transform.position = new Vector3(originPoint.x, originPoint.y, cardBaseZ);
+		rootCard.transform.position = new Vector3(originPoint.x, originPoint.y, this.getPositionZ());
 
 		// we are not loopting through first card because it's the origin point
 		for (int i = 1; i < cards.Count; i++)
@@ -39,10 +40,10 @@ public class CardStack
 			Vector3 newPostionForCardInSubject = new Vector3(
 				rootCard.transform.position.x,
 				rootCard.transform.position.y - (stackDistance * i),
-				rootCard.transform.position.z + (i * distancePerCards)
+				rootCard.transform.position.z - (i * distancePerCards)
 			);
 			cardInSubject.transform.position = newPostionForCardInSubject;
-			cardInSubject.generateTheCorners();
+			cardInSubject.computeCorners();
 		}
 	}
 
@@ -170,8 +171,18 @@ public class CardStack
 		{
 			return;
 		}
-		rootCard.gameObject.transform.position = new Vector3(newX, newY, cardBaseZ);
+		// rootCard.gameObject.transform.position = new Vector3(newX, newY, baseZ);
+		rootCard.gameObject.transform.position = new Vector3(newX, newY, this.getPositionZ());
 
 		alignCards();
+	}
+
+	private float getPositionZ()
+	{
+		if (cardStackType == CardStackType.Cards)
+		{
+			return HelperData.baseZ;
+		}
+		return HelperData.nodeBoardZ - 1;
 	}
 }

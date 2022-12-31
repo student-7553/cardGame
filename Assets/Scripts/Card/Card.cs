@@ -2,29 +2,28 @@ using UnityEngine;
 using System.Collections.Generic;
 using Core;
 using TMPro;
+using Helpers;
 
-public class Card : MonoBehaviour, IStackable
+public class CardCorners
 {
-	// -------------------- Meta Stats -------------------------
-	[System.NonSerialized]
 	public Vector3 leftTopCorner;
-
-	[System.NonSerialized]
 	public Vector3 rightTopCorner;
-
-	[System.NonSerialized]
 	public Vector3 leftBottomCorner;
-
-	[System.NonSerialized]
 	public Vector3 rightBottomCorner;
 
-	private CoreInteractable coreInteractable;
+	public CardCorners(Vector3 leftTopCorner_, Vector3 rightTopCorner_, Vector3 leftBottomCorner_, Vector3 rightBottomCorner_)
+	{
+		leftTopCorner = leftTopCorner_;
+		rightTopCorner = rightTopCorner_;
+		leftBottomCorner = leftBottomCorner_;
+		rightBottomCorner = rightBottomCorner_;
+	}
+}
 
-	public bool isStacked;
+public class Card : MonoBehaviour, IStackable, Interactable
+{
+	// -------------------- Interactable Members -------------------------
 
-	public CardStack joinedStack;
-
-	public int id;
 
 	private bool _isDisabled;
 	public bool isDisabled
@@ -32,14 +31,37 @@ public class Card : MonoBehaviour, IStackable
 		get { return _isDisabled; }
 		set
 		{
-			if (_isDisabled != value)
-			{
-				coreInteractable.isDisabled = value;
-			}
 			_isDisabled = value;
+
+			//  This might turn into the loop
 			reflectScreen();
 		}
 	}
+
+	public SpriteRenderer spriteRenderer { get; set; }
+	public CoreInteractableType interactableType { get; set; }
+
+	public GameObject getGameObject()
+	{
+		return gameObject;
+	}
+
+	public Card getCard()
+	{
+		if (interactableType != CoreInteractableType.Cards)
+		{
+			return null;
+		}
+		return this.GetComponent(typeof(Card)) as Card;
+	}
+
+	public CardCorners corners;
+
+	public int id;
+
+	public bool isStacked;
+
+	public CardStack joinedStack;
 
 	public float timer;
 
@@ -51,43 +73,34 @@ public class Card : MonoBehaviour, IStackable
 
 	private void Awake()
 	{
-		this.generateTheCorners();
-		isStacked = false;
-		isDisabled = false;
-		timer = 0;
-
 		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-		Debug.Log(textMeshes.Length);
+
 		if (textMeshes.Length > 0)
 		{
 			titleTextMesh = textMeshes[0] as TextMeshPro;
 		}
+
+		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+
+		this.computeCorners();
+		isStacked = false;
+		isDisabled = false;
+		timer = 0;
+		interactableType = CoreInteractableType.Cards;
 	}
 
 	public void moveCard(Vector3 newPosition)
 	{
 		gameObject.transform.position = newPosition;
-		generateTheCorners();
+		computeCorners();
 	}
 
-	private void FixedUpdate()
+	public void computeCorners()
 	{
-		// if (timer != 0f)
-		// {
-		//     Debug.Log(timer);
-		//     if (timer > 0.1f)
-		//     {
-		//         timer = timer - Time.deltaTime;
-		//     }
-		//     else
-		//     {
-		//         timer = 0f;
-		//     }
-		//     reflectScreen();
-		// }
+		this.corners = this.generateTheCorners();
 	}
 
-	public void generateTheCorners()
+	private CardCorners generateTheCorners()
 	{
 		Vector3 leftTopCornerPoint = new Vector3(
 			gameObject.transform.position.x - (baseCardX / 2),
@@ -113,10 +126,8 @@ public class Card : MonoBehaviour, IStackable
 			gameObject.transform.position.z
 		);
 
-		leftTopCorner = leftTopCornerPoint;
-		rightTopCorner = rightTopCornerPoint;
-		leftBottomCorner = leftBottomCornerPoint;
-		rightBottomCorner = rightBottomCornerPoint;
+		CardCorners newCorners = new CardCorners(leftTopCornerPoint, rightTopCornerPoint, leftBottomCornerPoint, rightBottomCornerPoint);
+		return newCorners;
 	}
 
 	public void removeFromCardStack()
@@ -154,7 +165,6 @@ public class Card : MonoBehaviour, IStackable
 	public void init()
 	{
 		reflectScreen();
-		coreInteractable = gameObject.GetComponent(typeof(CoreInteractable)) as CoreInteractable;
 	}
 
 	public void reflectScreen()
