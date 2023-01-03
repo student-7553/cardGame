@@ -17,13 +17,13 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 
 	private void OnDisable()
 	{
-		connectedNode.activeStack.changeActiveStateOfAllCards(false);
+		connectedNode.cardStack.changeActiveStateOfAllCards(false);
 		GameManager.current.boardPlaneHandler.clearActiveNodePlane();
 	}
 
 	private void OnEnable()
 	{
-		connectedNode.activeStack.changeActiveStateOfAllCards(true);
+		connectedNode.cardStack.changeActiveStateOfAllCards(true);
 		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
 		this.alignCardStackToPlane();
 	}
@@ -35,6 +35,6 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 
 	private void alignCardStackToPlane()
 	{
-		connectedNode.activeStack.moveRootCardToPosition(gameObject.transform.position.x, gameObject.transform.position.y);
+		// connectedNode.cardStack.moveRootCardToPosition(gameObject.transform.position.x, gameObject.transform.position.y);
 	}
 }

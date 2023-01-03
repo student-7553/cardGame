@@ -127,22 +127,19 @@ public class LeftClickHandler : MonoBehaviour
 			yield return null;
 		}
 
-		dragFinishHandler(draggingObject);
+		this.dragFinishHandler(draggingObject);
 	}
 
 	private void dragFinishHandler(Interactable draggingObject)
 	{
-		// WE ARE ALWAYS ASSUMING THAT EVERYTHING IN A LIST IS THE SAME CLASSES
-		Interactable bottomInteractable = draggingObject;
-		if (bottomInteractable.interactableType == CoreInteractableType.Cards)
+		if (draggingObject.interactableType == CoreInteractableType.Cards)
 		{
 			// is card
-			Card bottomCard = bottomInteractable.getCard();
+			Card bottomCard = draggingObject.getCard();
 			IStackable stackableObject = this.findTargetToStack(bottomCard);
 			if (stackableObject != null)
 			{
 				Card stackingCard = draggingObject.getCard();
-
 				stackableObject.stackOnThis(stackingCard);
 			}
 			else
@@ -168,7 +165,7 @@ public class LeftClickHandler : MonoBehaviour
 				}
 			}
 		}
-		else if (bottomInteractable.interactableType == CoreInteractableType.Nodes)
+		else if (draggingObject.interactableType == CoreInteractableType.Nodes)
 		{
 			GameObject draggingGameObject = draggingObject.getGameObject();
 			draggingGameObject.transform.position = new Vector3(

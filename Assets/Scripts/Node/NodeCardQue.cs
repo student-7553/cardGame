@@ -16,11 +16,6 @@ public class NodeCardQue : MonoBehaviour
 	{
 		queCards.Add(card);
 		StartCoroutine(singleCardQue(card));
-
-		// foreach (Card card in cards)
-		// {
-		// 	StartCoroutine(singleCardQue(card));
-		// }
 	}
 
 	private IEnumerator singleCardQue(Card card)

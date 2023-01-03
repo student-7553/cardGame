@@ -51,6 +51,23 @@ public class PlayerCardTracker : MonoBehaviour
 		return aquiredCardsInLifetimeList.Any(libraryCardId => libraryCardId == cardId);
 	}
 
+	public bool didPlayerUnlockCards(int[] cardIds)
+	{
+		bool isUnlocked = true;
+		if (cardIds.Length > 0)
+		{
+			foreach (int cardId in cardIds)
+			{
+				if (!this.didPlayerUnlockCard(cardId))
+				{
+					isUnlocked = false;
+					break;
+				}
+			}
+		}
+		return isUnlocked;
+	}
+
 	public bool didPlayerUnlockOneTimeProcess(int uniqueId)
 	{
 		return aquiredOneTimeProcessRewardsList.Any(libraryId => libraryId == uniqueId);

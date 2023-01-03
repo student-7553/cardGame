@@ -10,18 +10,51 @@ public class CardStack
 
 	private Node connectedNode;
 
-	// public float baseZ;
-
 	public CardStackType cardStackType;
 
+	// private List<Card> _cards;
 	public List<Card> cards;
 
-	public CardStack(CardStackType givenStackType, Node spawningNode)
+	// {
+	// 	get { return _cards; }
+	// 	set
+	// 	{
+	// 		_cards = value;
+
+	// 		Debug.Log("cards changing/" + _cards.Count);
+	// 		if (_cards.Count > 0)
+	// 		{
+	// 			if (cardStackType == CardStackType.Nodes)
+	// 			{
+	// 				Vector3 rootPosition = new Vector3(
+	// 					connectedNode.nodePlaneManager.gameObject.transform.position.x,
+	// 					connectedNode.nodePlaneManager.gameObject.transform.position.y,
+	// 					this.getPositionZ()
+	// 				);
+	// 				Debug.Log("rootPosition/" + rootPosition);
+	// 				alignCards(rootPosition);
+	// 			}
+	// 			else
+	// 			{
+	// 				alignCards();
+	// 			}
+	// 		}
+	// 		// }
+	// 	}
+	// }
+
+	public CardStack(Node spawningNode)
 	{
-		cardStackType = givenStackType;
-		// baseZ = HelperData.baseZ;
 		cards = new List<Card>();
-		connectedNode = spawningNode;
+		if (spawningNode == null)
+		{
+			cardStackType = CardStackType.Cards;
+		}
+		else
+		{
+			cardStackType = CardStackType.Nodes;
+			connectedNode = spawningNode;
+		}
 	}
 
 	public void alignCards(Vector3 originPoint)
@@ -33,7 +66,7 @@ public class CardStack
 		Card rootCard = this.getRootCard();
 		rootCard.transform.position = new Vector3(originPoint.x, originPoint.y, this.getPositionZ());
 
-		// we are not loopting through first card because it's the origin point
+		// we are not looping through first card because it's the origin point
 		for (int i = 1; i < cards.Count; i++)
 		{
 			Card cardInSubject = cards[i];
@@ -49,38 +82,43 @@ public class CardStack
 
 	public void alignCards()
 	{
-		if (cards.Count <= 1)
+		if (cards.Count == 0)
 		{
 			return;
 		}
 
-		Card rootCard = this.getRootCard();
-		this.alignCards(rootCard.transform.position);
+		if (cardStackType == CardStackType.Nodes)
+		{
+			Vector3 rootPosition = new Vector3(
+				connectedNode.nodePlaneManager.gameObject.transform.position.x,
+				connectedNode.nodePlaneManager.gameObject.transform.position.y,
+				this.getPositionZ()
+			);
+			this.alignCards(rootPosition);
+		}
+		else
+		{
+			Card rootCard = this.getRootCard();
+			this.alignCards(rootCard.transform.position);
+		}
 	}
 
 	public void changeActiveStateOfAllCards(bool isActive)
 	{
 		foreach (Card singleCard in cards)
 		{
-			singleCard.gameObject.SetActive(isActive);
+			singleCard.gameObject?.SetActive(isActive);
 		}
 	}
 
 	public void removeCardsFromStack(List<Card> removingCards)
 	{
-		Card rootCard = this.getRootCard();
-		Vector3 rootCardPosition = rootCard.transform.position;
-
 		foreach (Card singleCard in removingCards)
 		{
 			cards.Remove(singleCard);
 			singleCard.removeFromCardStack();
 		}
-		if (cards.Count == 0)
-		{
-			return;
-		}
-		this.alignCards(rootCardPosition);
+		this.alignCards();
 	}
 
 	public Card getRootCard()
@@ -95,11 +133,11 @@ public class CardStack
 	public void addCardToStack(List<Card> addingCards)
 	{
 		cards.AddRange(addingCards);
+		this.alignCards();
 		foreach (Card singleCard in addingCards)
 		{
 			singleCard.addToCardStack(this);
 		}
-		this.alignCards();
 
 		if (cardStackType == CardStackType.Nodes && connectedNode != null)
 		{
@@ -113,8 +151,10 @@ public class CardStack
 	public void addCardToStack(Card addingCard)
 	{
 		cards.Add(addingCard);
-		addingCard.addToCardStack(this);
 		this.alignCards();
+
+		addingCard.addToCardStack(this);
+
 		if (cardStackType == CardStackType.Nodes && connectedNode != null)
 		{
 			if (connectedNode.nodePlaneManager.gameObject.activeSelf == false)
@@ -155,7 +195,7 @@ public class CardStack
 		return ids;
 	}
 
-	public List<int> getNonTypeCardIds()
+	public List<int> getNonTypeActiveCardIds()
 	{
 		List<int> ids = new List<int>();
 		foreach (Card singleCard in cards)
@@ -164,25 +204,13 @@ public class CardStack
 				CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Gold
 				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Electricity
 				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Food
+				&& singleCard.isDisabled == false
 			)
 			{
 				ids.Add(singleCard.id);
 			}
 		}
 		return ids;
-	}
-
-	public void moveRootCardToPosition(float newX, float newY)
-	{
-		Card rootCard = this.getRootCard();
-		if (rootCard == null)
-		{
-			return;
-		}
-		// rootCard.gameObject.transform.position = new Vector3(newX, newY, baseZ);
-		rootCard.gameObject.transform.position = new Vector3(newX, newY, this.getPositionZ());
-
-		alignCards();
 	}
 
 	private float getPositionZ()

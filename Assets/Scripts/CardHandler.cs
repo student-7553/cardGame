@@ -91,6 +91,8 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		ensureComponent<NodeTextHandler>(nodeGameObject);
+		ensureComponent<NodeProcess>(nodeGameObject);
+		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
 		switch (nodeId)
 		{
@@ -110,9 +112,16 @@ public class CardHandler : MonoBehaviour
 
 		Vector3 spawningPosition = nodeGameObject.transform.position;
 
-		spawningPosition.z = HelperData.nodeBoardZ;
+		spawningPosition.z = HelperData.nodeBoardZ + spawningPosition.z;
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
+
+		// GameObject newNodePlane = Instantiate(nodePlanePrefab, newNode.gameObject.transform);
+		// newNodePlane.transform.position = new Vector3(
+		// 	newNodePlane.transform.position.x,
+		// 	newNodePlane.transform.position.y,
+		// 	HelperData.nodeBoardZ
+		// );
 
 		newNodePlane.SetActive(false);
 

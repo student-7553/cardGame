@@ -63,7 +63,7 @@ public class NodeStats
 
 	public void computeStats()
 	{
-		List<int> cardIds = connectedNode.activeStack.getActiveCardIds();
+		List<int> cardIds = connectedNode.cardStack.getActiveCardIds();
 		int calcResourceInventoryUsed = 0;
 		int calcResourceInventoryLimit = 0;
 		int calcInfraInventoryUsed = 0;
@@ -116,13 +116,13 @@ public class NodeStats
 		if (currentNodeStats.infraInventoryUsed > currentNodeStats.infraInventoryLimit)
 		{
 			int ejectingResourceValue = currentNodeStats.infraInventoryUsed - currentNodeStats.infraInventoryLimit;
-			List<Card> ejectedCards = getEjectedCards(connectedNode.activeStack.cards, ejectingResourceValue, false);
+			List<Card> ejectedCards = getEjectedCards(connectedNode.cardStack.cards, ejectingResourceValue, false);
 			connectedNode.ejectCards(ejectedCards);
 		}
 		if (currentNodeStats.resourceInventoryUsed > currentNodeStats.resourceInventoryLimit)
 		{
 			int ejectingResourceValue = currentNodeStats.resourceInventoryUsed - currentNodeStats.resourceInventoryLimit;
-			List<Card> ejectedCards = getEjectedCards(connectedNode.activeStack.cards, ejectingResourceValue, true);
+			List<Card> ejectedCards = getEjectedCards(connectedNode.cardStack.cards, ejectingResourceValue, true);
 			connectedNode.ejectCards(ejectedCards);
 		}
 

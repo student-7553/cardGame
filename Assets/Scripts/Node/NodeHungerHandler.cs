@@ -7,19 +7,32 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private float intervalTimer; // ********* Loop timer *********
 
+	private bool isInit = false;
+
 	public void Awake()
 	{
-		connectedNode = gameObject.GetComponent(typeof(Node)) as Node;
+		intervalTimer = 0;
+	}
+
+	public void init(Node parentNode)
+	{
+		isInit = true;
+		// connectedNode = gameObject.GetComponent(typeof(Node)) as Node;
+		connectedNode = parentNode;
 	}
 
 	private void FixedUpdate()
 	{
-		intervalTimer = intervalTimer + Time.deltaTime;
-		int hungerSetIntervalTimer = connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer;
-		if (intervalTimer > hungerSetIntervalTimer)
+		if (!isInit)
 		{
-			this.handleHungerInterval();
+			return;
+		}
+
+		intervalTimer = intervalTimer + Time.deltaTime;
+		if (intervalTimer > connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer)
+		{
 			intervalTimer = 0;
+			this.handleHungerInterval();
 		}
 	}
 

@@ -140,7 +140,7 @@ namespace Helpers
 	{
 		public static readonly float baseZ = 0f;
 
-		public static readonly float nodeBoardZ = -3f;
+		public static readonly float nodeBoardZ = -2f;
 
 		public static readonly float draggingBaseZ = -4f;
 	}

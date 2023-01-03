@@ -100,7 +100,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	{
 		isStacked = false;
 		joinedStack = null;
-		if (gameObject.activeSelf == false)
+		if (gameObject != null && gameObject.activeSelf == false)
 		{
 			gameObject.SetActive(true);
 		}
@@ -123,7 +123,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			List<Card> newCardStackCards = new List<Card>(new Card[] { this });
 			newCardStackCards.Add(draggingCard);
-			CardStack newStack = new CardStack(CardStackType.Cards, null);
+			CardStack newStack = new CardStack(null);
 			newStack.addCardToStack(newCardStackCards);
 		}
 	}

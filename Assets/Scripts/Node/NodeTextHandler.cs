@@ -29,9 +29,9 @@ public class NodeTextHandler : MonoBehaviour
 		availableInventoryTextMesh.text =
 			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
 
-		if (connectedNode.isProccessing)
+		if (connectedNode.nodeProcess.isProccessing)
 		{
-			processTimerTextMesh.text = $"{connectedNode.proccessingLeft}";
+			processTimerTextMesh.text = $"{connectedNode.nodeProcess.proccessingLeft}";
 		}
 		else
 		{
