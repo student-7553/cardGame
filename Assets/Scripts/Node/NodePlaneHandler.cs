@@ -25,16 +25,10 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 	{
 		connectedNode.cardStack.changeActiveStateOfAllCards(true);
 		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
-		this.alignCardStackToPlane();
 	}
 
-	public void stackOnThis(Card draggingCard)
+	public void stackOnThis(Card draggingCard, Node prevNode)
 	{
-		connectedNode.stackOnThis(draggingCard);
-	}
-
-	private void alignCardStackToPlane()
-	{
-		// connectedNode.cardStack.moveRootCardToPosition(gameObject.transform.position.x, gameObject.transform.position.y);
+		connectedNode.stackOnThis(draggingCard, prevNode);
 	}
 }

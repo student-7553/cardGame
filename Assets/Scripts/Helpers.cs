@@ -129,10 +129,10 @@ namespace Helpers
 
 	public interface Interactable
 	{
-		public bool isDisabled { get; set; }
+		public bool isInteractiveDisabled { get; set; }
 		public SpriteRenderer spriteRenderer { get; set; }
 		public CoreInteractableType interactableType { get; set; }
-		public GameObject getGameObject();
+		GameObject gameObject { get; }
 		public Card getCard();
 	}
 

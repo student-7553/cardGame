@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace Core
 {
 	public interface IStackable
 	{
-		void stackOnThis(Card draggingCard);
+		void stackOnThis(Card draggingCard, Node prevNode);
+		GameObject gameObject { get; }
 	}
 
 	public interface IClickable

@@ -21,8 +21,8 @@ public class NodeCardQue : MonoBehaviour
 	private IEnumerator singleCardQue(Card card)
 	{
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
-		card.isDisabled = true;
+		card.isInteractiveDisabled = true;
 		yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
-		card.isDisabled = false;
+		card.isInteractiveDisabled = false;
 	}
 }

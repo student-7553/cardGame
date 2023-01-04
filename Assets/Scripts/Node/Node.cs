@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-// using System.Linq;
 using System;
+using System.Linq;
 using Core;
 using Helpers;
 
 public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
-	public bool isDisabled { get; set; }
+	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }
 	public CoreInteractableType interactableType { get; set; }
 
@@ -46,9 +46,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	{
 		cardStack = new CardStack(this);
 		nodeStats = new NodeStats(this);
+		isInteractiveDisabled = false;
 
-		// There should not be two states
-		isDisabled = false;
 		isActive = true;
 
 		interactableType = CoreInteractableType.Nodes;
@@ -79,21 +78,28 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 	}
 
-	public void stackOnThis(Card newCard)
+	public void stackOnThis(Card newCard, Node prevNode)
 	{
+		if (prevNode != this)
+		{
+			nodeCardQue.addCard(newCard);
+		}
+
 		cardStack.addCardToStack(newCard);
-		nodeCardQue.addCard(newCard);
+	}
+
+	public void putExistingCardOnTop(Card card)
+	{
+		List<Card> newCards = new List<Card> { card };
+		List<Card> oldCards = cardStack.cards.Where((oldCard) => oldCard != card).ToList();
+		newCards.AddRange(oldCards);
+		cardStack.cards = newCards;
 	}
 
 	private void FixedUpdate()
 	{
 		nodeStats.computeStats();
 		nodeStats.handleLimits();
-	}
-
-	public GameObject getGameObject()
-	{
-		return gameObject;
 	}
 
 	public Card getCard()
@@ -126,7 +132,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		List<Card> removingCards = this.getCards(removingCardIds);
 		foreach (Card card in removingCards)
 		{
-			card.isDisabled = true;
+			card.isInteractiveDisabled = true;
 		}
 
 		yield return new WaitForSeconds(timer);

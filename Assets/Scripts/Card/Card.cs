@@ -24,7 +24,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
 	private bool _isDisabled;
-	public bool isDisabled
+	public bool isInteractiveDisabled
 	{
 		get { return _isDisabled; }
 		set
@@ -36,11 +36,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public SpriteRenderer spriteRenderer { get; set; }
 	public CoreInteractableType interactableType { get; set; }
-
-	public GameObject getGameObject()
-	{
-		return gameObject;
-	}
 
 	public Card getCard()
 	{
@@ -80,7 +75,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 		this.computeCorners();
 		isStacked = false;
-		isDisabled = false;
+		isInteractiveDisabled = false;
 		timer = 0;
 		interactableType = CoreInteractableType.Cards;
 	}
@@ -112,7 +107,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		joinedStack = newCardStack;
 	}
 
-	public void stackOnThis(Card draggingCard)
+	public void stackOnThis(Card draggingCard, Node _prevNode)
 	{
 		if (isStacked)
 		{
@@ -143,7 +138,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 			}
 		}
-		if (isDisabled)
+		if (isInteractiveDisabled)
 		{
 			cardTitle = "[DISABLED] " + cardTitle;
 		}

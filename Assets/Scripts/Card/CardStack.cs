@@ -8,40 +8,21 @@ public class CardStack
 	private static float stackDistance = 5;
 	private static float distancePerCards = 0.01f;
 
-	private Node connectedNode;
+	public Node connectedNode;
 
 	public CardStackType cardStackType;
 
-	// private List<Card> _cards;
-	public List<Card> cards;
+	private List<Card> _cards;
 
-	// {
-	// 	get { return _cards; }
-	// 	set
-	// 	{
-	// 		_cards = value;
-
-	// 		Debug.Log("cards changing/" + _cards.Count);
-	// 		if (_cards.Count > 0)
-	// 		{
-	// 			if (cardStackType == CardStackType.Nodes)
-	// 			{
-	// 				Vector3 rootPosition = new Vector3(
-	// 					connectedNode.nodePlaneManager.gameObject.transform.position.x,
-	// 					connectedNode.nodePlaneManager.gameObject.transform.position.y,
-	// 					this.getPositionZ()
-	// 				);
-	// 				Debug.Log("rootPosition/" + rootPosition);
-	// 				alignCards(rootPosition);
-	// 			}
-	// 			else
-	// 			{
-	// 				alignCards();
-	// 			}
-	// 		}
-	// 		// }
-	// 	}
-	// }
+	public List<Card> cards
+	{
+		get { return _cards; }
+		set
+		{
+			_cards = value;
+			alignCards();
+		}
+	}
 
 	public CardStack(Node spawningNode)
 	{
@@ -107,7 +88,10 @@ public class CardStack
 	{
 		foreach (Card singleCard in cards)
 		{
-			singleCard.gameObject?.SetActive(isActive);
+			if (singleCard != null && singleCard.gameObject != null)
+			{
+				singleCard.gameObject.SetActive(isActive);
+			}
 		}
 	}
 
@@ -119,15 +103,6 @@ public class CardStack
 			singleCard.removeFromCardStack();
 		}
 		this.alignCards();
-	}
-
-	public Card getRootCard()
-	{
-		if (cards.Count > 0)
-		{
-			return cards[0];
-		}
-		return null;
 	}
 
 	public void addCardToStack(List<Card> addingCards)
@@ -187,7 +162,7 @@ public class CardStack
 		List<int> ids = new List<int>();
 		foreach (Card singleCard in cards)
 		{
-			if (!singleCard.isDisabled)
+			if (!singleCard.isInteractiveDisabled)
 			{
 				ids.Add(singleCard.id);
 			}
@@ -204,7 +179,7 @@ public class CardStack
 				CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Gold
 				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Electricity
 				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Food
-				&& singleCard.isDisabled == false
+				&& singleCard.isInteractiveDisabled == false
 			)
 			{
 				ids.Add(singleCard.id);
@@ -220,5 +195,14 @@ public class CardStack
 			return HelperData.baseZ;
 		}
 		return HelperData.nodeBoardZ - 1;
+	}
+
+	private Card getRootCard()
+	{
+		if (cards.Count > 0)
+		{
+			return cards[0];
+		}
+		return null;
 	}
 }

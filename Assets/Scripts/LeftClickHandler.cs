@@ -57,12 +57,12 @@ public class LeftClickHandler : MonoBehaviour
 
 	private IEnumerator handleClickingInteractable(Interactable interactableObject)
 	{
-		if (interactableObject.isDisabled)
+		if (interactableObject.isInteractiveDisabled)
 		{
 			yield break;
 		}
 
-		GameObject interactableGameObject = interactableObject.getGameObject();
+		GameObject interactableGameObject = interactableObject.gameObject;
 
 		Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld(interactableGameObject);
 
@@ -83,15 +83,17 @@ public class LeftClickHandler : MonoBehaviour
 				HelperData.draggingBaseZ
 			);
 
-			Card singleCard = interactableObject.getCard();
-			if (singleCard != null && singleCard.isStacked)
+			Node previousStackedNode = null;
+			Card bottomCard = interactableObject.getCard();
+			if (bottomCard != null && bottomCard.isStacked)
 			{
 				List<Card> draggingCards = new List<Card>();
-				draggingCards.Add(singleCard);
-				singleCard.joinedStack.removeCardsFromStack(draggingCards);
+				draggingCards.Add(bottomCard);
+				previousStackedNode = bottomCard.joinedStack.connectedNode;
+				bottomCard.joinedStack.removeCardsFromStack(draggingCards);
 			}
 
-			StartCoroutine(dragUpdate(interactableObject, clickedDifferenceInWorld));
+			StartCoroutine(dragUpdate(interactableObject, clickedDifferenceInWorld, previousStackedNode));
 		}
 
 		Vector3 findclickedDifferenceInWorld(GameObject interactableGameObject)
@@ -108,9 +110,9 @@ public class LeftClickHandler : MonoBehaviour
 		}
 	}
 
-	private IEnumerator dragUpdate(Interactable draggingObject, Vector3 clickedDifferenceInWorld)
+	private IEnumerator dragUpdate(Interactable draggingObject, Vector3 clickedDifferenceInWorld, Node previousStackedNode)
 	{
-		GameObject rootObject = draggingObject.getGameObject();
+		GameObject rootObject = draggingObject.gameObject;
 
 		float initialDistanceToCamera = Vector3.Distance(rootObject.transform.position, mainCamera.transform.position);
 
@@ -127,47 +129,53 @@ public class LeftClickHandler : MonoBehaviour
 			yield return null;
 		}
 
-		this.dragFinishHandler(draggingObject);
+		this.dragFinishHandler(draggingObject, previousStackedNode);
 	}
 
-	private void dragFinishHandler(Interactable draggingObject)
+	private void dragFinishHandler(Interactable draggingObject, Node previousStackedNode)
 	{
 		if (draggingObject.interactableType == CoreInteractableType.Cards)
 		{
 			// is card
 			Card bottomCard = draggingObject.getCard();
+
 			IStackable stackableObject = this.findTargetToStack(bottomCard);
 			if (stackableObject != null)
 			{
-				Card stackingCard = draggingObject.getCard();
-				stackableObject.stackOnThis(stackingCard);
+				stackableObject.stackOnThis(bottomCard, previousStackedNode);
+				return;
 			}
-			else
-			{
-				GameObject bottomGameObject = this.findInteractableGameObject(bottomCard);
-				GameObject draggingGameObject = draggingObject.getGameObject();
 
-				if (bottomGameObject != null)
-				{
-					draggingGameObject.transform.position = new Vector3(
-						draggingGameObject.transform.position.x,
-						draggingGameObject.transform.position.y,
-						bottomGameObject.transform.position.z - 1f
-					);
-				}
-				else
-				{
-					draggingGameObject.transform.position = new Vector3(
-						draggingGameObject.transform.position.x,
-						draggingGameObject.transform.position.y,
-						HelperData.baseZ
-					);
-				}
+			if (bottomCard.isStacked)
+			{
+				List<Card> draggingCards = new List<Card>();
+				draggingCards.Add(bottomCard);
+				bottomCard.joinedStack.removeCardsFromStack(draggingCards);
 			}
+
+			GameObject bottomGameObject = this.findInteractableGameObject(bottomCard);
+			GameObject draggingGameObject = draggingObject.gameObject;
+
+			if (bottomGameObject != null)
+			{
+				draggingGameObject.transform.position = new Vector3(
+					draggingGameObject.transform.position.x,
+					draggingGameObject.transform.position.y,
+					bottomGameObject.transform.position.z - 1f
+				);
+				return;
+			}
+
+			draggingGameObject.transform.position = new Vector3(
+				draggingGameObject.transform.position.x,
+				draggingGameObject.transform.position.y,
+				HelperData.baseZ
+			);
+			return;
 		}
 		else if (draggingObject.interactableType == CoreInteractableType.Nodes)
 		{
-			GameObject draggingGameObject = draggingObject.getGameObject();
+			GameObject draggingGameObject = draggingObject.gameObject;
 			draggingGameObject.transform.position = new Vector3(
 				draggingGameObject.transform.position.x,
 				draggingGameObject.transform.position.y,
@@ -239,7 +247,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	private void moveInteractableObjects(Vector3 movingToPoint, Interactable interactableObject)
 	{
-		GameObject interactableGameObject = interactableObject.getGameObject();
+		GameObject interactableGameObject = interactableObject.gameObject;
 		Vector3 finalMovingPoint = movingToPoint;
 		finalMovingPoint.z = interactableGameObject.transform.position.z;
 		interactableGameObject.transform.position = finalMovingPoint;
