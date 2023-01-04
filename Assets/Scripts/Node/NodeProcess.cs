@@ -324,16 +324,12 @@ public class NodeProcess : MonoBehaviour
 			yield break;
 		}
 
-		Debug.Log("Selling card/" + card.id);
-
 		int goldAmount = this.getGoldAmount(card.id);
 		List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
 		card.isInteractiveDisabled = true;
 
 		yield return new WaitForSeconds(sellTimer);
-
-		Debug.Log("Selling card done/" + card.id);
 
 		List<Card> removingCards = new List<Card> { card };
 

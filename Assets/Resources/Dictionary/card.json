@@ -364,6 +364,18 @@
       "foodCost": 0
     },
     {
+      "id": 2012,
+      "name": "Planetary expedition",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
       "id": 3000,
       "name": "Small base",
       "type": "Node",
