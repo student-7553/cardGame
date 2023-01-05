@@ -18,7 +18,6 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 	private void OnDisable()
 	{
 		connectedNode.cardStack.changeActiveStateOfAllCards(false);
-		GameManager.current.boardPlaneHandler.clearActiveNodePlane();
 	}
 
 	private void OnEnable()
