@@ -72,7 +72,7 @@ public class CardStack
 		{
 			Vector3 rootPosition = new Vector3(
 				connectedNode.nodePlaneManager.gameObject.transform.position.x,
-				connectedNode.nodePlaneManager.gameObject.transform.position.y,
+				connectedNode.nodePlaneManager.gameObject.transform.position.y + 25f,
 				this.getPositionZ()
 			);
 			this.alignCards(rootPosition);

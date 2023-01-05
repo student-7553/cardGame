@@ -80,48 +80,28 @@ public class CardHandler : MonoBehaviour
 		return this.createNode(cardId, newNodeGameObject);
 	}
 
-	public Node createNode(int nodeId, GameObject nodeGameObject)
+	public Node createNode(int cardId, GameObject nodeGameObject)
 	{
-		nodeGameObject.name = CardDictionary.globalCardDictionary[nodeId].name;
+		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
-		newNode.id = nodeId;
+		newNode.id = cardId;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
-		ensureComponent<NodeTextHandler>(nodeGameObject);
-		ensureComponent<NodeProcess>(nodeGameObject);
-		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
-		switch (nodeId)
-		{
-			case 3000:
-				newNode.nodeState = NodeStateTypes.base_1;
-				break;
-			case 3001:
-				newNode.nodeState = NodeStateTypes.base_2;
-				break;
-			case 3002:
-				newNode.nodeState = NodeStateTypes.base_3;
-				break;
-			case 3003:
-				newNode.nodeState = NodeStateTypes.market_1;
-				break;
-		}
+		ensureComponent<NodeTextHandler>(nodeGameObject);
+
+		ensureComponent<NodeProcess>(nodeGameObject);
+
+		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
 		Vector3 spawningPosition = nodeGameObject.transform.position;
 
 		spawningPosition.z = HelperData.nodeBoardZ + spawningPosition.z;
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
-
-		// GameObject newNodePlane = Instantiate(nodePlanePrefab, newNode.gameObject.transform);
-		// newNodePlane.transform.position = new Vector3(
-		// 	newNodePlane.transform.position.x,
-		// 	newNodePlane.transform.position.y,
-		// 	HelperData.nodeBoardZ
-		// );
 
 		newNodePlane.SetActive(false);
 

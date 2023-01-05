@@ -16,9 +16,13 @@ public class NodeHungerHandler : MonoBehaviour
 
 	public void init(Node parentNode)
 	{
-		isInit = true;
-		// connectedNode = gameObject.GetComponent(typeof(Node)) as Node;
 		connectedNode = parentNode;
+		if (parentNode.isMarket())
+		{
+			return;
+		}
+
+		isInit = true;
 	}
 
 	private void FixedUpdate()
@@ -38,6 +42,7 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void handleHungerInterval()
 	{
+		Debug.Log("Deleting food from this handleHungerInterval");
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
 		if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
 		{
@@ -48,6 +53,7 @@ public class NodeHungerHandler : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("Deleting food from this handleHungerInterval/" + foodMinus);
 			StartCoroutine(connectedNode.handleCardTypeDeletion(CardsTypes.Food, foodMinus, 3f, null));
 		}
 	}

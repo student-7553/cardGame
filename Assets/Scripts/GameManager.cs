@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] cards;
 	private GameObject[] nodes;
 
+	[System.NonSerialized]
 	public BoardPlaneHandler boardPlaneHandler;
 
 	void Start()

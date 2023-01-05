@@ -3,7 +3,8 @@ using Core;
 
 public class BoardPlaneHandler : MonoBehaviour, IClickable
 {
-	private NodePlaneHandler currentNodePlaneHandler;
+	[System.NonSerialized]
+	private NodePlaneHandler currentNodePlaneHandler = null;
 
 	public void OnClick()
 	{
@@ -15,7 +16,7 @@ public class BoardPlaneHandler : MonoBehaviour, IClickable
 
 	public void setActiveNodePlane(NodePlaneHandler newNodePlaneHandler)
 	{
-		if (currentNodePlaneHandler != newNodePlaneHandler)
+		if (currentNodePlaneHandler != null && currentNodePlaneHandler != newNodePlaneHandler)
 		{
 			currentNodePlaneHandler.gameObject.SetActive(false);
 		}

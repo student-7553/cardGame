@@ -36,18 +36,25 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	// -------------------- Node Stats -------------------------
 
-	public int id;
+	private int _id;
+	public int id
+	{
+		get { return _id; }
+		set
+		{
+			_id = value;
+			nodeStats = new NodeStats(this);
+		}
+	}
 
 	public bool isActive;
-
-	public NodeStateTypes nodeState;
 
 	private void Awake()
 	{
 		cardStack = new CardStack(this);
 		nodeStats = new NodeStats(this);
-		isInteractiveDisabled = false;
 
+		isInteractiveDisabled = false;
 		isActive = true;
 
 		interactableType = CoreInteractableType.Nodes;
@@ -56,9 +63,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	public void init()
 	{
 		nodePlaneManager = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
+
 		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
+
 		nodeTextHandler = gameObject.GetComponent(typeof(NodeTextHandler)) as NodeTextHandler;
+
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+
 		nodeProcess = gameObject.GetComponent(typeof(NodeProcess)) as NodeProcess;
 		nodeProcess.init(this);
 
@@ -113,7 +124,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public bool isMarket()
 	{
-		if (nodeState == NodeStateTypes.market_1)
+		if (id == 3003)
 		{
 			return true;
 		}
@@ -124,15 +135,17 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	{
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
-
 		List<int> cardIds = cardStack.getActiveCardIds();
 
 		this.handleTypeRemoval(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
+		Debug.Log("removingCardIds count/" + removingCardIds.Count);
 
 		List<Card> removingCards = this.getCards(removingCardIds);
 		foreach (Card card in removingCards)
 		{
 			card.isInteractiveDisabled = true;
+			card.cardDisable.timer = timer;
+			card.cardDisable.disableType = CardDisableType.Process;
 		}
 
 		yield return new WaitForSeconds(timer);

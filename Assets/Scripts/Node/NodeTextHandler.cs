@@ -37,5 +37,10 @@ public class NodeTextHandler : MonoBehaviour
 		{
 			processTimerTextMesh.text = "";
 		}
+
+		if (!connectedNode.isActive)
+		{
+			processTimerTextMesh.text = "[Inactive] " + processTimerTextMesh.text;
+		}
 	}
 }

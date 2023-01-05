@@ -56,9 +56,23 @@ public class NodeStats
 
 	public NodeStats(Node _connectedNode)
 	{
-		baseNodeStat = new BaseNodeStats(10, 10, 1, 1, 60);
+		int[] baseNodeStats = NodeBaseStats.getBaseStats(_connectedNode.id);
+		baseNodeStat = new BaseNodeStats(baseNodeStats[0], baseNodeStats[1], baseNodeStats[2], baseNodeStats[3], baseNodeStats[4]);
+
 		currentNodeStats = new CurrentNodeStats();
 		connectedNode = _connectedNode;
+	}
+
+	// private
+
+	public void injectGold(int goldAmount)
+	{
+		currentNodeStats.currentGold = currentNodeStats.currentGold + goldAmount;
+	}
+
+	public void injectFood(int foodAmount)
+	{
+		currentNodeStats.currentFood = currentNodeStats.currentFood + foodAmount;
 	}
 
 	public void computeStats()

@@ -82,7 +82,7 @@ public class NodeProcess : MonoBehaviour
 
 		List<int> cardIds = node.cardStack.getActiveCardIds();
 
-		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds);
+		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
 		if (pickedProcess != null)
 		{
 			StartCoroutine(handleProcess(pickedProcess));
@@ -131,7 +131,7 @@ public class NodeProcess : MonoBehaviour
 		return true;
 	}
 
-	private RawProcessObject getAvailableProcess(List<int> cardIds)
+	private RawProcessObject getAvailableProcess(List<int> cardIds, int nodeId)
 	{
 		RawProcessObject possibleProcesses = null;
 
@@ -150,10 +150,11 @@ public class NodeProcess : MonoBehaviour
 			{
 				Dictionary<int, int> indexedRequiredIds = node.indexCardIds(singleProcess.requiredIds.ToList());
 				bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
-
+				bool isInNode = singleProcess.inNodeId != 0 ? singleProcess.inNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
 				if (
 					isUnlocked
+					&& isInNode
 					&& ifRequiredCardsPassed
 					&& node.nodeStats.currentNodeStats.currentGold >= singleProcess.requiredGold
 					&& node.nodeStats.currentNodeStats.currentElectricity >= singleProcess.requiredElectricity
@@ -192,14 +193,16 @@ public class NodeProcess : MonoBehaviour
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
 
-		AddingCardsObject pickedAddingCardId = pickAddingCardsObject(pickedProcess);
+		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
 
-		if (pickedAddingCardId.isOneTime)
+		if (pickedAddingCardObject.isOneTime)
 		{
-			PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardId.id);
+			PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
-		addingCardIds.AddRange(pickedAddingCardId.addingCardIds);
+		addingCardIds.AddRange(pickedAddingCardObject.addingCardIds);
+
+		// requiredId
 
 		List<int> cardIds = node.cardStack.getActiveCardIds();
 
@@ -208,11 +211,18 @@ public class NodeProcess : MonoBehaviour
 		List<Card> removingCards = node.getCards(removingCardIds);
 		foreach (Card card in removingCards)
 		{
+			card.cardDisable.timer = pickedProcess.time;
+			card.cardDisable.disableType = CardDisableType.Process;
 			card.isInteractiveDisabled = true;
 		}
 
 		StartCoroutine(handleProcessCounter(pickedProcess.time));
 		yield return new WaitForSeconds(pickedProcess.time);
+
+		if (pickedAddingCardObject.updateCurrentNode != 0 && node.id < pickedAddingCardObject.updateCurrentNode)
+		{
+			node.id = pickedAddingCardObject.updateCurrentNode;
+		}
 
 		if (node.isActive)
 		{
@@ -286,8 +296,7 @@ public class NodeProcess : MonoBehaviour
 		ref List<int> addingCardIds
 	)
 	{
-		removingCardIds.Add(pickedProcess.baseCardId);
-		removingCardIds.AddRange(pickedProcess.requiredIds);
+		removingCardIds.AddRange(pickedProcess.removingIds);
 
 		if (pickedProcess.requiredGold > 0)
 		{

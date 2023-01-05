@@ -20,16 +20,35 @@ public class CardCorners
 	}
 }
 
+public enum CardDisableType
+{
+	Que,
+	Process,
+	Dead,
+}
+
+public class CardDisable
+{
+	public CardDisableType? disableType;
+	public float timer;
+
+	public CardDisable()
+	{
+		timer = 0;
+		disableType = null;
+	}
+}
+
 public class Card : MonoBehaviour, IStackable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
-	private bool _isDisabled;
+	private bool _isInteractiveDisabled;
 	public bool isInteractiveDisabled
 	{
-		get { return _isDisabled; }
+		get { return _isInteractiveDisabled; }
 		set
 		{
-			_isDisabled = value;
+			_isInteractiveDisabled = value;
 			reflectScreen();
 		}
 	}
@@ -54,7 +73,9 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public CardStack joinedStack;
 
-	public float timer;
+	// public float timer;
+
+	public CardDisable cardDisable;
 
 	private TextMeshPro titleTextMesh;
 
@@ -76,8 +97,9 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		this.computeCorners();
 		isStacked = false;
 		isInteractiveDisabled = false;
-		timer = 0;
+
 		interactableType = CoreInteractableType.Cards;
+		cardDisable = new CardDisable();
 	}
 
 	public void moveCard(Vector3 newPosition)
@@ -140,7 +162,13 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 		if (isInteractiveDisabled)
 		{
-			cardTitle = "[DISABLED] " + cardTitle;
+			string disabledTitle = "[DISABLED] ";
+
+			if (cardDisable.disableType != null)
+			{
+				disabledTitle = disabledTitle + $"[{cardDisable.disableType}]";
+			}
+			cardTitle = disabledTitle + cardTitle;
 		}
 
 		if (titleTextMesh != null)

@@ -136,7 +136,7 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		if (draggingObject.interactableType == CoreInteractableType.Cards)
 		{
-			// is card
+			// Is card
 			Card bottomCard = draggingObject.getCard();
 
 			IStackable stackableObject = this.findTargetToStack(bottomCard);
