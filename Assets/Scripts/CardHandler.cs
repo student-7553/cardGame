@@ -24,7 +24,7 @@ public class CardHandler : MonoBehaviour
 		}
 		current = this;
 
-		defaultCardPoint = new Vector3();
+		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -85,6 +85,7 @@ public class CardHandler : MonoBehaviour
 		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
+		nodeGameObject.transform.position = new Vector3(225, 0, HelperData.baseZ);
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
@@ -100,6 +101,8 @@ public class CardHandler : MonoBehaviour
 		Vector3 spawningPosition = nodeGameObject.transform.position;
 
 		spawningPosition.z = HelperData.nodeBoardZ + spawningPosition.z;
+
+		// GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
 

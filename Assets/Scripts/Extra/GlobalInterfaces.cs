@@ -27,9 +27,9 @@ namespace Core
 
 	public static class NodeBaseStats
 	{
-		public static readonly int[] base1Stats = { 10, 20, 1, 1, 30 };
-		public static readonly int[] base2Stats = { 10, 30, 1, 2, 30 };
-		public static readonly int[] base3Stats = { 10, 40, 1, 3, 30 };
+		public static readonly int[] base1Stats = { 10, 20, 1, 1, 10 };
+		public static readonly int[] base2Stats = { 10, 30, 1, 2, 10 };
+		public static readonly int[] base3Stats = { 10, 40, 1, 3, 10 };
 
 		public static int[] getBaseStats(int nodeId)
 		{

@@ -54,7 +54,7 @@ public class PlayerCardTracker : MonoBehaviour
 	public bool didPlayerUnlockCards(int[] cardIds)
 	{
 		bool isUnlocked = true;
-		if (cardIds.Length > 0)
+		if (cardIds != null && cardIds.Length > 0)
 		{
 			foreach (int cardId in cardIds)
 			{

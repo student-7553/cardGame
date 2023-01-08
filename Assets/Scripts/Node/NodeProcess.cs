@@ -232,6 +232,10 @@ public class NodeProcess : MonoBehaviour
 		else
 		{
 			// Todo: handle failed process
+			foreach (Card card in removingCards)
+			{
+				card.isInteractiveDisabled = false;
+			}
 		}
 
 		StartCoroutine(handleProcessCooldown());

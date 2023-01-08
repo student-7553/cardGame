@@ -27,7 +27,7 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!isInit)
+		if (!isInit || !connectedNode.isActive)
 		{
 			return;
 		}
@@ -42,19 +42,20 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void handleHungerInterval()
 	{
-		Debug.Log("Deleting food from this handleHungerInterval");
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
+
+		Debug.Log("Removing food/" + foodMinus);
+
 		if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
 		{
-			StartCoroutine(
-				connectedNode.handleCardTypeDeletion(CardsTypes.Food, connectedNode.nodeStats.currentNodeStats.currentFood, 3f, null)
-			);
 			connectedNode.isActive = false;
+			// StartCoroutine(
+			// 	connectedNode.handleCardTypeDeletion(CardsTypes.Food, connectedNode.nodeStats.currentNodeStats.currentFood, 2f, null)
+			// );
 		}
 		else
 		{
-			Debug.Log("Deleting food from this handleHungerInterval/" + foodMinus);
-			StartCoroutine(connectedNode.handleCardTypeDeletion(CardsTypes.Food, foodMinus, 3f, null));
+			StartCoroutine(connectedNode.handleCardTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
 		}
 	}
 }

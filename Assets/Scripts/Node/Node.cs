@@ -138,7 +138,6 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		List<int> cardIds = cardStack.getActiveCardIds();
 
 		this.handleTypeRemoval(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
-		Debug.Log("removingCardIds count/" + removingCardIds.Count);
 
 		List<Card> removingCards = this.getCards(removingCardIds);
 		foreach (Card card in removingCards)
@@ -241,7 +240,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		int positionMinusInterval = 4;
 		Vector3 startingPosition = new Vector3(
 			gameObject.transform.position.x,
-			gameObject.transform.position.y - 10,
+			gameObject.transform.position.y - 25,
 			gameObject.transform.position.z
 		);
 		cardStack.removeCardsFromStack(cards);
