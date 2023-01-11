@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System;
-using System.Linq;
 using Core;
 using Helpers;
 
@@ -32,7 +31,9 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	[System.NonSerialized]
 	public NodeHungerHandler nodeHungerHandler;
 
-	public CardStack cardStack;
+	public CardStack storageCardStack;
+
+	public CardStack processCardStack;
 
 	// -------------------- Node Stats -------------------------
 
@@ -51,8 +52,14 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	private void Awake()
 	{
-		cardStack = new CardStack(this);
+		storageCardStack = new CardStack(this);
+		storageCardStack.originPointAdjustment = new Vector3(10f, 25f, 0);
+
+		processCardStack = new CardStack(this);
+		processCardStack.originPointAdjustment = new Vector3(-10f, 25f, 0);
+
 		nodeStats = new NodeStats(this);
+		nodeTextHandler = new NodeTextHandler(this);
 
 		isInteractiveDisabled = false;
 		isActive = true;
@@ -60,13 +67,11 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		interactableType = CoreInteractableType.Nodes;
 	}
 
-	public void init()
+	public void init(NodePlaneHandler nodePlane)
 	{
-		nodePlaneManager = gameObject.GetComponentInChildren(typeof(NodePlaneHandler), true) as NodePlaneHandler;
+		nodePlaneManager = nodePlane;
 
 		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
-
-		nodeTextHandler = gameObject.GetComponent(typeof(NodeTextHandler)) as NodeTextHandler;
 
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 
@@ -91,26 +96,29 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void stackOnThis(Card newCard, Node prevNode)
 	{
+		if (isMarket() && !CardDictionary.globalCardDictionary[newCard.id].isSellable)
+		{
+			return;
+		}
+
 		if (prevNode != this)
 		{
 			nodeCardQue.addCard(newCard);
 		}
 
-		cardStack.addCardToStack(newCard);
+		storageCardStack.addCardToStack(newCard);
 	}
 
-	public void putExistingCardOnTop(Card card)
+	public void addCardToProcessCardStack(Card newCard)
 	{
-		List<Card> newCards = new List<Card> { card };
-		List<Card> oldCards = cardStack.cards.Where((oldCard) => oldCard != card).ToList();
-		newCards.AddRange(oldCards);
-		cardStack.cards = newCards;
+		processCardStack.addCardToStack(newCard);
 	}
 
 	private void FixedUpdate()
 	{
 		nodeStats.computeStats();
 		nodeStats.handleLimits();
+		nodeTextHandler.reflectToScreen();
 	}
 
 	public Card getCard()
@@ -131,13 +139,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		return false;
 	}
 
-	public IEnumerator handleCardTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
+	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
-		List<int> cardIds = cardStack.getActiveCardIds();
+		List<int> cardIds = storageCardStack.getActiveCardIds();
 
-		this.handleTypeRemoval(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
+		this.handleTypeAdjusting(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
 
 		List<Card> removingCards = this.getCards(removingCardIds);
 		foreach (Card card in removingCards)
@@ -158,7 +166,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 	}
 
-	public void handleTypeRemoval(
+	public void handleTypeAdjusting(
 		List<int> availableCardIds,
 		CardsTypes cardType,
 		int requiredTypeValue,
@@ -188,7 +196,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void hadleRemovingCards(List<Card> removingCards)
 	{
-		cardStack.removeCardsFromStack(removingCards);
+		storageCardStack.removeCardsFromStack(removingCards);
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
@@ -211,7 +219,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				addingCards.Add(createdCard);
 			}
 		}
-		cardStack.addCardToStack(addingCards);
+		storageCardStack.addCardToStack(addingCards);
 	}
 
 	public List<Card> getCards(List<int> cardIds)
@@ -219,7 +227,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		Dictionary<int, int> indexedCardIds = this.indexCardIds(cardIds);
 		List<Card> cards = new List<Card>();
 
-		foreach (Card singleCard in cardStack.cards)
+		foreach (Card singleCard in storageCardStack.cards)
 		{
 			if (indexedCardIds.ContainsKey(singleCard.id))
 			{
@@ -243,7 +251,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			gameObject.transform.position.y - 25,
 			gameObject.transform.position.z
 		);
-		cardStack.removeCardsFromStack(cards);
+		storageCardStack.removeCardsFromStack(cards);
 
 		foreach (Card card in cards)
 		{

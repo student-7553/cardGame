@@ -69,9 +69,23 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public int id;
 
-	public bool isStacked;
-
 	public CardStack joinedStack;
+
+	private bool _isStacked;
+	public bool isStacked
+	{
+		get { return _isStacked; }
+		set
+		{
+			if (value == false && _isStacked == true)
+			{
+				joinedStack = null;
+				gameObject.SetActive(true);
+				gameObject.transform.SetParent(null);
+			}
+			_isStacked = value;
+		}
+	}
 
 	// public float timer;
 
@@ -111,16 +125,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	public void computeCorners()
 	{
 		this.corners = this.generateTheCorners();
-	}
-
-	public void removeFromCardStack()
-	{
-		isStacked = false;
-		joinedStack = null;
-		if (gameObject != null && gameObject.activeSelf == false)
-		{
-			gameObject.SetActive(true);
-		}
 	}
 
 	public void addToCardStack(CardStack newCardStack)

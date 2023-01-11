@@ -3,14 +3,21 @@ using UnityEngine;
 using Core;
 using Helpers;
 
+public class NodeCardStack
+{
+	public Node connectedNode;
+}
+
 public class CardStack
 {
 	private static float stackDistance = 5;
-	private static float distancePerCards = 0.01f;
+	private static float zDistancePerCards = 0.01f;
 
 	public Node connectedNode;
 
 	public CardStackType cardStackType;
+
+	public Vector3 originPointAdjustment;
 
 	private List<Card> _cards;
 
@@ -26,6 +33,7 @@ public class CardStack
 
 	public CardStack(Node spawningNode)
 	{
+		originPointAdjustment = new Vector3();
 		cards = new List<Card>();
 		if (spawningNode == null)
 		{
@@ -45,19 +53,16 @@ public class CardStack
 			return;
 		}
 		Card rootCard = this.getRootCard();
-		rootCard.transform.position = new Vector3(originPoint.x, originPoint.y, this.getPositionZ());
-
-		// we are not looping through first card because it's the origin point
-		for (int i = 1; i < cards.Count; i++)
+		float paddingCounter = 0;
+		foreach (Card singleCard in cards)
 		{
-			Card cardInSubject = cards[i];
-			Vector3 newPostionForCardInSubject = new Vector3(
-				rootCard.transform.position.x,
-				rootCard.transform.position.y - (stackDistance * i),
-				rootCard.transform.position.z - (i * distancePerCards)
-			);
-			cardInSubject.transform.position = newPostionForCardInSubject;
-			cardInSubject.computeCorners();
+			Vector3 newPostionForCardInSubject = new Vector3(originPoint.x, originPoint.y, this.getPositionZ());
+			newPostionForCardInSubject.y = newPostionForCardInSubject.y - (paddingCounter * stackDistance);
+			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
+
+			paddingCounter++;
+			singleCard.transform.position = newPostionForCardInSubject;
+			singleCard.computeCorners();
 		}
 	}
 
@@ -67,32 +72,22 @@ public class CardStack
 		{
 			return;
 		}
-
+		Vector3 originPoint = new Vector3();
 		if (cardStackType == CardStackType.Nodes)
 		{
-			Vector3 rootPosition = new Vector3(
+			originPoint = new Vector3(
 				connectedNode.nodePlaneManager.gameObject.transform.position.x,
-				connectedNode.nodePlaneManager.gameObject.transform.position.y + 25f,
+				connectedNode.nodePlaneManager.gameObject.transform.position.y,
 				this.getPositionZ()
 			);
-			this.alignCards(rootPosition);
 		}
 		else
 		{
 			Card rootCard = this.getRootCard();
-			this.alignCards(rootCard.transform.position);
+			originPoint = rootCard.transform.position;
 		}
-	}
-
-	public void changeActiveStateOfAllCards(bool isActive)
-	{
-		foreach (Card singleCard in cards)
-		{
-			if (singleCard != null && singleCard.gameObject != null)
-			{
-				singleCard.gameObject.SetActive(isActive);
-			}
-		}
+		originPoint = originPoint + originPointAdjustment;
+		this.alignCards(originPoint);
 	}
 
 	public void removeCardsFromStack(List<Card> removingCards)
@@ -100,7 +95,7 @@ public class CardStack
 		foreach (Card singleCard in removingCards)
 		{
 			cards.Remove(singleCard);
-			singleCard.removeFromCardStack();
+			singleCard.isStacked = false;
 		}
 		this.alignCards();
 	}
@@ -112,13 +107,10 @@ public class CardStack
 		foreach (Card singleCard in addingCards)
 		{
 			singleCard.addToCardStack(this);
-		}
 
-		if (cardStackType == CardStackType.Nodes && connectedNode != null)
-		{
-			if (connectedNode.nodePlaneManager.gameObject.activeSelf == false)
+			if (cardStackType == CardStackType.Nodes)
 			{
-				changeActiveStateOfAllCards(false);
+				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 			}
 		}
 	}
@@ -130,12 +122,9 @@ public class CardStack
 
 		addingCard.addToCardStack(this);
 
-		if (cardStackType == CardStackType.Nodes && connectedNode != null)
+		if (cardStackType == CardStackType.Nodes)
 		{
-			if (connectedNode.nodePlaneManager.gameObject.activeSelf == false)
-			{
-				changeActiveStateOfAllCards(false);
-			}
+			addingCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 		}
 	}
 

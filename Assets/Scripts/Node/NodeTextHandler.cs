@@ -1,8 +1,7 @@
 using UnityEngine;
-
 using TMPro;
 
-public class NodeTextHandler : MonoBehaviour
+public class NodeTextHandler
 {
 	// -------------------- Unity Component -------------------------
 	private TextMeshPro titleTextMesh;
@@ -10,21 +9,16 @@ public class NodeTextHandler : MonoBehaviour
 	private TextMeshPro processTimerTextMesh;
 	private Node connectedNode;
 
-	public void Awake()
+	public NodeTextHandler(Node _node)
 	{
-		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
+		connectedNode = _node;
+		Component[] textMeshes = _node.gameObject.GetComponentsInChildren(typeof(TextMeshPro));
 		titleTextMesh = textMeshes[0] as TextMeshPro;
 		availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
 		processTimerTextMesh = textMeshes[2] as TextMeshPro;
-		connectedNode = gameObject.GetComponent(typeof(Node)) as Node;
 	}
 
-	private void FixedUpdate()
-	{
-		reflectToScreen();
-	}
-
-	private void reflectToScreen()
+	public void reflectToScreen()
 	{
 		availableInventoryTextMesh.text =
 			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
@@ -40,7 +34,7 @@ public class NodeTextHandler : MonoBehaviour
 
 		if (!connectedNode.isActive)
 		{
-			processTimerTextMesh.text = "[Inactive] " + processTimerTextMesh.text;
+			processTimerTextMesh.text = "[No Food] " + processTimerTextMesh.text;
 		}
 	}
 }

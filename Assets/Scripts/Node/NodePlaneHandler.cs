@@ -1,34 +1,84 @@
 using UnityEngine;
 using Core;
-using System.Collections.Generic;
 using TMPro;
 
 public class NodePlaneHandler : MonoBehaviour, IStackable
 {
 	private Node connectedNode;
-	public TextMeshPro textMesh;
+	public TextMeshPro titleTextMesh;
 
 	private void Awake()
 	{
-		connectedNode = GetComponentInParent(typeof(Node)) as Node;
 		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-		textMesh = textMeshes[0] as TextMeshPro;
+		titleTextMesh = textMeshes[0] as TextMeshPro;
+	}
+
+	public void init(Node parentNode)
+	{
+		connectedNode = parentNode;
 	}
 
 	private void OnDisable()
 	{
-		connectedNode.cardStack.changeActiveStateOfAllCards(false);
+		if (connectedNode == null)
+		{
+			return;
+		}
 	}
 
 	private void OnEnable()
 	{
-		connectedNode.cardStack.changeActiveStateOfAllCards(true);
+		if (connectedNode == null)
+		{
+			return;
+		}
+
 		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
-		connectedNode.cardStack.alignCards();
+		connectedNode.storageCardStack.alignCards();
 	}
 
 	public void stackOnThis(Card draggingCard, Node prevNode)
 	{
-		connectedNode.stackOnThis(draggingCard, prevNode);
+		if (connectedNode == null)
+		{
+			return;
+		}
+
+		bool dropOnLeftSide = true;
+
+		if (!connectedNode.isMarket() && prevNode == connectedNode && dropOnLeftSide)
+		{
+			connectedNode.addCardToProcessCardStack(draggingCard);
+		}
+		else
+		{
+			connectedNode.stackOnThis(draggingCard, prevNode);
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		if (connectedNode == null)
+		{
+			return;
+		}
+		reflectToScreen();
+	}
+
+	private void reflectToScreen()
+	{
+		if (connectedNode.nodeProcess.isProccessing)
+		{
+			titleTextMesh.text = $"{connectedNode.nodeProcess.proccessingLeft}";
+		}
+		else
+		{
+			titleTextMesh.text = "";
+		}
+
+		if (!connectedNode.isActive)
+		{
+			titleTextMesh.text = "[No Food] " + titleTextMesh.text;
+		}
 	}
 }

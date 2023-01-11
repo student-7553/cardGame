@@ -84,13 +84,13 @@ public class LeftClickHandler : MonoBehaviour
 			);
 
 			Node previousStackedNode = null;
-			Card bottomCard = interactableObject.getCard();
-			if (bottomCard != null && bottomCard.isStacked)
+			Card card = interactableObject.getCard();
+			if (card != null && card.isStacked)
 			{
 				List<Card> draggingCards = new List<Card>();
-				draggingCards.Add(bottomCard);
-				previousStackedNode = bottomCard.joinedStack.connectedNode;
-				bottomCard.joinedStack.removeCardsFromStack(draggingCards);
+				draggingCards.Add(card);
+				previousStackedNode = card.joinedStack.connectedNode;
+				card.joinedStack.removeCardsFromStack(draggingCards);
 			}
 
 			StartCoroutine(dragUpdate(interactableObject, clickedDifferenceInWorld, previousStackedNode));
@@ -137,23 +137,16 @@ public class LeftClickHandler : MonoBehaviour
 		if (draggingObject.interactableType == CoreInteractableType.Cards)
 		{
 			// Is card
-			Card bottomCard = draggingObject.getCard();
+			Card card = draggingObject.getCard();
 
-			IStackable stackableObject = this.findTargetToStack(bottomCard);
+			IStackable stackableObject = this.findTargetToStack(card);
 			if (stackableObject != null)
 			{
-				stackableObject.stackOnThis(bottomCard, previousStackedNode);
+				stackableObject.stackOnThis(card, previousStackedNode);
 				return;
 			}
 
-			if (bottomCard.isStacked)
-			{
-				List<Card> draggingCards = new List<Card>();
-				draggingCards.Add(bottomCard);
-				bottomCard.joinedStack.removeCardsFromStack(draggingCards);
-			}
-
-			GameObject bottomGameObject = this.findInteractableGameObject(bottomCard);
+			GameObject bottomGameObject = this.findInteractableGameObject(card);
 			GameObject draggingGameObject = draggingObject.gameObject;
 
 			if (bottomGameObject != null)

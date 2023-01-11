@@ -85,6 +85,7 @@ public class CardHandler : MonoBehaviour
 		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
+
 		nodeGameObject.transform.position = new Vector3(225, 0, HelperData.baseZ);
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
@@ -92,23 +93,20 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 
-		ensureComponent<NodeTextHandler>(nodeGameObject);
-
 		ensureComponent<NodeProcess>(nodeGameObject);
 
 		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
-		Vector3 spawningPosition = nodeGameObject.transform.position;
+		Vector3 spawningPosition = new Vector3(103, 0, HelperData.nodeBoardZ);
 
-		spawningPosition.z = HelperData.nodeBoardZ + spawningPosition.z;
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity);
 
-		// GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
-
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity, newNode.gameObject.transform);
+		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
+		nodePlane.init(newNode);
 
 		newNodePlane.SetActive(false);
 
-		newNode.init();
+		newNode.init(nodePlane);
 
 		return newNode;
 	}

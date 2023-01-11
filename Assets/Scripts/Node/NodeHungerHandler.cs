@@ -50,12 +50,12 @@ public class NodeHungerHandler : MonoBehaviour
 		{
 			connectedNode.isActive = false;
 			// StartCoroutine(
-			// 	connectedNode.handleCardTypeDeletion(CardsTypes.Food, connectedNode.nodeStats.currentNodeStats.currentFood, 2f, null)
+			// 	connectedNode.queUpTypeDeletion(CardsTypes.Food, connectedNode.nodeStats.currentNodeStats.currentFood, 2f, null)
 			// );
 		}
 		else
 		{
-			StartCoroutine(connectedNode.handleCardTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
+			StartCoroutine(connectedNode.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
 		}
 	}
 }

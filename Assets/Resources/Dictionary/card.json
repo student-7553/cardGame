@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Rock plain",
       "type": "Resource",
-      "resourceInventoryCount": 5,
+      "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
@@ -16,7 +16,7 @@
       "id": 2,
       "name": "Space rock",
       "type": "Resource",
-      "resourceInventoryCount": 4,
+      "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
@@ -40,7 +40,7 @@
       "id": 4,
       "name": "Glacial deposit",
       "type": "Resource",
-      "resourceInventoryCount": 5,
+      "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
@@ -52,7 +52,7 @@
       "id": 5,
       "name": "Mineral deposit",
       "type": "Resource",
-      "resourceInventoryCount": 5,
+      "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
@@ -133,6 +133,18 @@
       "foodCost": 0
     },
     {
+      "id": 12,
+      "name": "Rock deposit",
+      "type": "Resource",
+      "resourceInventoryCount": 2,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 10,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -154,7 +166,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 2
+      "foodCost": 1
     },
     {
       "id": 1002,
@@ -166,7 +178,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 2
+      "foodCost": 1
     },
     {
       "id": 1003,
@@ -178,7 +190,7 @@
       "sellingPrice": 3,
       "typeValue": 0,
       "nodeTransferTimeCost": 20,
-      "foodCost": 2
+      "foodCost": 1
     },
     {
       "id": 1004,
@@ -190,7 +202,7 @@
       "sellingPrice": 0,
       "typeValue": 0,
       "nodeTransferTimeCost": 20,
-      "foodCost": 4
+      "foodCost": 1
     },
     {
       "id": 1005,
@@ -202,7 +214,7 @@
       "sellingPrice": 5,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
-      "foodCost": 3
+      "foodCost": 1
     },
     {
       "id": 1100,
@@ -214,7 +226,7 @@
       "sellingPrice": 2,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 2,
+      "foodCost": 1,
       "module": {
         "resourceInventoryIncrease": 10
       }
@@ -378,32 +390,27 @@
     {
       "id": 3000,
       "name": "Small base",
-      "type": "Node",
-      "foodCost": 2
+      "type": "Node"
     },
     {
       "id": 3001,
       "name": "Space dome",
-      "type": "Node",
-      "foodCost": 2
+      "type": "Node"
     },
     {
       "id": 3002,
       "name": "Hive of Space domes",
-      "type": "Node",
-      "foodCost": 2
+      "type": "Node"
     },
     {
       "id": 3003,
       "name": "Small Market",
-      "type": "Node",
-      "foodCost": 2
+      "type": "Node"
     },
     {
       "id": 3004,
       "name": "Tychon oribtal space base",
-      "type": "Node",
-      "foodCost": 2
+      "type": "Node"
     },
     {
       "id": 10000,

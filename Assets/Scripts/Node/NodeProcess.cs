@@ -62,14 +62,14 @@ public class NodeProcess : MonoBehaviour
 	private void handleMarketProcess()
 	{
 		// Market process
-		List<int> activeCardsIds = node.cardStack.getNonTypeActiveCardIds();
+		List<int> activeCardsIds = node.storageCardStack.getNonTypeActiveCardIds();
 		if (activeCardsIds.Count == 0)
 		{
 			this.isProccessing = false;
 			return;
 		}
 
-		StartCoroutine(sellCard(node.cardStack.cards[0]));
+		StartCoroutine(sellCard(node.storageCardStack.cards[0]));
 	}
 
 	private void handleNodeProcess()
@@ -80,7 +80,7 @@ public class NodeProcess : MonoBehaviour
 			return;
 		}
 
-		List<int> cardIds = node.cardStack.getActiveCardIds();
+		List<int> cardIds = node.storageCardStack.getActiveCardIds();
 
 		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
 		if (pickedProcess != null)
@@ -104,7 +104,7 @@ public class NodeProcess : MonoBehaviour
 		if (shouldBeActive)
 		{
 			StartCoroutine(
-				node.handleCardTypeDeletion(
+				node.queUpTypeDeletion(
 					CardsTypes.Food,
 					foodNeededToBeActive,
 					timer,
@@ -204,7 +204,7 @@ public class NodeProcess : MonoBehaviour
 
 		// requiredId
 
-		List<int> cardIds = node.cardStack.getActiveCardIds();
+		List<int> cardIds = node.storageCardStack.getActiveCardIds();
 
 		this.handleProcessAdjustingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
@@ -304,12 +304,12 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedProcess.requiredGold > 0)
 		{
-			node.handleTypeRemoval(cardIds, CardsTypes.Gold, pickedProcess.requiredGold, ref removingCardIds, ref addingCardIds);
+			node.handleTypeAdjusting(cardIds, CardsTypes.Gold, pickedProcess.requiredGold, ref removingCardIds, ref addingCardIds);
 		}
 
 		if (pickedProcess.requiredElectricity > 0)
 		{
-			node.handleTypeRemoval(
+			node.handleTypeAdjusting(
 				cardIds,
 				CardsTypes.Electricity,
 				pickedProcess.requiredElectricity,
