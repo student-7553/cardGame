@@ -44,18 +44,13 @@ public class NodeHungerHandler : MonoBehaviour
 	{
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
 
-		Debug.Log("Removing food/" + foodMinus);
-
 		if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
 		{
 			connectedNode.isActive = false;
-			// StartCoroutine(
-			// 	connectedNode.queUpTypeDeletion(CardsTypes.Food, connectedNode.nodeStats.currentNodeStats.currentFood, 2f, null)
-			// );
 		}
 		else
 		{
-			StartCoroutine(connectedNode.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
+			StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null, NodeCardStackType.storage));
 		}
 	}
 }

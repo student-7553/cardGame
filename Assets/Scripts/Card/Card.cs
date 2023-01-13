@@ -58,11 +58,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public Card getCard()
 	{
-		if (interactableType != CoreInteractableType.Cards)
-		{
-			return null;
-		}
-		return this.GetComponent(typeof(Card)) as Card;
+		return this;
 	}
 
 	public CardCorners corners;

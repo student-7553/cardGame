@@ -5,6 +5,12 @@ using System;
 using Core;
 using Helpers;
 
+public enum NodeCardStackType
+{
+	storage,
+	process
+}
+
 public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
@@ -31,8 +37,10 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	[System.NonSerialized]
 	public NodeHungerHandler nodeHungerHandler;
 
+	[System.NonSerialized]
 	public CardStack storageCardStack;
 
+	[System.NonSerialized]
 	public CardStack processCardStack;
 
 	// -------------------- Node Stats -------------------------
@@ -96,22 +104,24 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void stackOnThis(Card newCard, Node prevNode)
 	{
-		if (isMarket() && !CardDictionary.globalCardDictionary[newCard.id].isSellable)
+		if (isMarket())
 		{
-			return;
-		}
+			if (!CardDictionary.globalCardDictionary[newCard.id].isSellable)
+			{
+				return;
+			}
 
-		if (prevNode != this)
+			processCardStack.addCardToStack(newCard);
+		}
+		else
 		{
-			nodeCardQue.addCard(newCard);
+			if (prevNode != this)
+			{
+				nodeCardQue.addCard(newCard);
+			}
+
+			storageCardStack.addCardToStack(newCard);
 		}
-
-		storageCardStack.addCardToStack(newCard);
-	}
-
-	public void addCardToProcessCardStack(Card newCard)
-	{
-		processCardStack.addCardToStack(newCard);
 	}
 
 	private void FixedUpdate()
@@ -123,11 +133,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public Card getCard()
 	{
-		if (interactableType != CoreInteractableType.Cards)
-		{
-			return null;
-		}
-		return this.GetComponent(typeof(Card)) as Card;
+		return null;
 	}
 
 	public bool isMarket()
@@ -139,64 +145,16 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		return false;
 	}
 
-	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
+	public void hadleRemovingCards(List<Card> removingCards, NodeCardStackType cardStackType)
 	{
-		List<int> removingCardIds = new List<int>();
-		List<int> addingCardIds = new List<int>();
-		List<int> cardIds = storageCardStack.getActiveCardIds();
-
-		this.handleTypeAdjusting(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
-
-		List<Card> removingCards = this.getCards(removingCardIds);
-		foreach (Card card in removingCards)
+		if (cardStackType == NodeCardStackType.storage)
 		{
-			card.isInteractiveDisabled = true;
-			card.cardDisable.timer = timer;
-			card.cardDisable.disableType = CardDisableType.Process;
+			storageCardStack.removeCardsFromStack(removingCards);
 		}
-
-		yield return new WaitForSeconds(timer);
-
-		this.hadleRemovingCards(removingCards);
-		this.handleCreatingCards(addingCardIds);
-
-		if (callback != null)
+		else
 		{
-			callback.Invoke();
+			processCardStack.removeCardsFromStack(removingCards);
 		}
-	}
-
-	public void handleTypeAdjusting(
-		List<int> availableCardIds,
-		CardsTypes cardType,
-		int requiredTypeValue,
-		ref List<int> removingCardIds,
-		ref List<int> addingCardIds
-	)
-	{
-		int totalSum = 0;
-		List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
-		foreach (int typeCardId in ascTypeCardIds)
-		{
-			removingCardIds.Add(typeCardId);
-			totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
-			if (totalSum == requiredTypeValue)
-			{
-				break;
-			}
-			if (totalSum > requiredTypeValue)
-			{
-				int addingTypeValue = totalSum - requiredTypeValue;
-				List<int> newCardIds = CardHelpers.generateTypeValueCards(cardType, addingTypeValue);
-				addingCardIds.AddRange(newCardIds);
-				break;
-			}
-		}
-	}
-
-	public void hadleRemovingCards(List<Card> removingCards)
-	{
-		storageCardStack.removeCardsFromStack(removingCards);
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
@@ -222,12 +180,12 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		storageCardStack.addCardToStack(addingCards);
 	}
 
-	public List<Card> getCards(List<int> cardIds)
+	public List<Card> getCards(List<int> cardIds, NodeCardStackType cardStackType)
 	{
 		Dictionary<int, int> indexedCardIds = this.indexCardIds(cardIds);
 		List<Card> cards = new List<Card>();
 
-		foreach (Card singleCard in storageCardStack.cards)
+		foreach (Card singleCard in cardStackType == NodeCardStackType.storage ? storageCardStack.cards : processCardStack.cards)
 		{
 			if (indexedCardIds.ContainsKey(singleCard.id))
 			{

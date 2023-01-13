@@ -77,7 +77,7 @@ public class NodeStats
 
 	public void computeStats()
 	{
-		List<int> cardIds = connectedNode.storageCardStack.getActiveCardIds();
+		List<int> storageCardIds = connectedNode.storageCardStack.getActiveCardIds();
 		int calcResourceInventoryUsed = 0;
 		int calcResourceInventoryLimit = 0;
 		int calcInfraInventoryUsed = 0;
@@ -88,7 +88,7 @@ public class NodeStats
 		int calcGold = 0;
 		int calcFood = 0;
 
-		foreach (int id in cardIds)
+		foreach (int id in storageCardIds)
 		{
 			calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
 			calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;

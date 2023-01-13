@@ -187,8 +187,8 @@ public class LeftClickHandler : MonoBehaviour
 			hitCard.corners.leftBottomCorner,
 			hitCard.corners.rightBottomCorner
 		};
-		int index = 0;
-		while (index < corners.Length)
+
+		for (int index = 0; index < corners.Length; index++)
 		{
 			Ray ray = new Ray(corners[index], Vector3.forward);
 
@@ -201,7 +201,6 @@ public class LeftClickHandler : MonoBehaviour
 					return stackableObject;
 				}
 			}
-			index++;
 		}
 		return null;
 	}

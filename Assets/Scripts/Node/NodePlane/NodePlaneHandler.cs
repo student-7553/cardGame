@@ -1,8 +1,7 @@
 using UnityEngine;
-using Core;
 using TMPro;
 
-public class NodePlaneHandler : MonoBehaviour, IStackable
+public class NodePlaneHandler : MonoBehaviour
 {
 	private Node connectedNode;
 	public TextMeshPro titleTextMesh;
@@ -34,25 +33,23 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 		}
 
 		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
-		connectedNode.storageCardStack.alignCards();
 	}
 
-	public void stackOnThis(Card draggingCard, Node prevNode)
+	public void cardIsStacking(object[] package)
 	{
-		if (connectedNode == null)
-		{
-			return;
-		}
+		Card card = package[0] as Card;
+		string direction = package[1] as string;
+		Node prevNode = package[2] as Node;
 
-		bool dropOnLeftSide = true;
+		bool dropOnLeftSide = direction == "left" ? true : false;
 
 		if (!connectedNode.isMarket() && prevNode == connectedNode && dropOnLeftSide)
 		{
-			connectedNode.addCardToProcessCardStack(draggingCard);
+			connectedNode.storageCardStack.addCardToStack(card);
 		}
 		else
 		{
-			connectedNode.stackOnThis(draggingCard, prevNode);
+			connectedNode.stackOnThis(card, prevNode);
 		}
 	}
 
