@@ -32,15 +32,15 @@ public static class CardDictionary
 		RawProcessObject[] listOfProcess = JsonHelper.FromJson<RawProcessObject>(jsonTextFile.text);
 		foreach (RawProcessObject singleProcess in listOfProcess)
 		{
-			if (globalProcessDictionary.ContainsKey(singleProcess.requiredId))
+			if (globalProcessDictionary.ContainsKey(singleProcess.baseRequiredId))
 			{
-				globalProcessDictionary[singleProcess.requiredId].Add(singleProcess);
+				globalProcessDictionary[singleProcess.baseRequiredId].Add(singleProcess);
 			}
 			else
 			{
 				List<RawProcessObject> newProcesses = new List<RawProcessObject>();
 				newProcesses.Add(singleProcess);
-				globalProcessDictionary.Add(singleProcess.requiredId, newProcesses);
+				globalProcessDictionary.Add(singleProcess.baseRequiredId, newProcesses);
 			}
 		}
 	}

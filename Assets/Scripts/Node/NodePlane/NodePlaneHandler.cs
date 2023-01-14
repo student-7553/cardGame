@@ -43,9 +43,9 @@ public class NodePlaneHandler : MonoBehaviour
 
 		bool dropOnLeftSide = direction == "left" ? true : false;
 
-		if (!connectedNode.isMarket() && prevNode == connectedNode && dropOnLeftSide)
+		if (dropOnLeftSide && prevNode == connectedNode && !connectedNode.isMarket())
 		{
-			connectedNode.storageCardStack.addCardToStack(card);
+			connectedNode.processCardStack.addCardToStack(card);
 		}
 		else
 		{

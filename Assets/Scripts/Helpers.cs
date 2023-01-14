@@ -115,6 +115,25 @@ namespace Helpers
 			return ascTypeCardIds;
 		}
 
+		public static int getTypeValueFromCardIds(CardsTypes cardType, List<int> cardIds)
+		{
+			if (isNotAllowedCardType(cardType))
+			{
+				return 0;
+			}
+
+			int typeValue = 0;
+			foreach (int cardId in cardIds)
+			{
+				if (CardDictionary.globalCardDictionary.ContainsKey(cardId) && CardDictionary.globalCardDictionary[cardId].type == cardType)
+				{
+					typeValue = typeValue + CardDictionary.globalCardDictionary[cardId].typeValue;
+				}
+			}
+
+			return typeValue;
+		}
+
 		private static bool isNotAllowedCardType(CardsTypes cardType)
 		{
 			List<int> ascTypeCardIds = new List<int>();

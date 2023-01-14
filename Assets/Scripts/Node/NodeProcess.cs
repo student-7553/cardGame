@@ -49,9 +49,7 @@ public class NodeProcess : MonoBehaviour
 		List<Card> removingCards = node.getCards(removingCardIds, cardStackType);
 		foreach (Card card in removingCards)
 		{
-			card.isInteractiveDisabled = true;
-			card.cardDisable.timer = timer;
-			card.cardDisable.disableType = CardDisableType.Process;
+			card.disableInteractiveForATime(timer, CardDisableType.Process);
 		}
 
 		yield return new WaitForSeconds(timer);
@@ -143,6 +141,7 @@ public class NodeProcess : MonoBehaviour
 			List<int> cardIds = node.processCardStack.getActiveCardIds();
 
 			RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
+
 			if (pickedProcess != null)
 			{
 				StartCoroutine(handleProcess(pickedProcess));
@@ -214,12 +213,16 @@ public class NodeProcess : MonoBehaviour
 				bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
 				bool isInNode = singleProcess.inNodeId != 0 ? singleProcess.inNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
+
+				int currentTotalGold = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds);
+				int currentTotalElectricity = CardHelpers.getTypeValueFromCardIds(CardsTypes.Electricity, cardIds);
+
 				if (
 					isUnlocked
 					&& isInNode
 					&& ifRequiredCardsPassed
-					&& node.nodeStats.currentNodeStats.currentGold >= singleProcess.requiredGold
-					&& node.nodeStats.currentNodeStats.currentElectricity >= singleProcess.requiredElectricity
+					&& currentTotalGold >= singleProcess.requiredGold
+					&& currentTotalElectricity >= singleProcess.requiredElectricity
 				)
 				{
 					possibleProcesses = singleProcess;
@@ -236,10 +239,10 @@ public class NodeProcess : MonoBehaviour
 		bool getIfRequiredCardsPassed(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
 		{
 			bool isAvailableToProcess = true;
-			foreach (int requiredId in indexedRequiredIds.Keys)
+			foreach (int baseRequiredId in indexedRequiredIds.Keys)
 			{
-				int howManyRequired = indexedRequiredIds[requiredId];
-				int howManyIsAvailable = clonedCardIds.Where(x => x.Equals(requiredId)).Count();
+				int howManyRequired = indexedRequiredIds[baseRequiredId];
+				int howManyIsAvailable = clonedCardIds.Where(x => x.Equals(baseRequiredId)).Count();
 				if (howManyIsAvailable < howManyRequired)
 				{
 					isAvailableToProcess = false;
@@ -269,14 +272,23 @@ public class NodeProcess : MonoBehaviour
 		this.handleProcessAdjustingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
 		List<Card> removingCards = node.getCards(removingCardIds, NodeCardStackType.process);
+
+		List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
+		restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
+
+		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds, NodeCardStackType.process);
+
+		foreach (Card card in restNonInteractiveCards)
+		{
+			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
+		}
 		foreach (Card card in removingCards)
 		{
-			card.cardDisable.timer = pickedProcess.time;
-			card.cardDisable.disableType = CardDisableType.Process;
-			card.isInteractiveDisabled = true;
+			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
 		StartCoroutine(handleProcessCounter(pickedProcess.time));
+
 		yield return new WaitForSeconds(pickedProcess.time);
 
 		if (pickedAddingCardObject.updateCurrentNode != 0 && node.id < pickedAddingCardObject.updateCurrentNode)
@@ -296,6 +308,10 @@ public class NodeProcess : MonoBehaviour
 			{
 				card.isInteractiveDisabled = false;
 			}
+		}
+		foreach (Card card in restNonInteractiveCards)
+		{
+			card.isInteractiveDisabled = false;
 		}
 
 		StartCoroutine(handleProcessCooldown());
@@ -349,8 +365,9 @@ public class NodeProcess : MonoBehaviour
 	private IEnumerator handleProcessCooldown()
 	{
 		this.isProccessing = false;
+		this.isOnCooldown = true;
 		yield return new WaitForSeconds(processCooldown);
-		isOnCooldown = false;
+		this.isOnCooldown = false;
 	}
 
 	private void handleProcessAdjustingCardIds(
@@ -400,7 +417,7 @@ public class NodeProcess : MonoBehaviour
 		int goldAmount = this.getGoldAmount(card.id);
 		List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
-		card.isInteractiveDisabled = true;
+		card.disableInteractiveForATime(sellTimer, CardDisableType.Process);
 
 		yield return new WaitForSeconds(sellTimer);
 

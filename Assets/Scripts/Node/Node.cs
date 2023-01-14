@@ -222,17 +222,19 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	public Dictionary<int, int> indexCardIds(List<int> requiredIds)
 	{
 		Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
-		foreach (int requiredId in requiredIds)
+		foreach (int baseRequiredId in requiredIds)
 		{
-			if (indexedRequiredIds.ContainsKey(requiredId))
+			if (indexedRequiredIds.ContainsKey(baseRequiredId))
 			{
-				indexedRequiredIds[requiredId] = indexedRequiredIds[requiredId] + 1;
+				indexedRequiredIds[baseRequiredId] = indexedRequiredIds[baseRequiredId] + 1;
 			}
 			else
 			{
-				indexedRequiredIds.Add(requiredId, 1);
+				indexedRequiredIds.Add(baseRequiredId, 1);
 			}
 		}
 		return indexedRequiredIds;
 	}
+
+	// public
 }

@@ -2,12 +2,12 @@
   "Items": [
     {
       "id": 1,
-      "requiredId": 1,
+      "baseRequiredId": 1,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
       "removingIds": [],
-      "requiredGold": 0,
+      "requiredGold": 1,
       "requiredElectricity": 0,
       "time": 2,
       "addingCardObjects": [
@@ -36,7 +36,7 @@
     },
     {
       "id": 2,
-      "requiredId": 2,
+      "baseRequiredId": 2,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [2],
@@ -56,7 +56,7 @@
     },
     {
       "id": 3,
-      "requiredId": 4,
+      "baseRequiredId": 4,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
@@ -76,7 +76,7 @@
     },
     {
       "id": 4,
-      "requiredId": 5,
+      "baseRequiredId": 5,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
@@ -110,7 +110,7 @@
     },
     {
       "id": 5,
-      "requiredId": 1003,
+      "baseRequiredId": 1003,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
@@ -191,7 +191,7 @@
     },
     {
       "id": 6,
-      "requiredId": 1001,
+      "baseRequiredId": 1001,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [9],
@@ -211,7 +211,7 @@
     },
     {
       "id": 7,
-      "requiredId": 1002,
+      "baseRequiredId": 1002,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
@@ -232,7 +232,7 @@
 
     {
       "id": 10,
-      "requiredId": 6,
+      "baseRequiredId": 6,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [3, 3, 3],
@@ -252,7 +252,7 @@
     },
     {
       "id": 11,
-      "requiredId": 6,
+      "baseRequiredId": 6,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [6],
@@ -269,7 +269,7 @@
     },
     {
       "id": 12,
-      "requiredId": 3,
+      "baseRequiredId": 3,
       "unlockCardIds": [],
       "inNodeId": 3000,
       "requiredIds": [2, 2],
@@ -289,7 +289,7 @@
     },
     {
       "id": 13,
-      "requiredId": 3,
+      "baseRequiredId": 3,
       "unlockCardIds": [2002],
       "inNodeId": 3001,
       "requiredIds": [3, 3, 3, 3, 3, 3],
@@ -309,7 +309,7 @@
     },
     {
       "id": 14,
-      "requiredId": 3,
+      "baseRequiredId": 3,
       "unlockCardIds": [2012],
       "inNodeId": 0,
       "requiredIds": [3, 6, 6, 10, 10],
@@ -329,7 +329,7 @@
     },
     {
       "id": 15,
-      "requiredId": 1004,
+      "baseRequiredId": 1004,
       "unlockCardIds": [],
       "inNodeId": 0,
       "requiredIds": [],
@@ -426,7 +426,7 @@
     },
     {
       "id": 16,
-      "requiredId": 3,
+      "baseRequiredId": 3,
       "unlockCardIds": [2005],
       "inNodeId": 0,
       "requiredIds": [3, 3, 3, 3, 6],
@@ -446,7 +446,7 @@
     },
     {
       "id": 17,
-      "requiredId": 6,
+      "baseRequiredId": 6,
       "unlockCardIds": [2006],
       "inNodeId": 0,
       "requiredIds": [6, 6, 6, 6, 6],
@@ -466,7 +466,7 @@
     },
     {
       "id": 18,
-      "requiredId": 1005,
+      "baseRequiredId": 1005,
       "unlockCardIds": [2007],
       "inNodeId": 0,
       "requiredIds": [6, 6],
@@ -486,7 +486,7 @@
     },
     {
       "id": 19,
-      "requiredId": 9,
+      "baseRequiredId": 9,
       "unlockCardIds": [2009],
       "inNodeId": 0,
       "requiredIds": [9, 9, 3, 3, 3],
@@ -506,7 +506,7 @@
     },
     {
       "id": 20,
-      "requiredId": 11,
+      "baseRequiredId": 11,
       "unlockCardIds": [2000],
       "inNodeId": 0,
       "requiredIds": [11, 3, 3],
@@ -526,7 +526,7 @@
     },
     {
       "id": 21,
-      "requiredId": 11,
+      "baseRequiredId": 11,
       "unlockCardIds": [2010],
       "inNodeId": 0,
       "requiredIds": [],
@@ -546,7 +546,7 @@
     },
     {
       "id": 22,
-      "requiredId": 11,
+      "baseRequiredId": 11,
       "unlockCardIds": [2011],
       "inNodeId": 0,
       "requiredIds": [11, 11, 11, 11],

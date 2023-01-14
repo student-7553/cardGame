@@ -21,9 +21,8 @@ public class NodeCardQue : MonoBehaviour
 	private IEnumerator singleCardQue(Card card)
 	{
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
-		card.cardDisable.disableType = CardDisableType.Que;
-		card.cardDisable.timer = cardObject.nodeTransferTimeCost;
-		card.isInteractiveDisabled = true;
+
+		card.disableInteractiveForATime(cardObject.nodeTransferTimeCost, CardDisableType.Que);
 
 		yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
 		card.isInteractiveDisabled = false;

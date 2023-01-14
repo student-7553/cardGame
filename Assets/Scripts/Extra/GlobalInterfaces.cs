@@ -27,11 +27,15 @@ namespace Core
 
 	public static class NodeBaseStats
 	{
-		public static readonly int[] base1Stats = { 10, 20, 1, 1, 120 };
-		public static readonly int[] base2Stats = { 15, 30, 1, 2, 120 };
-		public static readonly int[] base3Stats = { 20, 40, 1, 3, 120 };
+		// public static BaseNodeStats base1Stats = new BaseNodeStats(10, 20, 1, 1, 120);
+		// public static BaseNodeStats base2Stats = new BaseNodeStats(10, 20, 1, 1, 120);
+		// public static BaseNodeStats base3Stats = new BaseNodeStats(10, 20, 1, 1, 120);
 
-		public static int[] getBaseStats(int nodeId)
+		public static BaseNodeStats base1Stats = new BaseNodeStats(10, 20, 1, 1, 100);
+		public static BaseNodeStats base2Stats = new BaseNodeStats(10, 20, 1, 1, 100);
+		public static BaseNodeStats base3Stats = new BaseNodeStats(10, 20, 1, 1, 100);
+
+		public static BaseNodeStats getBaseStats(int nodeId)
 		{
 			switch (nodeId)
 			{
@@ -124,7 +128,7 @@ namespace Core
 	public class RawProcessObject
 	{
 		public int id;
-		public int requiredId;
+		public int baseRequiredId;
 		public int[] unlockCardIds;
 		public int inNodeId;
 		public int[] removingIds;
