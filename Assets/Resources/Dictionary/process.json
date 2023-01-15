@@ -7,26 +7,26 @@
       "inNodeId": 0,
       "requiredIds": [],
       "removingIds": [],
-      "requiredGold": 1,
+      "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 2,
+      "time": 8,
       "addingCardObjects": [
         {
-          "odds": 0.8,
+          "odds": 0.9,
           "addingCardIds": [2],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.05,
           "addingCardIds": [4],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.05,
           "addingCardIds": [5],
           "extraUnlockCardIds": [],
           "isOneTime": false,
@@ -61,9 +61,9 @@
       "inNodeId": 0,
       "requiredIds": [],
       "removingIds": [4],
-      "requiredGold": 1,
+      "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 5,
+      "time": 7,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -81,9 +81,9 @@
       "inNodeId": 0,
       "requiredIds": [],
       "removingIds": [5],
-      "requiredGold": 1,
+      "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 10,
+      "time": 8,
       "addingCardObjects": [
         {
           "odds": 0.9,
@@ -223,6 +223,40 @@
         {
           "odds": 1,
           "addingCardIds": [10100],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "baseRequiredId": 12,
+      "unlockCardIds": [],
+      "inNodeId": 0,
+      "requiredIds": [],
+      "removingIds": [12],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 7,
+      "addingCardObjects": [
+        {
+          "odds": 0.9,
+          "addingCardIds": [2, 2, 2],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.09,
+          "addingCardIds": [2, 3, 3],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.01,
+          "addingCardIds": [6, 6, 6],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0

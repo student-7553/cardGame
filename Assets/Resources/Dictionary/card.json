@@ -67,7 +67,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 1,
+      "sellingPrice": 5,
       "typeValue": 0,
       "nodeTransferTimeCost": 3,
       "foodCost": 0
@@ -190,7 +190,7 @@
       "sellingPrice": 3,
       "typeValue": 0,
       "nodeTransferTimeCost": 20,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 1004,
@@ -233,7 +233,7 @@
     },
     {
       "id": 2000,
-      "name": "Founding ship (Small base)",
+      "name": "[Idea] Founding ship (Small base)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -245,7 +245,7 @@
     },
     {
       "id": 2001,
-      "name": "Space dome",
+      "name": "[Idea] Space dome",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -257,7 +257,7 @@
     },
     {
       "id": 2002,
-      "name": "Hive of Space domes",
+      "name": "[Idea] Hive of Space domes",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -269,7 +269,7 @@
     },
     {
       "id": 2003,
-      "name": "Small Market",
+      "name": "[Idea] Small Market",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -281,7 +281,7 @@
     },
     {
       "id": 2004,
-      "name": "Basic hydroponic farming",
+      "name": "[Idea] Basic hydroponic farming",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -293,7 +293,7 @@
     },
     {
       "id": 2005,
-      "name": "Solar power",
+      "name": "[Idea] Solar power",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -305,7 +305,7 @@
     },
     {
       "id": 2006,
-      "name": "Forge",
+      "name": "[Idea] Forge",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -317,7 +317,7 @@
     },
     {
       "id": 2007,
-      "name": "Forge: Steel",
+      "name": "[Idea] Forge: Steel",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -329,7 +329,7 @@
     },
     {
       "id": 2008,
-      "name": "Mining contract",
+      "name": "[Idea] Mining contract",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -341,7 +341,7 @@
     },
     {
       "id": 2009,
-      "name": "Warehouse",
+      "name": "[Idea] Warehouse",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -353,7 +353,7 @@
     },
     {
       "id": 2010,
-      "name": "Combat ship",
+      "name": "[Idea] Combat ship",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -365,7 +365,7 @@
     },
     {
       "id": 2011,
-      "name": "Tychon oribtal space base",
+      "name": "[Idea] Tychon oribtal space base",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -377,7 +377,7 @@
     },
     {
       "id": 2012,
-      "name": "Planetary expedition",
+      "name": "[Idea] Planetary expedition",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,

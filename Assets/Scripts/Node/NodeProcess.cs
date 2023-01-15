@@ -138,18 +138,22 @@ public class NodeProcess : MonoBehaviour
 		}
 		else
 		{
-			List<int> cardIds = node.processCardStack.getActiveCardIds();
+			this.handleActiveNodeProcess();
+		}
+	}
 
-			RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
+	private void handleActiveNodeProcess()
+	{
+		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
 
-			if (pickedProcess != null)
-			{
-				StartCoroutine(handleProcess(pickedProcess));
-			}
-			else
-			{
-				StartCoroutine(handleProcessCooldown());
-			}
+		if (pickedProcess != null)
+		{
+			StartCoroutine(handleProcess(pickedProcess));
+		}
+		else
+		{
+			StartCoroutine(handleProcessCooldown());
 		}
 	}
 
@@ -213,17 +217,11 @@ public class NodeProcess : MonoBehaviour
 				bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
 				bool isInNode = singleProcess.inNodeId != 0 ? singleProcess.inNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
+				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
+				bool electricityPassed =
+					CardHelpers.getTypeValueFromCardIds(CardsTypes.Electricity, cardIds) >= singleProcess.requiredElectricity;
 
-				int currentTotalGold = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds);
-				int currentTotalElectricity = CardHelpers.getTypeValueFromCardIds(CardsTypes.Electricity, cardIds);
-
-				if (
-					isUnlocked
-					&& isInNode
-					&& ifRequiredCardsPassed
-					&& currentTotalGold >= singleProcess.requiredGold
-					&& currentTotalElectricity >= singleProcess.requiredElectricity
-				)
+				if (isUnlocked && isInNode && ifRequiredCardsPassed && goldPassed && electricityPassed)
 				{
 					possibleProcesses = singleProcess;
 					break;
@@ -259,7 +257,6 @@ public class NodeProcess : MonoBehaviour
 		List<int> addingCardIds = new List<int>();
 
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
-
 		if (pickedAddingCardObject.isOneTime)
 		{
 			PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
@@ -273,8 +270,24 @@ public class NodeProcess : MonoBehaviour
 
 		List<Card> removingCards = node.getCards(removingCardIds, NodeCardStackType.process);
 
-		List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
-		restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
+		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
+		Debug.Log("restNonInteractiveCardIds count / " + restNonInteractiveCardIds.Count);
+
+		List<int> getRestNonInteractiveCardIds()
+		{
+			List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
+			restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
+
+			foreach (int removingCardId in removingCardIds)
+			{
+				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCardId);
+				if (foundId != -1)
+				{
+					restNonInteractiveCardIds.RemoveAt(foundId);
+				}
+			}
+			return restNonInteractiveCardIds;
+		}
 
 		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds, NodeCardStackType.process);
 
@@ -309,10 +322,13 @@ public class NodeProcess : MonoBehaviour
 				card.isInteractiveDisabled = false;
 			}
 		}
+
 		foreach (Card card in restNonInteractiveCards)
 		{
 			card.isInteractiveDisabled = false;
 		}
+		node.processCardStack.removeCardsFromStack(restNonInteractiveCards);
+		node.storageCardStack.addCardToStack(restNonInteractiveCards);
 
 		StartCoroutine(handleProcessCooldown());
 
