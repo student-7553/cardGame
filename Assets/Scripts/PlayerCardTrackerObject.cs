@@ -2,38 +2,20 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-[DefaultExecutionOrder(-100)]
-public class PlayerCardTracker : MonoBehaviour
+[CreateAssetMenu(fileName = "PlayerCardTrackerObject", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
+public class PlayerCardTrackerObject : ScriptableObject
 {
-	public static PlayerCardTracker current;
-	private List<int> aquiredCardsInLifetimeList;
+	[SerializeField]
+	public Dictionary<int, bool> aquiredCardsInLifetime = new Dictionary<int, bool>();
 
-	private List<int> aquiredOneTimeProcessRewardsList;
-
-	void Start()
-	{
-		if (current != null)
-		{
-			Destroy(gameObject);
-			return;
-		}
-		current = this;
-		initlizeVariable();
-	}
-
-	void initlizeVariable()
-	{
-		// Todo: Read from save file
-		aquiredCardsInLifetimeList = new List<int>();
-		aquiredOneTimeProcessRewardsList = new List<int>();
-	}
+	[SerializeField]
+	private List<int> aquiredOneTimeProcessRewardsList = new List<int>();
 
 	public void ensureCardIdTracked(int cardId)
 	{
-		bool isAlreadyTracked = aquiredCardsInLifetimeList.Any(libraryCardId => libraryCardId == cardId);
-		if (!isAlreadyTracked)
+		if (!aquiredCardsInLifetime.ContainsKey(cardId))
 		{
-			aquiredCardsInLifetimeList.Add(cardId);
+			aquiredCardsInLifetime.Add(cardId, true);
 		}
 	}
 
@@ -48,7 +30,11 @@ public class PlayerCardTracker : MonoBehaviour
 
 	public bool didPlayerUnlockCard(int cardId)
 	{
-		return aquiredCardsInLifetimeList.Any(libraryCardId => libraryCardId == cardId);
+		if (aquiredCardsInLifetime.ContainsKey(cardId))
+		{
+			return true;
+		}
+		return false;
 	}
 
 	public bool didPlayerUnlockCards(int[] cardIds)

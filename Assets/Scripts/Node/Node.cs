@@ -43,6 +43,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	[System.NonSerialized]
 	public CardStack processCardStack;
 
+	public PlayerCardTrackerObject playerCardTracker;
+
 	// -------------------- Node Stats -------------------------
 
 	private int _id;

@@ -214,7 +214,10 @@ public class NodeProcess : MonoBehaviour
 			foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
 			{
 				Dictionary<int, int> indexedRequiredIds = node.indexCardIds(singleProcess.requiredIds.ToList());
-				bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
+
+				// bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
+				bool isUnlocked = node.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
+
 				bool isInNode = singleProcess.inNodeId != 0 ? singleProcess.inNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
 				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
@@ -259,7 +262,8 @@ public class NodeProcess : MonoBehaviour
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
 		if (pickedAddingCardObject.isOneTime)
 		{
-			PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
+			// PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
+			node.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
 		addingCardIds.AddRange(pickedAddingCardObject.addingCardIds);
@@ -343,7 +347,9 @@ public class NodeProcess : MonoBehaviour
 					if (addingCardObject.isOneTime)
 					{
 						// addingCardObject.id can't be inside CardTracker
-						bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
+
+						// bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
+						bool isOneTimeUnlocked = node.playerCardTracker.didPlayerUnlockOneTimeProcess(addingCardObject.id);
 						if (isOneTimeUnlocked)
 						{
 							// Player Already unlocked this oneTimeReward
@@ -351,7 +357,8 @@ public class NodeProcess : MonoBehaviour
 						}
 					}
 
-					bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
+					// bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
+					bool isUnlocked = node.playerCardTracker.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
 					return isUnlocked;
 				})
 				.ToList();

@@ -1607,7 +1607,6 @@ GameObject:
   m_Component:
   - component: {fileID: 827736728}
   - component: {fileID: 827736727}
-  - component: {fileID: 827736729}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -1627,6 +1626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e001f98499a19b4fbc53b7e9f30b384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCardTracker: {fileID: 11400000, guid: 2894153470c94494b9ea706ae6695263, type: 2}
   cardPrefab: {fileID: 7099274538970382496, guid: 48a74d524d025bc49b853e2459875588, type: 3}
   nodePrefab: {fileID: 5000079141684730325, guid: 1e7e095b15ebd4a489137bf13cea1dee, type: 3}
   nodePlanePrefab: {fileID: 7721505031344563643, guid: 23503702044b6744ea388c7c0eab0533, type: 3}
@@ -1649,18 +1649,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &827736729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827736726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15cfb78f1df012f4f980bebc9fa426a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &839327344
 GameObject:
   m_ObjectHideFlags: 0
