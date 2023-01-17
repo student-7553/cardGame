@@ -65,6 +65,9 @@ public class LeftClickHandler : MonoBehaviour
 		GameObject interactableGameObject = interactableObject.gameObject;
 
 		Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld(interactableGameObject);
+		// if(interactableObject is ){
+
+		// }
 
 		yield return new WaitForSeconds(clickTimer);
 

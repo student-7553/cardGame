@@ -5,8 +5,7 @@ using Helpers;
 [DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
-	[SerializeField]
-	private PlayerCardTrackerObject playerCardTracker;
+	public PlayerCardTrackerObject playerCardTracker;
 
 	public static CardHandler current;
 
@@ -28,6 +27,7 @@ public class CardHandler : MonoBehaviour
 		current = this;
 
 		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
+		playerCardTracker = new PlayerCardTrackerObject();
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -48,7 +48,6 @@ public class CardHandler : MonoBehaviour
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		cardObject.init();
-		// PlayerCardTracker.current.ensureCardIdTracked(cardId);
 		playerCardTracker.ensureCardIdTracked(cardId);
 		return cardObject;
 	}

@@ -1,28 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
-[CreateAssetMenu(fileName = "PlayerCardTrackerObject", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]
-public class PlayerCardTrackerObject : ScriptableObject
+public class PlayerCardTrackerObject
 {
-	[SerializeField]
-	public Dictionary<int, bool> aquiredCardsInLifetime = new Dictionary<int, bool>();
+	public HashSet<int> aquiredCardsInLifetime = new HashSet<int>();
 
-	[SerializeField]
-	private List<int> aquiredOneTimeProcessRewardsList = new List<int>();
+	private HashSet<int> aquiredOneTimeProcessRewardsList = new HashSet<int>();
 
 	public void ensureCardIdTracked(int cardId)
 	{
-		if (!aquiredCardsInLifetime.ContainsKey(cardId))
+		if (!aquiredCardsInLifetime.Contains(cardId))
 		{
-			aquiredCardsInLifetime.Add(cardId, true);
+			aquiredCardsInLifetime.Add(cardId);
 		}
 	}
 
 	public void ensureOneTimeProcessTracked(int uniqueId)
 	{
-		bool isAlreadyTracked = aquiredOneTimeProcessRewardsList.Any(id => id == uniqueId);
-		if (!isAlreadyTracked)
+		if (!aquiredOneTimeProcessRewardsList.Contains(uniqueId))
 		{
 			aquiredOneTimeProcessRewardsList.Add(uniqueId);
 		}
@@ -30,11 +25,7 @@ public class PlayerCardTrackerObject : ScriptableObject
 
 	public bool didPlayerUnlockCard(int cardId)
 	{
-		if (aquiredCardsInLifetime.ContainsKey(cardId))
-		{
-			return true;
-		}
-		return false;
+		return aquiredCardsInLifetime.Contains(cardId);
 	}
 
 	public bool didPlayerUnlockCards(int[] cardIds)
@@ -56,7 +47,7 @@ public class PlayerCardTrackerObject : ScriptableObject
 
 	public bool didPlayerUnlockOneTimeProcess(int uniqueId)
 	{
-		return aquiredOneTimeProcessRewardsList.Any(libraryId => libraryId == uniqueId);
+		return aquiredOneTimeProcessRewardsList.Contains(uniqueId);
 	}
 
 	private T ensureComponent<T>(GameObject gameObject) where T : Component

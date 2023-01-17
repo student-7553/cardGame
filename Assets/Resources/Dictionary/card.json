@@ -42,8 +42,8 @@
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
       "foodCost": 0
@@ -54,8 +54,8 @@
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
       "foodCost": 0
@@ -115,7 +115,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 1,
+      "sellingPrice": 2,
       "typeValue": 0,
       "nodeTransferTimeCost": 5,
       "foodCost": 0

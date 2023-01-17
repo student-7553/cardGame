@@ -215,8 +215,7 @@ public class NodeProcess : MonoBehaviour
 			{
 				Dictionary<int, int> indexedRequiredIds = node.indexCardIds(singleProcess.requiredIds.ToList());
 
-				// bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(singleProcess.unlockCardIds);
-				bool isUnlocked = node.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
+				bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
 
 				bool isInNode = singleProcess.inNodeId != 0 ? singleProcess.inNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
@@ -262,8 +261,7 @@ public class NodeProcess : MonoBehaviour
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
 		if (pickedAddingCardObject.isOneTime)
 		{
-			// PlayerCardTracker.current.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
-			node.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
+			CardHandler.current.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
 		addingCardIds.AddRange(pickedAddingCardObject.addingCardIds);
@@ -275,7 +273,6 @@ public class NodeProcess : MonoBehaviour
 		List<Card> removingCards = node.getCards(removingCardIds, NodeCardStackType.process);
 
 		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
-		Debug.Log("restNonInteractiveCardIds count / " + restNonInteractiveCardIds.Count);
 
 		List<int> getRestNonInteractiveCardIds()
 		{
@@ -349,7 +346,7 @@ public class NodeProcess : MonoBehaviour
 						// addingCardObject.id can't be inside CardTracker
 
 						// bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
-						bool isOneTimeUnlocked = node.playerCardTracker.didPlayerUnlockOneTimeProcess(addingCardObject.id);
+						bool isOneTimeUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockOneTimeProcess(addingCardObject.id);
 						if (isOneTimeUnlocked)
 						{
 							// Player Already unlocked this oneTimeReward
@@ -357,8 +354,7 @@ public class NodeProcess : MonoBehaviour
 						}
 					}
 
-					// bool isUnlocked = PlayerCardTracker.current.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
-					bool isUnlocked = node.playerCardTracker.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
+					bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(addingCardObject.extraUnlockCardIds);
 					return isUnlocked;
 				})
 				.ToList();
@@ -368,6 +364,7 @@ public class NodeProcess : MonoBehaviour
 			{
 				totalOddCount = totalOddCount + addingCardObject.odds;
 			});
+
 			float rndNumber = UnityEngine.Random.Range(0f, totalOddCount);
 			float oddCount = 0;
 			AddingCardsObject pickedAddingCardId = fitleredList.Find(addingCardObject =>

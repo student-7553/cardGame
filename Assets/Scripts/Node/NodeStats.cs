@@ -62,7 +62,6 @@ public class NodeStats
 		connectedNode = _connectedNode;
 	}
 
-	// private
 
 	public void injectGold(int goldAmount)
 	{
@@ -76,8 +75,8 @@ public class NodeStats
 
 	public void computeStats()
 	{
-		List<int> cardIds = connectedNode.storageCardStack.getActiveCardIds();
-		cardIds.AddRange(connectedNode.processCardStack.getActiveCardIds());
+		List<int> cardIds = connectedNode.storageCardStack.getAllCardIds();
+		cardIds.AddRange(connectedNode.processCardStack.getAllCardIds());
 
 		int calcResourceInventoryUsed = 0;
 		int calcResourceInventoryLimit = 0;
