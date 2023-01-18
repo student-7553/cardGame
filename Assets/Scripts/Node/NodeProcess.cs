@@ -274,22 +274,6 @@ public class NodeProcess : MonoBehaviour
 
 		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
 
-		List<int> getRestNonInteractiveCardIds()
-		{
-			List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
-			restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
-
-			foreach (int removingCardId in removingCardIds)
-			{
-				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCardId);
-				if (foundId != -1)
-				{
-					restNonInteractiveCardIds.RemoveAt(foundId);
-				}
-			}
-			return restNonInteractiveCardIds;
-		}
-
 		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds, NodeCardStackType.process);
 
 		foreach (Card card in restNonInteractiveCards)
@@ -330,6 +314,7 @@ public class NodeProcess : MonoBehaviour
 		}
 		node.processCardStack.removeCardsFromStack(restNonInteractiveCards);
 		node.storageCardStack.addCardToStack(restNonInteractiveCards);
+		node.consolidateTypeCards();
 
 		StartCoroutine(handleProcessCooldown());
 
@@ -379,6 +364,22 @@ public class NodeProcess : MonoBehaviour
 				pickedAddingCardId = pickedProcess.addingCardObjects[0];
 			}
 			return pickedAddingCardId;
+		}
+
+		List<int> getRestNonInteractiveCardIds()
+		{
+			List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
+			restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
+
+			foreach (int removingCardId in removingCardIds)
+			{
+				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCardId);
+				if (foundId != -1)
+				{
+					restNonInteractiveCardIds.RemoveAt(foundId);
+				}
+			}
+			return restNonInteractiveCardIds;
 		}
 	}
 

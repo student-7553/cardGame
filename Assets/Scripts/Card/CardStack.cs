@@ -177,6 +177,19 @@ public class CardStack
 		return ids;
 	}
 
+	public List<int> getTypeActiveCards(CardsTypes cardType)
+	{
+		List<int> ids = new List<int>();
+		foreach (Card singleCard in cards)
+		{
+			if (CardDictionary.globalCardDictionary[singleCard.id].type == cardType && singleCard.isInteractiveDisabled == false)
+			{
+				ids.Add(singleCard.id);
+			}
+		}
+		return ids;
+	}
+
 	private float getPositionZ()
 	{
 		if (cardStackType == CardStackType.Cards)

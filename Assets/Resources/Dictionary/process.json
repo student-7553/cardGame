@@ -120,35 +120,56 @@
       "time": 10,
       "addingCardObjects": [
         {
-          "odds": 0.1,
+          "odds": 0.0625,
           "addingCardIds": [12, 2, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.0625,
           "addingCardIds": [9, 4, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.0625,
           "addingCardIds": [9, 9, 2, 2],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.0625,
           "addingCardIds": [5, 9, 2, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.1,
+          "odds": 0.0625,
+          "addingCardIds": [10200, 10200, 10200, 10200],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.0625,
+          "addingCardIds": [4, 4, 10000],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.0625,
+          "addingCardIds": [5, 10000, 10000],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.0625,
           "addingCardIds": [9, 2, 10200, 10200, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,

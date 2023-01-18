@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-// using System.Collections;
-// using System;
 using Core;
+using System.Linq;
 using Helpers;
 
 public enum NodeCardStackType
@@ -236,5 +235,61 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		return indexedRequiredIds;
 	}
 
-	// public
+	public void consolidateTypeCards()
+	{
+		CardsTypes[] types = new CardsTypes[] { CardsTypes.Gold, CardsTypes.Electricity, CardsTypes.Food };
+		foreach (CardsTypes cardType in types)
+		{
+			List<int> cardIds = storageCardStack.getTypeActiveCards(cardType);
+
+			int value = CardHelpers.getTypeValueFromCardIds(cardType, cardIds);
+			Debug.Log(cardType + "/" + value);
+
+			foreach (var x in cardIds)
+			{
+				Debug.Log(x.ToString());
+			}
+
+			List<int> generatingCardIds = CardHelpers.generateTypeValueCards(cardType, value);
+			Debug.Log("generatingCardIds Count/" + generatingCardIds.Count);
+			foreach (var x in generatingCardIds)
+			{
+				Debug.Log(x.ToString());
+			}
+
+			List<int> newCardIds = this.getListEdge(generatingCardIds, cardIds);
+			Debug.Log("newCardIds Count/" + newCardIds.Count);
+			foreach (var x in newCardIds)
+			{
+				Debug.Log(x.ToString());
+			}
+
+			List<int> removingCardIds = this.getListEdge(cardIds, generatingCardIds);
+
+			Debug.Log("removingCardIds Count/" + removingCardIds.Count);
+			foreach (var x in removingCardIds)
+			{
+				Debug.Log(x.ToString());
+			}
+			List<Card> removingCards = this.getCards(removingCardIds, NodeCardStackType.storage);
+
+			this.hadleRemovingCards(removingCards, NodeCardStackType.storage);
+			this.handleCreatingCards(newCardIds);
+		}
+	}
+
+	private List<int> getListEdge(List<int> mainlist, List<int> excludeList)
+	{
+		List<int> newCardIds = new List<int>(mainlist);
+
+		foreach (int removingCardId in excludeList)
+		{
+			int foundIndex = newCardIds.FindIndex((newCardId) => newCardId == removingCardId);
+			if (foundIndex != -1)
+			{
+				newCardIds.RemoveAt(foundIndex);
+			}
+		}
+		return newCardIds;
+	}
 }
