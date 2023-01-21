@@ -446,6 +446,7 @@ public class NodeProcess : MonoBehaviour
 
 		node.hadleRemovingCards(removingCards, NodeCardStackType.process);
 		node.handleCreatingCards(addingGoldCardIds);
+		node.consolidateTypeCards();
 
 		isProccessing = false;
 	}

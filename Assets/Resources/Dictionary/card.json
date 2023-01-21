@@ -9,7 +9,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTransferTimeCost": 5,
+      "nodeTransferTimeCost": 8,
       "foodCost": 0
     },
     {
@@ -21,7 +21,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 5,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -33,7 +33,7 @@
       "isSellable": true,
       "sellingPrice": 3,
       "typeValue": 0,
-      "nodeTransferTimeCost": 5,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -105,7 +105,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 5,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -117,7 +117,7 @@
       "isSellable": true,
       "sellingPrice": 2,
       "typeValue": 0,
-      "nodeTransferTimeCost": 5,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -421,7 +421,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTransferTimeCost": 0.5,
+      "nodeTransferTimeCost": 4,
       "foodCost": 0
     },
     {
@@ -433,7 +433,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTransferTimeCost": 2.5,
+      "nodeTransferTimeCost": 20,
       "foodCost": 0
     },
     {
@@ -445,7 +445,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTransferTimeCost": 12.5,
+      "nodeTransferTimeCost": 35,
       "foodCost": 0
     },
     {
@@ -494,7 +494,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTransferTimeCost": 1,
+      "nodeTransferTimeCost": 3,
       "foodCost": 0
     },
     {
@@ -506,7 +506,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTransferTimeCost": 3,
+      "nodeTransferTimeCost": 15,
       "foodCost": 0
     },
     {
@@ -518,7 +518,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTransferTimeCost": 50,
+      "nodeTransferTimeCost": 20,
       "foodCost": 0
     },
     {

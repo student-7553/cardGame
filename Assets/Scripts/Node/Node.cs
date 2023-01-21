@@ -243,34 +243,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			List<int> cardIds = storageCardStack.getTypeActiveCards(cardType);
 
 			int value = CardHelpers.getTypeValueFromCardIds(cardType, cardIds);
-			Debug.Log(cardType + "/" + value);
-
-			foreach (var x in cardIds)
-			{
-				Debug.Log(x.ToString());
-			}
 
 			List<int> generatingCardIds = CardHelpers.generateTypeValueCards(cardType, value);
-			Debug.Log("generatingCardIds Count/" + generatingCardIds.Count);
-			foreach (var x in generatingCardIds)
-			{
-				Debug.Log(x.ToString());
-			}
 
 			List<int> newCardIds = this.getListEdge(generatingCardIds, cardIds);
-			Debug.Log("newCardIds Count/" + newCardIds.Count);
-			foreach (var x in newCardIds)
-			{
-				Debug.Log(x.ToString());
-			}
 
 			List<int> removingCardIds = this.getListEdge(cardIds, generatingCardIds);
 
-			Debug.Log("removingCardIds Count/" + removingCardIds.Count);
-			foreach (var x in removingCardIds)
-			{
-				Debug.Log(x.ToString());
-			}
 			List<Card> removingCards = this.getCards(removingCardIds, NodeCardStackType.storage);
 
 			this.hadleRemovingCards(removingCards, NodeCardStackType.storage);

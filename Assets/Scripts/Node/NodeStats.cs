@@ -62,7 +62,6 @@ public class NodeStats
 		connectedNode = _connectedNode;
 	}
 
-
 	public void injectGold(int goldAmount)
 	{
 		currentNodeStats.currentGold = currentNodeStats.currentGold + goldAmount;
