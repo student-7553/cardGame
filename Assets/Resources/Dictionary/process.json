@@ -374,18 +374,18 @@
     },
     {
       "id": 13,
-      "baseRequiredId": 3,
+      "baseRequiredId": 10,
       "unlockCardIds": [2002],
       "inNodeId": 3001,
-      "requiredIds": [3, 10, 6],
-      "removingIds": [3, 3, 10, 6],
+      "requiredIds": [10, 3, 3],
+      "removingIds": [10, 10, 3, 3],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 30,
+      "time": 25,
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [2010, 20000, 1002, 10002, 2012, 3000],
+          "addingCardIds": [2010, 20000, 1002, 10201, 2012, 3000],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 3002

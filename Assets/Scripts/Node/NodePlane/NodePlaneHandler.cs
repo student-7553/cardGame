@@ -66,7 +66,8 @@ public class NodePlaneHandler : MonoBehaviour
 	{
 		if (connectedNode.nodeProcess.isProccessing)
 		{
-			titleTextMesh.text = $"{connectedNode.nodeProcess.proccessingLeft}";
+			//
+			titleTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
 		}
 		else
 		{

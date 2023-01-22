@@ -45,7 +45,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 10,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -57,7 +57,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 10,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -117,7 +117,7 @@
       "isSellable": true,
       "sellingPrice": 2,
       "typeValue": 0,
-      "nodeTransferTimeCost": 10,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -141,7 +141,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 10,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -165,7 +165,7 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 10,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -186,10 +186,10 @@
       "type": "Infrastrucutre",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
-      "isSellable": false,
-      "sellingPrice": 3,
+      "isSellable": true,
+      "sellingPrice": 5,
       "typeValue": 0,
-      "nodeTransferTimeCost": 20,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {
@@ -201,7 +201,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTransferTimeCost": 20,
+      "nodeTransferTimeCost": 15,
       "foodCost": 1
     },
     {
@@ -213,7 +213,7 @@
       "isSellable": true,
       "sellingPrice": 5,
       "typeValue": 0,
-      "nodeTransferTimeCost": 0,
+      "nodeTransferTimeCost": 10,
       "foodCost": 1
     },
     {

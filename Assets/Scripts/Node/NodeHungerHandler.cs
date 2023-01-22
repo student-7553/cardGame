@@ -28,7 +28,7 @@ public class NodeHungerHandler : MonoBehaviour
 
 	public int getHungerCountdown()
 	{
-		return (int)Mathf.Round(connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer - intervalTimer);
+		return Mathf.RoundToInt(connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer - intervalTimer);
 	}
 
 	private void FixedUpdate()

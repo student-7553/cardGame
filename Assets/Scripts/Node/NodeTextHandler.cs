@@ -33,7 +33,7 @@ public class NodeTextHandler
 
 		if (connectedNode.nodeProcess.isProccessing)
 		{
-			processTimerTextMesh.text = $"{connectedNode.nodeProcess.proccessingLeft}";
+			processTimerTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
 		}
 		else
 		{
@@ -47,7 +47,7 @@ public class NodeTextHandler
 		else
 		{
 			// Active Node
-			processTimerTextMesh.text = processTimerTextMesh.text + $"/{connectedNode.nodeHungerHandler.getHungerCountdown()}";
+			processTimerTextMesh.text = processTimerTextMesh.text + $"[{connectedNode.nodeHungerHandler.getHungerCountdown()}]";
 		}
 	}
 }

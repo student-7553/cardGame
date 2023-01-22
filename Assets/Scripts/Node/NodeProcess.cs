@@ -120,9 +120,9 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleFixedFrameCounter()
 	{
-		if (this.proccessingLeft != 0)
+		if (this.proccessingLeft != 0f)
 		{
-			this.proccessingLeft = (int)Mathf.Round(Math.Max(this.proccessingLeft - Time.fixedDeltaTime, 0f));
+			this.proccessingLeft = Math.Max(this.proccessingLeft - Time.fixedDeltaTime, 0f);
 		}
 	}
 
