@@ -180,7 +180,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	public void disableInteractiveForATime(float timer, CardDisableType disableType)
 	{
 		cardDisable.timer = timer;
-		cardDisable.disableType = CardDisableType.Process;
+		cardDisable.disableType = disableType;
 		isInteractiveDisabled = true;
 	}
 

@@ -20,6 +20,14 @@ public class NodeTextHandler
 
 	public void reflectToScreen()
 	{
+		if (titleTextMesh.text == "")
+		{
+			if (CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))
+			{
+				titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
+			}
+		}
+
 		availableInventoryTextMesh.text =
 			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
 
@@ -35,6 +43,11 @@ public class NodeTextHandler
 		if (!connectedNode.isActive)
 		{
 			processTimerTextMesh.text = "[No Food] " + processTimerTextMesh.text;
+		}
+		else
+		{
+			// Active Node
+			processTimerTextMesh.text = processTimerTextMesh.text + $"/{connectedNode.nodeHungerHandler.getHungerCountdown()}";
 		}
 	}
 }

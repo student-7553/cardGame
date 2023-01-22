@@ -51,6 +51,10 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		set
 		{
 			_id = value;
+			if (this.nodeHungerHandler != null)
+			{
+				this.nodeHungerHandler.intervalTimer = 0;
+			}
 			nodeStats = new NodeStats(this);
 		}
 	}
@@ -60,12 +64,11 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	private void Awake()
 	{
 		storageCardStack = new CardStack(this);
-		storageCardStack.originPointAdjustment = new Vector3(10f, 25f, 0);
+		storageCardStack.originPointAdjustment = new Vector3(10f, 35f, 0);
 
 		processCardStack = new CardStack(this);
-		processCardStack.originPointAdjustment = new Vector3(-10f, 25f, 0);
+		processCardStack.originPointAdjustment = new Vector3(-10f, 35f, 0);
 
-		nodeStats = new NodeStats(this);
 		nodeTextHandler = new NodeTextHandler(this);
 
 		isInteractiveDisabled = false;
@@ -110,6 +113,10 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				return;
 			}
 
+			if (prevNode != this)
+			{
+				nodeCardQue.addCard(newCard);
+			}
 			processCardStack.addCardToStack(newCard);
 		}
 		else
@@ -118,7 +125,6 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			{
 				nodeCardQue.addCard(newCard);
 			}
-
 			storageCardStack.addCardToStack(newCard);
 		}
 	}

@@ -93,6 +93,7 @@ public class NodeProcess : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		this.handleFixedFrameCounter();
 		if (!isInit)
 		{
 			return;
@@ -114,6 +115,14 @@ public class NodeProcess : MonoBehaviour
 		{
 			// Node process
 			this.handleNodeProcess();
+		}
+	}
+
+	private void handleFixedFrameCounter()
+	{
+		if (this.proccessingLeft != 0)
+		{
+			this.proccessingLeft = (int)Mathf.Round(Math.Max(this.proccessingLeft - Time.fixedDeltaTime, 0f));
 		}
 	}
 
@@ -285,7 +294,7 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		StartCoroutine(handleProcessCounter(pickedProcess.time));
+		this.proccessingLeft = pickedProcess.time;
 
 		yield return new WaitForSeconds(pickedProcess.time);
 
@@ -416,16 +425,6 @@ public class NodeProcess : MonoBehaviour
 			);
 		}
 		return;
-	}
-
-	private IEnumerator handleProcessCounter(float processTime)
-	{
-		this.proccessingLeft = processTime;
-		while (this.proccessingLeft > 0.1f)
-		{
-			this.proccessingLeft -= 1f;
-			yield return new WaitForSeconds(1);
-		}
 	}
 
 	private IEnumerator sellCard(Card card)

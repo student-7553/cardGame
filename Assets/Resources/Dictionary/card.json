@@ -67,7 +67,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 5,
+      "sellingPrice": 3,
       "typeValue": 0,
       "nodeTransferTimeCost": 3,
       "foodCost": 0
@@ -79,7 +79,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 3,
+      "sellingPrice": 10,
       "typeValue": 0,
       "nodeTransferTimeCost": 3,
       "foodCost": 0
@@ -91,7 +91,7 @@
       "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 10,
+      "sellingPrice": 20,
       "typeValue": 0,
       "nodeTransferTimeCost": 3,
       "foodCost": 0
@@ -127,7 +127,7 @@
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 5,
+      "sellingPrice": 8,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
       "foodCost": 0
@@ -138,8 +138,8 @@
       "type": "Resource",
       "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
       "foodCost": 0
@@ -166,7 +166,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 1002,
@@ -438,13 +438,25 @@
     },
     {
       "id": 10002,
-      "name": "25 Gold",
+      "name": "10 Gold",
       "type": "Gold",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
-      "typeValue": 25,
+      "typeValue": 10,
+      "nodeTransferTimeCost": 35,
+      "foodCost": 0
+    },
+    {
+      "id": 10003,
+      "name": "20 Gold",
+      "type": "Gold",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 20,
       "nodeTransferTimeCost": 35,
       "foodCost": 0
     },
@@ -511,13 +523,25 @@
     },
     {
       "id": 10202,
-      "name": "25 Food",
+      "name": "10 Food",
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
-      "typeValue": 25,
+      "typeValue": 10,
+      "nodeTransferTimeCost": 20,
+      "foodCost": 0
+    },
+    {
+      "id": 10203,
+      "name": "20 Food",
+      "type": "Food",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 20,
       "nodeTransferTimeCost": 20,
       "foodCost": 0
     },

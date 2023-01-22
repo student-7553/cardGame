@@ -5,7 +5,8 @@ public class NodeHungerHandler : MonoBehaviour
 {
 	private Node connectedNode;
 
-	private float intervalTimer; // ********* Loop timer *********
+	[System.NonSerialized]
+	public float intervalTimer; // ********* Loop timer *********
 
 	private bool isInit = false;
 
@@ -23,6 +24,11 @@ public class NodeHungerHandler : MonoBehaviour
 		}
 
 		isInit = true;
+	}
+
+	public int getHungerCountdown()
+	{
+		return (int)Mathf.Round(connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer - intervalTimer);
 	}
 
 	private void FixedUpdate()

@@ -6,16 +6,18 @@ using Helpers;
 public class CardHandler : MonoBehaviour
 {
 	public PlayerCardTrackerObject playerCardTracker;
-
 	public static CardHandler current;
 
-	private Vector3 defaultCardPoint;
 	public GameObject cardPrefab;
 	public GameObject nodePrefab;
 	public GameObject nodePlanePrefab;
 
 	public Sprite[] cardSprites;
 	public Sprite[] nodeSprites;
+
+	private Vector3 defaultCardPoint;
+	private Vector3 defaultNodePlanePositon = new Vector3(103, 0, HelperData.nodeBoardZ);
+	private Vector3 defaultNodePositon = new Vector3(225, 0, HelperData.baseZ);
 
 	void Start()
 	{
@@ -89,7 +91,7 @@ public class CardHandler : MonoBehaviour
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
 
-		nodeGameObject.transform.position = new Vector3(225, 0, HelperData.baseZ);
+		nodeGameObject.transform.position = this.defaultNodePositon;
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
@@ -100,9 +102,7 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
-		Vector3 spawningPosition = new Vector3(103, 0, HelperData.nodeBoardZ);
-
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, spawningPosition, Quaternion.identity);
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
 
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
