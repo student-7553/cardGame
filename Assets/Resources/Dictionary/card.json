@@ -145,6 +145,30 @@
       "foodCost": 0
     },
     {
+      "id": 13,
+      "name": "Xenon fissure",
+      "type": "Resource",
+      "resourceInventoryCount": 2,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 7,
+      "foodCost": 0
+    },
+    {
+      "id": 14,
+      "name": "Xenon Gas",
+      "type": "Resource",
+      "resourceInventoryCount": 3,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -182,7 +206,7 @@
     },
     {
       "id": 1003,
-      "name": "Expedition room",
+      "name": "Local Expedition",
       "type": "Infrastrucutre",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
@@ -194,7 +218,7 @@
     },
     {
       "id": 1004,
-      "name": "Planetary expedition",
+      "name": "Global expedition",
       "type": "Infrastrucutre",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 5,
@@ -233,7 +257,7 @@
     },
     {
       "id": 2000,
-      "name": "[Idea] Founding ship (Small base)",
+      "name": "[Idea][Node] Founding ship (Small base)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -245,7 +269,7 @@
     },
     {
       "id": 2001,
-      "name": "[Idea] Space dome",
+      "name": "[Idea][Node] Space dome",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -257,7 +281,7 @@
     },
     {
       "id": 2002,
-      "name": "[Idea] Hive of Space domes",
+      "name": "[Idea][Node] Hive of Space domes",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -269,7 +293,7 @@
     },
     {
       "id": 2003,
-      "name": "[Idea] Small Market",
+      "name": "[Idea][Node] Small Market",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -281,7 +305,7 @@
     },
     {
       "id": 2004,
-      "name": "[Idea] Basic hydroponic farming",
+      "name": "[Idea][Infra] Basic hydroponic farming",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -293,7 +317,7 @@
     },
     {
       "id": 2005,
-      "name": "[Idea] Solar power",
+      "name": "[Idea][Infra] Solar power",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -305,7 +329,7 @@
     },
     {
       "id": 2006,
-      "name": "[Idea] Forge",
+      "name": "[Idea][Infra] Forge",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -317,7 +341,7 @@
     },
     {
       "id": 2007,
-      "name": "[Idea] Forge: Steel",
+      "name": "[Idea][Forge] Steel",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -365,7 +389,7 @@
     },
     {
       "id": 2011,
-      "name": "[Idea] Tychon oribtal space base",
+      "name": "[Idea][Node] Tychon oribtal space station",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -377,7 +401,7 @@
     },
     {
       "id": 2012,
-      "name": "[Idea] Planetary expedition",
+      "name": "[Idea][Infra] Global expedition",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -409,7 +433,7 @@
     },
     {
       "id": 3004,
-      "name": "Tychon oribtal space base",
+      "name": "Tychon oribtal space station",
       "type": "Node"
     },
     {
