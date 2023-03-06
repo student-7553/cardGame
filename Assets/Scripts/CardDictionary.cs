@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Core;
+using System.Linq;
 
 public static class CardDictionary
 {
@@ -30,7 +32,8 @@ public static class CardDictionary
 		globalProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/process");
 		RawProcessObject[] listOfProcess = JsonHelper.FromJson<RawProcessObject>(jsonTextFile.text);
-		foreach (RawProcessObject singleProcess in listOfProcess)
+
+		foreach (RawProcessObject singleProcess in listOfProcess.Reverse())
 		{
 			if (globalProcessDictionary.ContainsKey(singleProcess.baseRequiredId))
 			{
