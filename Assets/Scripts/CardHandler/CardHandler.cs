@@ -54,37 +54,6 @@ public class CardHandler : MonoBehaviour
 		return cardObject;
 	}
 
-	private T ensureComponent<T>(GameObject gameObject) where T : Component
-	{
-		var cardSpriteRenderer = gameObject.GetComponent(typeof(T)) as T;
-		if (cardSpriteRenderer == null)
-		{
-			cardSpriteRenderer = gameObject.AddComponent<T>();
-		}
-		;
-		return cardSpriteRenderer;
-	}
-
-	public Card createCard(int cardId, Vector3 cardOriginPoint)
-	{
-		GameObject newNodePlane = Instantiate(cardPrefab);
-		newNodePlane.transform.position = cardOriginPoint;
-		newNodePlane.SetActive(true);
-
-		return createCard(cardId, newNodePlane, cardOriginPoint);
-	}
-
-	public Card createCard(int cardId)
-	{
-		return createCard(cardId, defaultCardPoint);
-	}
-
-	public Node createNode(int cardId)
-	{
-		GameObject newNodeGameObject = Instantiate(nodePrefab);
-		return this.createNode(cardId, newNodeGameObject);
-	}
-
 	public Node createNode(int cardId, GameObject nodeGameObject)
 	{
 		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
@@ -112,5 +81,36 @@ public class CardHandler : MonoBehaviour
 		newNode.init(nodePlane);
 
 		return newNode;
+	}
+
+	public Card createCard(int cardId, Vector3 cardOriginPoint)
+	{
+		GameObject newNodePlane = Instantiate(cardPrefab);
+		newNodePlane.transform.position = cardOriginPoint;
+		newNodePlane.SetActive(true);
+
+		return createCard(cardId, newNodePlane, cardOriginPoint);
+	}
+
+	public Card createCard(int cardId)
+	{
+		return createCard(cardId, defaultCardPoint);
+	}
+
+	public Node createNode(int cardId)
+	{
+		GameObject newNodeGameObject = Instantiate(nodePrefab);
+		return this.createNode(cardId, newNodeGameObject);
+	}
+
+	private T ensureComponent<T>(GameObject gameObject) where T : Component
+	{
+		var cardSpriteRenderer = gameObject.GetComponent(typeof(T)) as T;
+		if (cardSpriteRenderer == null)
+		{
+			cardSpriteRenderer = gameObject.AddComponent<T>();
+		}
+		;
+		return cardSpriteRenderer;
 	}
 }

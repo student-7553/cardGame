@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	// ---------------------- REFERENCES ------------------------------
-	public GameObject cardHandlerGameObject;
-	public GameObject nodePlane;
-
 	public static GameManager current;
 
 	private GameObject[] cards;
