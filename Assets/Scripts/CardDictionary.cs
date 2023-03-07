@@ -19,8 +19,11 @@ public static class CardDictionary
 	{
 		globalCardDictionary = new Dictionary<int, CardObject>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/card");
+
 		RawCardObject[] listOfCards = JsonHelper.FromJson<RawCardObject>(jsonTextFile.text);
-		foreach (RawCardObject singleCard in listOfCards)
+		List<RawCardObject> reversedListOfCards = listOfCards.Reverse().ToList();
+
+		foreach (RawCardObject singleCard in reversedListOfCards)
 		{
 			CardObject newObject = processRawCardObject(singleCard);
 			globalCardDictionary.Add(singleCard.id, newObject);
