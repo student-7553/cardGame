@@ -462,9 +462,25 @@
         },
         {
           "id": 81351807,
-          "odds": 0.2,
+          "odds": 0.35,
           "addingCardIds": [2000],
           "extraUnlockCardIds": [],
+          "isOneTime": true,
+          "updateCurrentNode": 0
+        },
+        {
+          "id": 81351807,
+          "odds": 0.35,
+          "addingCardIds": [2014],
+          "extraUnlockCardIds": [2000],
+          "isOneTime": true,
+          "updateCurrentNode": 0
+        },
+        {
+          "id": 81351807,
+          "odds": 0.35,
+          "addingCardIds": [2015],
+          "extraUnlockCardIds": [2014],
           "isOneTime": true,
           "updateCurrentNode": 0
         },
@@ -472,7 +488,7 @@
           "id": 65882272,
           "odds": 0.35,
           "addingCardIds": [2005],
-          "extraUnlockCardIds": [2000],
+          "extraUnlockCardIds": [2015],
           "isOneTime": true,
           "updateCurrentNode": 0
         },
