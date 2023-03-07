@@ -36,13 +36,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	[System.NonSerialized]
 	public NodeHungerHandler nodeHungerHandler;
 
+	// -------------------- Node Stats -------------------------
+
 	[System.NonSerialized]
 	public CardStack storageCardStack;
 
 	[System.NonSerialized]
 	public CardStack processCardStack;
-
-	// -------------------- Node Stats -------------------------
 
 	private int _id;
 	public int id
@@ -61,6 +61,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public bool isActive;
 
+	// ---------------------------------------------------------
+
 	private void Awake()
 	{
 		storageCardStack = new CardStack(this);
@@ -75,6 +77,13 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		isActive = true;
 
 		interactableType = CoreInteractableType.Nodes;
+	}
+
+	private void FixedUpdate()
+	{
+		nodeStats.computeStats();
+		nodeStats.handleLimits();
+		nodeTextHandler.reflectToScreen();
 	}
 
 	public void init(NodePlaneHandler nodePlane)
@@ -127,27 +136,6 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			}
 			storageCardStack.addCardToStack(newCard);
 		}
-	}
-
-	private void FixedUpdate()
-	{
-		nodeStats.computeStats();
-		nodeStats.handleLimits();
-		nodeTextHandler.reflectToScreen();
-	}
-
-	public Card getCard()
-	{
-		return null;
-	}
-
-	public bool isMarket()
-	{
-		if (id == 3003)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	public void hadleRemovingCards(List<Card> removingCards, NodeCardStackType cardStackType)
@@ -276,5 +264,19 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			}
 		}
 		return newCardIds;
+	}
+
+	public bool isMarket()
+	{
+		if (id == 3003)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public Card getCard()
+	{
+		return null;
 	}
 }

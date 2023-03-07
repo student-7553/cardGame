@@ -22,11 +22,39 @@ public class NodeProcess : MonoBehaviour
 
 	private readonly float sellTimer = 1f;
 
+	private readonly int bufferProcessingTime = 1;
+
 	private bool isInit = false;
 
 	public void Awake()
 	{
 		isProccessing = false;
+	}
+
+	private void FixedUpdate()
+	{
+		if (!isInit)
+		{
+			return;
+		}
+
+		if (!this.isAvailableForNextProcess())
+		{
+			return;
+		}
+
+		this.isProccessing = true;
+
+		if (node.isMarket())
+		{
+			// Market process
+			this.handleMarketProcess();
+		}
+		else
+		{
+			// Node process
+			this.handleNodeProcess();
+		}
 	}
 
 	public void init(Node parentNode)
@@ -47,12 +75,15 @@ public class NodeProcess : MonoBehaviour
 		this.handleTypeAdjusting(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
 
 		List<Card> removingCards = node.getCards(removingCardIds, cardStackType);
-		foreach (Card card in removingCards)
-		{
-			card.disableInteractiveForATime(timer, CardDisableType.Process);
-		}
 
-		yield return new WaitForSeconds(timer);
+		if (timer > 0)
+		{
+			foreach (Card card in removingCards)
+			{
+				card.disableInteractiveForATime(timer, CardDisableType.Process);
+			}
+			yield return new WaitForSeconds(timer);
+		}
 
 		node.hadleRemovingCards(removingCards, cardStackType);
 		node.handleCreatingCards(addingCardIds);
@@ -91,41 +122,6 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
-	private void FixedUpdate()
-	{
-		this.handleFixedFrameCounter();
-		if (!isInit)
-		{
-			return;
-		}
-
-		if (!this.isAvailableForNextProcess())
-		{
-			return;
-		}
-
-		this.isProccessing = true;
-
-		if (node.isMarket())
-		{
-			// Market process
-			this.handleMarketProcess();
-		}
-		else
-		{
-			// Node process
-			this.handleNodeProcess();
-		}
-	}
-
-	private void handleFixedFrameCounter()
-	{
-		if (this.proccessingLeft != 0f)
-		{
-			this.proccessingLeft = Math.Max(this.proccessingLeft - Time.fixedDeltaTime, 0f);
-		}
-	}
-
 	private void handleMarketProcess()
 	{
 		// Market process
@@ -141,13 +137,13 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleNodeProcess()
 	{
-		if (!node.isActive)
+		if (node.isActive)
 		{
-			this.handleInActiveNodeProcess();
+			this.handleActiveNodeProcess();
 		}
 		else
 		{
-			this.handleActiveNodeProcess();
+			this.handleInActiveNodeProcess();
 		}
 	}
 
@@ -294,9 +290,23 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		this.proccessingLeft = pickedProcess.time;
+		int electricityRemove = this.getElectricityRemove(pickedProcess);
 
-		yield return new WaitForSeconds(pickedProcess.time);
+		if (electricityRemove > 0)
+		{
+			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null, NodeCardStackType.storage));
+			this.proccessingLeft = pickedProcess.time - electricityRemove;
+		}
+		else
+		{
+			this.proccessingLeft = pickedProcess.time;
+		}
+
+		while (this.proccessingLeft > 0)
+		{
+			yield return new WaitForSeconds(1);
+			this.proccessingLeft = this.proccessingLeft - 1;
+		}
 
 		if (pickedAddingCardObject.updateCurrentNode != 0 && node.id < pickedAddingCardObject.updateCurrentNode)
 		{
@@ -453,5 +463,23 @@ public class NodeProcess : MonoBehaviour
 	private int getGoldAmount(int cardId)
 	{
 		return CardDictionary.globalCardDictionary[cardId].sellingPrice;
+	}
+
+	private int getElectricityRemove(RawProcessObject pickedProcess)
+	{
+		int electricityRemove = 0;
+		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
+		{
+			if (pickedProcess.time - bufferProcessingTime <= this.node.nodeStats.currentNodeStats.currentElectricity)
+			{
+				electricityRemove = pickedProcess.time - bufferProcessingTime;
+			}
+			else
+			{
+				electricityRemove = pickedProcess.time - this.node.nodeStats.currentNodeStats.currentElectricity;
+			}
+		}
+
+		return electricityRemove;
 	}
 }

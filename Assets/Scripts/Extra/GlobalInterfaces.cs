@@ -135,7 +135,7 @@ namespace Core
 		public int[] requiredIds;
 		public int requiredGold;
 		public int requiredElectricity;
-		public float time;
+		public int time;
 		public AddingCardsObject[] addingCardObjects;
 	}
 }
