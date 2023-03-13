@@ -481,7 +481,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTransferTimeCost": 4,
+      "nodeTransferTimeCost": 3,
       "foodCost": 0
     },
     {
@@ -493,7 +493,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 5,
-      "nodeTransferTimeCost": 20,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
