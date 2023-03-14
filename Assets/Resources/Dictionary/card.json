@@ -169,6 +169,42 @@
       "foodCost": 0
     },
     {
+      "id": 15,
+      "name": "Carbon Nano tube",
+      "type": "Resource",
+      "resourceInventoryCount": 3,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
+      "id": 16,
+      "name": "Infinite ice",
+      "type": "Resource",
+      "resourceInventoryCount": 3,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
+      "id": 17,
+      "name": "Infinite stone",
+      "type": "Resource",
+      "resourceInventoryCount": 3,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -438,6 +474,30 @@
     {
       "id": 2015,
       "name": "[Idea] Infinite ice",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2016,
+      "name": "[Idea] Carbon Nano tube",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2017,
+      "name": "[Idea] Zenith",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
