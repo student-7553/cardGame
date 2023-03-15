@@ -63,18 +63,15 @@ public class NodeProcess : MonoBehaviour
 		node = parentNode;
 	}
 
-	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback, NodeCardStackType cardStackType)
+	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
 		List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
-		List<int> cardIds =
-			cardStackType == NodeCardStackType.process
-				? node.processCardStack.getActiveCardIds()
-				: node.storageCardStack.getActiveCardIds();
+		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
 		this.handleTypeAdjusting(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
 
-		List<Card> removingCards = node.getCards(removingCardIds, cardStackType);
+		List<Card> removingCards = node.getCards(removingCardIds);
 
 		if (timer > 0)
 		{
@@ -85,7 +82,9 @@ public class NodeProcess : MonoBehaviour
 			yield return new WaitForSeconds(timer);
 		}
 
-		node.hadleRemovingCards(removingCards, cardStackType);
+		Debug.Log("are we called?.......");
+
+		node.hadleRemovingCards(removingCards);
 		node.handleCreatingCards(addingCardIds);
 
 		if (callback != null)
@@ -181,8 +180,7 @@ public class NodeProcess : MonoBehaviour
 					{
 						node.isActive = true;
 						StartCoroutine(handleProcessCooldown());
-					},
-					NodeCardStackType.storage
+					}
 				)
 			);
 		}
@@ -275,11 +273,11 @@ public class NodeProcess : MonoBehaviour
 
 		this.handleProcessAdjustingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
 
-		List<Card> removingCards = node.getCards(removingCardIds, NodeCardStackType.process);
+		List<Card> removingCards = node.getCards(removingCardIds);
 
 		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
 
-		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds, NodeCardStackType.process);
+		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds);
 
 		foreach (Card card in restNonInteractiveCards)
 		{
@@ -294,7 +292,8 @@ public class NodeProcess : MonoBehaviour
 
 		if (electricityRemove > 0)
 		{
-			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null, NodeCardStackType.storage));
+			Debug.Log("Removing electricityRemove/" + electricityRemove);
+			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
 			this.proccessingLeft = pickedProcess.time - electricityRemove;
 		}
 		else
@@ -315,7 +314,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (node.isActive)
 		{
-			node.hadleRemovingCards(removingCards, NodeCardStackType.process);
+			node.hadleRemovingCards(removingCards);
 			node.handleCreatingCards(addingCardIds);
 		}
 		else
@@ -331,8 +330,6 @@ public class NodeProcess : MonoBehaviour
 		{
 			card.isInteractiveDisabled = false;
 		}
-		node.processCardStack.removeCardsFromStack(restNonInteractiveCards);
-		node.storageCardStack.addCardToStack(restNonInteractiveCards);
 		node.consolidateTypeCards();
 
 		StartCoroutine(handleProcessCooldown());
@@ -453,8 +450,12 @@ public class NodeProcess : MonoBehaviour
 
 		List<Card> removingCards = new List<Card> { card };
 
-		node.hadleRemovingCards(removingCards, NodeCardStackType.process);
+		node.hadleRemovingCards(removingCards);
+
+		Debug.Log("sell card triggered");
+
 		node.handleCreatingCards(addingGoldCardIds);
+
 		node.consolidateTypeCards();
 
 		isProccessing = false;

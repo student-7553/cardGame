@@ -56,7 +56,7 @@ public class NodeHungerHandler : MonoBehaviour
 		}
 		else
 		{
-			StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null, NodeCardStackType.storage));
+			StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
 		}
 	}
 }

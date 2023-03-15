@@ -38,8 +38,6 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	// -------------------- Node Stats -------------------------
 
-	[System.NonSerialized]
-	public CardStack storageCardStack;
 
 	[System.NonSerialized]
 	public CardStack processCardStack;
@@ -65,11 +63,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	private void Awake()
 	{
-		storageCardStack = new CardStack(this);
-		storageCardStack.originPointAdjustment = new Vector3(10f, 35f, 0);
-
 		processCardStack = new CardStack(this);
-		processCardStack.originPointAdjustment = new Vector3(-10f, 35f, 0);
+		processCardStack.originPointAdjustment = new Vector3(0f, 35f, 0);
 
 		nodeTextHandler = new NodeTextHandler(this);
 
@@ -127,27 +122,39 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				nodeCardQue.addCard(newCard);
 			}
 			processCardStack.addCardToStack(newCard);
+			return;
 		}
-		else
+
+		if (
+			CardDictionary.globalCardDictionary[newCard.id].resourceInventoryCount + nodeStats.currentNodeStats.resourceInventoryUsed
+			>= nodeStats.currentNodeStats.resourceInventoryLimit
+		)
 		{
-			if (prevNode != this)
-			{
-				nodeCardQue.addCard(newCard);
-			}
-			storageCardStack.addCardToStack(newCard);
+			return;
 		}
+
+		if (
+			CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount + +nodeStats.currentNodeStats.infraInventoryUsed
+			>= nodeStats.currentNodeStats.infraInventoryLimit
+		)
+		{
+			return;
+		}
+
+		if (prevNode != this)
+		{
+			nodeCardQue.addCard(newCard);
+		}
+		processCardStack.addCardToStack(newCard);
 	}
 
-	public void hadleRemovingCards(List<Card> removingCards, NodeCardStackType cardStackType)
+	public void hadleRemovingCards(List<Card> removingCards)
 	{
-		if (cardStackType == NodeCardStackType.storage)
+		if (removingCards.Count == 0)
 		{
-			storageCardStack.removeCardsFromStack(removingCards);
+			return;
 		}
-		else
-		{
-			processCardStack.removeCardsFromStack(removingCards);
-		}
+		processCardStack.removeCardsFromStack(removingCards);
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
@@ -157,6 +164,11 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void handleCreatingCards(List<int> cardIds)
 	{
+		if (cardIds.Count == 0)
+		{
+			return;
+		}
+
 		List<Card> addingCards = new List<Card>();
 		foreach (int singleAddingCardId in cardIds)
 		{
@@ -170,15 +182,16 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				addingCards.Add(createdCard);
 			}
 		}
-		storageCardStack.addCardToStack(addingCards);
+
+		this.ejectCards(addingCards);
 	}
 
-	public List<Card> getCards(List<int> cardIds, NodeCardStackType cardStackType)
+	public List<Card> getCards(List<int> cardIds)
 	{
 		Dictionary<int, int> indexedCardIds = this.indexCardIds(cardIds);
 		List<Card> cards = new List<Card>();
 
-		foreach (Card singleCard in cardStackType == NodeCardStackType.storage ? storageCardStack.cards : processCardStack.cards)
+		foreach (Card singleCard in processCardStack.cards)
 		{
 			if (indexedCardIds.ContainsKey(singleCard.id))
 			{
@@ -196,19 +209,19 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void ejectCards(List<Card> cards)
 	{
-		int positionMinusInterval = 4;
+		int positionMinusInterval = 5;
+
 		Vector3 startingPosition = new Vector3(
 			gameObject.transform.position.x,
-			gameObject.transform.position.y - 25,
+			gameObject.transform.position.y - 6,
 			gameObject.transform.position.z
 		);
-		storageCardStack.removeCardsFromStack(cards);
+		processCardStack.removeCardsFromStack(cards);
 
 		foreach (Card card in cards)
 		{
-			Vector3 cardPostion = startingPosition;
-			cardPostion.y = cardPostion.y - positionMinusInterval;
-			card.moveCard(cardPostion);
+			startingPosition.y = startingPosition.y - positionMinusInterval;
+			card.moveCard(startingPosition);
 		}
 	}
 
@@ -234,7 +247,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		CardsTypes[] types = new CardsTypes[] { CardsTypes.Gold, CardsTypes.Electricity, CardsTypes.Food };
 		foreach (CardsTypes cardType in types)
 		{
-			List<int> cardIds = storageCardStack.getTypeActiveCards(cardType);
+			List<int> cardIds = processCardStack.getTypeActiveCards(cardType);
 
 			int value = CardHelpers.getTypeValueFromCardIds(cardType, cardIds);
 
@@ -244,10 +257,16 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 			List<int> removingCardIds = this.getListEdge(cardIds, generatingCardIds);
 
-			List<Card> removingCards = this.getCards(removingCardIds, NodeCardStackType.storage);
+			List<Card> removingCards = this.getCards(removingCardIds);
 
-			this.hadleRemovingCards(removingCards, NodeCardStackType.storage);
-			this.handleCreatingCards(newCardIds);
+			if (removingCards.Count > 0)
+			{
+				this.hadleRemovingCards(removingCards);
+			}
+			if (newCardIds.Count > 0)
+			{
+				this.handleCreatingCards(newCardIds);
+			}
 		}
 	}
 
