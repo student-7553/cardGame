@@ -169,7 +169,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			return;
 		}
 
-		List<Card> addingCards = new List<Card>();
+		List<Card> addingNonTypeCards = new List<Card>();
+		List<Card> addingTypeCards = new List<Card>();
 		foreach (int singleAddingCardId in cardIds)
 		{
 			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
@@ -179,11 +180,19 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			else
 			{
 				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-				addingCards.Add(createdCard);
+				if (CardHelpers.isValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
+				{
+					addingTypeCards.Add(createdCard);
+				}
+				else
+				{
+					addingNonTypeCards.Add(createdCard);
+				}
 			}
 		}
 
-		this.ejectCards(addingCards);
+		this.ejectCards(addingNonTypeCards);
+		processCardStack.addCardToStack(addingTypeCards);
 	}
 
 	public List<Card> getCards(List<int> cardIds)
@@ -209,11 +218,11 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void ejectCards(List<Card> cards)
 	{
-		int positionMinusInterval = 5;
+		int positionMinusInterval = 12;
 
 		Vector3 startingPosition = new Vector3(
 			gameObject.transform.position.x,
-			gameObject.transform.position.y - 6,
+			gameObject.transform.position.y - 4,
 			gameObject.transform.position.z
 		);
 		processCardStack.removeCardsFromStack(cards);

@@ -63,7 +63,7 @@
       "removingIds": [4],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 10,
+      "time": 15,
       "addingCardObjects": [
         {
           "odds": 0.7,
@@ -90,7 +90,7 @@
       "removingIds": [5],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 10,
+      "time": 15,
       "addingCardObjects": [
         {
           "odds": 0.9,
@@ -124,7 +124,7 @@
       "removingIds": [],
       "requiredGold": 3,
       "requiredElectricity": 0,
-      "time": 9,
+      "time": 15,
       "addingCardObjects": [
         {
           "odds": 0.075,
@@ -255,7 +255,7 @@
       "removingIds": [12],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 10,
+      "time": 12,
       "addingCardObjects": [
         {
           "odds": 0.4,
@@ -657,14 +657,14 @@
     },
     {
       "id": 24,
-      "baseRequiredId": 9,
+      "baseRequiredId": 10,
       "unlockCardIds": [2013],
       "inNodeId": 0,
       "requiredIds": [2, 3, 3],
-      "removingIds": [9, 2, 3, 3],
+      "removingIds": [10, 2, 3, 3],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 10,
+      "time": 20,
       "addingCardObjects": [
         {
           "odds": 1,
