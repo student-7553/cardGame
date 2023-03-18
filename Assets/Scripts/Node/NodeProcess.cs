@@ -82,8 +82,6 @@ public class NodeProcess : MonoBehaviour
 			yield return new WaitForSeconds(timer);
 		}
 
-		Debug.Log("are we called?.......");
-
 		node.hadleRemovingCards(removingCards);
 		node.handleCreatingCards(addingCardIds);
 
@@ -292,7 +290,6 @@ public class NodeProcess : MonoBehaviour
 
 		if (electricityRemove > 0)
 		{
-			Debug.Log("Removing electricityRemove/" + electricityRemove);
 			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
 			this.proccessingLeft = pickedProcess.time - electricityRemove;
 		}
@@ -330,6 +327,20 @@ public class NodeProcess : MonoBehaviour
 		{
 			card.isInteractiveDisabled = false;
 		}
+
+		node.ejectCards(restNonInteractiveCards);
+
+		List<Card> nonTypedCards = restNonInteractiveCards
+			.Where(
+				(card) =>
+				{
+					return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
+				}
+			)
+			.ToList();
+
+		node.ejectCards(nonTypedCards);
+
 		node.consolidateTypeCards();
 
 		StartCoroutine(handleProcessCooldown());
@@ -451,8 +462,6 @@ public class NodeProcess : MonoBehaviour
 		List<Card> removingCards = new List<Card> { card };
 
 		node.hadleRemovingCards(removingCards);
-
-		Debug.Log("sell card triggered");
 
 		node.handleCreatingCards(addingGoldCardIds);
 

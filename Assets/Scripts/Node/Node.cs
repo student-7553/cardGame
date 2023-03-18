@@ -180,18 +180,20 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			else
 			{
 				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-				if (CardHelpers.isValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
+
+				if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
 				{
-					addingTypeCards.Add(createdCard);
+					addingNonTypeCards.Add(createdCard);
 				}
 				else
 				{
-					addingNonTypeCards.Add(createdCard);
+					addingTypeCards.Add(createdCard);
 				}
 			}
 		}
 
 		this.ejectCards(addingNonTypeCards);
+
 		processCardStack.addCardToStack(addingTypeCards);
 	}
 

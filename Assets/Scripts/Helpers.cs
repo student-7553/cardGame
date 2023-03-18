@@ -53,7 +53,7 @@ namespace Helpers
 		public static List<int> getAscTypeValueCardIds(CardsTypes cardType, List<int> cardIds)
 		{
 			List<int> ascTypeCardIds = new List<int>();
-			if (isValueTypeCard(cardType))
+			if (isNonValueTypeCard(cardType))
 			{
 				return ascTypeCardIds;
 			}
@@ -80,7 +80,7 @@ namespace Helpers
 		public static List<int> generateTypeValueCards(CardsTypes cardType, int value)
 		{
 			List<int> ascTypeCardIds = new List<int>();
-			if (isValueTypeCard(cardType))
+			if (isNonValueTypeCard(cardType))
 			{
 				return ascTypeCardIds;
 			}
@@ -117,7 +117,7 @@ namespace Helpers
 
 		public static int getTypeValueFromCardIds(CardsTypes cardType, List<int> cardIds)
 		{
-			if (isValueTypeCard(cardType))
+			if (isNonValueTypeCard(cardType))
 			{
 				return 0;
 			}
@@ -134,7 +134,7 @@ namespace Helpers
 			return typeValue;
 		}
 
-		public static bool isValueTypeCard(CardsTypes cardType)
+		public static bool isNonValueTypeCard(CardsTypes cardType)
 		{
 			List<int> ascTypeCardIds = new List<int>();
 			List<CardsTypes> listAllowedCardTypes = new List<CardsTypes>(allowedCardTypes);

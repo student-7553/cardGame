@@ -16,7 +16,7 @@
       "id": 2,
       "name": "Space rock",
       "type": "Resource",
-      "resourceInventoryCount": 2,
+      "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
@@ -178,6 +178,18 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
+      "id": 16,
+      "name": "Graphite",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 7,
       "foodCost": 0
     },
     {

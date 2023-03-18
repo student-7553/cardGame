@@ -128,7 +128,7 @@
       "addingCardObjects": [
         {
           "odds": 0.075,
-          "addingCardIds": [12, 10200],
+          "addingCardIds": [12, 16, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -149,7 +149,7 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [5],
+          "addingCardIds": [5, 16, 16],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -163,7 +163,7 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [4, 10200, 10200],
+          "addingCardIds": [4, 16, 10200, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -177,7 +177,7 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [6],
+          "addingCardIds": [6, 16],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -380,7 +380,7 @@
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [2012, 2013, 3000, 10003, 10002, 10201],
+          "addingCardIds": [2012, 2013, 3000, 10002, 10201],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 3002
@@ -392,8 +392,8 @@
       "baseRequiredId": 6,
       "unlockCardIds": [2012],
       "inNodeId": 0,
-      "requiredIds": [6, 10, 3, 3, 1003],
-      "removingIds": [6, 6, 10, 3, 3, 1003],
+      "requiredIds": [6, 10, 10, 1003],
+      "removingIds": [6, 6, 10, 10, 1003],
       "requiredGold": 25,
       "requiredElectricity": 0,
       "time": 30,
@@ -657,11 +657,11 @@
     },
     {
       "id": 24,
-      "baseRequiredId": 10,
+      "baseRequiredId": 16,
       "unlockCardIds": [2013],
       "inNodeId": 0,
-      "requiredIds": [2, 3, 3],
-      "removingIds": [10, 2, 3, 3],
+      "requiredIds": [16, 3, 3],
+      "removingIds": [16, 16, 3, 3],
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 20,
