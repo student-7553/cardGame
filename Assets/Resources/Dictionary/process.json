@@ -708,7 +708,7 @@
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [16],
+          "addingCardIds": [17],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -728,7 +728,7 @@
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [16],
+          "addingCardIds": [18],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0

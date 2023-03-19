@@ -193,7 +193,7 @@
       "foodCost": 0
     },
     {
-      "id": 16,
+      "id": 17,
       "name": "Infinite ice",
       "type": "Resource",
       "resourceInventoryCount": 3,
@@ -205,7 +205,7 @@
       "foodCost": 0
     },
     {
-      "id": 17,
+      "id": 18,
       "name": "Infinite stone",
       "type": "Resource",
       "resourceInventoryCount": 3,
