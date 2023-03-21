@@ -48,7 +48,7 @@ namespace Helpers
 
 	public static class CardHelpers
 	{
-		private static CardsTypes[] allowedCardTypes = { CardsTypes.Electricity, CardsTypes.Gold, CardsTypes.Food };
+		private static CardsTypes[] valueCardTypes = { CardsTypes.Electricity, CardsTypes.Gold, CardsTypes.Food };
 
 		public static List<int> getAscTypeValueCardIds(CardsTypes cardType, List<int> cardIds)
 		{
@@ -137,7 +137,7 @@ namespace Helpers
 		public static bool isNonValueTypeCard(CardsTypes cardType)
 		{
 			List<int> ascTypeCardIds = new List<int>();
-			List<CardsTypes> listAllowedCardTypes = new List<CardsTypes>(allowedCardTypes);
+			List<CardsTypes> listAllowedCardTypes = new List<CardsTypes>(valueCardTypes);
 			if (!listAllowedCardTypes.Contains(cardType))
 			{
 				return true;

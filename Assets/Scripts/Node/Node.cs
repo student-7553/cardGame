@@ -220,7 +220,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 
 	public void ejectCards(List<Card> cards)
 	{
-		int positionMinusInterval = 12;
+		int positionMinusInterval = 9;
 
 		Vector3 startingPosition = new Vector3(
 			gameObject.transform.position.x,
@@ -274,8 +274,12 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 			{
 				this.hadleRemovingCards(removingCards);
 			}
+
+			Debug.Log("newCardIds/" + newCardIds.Count);
+
 			if (newCardIds.Count > 0)
 			{
+				Debug.Log(newCardIds[0]);
 				this.handleCreatingCards(newCardIds);
 			}
 		}

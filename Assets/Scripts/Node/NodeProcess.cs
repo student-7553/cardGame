@@ -121,15 +121,17 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleMarketProcess()
 	{
-		// Market process
-		List<int> activeCardsIds = node.processCardStack.getNonTypeActiveCardIds();
-		if (activeCardsIds.Count == 0)
+		Card sellingCard = node.processCardStack.cards.Find(
+			(card) => CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
+		);
+
+		if (sellingCard == null)
 		{
 			this.isProccessing = false;
 			return;
 		}
 
-		StartCoroutine(sellCard(node.processCardStack.cards[0]));
+		StartCoroutine(sellCard(sellingCard));
 	}
 
 	private void handleNodeProcess()
