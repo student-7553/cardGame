@@ -231,7 +231,7 @@
     {
       "id": 1001,
       "name": "Basic hydroponic farming",
-      "type": "Infrastrucutre",
+      "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
       "isSellable": true,
@@ -243,7 +243,7 @@
     {
       "id": 1002,
       "name": "Solar power",
-      "type": "Infrastrucutre",
+      "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
       "isSellable": true,
@@ -255,7 +255,7 @@
     {
       "id": 1003,
       "name": "Local Expedition",
-      "type": "Infrastrucutre",
+      "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
       "isSellable": true,
@@ -267,7 +267,7 @@
     {
       "id": 1004,
       "name": "Global expedition",
-      "type": "Infrastrucutre",
+      "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 5,
       "isSellable": false,
@@ -279,7 +279,7 @@
     {
       "id": 1005,
       "name": "Forge",
-      "type": "Infrastrucutre",
+      "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
       "isSellable": true,

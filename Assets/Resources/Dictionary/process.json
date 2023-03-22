@@ -122,7 +122,7 @@
       "inNodeId": 0,
       "requiredIds": [],
       "removingIds": [],
-      "requiredGold": 3,
+      "requiredGold": 4,
       "requiredElectricity": 0,
       "time": 21,
       "addingCardObjects": [
@@ -312,8 +312,8 @@
       "baseRequiredId": 6,
       "unlockCardIds": [2004],
       "inNodeId": 0,
-      "requiredIds": [3],
-      "removingIds": [6, 3],
+      "requiredIds": [3, 9],
+      "removingIds": [6, 3, 9],
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 25,
@@ -394,7 +394,7 @@
       "inNodeId": 0,
       "requiredIds": [6, 10, 10, 1003],
       "removingIds": [6, 6, 10, 10, 1003],
-      "requiredGold": 25,
+      "requiredGold": 10,
       "requiredElectricity": 0,
       "time": 30,
       "addingCardObjects": [

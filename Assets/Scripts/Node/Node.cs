@@ -275,11 +275,8 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 				this.hadleRemovingCards(removingCards);
 			}
 
-			Debug.Log("newCardIds/" + newCardIds.Count);
-
 			if (newCardIds.Count > 0)
 			{
-				Debug.Log(newCardIds[0]);
 				this.handleCreatingCards(newCardIds);
 			}
 		}

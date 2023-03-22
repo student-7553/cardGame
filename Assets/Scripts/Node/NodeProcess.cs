@@ -330,18 +330,20 @@ public class NodeProcess : MonoBehaviour
 			card.isInteractiveDisabled = false;
 		}
 
-		node.ejectCards(restNonInteractiveCards);
-
-		List<Card> nonTypedCards = restNonInteractiveCards
+		List<Card> ejectingCards = restNonInteractiveCards
 			.Where(
 				(card) =>
 				{
+					// if (CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Infrastructure)
+					// {
+					// 	return false;
+					// }
 					return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
 				}
 			)
 			.ToList();
 
-		node.ejectCards(nonTypedCards);
+		node.ejectCards(ejectingCards);
 
 		node.consolidateTypeCards();
 
