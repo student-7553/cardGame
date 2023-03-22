@@ -217,6 +217,30 @@
       "foodCost": 0
     },
     {
+      "id": 19,
+      "name": "Will",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 1,
+      "foodCost": 0
+    },
+    {
+      "id": 20,
+      "name": "Grit",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 1,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -274,7 +298,7 @@
       "sellingPrice": 0,
       "typeValue": 0,
       "nodeTransferTimeCost": 15,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 1005,
