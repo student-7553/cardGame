@@ -334,10 +334,10 @@ public class NodeProcess : MonoBehaviour
 			.Where(
 				(card) =>
 				{
-					// if (CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Infrastructure)
-					// {
-					// 	return false;
-					// }
+					if (CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Infrastructure)
+					{
+						return false;
+					}
 					return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
 				}
 			)
