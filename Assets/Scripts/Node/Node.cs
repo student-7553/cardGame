@@ -134,7 +134,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 
 		if (
-			CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount + +nodeStats.currentNodeStats.infraInventoryUsed
+			CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount + nodeStats.currentNodeStats.infraInventoryUsed
 			>= nodeStats.currentNodeStats.infraInventoryLimit
 		)
 		{

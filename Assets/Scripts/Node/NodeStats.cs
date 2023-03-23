@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core;
+using UnityEngine;
 
 public class BaseNodeStats
 {
@@ -89,9 +90,10 @@ public class NodeStats
 
 		foreach (int id in cardIds)
 		{
-			calcResourceInventoryUsed += CardDictionary.globalCardDictionary[id].resourceInventoryCount;
-			calcInfraInventoryUsed += CardDictionary.globalCardDictionary[id].infraInventoryCount;
-			calcHungerCheck += CardDictionary.globalCardDictionary[id].foodCost;
+			calcResourceInventoryUsed = calcResourceInventoryUsed + CardDictionary.globalCardDictionary[id].resourceInventoryCount;
+			calcInfraInventoryUsed = calcInfraInventoryUsed = CardDictionary.globalCardDictionary[id].infraInventoryCount;
+
+			calcHungerCheck = calcHungerCheck + CardDictionary.globalCardDictionary[id].foodCost;
 			switch (CardDictionary.globalCardDictionary[id].type)
 			{
 				case CardsTypes.Electricity:
@@ -115,7 +117,9 @@ public class NodeStats
 
 		currentNodeStats.resourceInventoryUsed = calcResourceInventoryUsed;
 		currentNodeStats.resourceInventoryLimit = baseNodeStat.resourceInventoryLimit + calcResourceInventoryLimit;
+
 		currentNodeStats.infraInventoryUsed = calcInfraInventoryUsed;
+
 		currentNodeStats.infraInventoryLimit = baseNodeStat.infraInventoryLimit + calcInfraInventoryLimit;
 		currentNodeStats.goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
 		currentNodeStats.currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
