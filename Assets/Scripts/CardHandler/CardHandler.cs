@@ -60,7 +60,7 @@ public class CardHandler : MonoBehaviour
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
 
-		nodeGameObject.transform.position = this.defaultNodePositon;
+		// nodeGameObject.transform.position = this.defaultNodePositon;
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
@@ -75,12 +75,30 @@ public class CardHandler : MonoBehaviour
 
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
-
 		newNodePlane.SetActive(false);
 
 		newNode.init(nodePlane);
 
 		return newNode;
+	}
+
+	public EnemyNode createEnemyNode(int cardId, GameObject nodeGameObject)
+	{
+		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
+		nodeGameObject.tag = "EnemyNodes";
+		nodeGameObject.layer = 6;
+
+		EnemyNode newEnemyNode = ensureComponent<EnemyNode>(nodeGameObject);
+		newEnemyNode.id = cardId;
+
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
+		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
+		nodePlane.init(newEnemyNode);
+		newNodePlane.SetActive(false);
+		
+		newEnemyNode.init(nodePlane);
+
+		return newEnemyNode;
 	}
 
 	public Card createCard(int cardId, Vector3 cardOriginPoint)

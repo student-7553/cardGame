@@ -92,7 +92,7 @@ public class LeftClickHandler : MonoBehaviour
 			{
 				List<Card> draggingCards = new List<Card>();
 				draggingCards.Add(card);
-				previousStackedNode = card.joinedStack.connectedNode;
+				previousStackedNode = (Node)card.joinedStack.connectedNode;
 				card.joinedStack.removeCardsFromStack(draggingCards);
 			}
 

@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
 	private GameObject[] cards;
 	private GameObject[] nodes;
+	private GameObject[] enemyNodes;
 
 	[System.NonSerialized]
 	public BoardPlaneHandler boardPlaneHandler;
@@ -48,6 +49,15 @@ public class GameManager : MonoBehaviour
 				CardHandler.current.createNode(nodeData.id, singleNode);
 			}
 		}
+
+		foreach (GameObject singleEnemyNode in enemyNodes)
+		{
+			StaticData nodeData = singleEnemyNode.GetComponent(typeof(StaticData)) as StaticData;
+			if (nodeData != null)
+			{
+				CardHandler.current.createEnemyNode(nodeData.id, singleEnemyNode);
+			}
+		}
 	}
 
 	public void findTempLogic()
@@ -60,6 +70,11 @@ public class GameManager : MonoBehaviour
 		if (nodes == null)
 		{
 			nodes = GameObject.FindGameObjectsWithTag("Nodes");
+		}
+
+		if (enemyNodes == null)
+		{
+			enemyNodes = GameObject.FindGameObjectsWithTag("EnemyNodes");
 		}
 	}
 

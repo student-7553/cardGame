@@ -3,7 +3,7 @@ using TMPro;
 
 public class NodePlaneHandler : MonoBehaviour
 {
-	private Node connectedNode;
+	private BaseNode connectedNode;
 	public TextMeshPro titleTextMesh;
 
 	private void Awake()
@@ -12,17 +12,9 @@ public class NodePlaneHandler : MonoBehaviour
 		titleTextMesh = textMeshes[0] as TextMeshPro;
 	}
 
-	public void init(Node parentNode)
+	public void init(BaseNode parentNode)
 	{
 		connectedNode = parentNode;
-	}
-
-	private void OnDisable()
-	{
-		if (connectedNode == null)
-		{
-			return;
-		}
 	}
 
 	private void OnEnable()
@@ -41,16 +33,7 @@ public class NodePlaneHandler : MonoBehaviour
 		string direction = package[1] as string;
 		Node prevNode = package[2] as Node;
 
-		bool dropOnLeftSide = direction == "left" ? true : false;
-
-		if (dropOnLeftSide && prevNode == connectedNode && !connectedNode.isMarket())
-		{
-			connectedNode.processCardStack.addCardToStack(card);
-		}
-		else
-		{
-			connectedNode.stackOnThis(card, prevNode);
-		}
+		connectedNode.stackOnThis(card, prevNode);
 	}
 
 	private void FixedUpdate()
@@ -64,15 +47,15 @@ public class NodePlaneHandler : MonoBehaviour
 
 	private void reflectToScreen()
 	{
-		if (connectedNode.nodeProcess.isProccessing)
-		{
-			//
-			titleTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
-		}
-		else
-		{
-			titleTextMesh.text = "";
-		}
+		// if (connectedNode.nodeProcess.isProccessing)
+		// {
+		// 	//
+		// 	titleTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
+		// }
+		// else
+		// {
+		// 	titleTextMesh.text = "";
+		// }
 
 		if (!connectedNode.isActive)
 		{

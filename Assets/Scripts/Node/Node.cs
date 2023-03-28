@@ -10,7 +10,7 @@ public enum NodeCardStackType
 	process
 }
 
-public class Node : MonoBehaviour, IStackable, IClickable, Interactable
+public class Node : MonoBehaviour, BaseNode, Interactable
 {
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
@@ -31,18 +31,16 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 	public NodeProcess nodeProcess;
 
 	[System.NonSerialized]
-	public NodePlaneHandler nodePlaneManager;
-
-	[System.NonSerialized]
 	public NodeHungerHandler nodeHungerHandler;
+
+	public NodePlaneHandler nodePlaneManager { get; set; }
 
 	// -------------------- Node Stats -------------------------
 
+	public CardStack processCardStack { get; set; }
 
-	[System.NonSerialized]
-	public CardStack processCardStack;
+	private int _id { get; set; }
 
-	private int _id;
 	public int id
 	{
 		get { return _id; }
@@ -57,7 +55,7 @@ public class Node : MonoBehaviour, IStackable, IClickable, Interactable
 		}
 	}
 
-	public bool isActive;
+	public bool isActive { get; set; }
 
 	// ---------------------------------------------------------
 
