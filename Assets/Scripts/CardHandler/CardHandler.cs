@@ -86,16 +86,18 @@ public class CardHandler : MonoBehaviour
 	{
 		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
 		nodeGameObject.tag = "EnemyNodes";
-		nodeGameObject.layer = 6;
+		nodeGameObject.layer = 7;
 
 		EnemyNode newEnemyNode = ensureComponent<EnemyNode>(nodeGameObject);
 		newEnemyNode.id = cardId;
+
+		ensureComponent<EnemyNodeProcess>(nodeGameObject);
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newEnemyNode);
 		newNodePlane.SetActive(false);
-		
+
 		newEnemyNode.init(nodePlane);
 
 		return newEnemyNode;

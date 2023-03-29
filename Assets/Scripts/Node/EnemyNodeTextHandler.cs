@@ -28,26 +28,8 @@ public class EnemyNodeTextHandler
 			}
 		}
 
-		// availableInventoryTextMesh.text =
-		// 	$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
+		availableInventoryTextMesh.text = $"{connectedNode.powerValue}";
 
-		// if (connectedNode.nodeProcess.isProccessing)
-		// {
-		// 	processTimerTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
-		// }
-		// else
-		// {
-		// 	processTimerTextMesh.text = "";
-		// }
-
-		// if (!connectedNode.isActive)
-		// {
-		// 	processTimerTextMesh.text = "[No Food] " + processTimerTextMesh.text;
-		// }
-		// else
-		// {
-		// 	// Active Node
-		// 	processTimerTextMesh.text = processTimerTextMesh.text + $"[{connectedNode.nodeHungerHandler.getHungerCountdown()}]";
-		// }
+		processTimerTextMesh.text = $"{Mathf.RoundToInt(connectedNode.proccessingLeft)}";
 	}
 }

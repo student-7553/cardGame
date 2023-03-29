@@ -9,14 +9,15 @@ public class LeftClickHandler : MonoBehaviour
 {
 	private InputAction leftClick;
 	private Camera mainCamera;
-	private LayerMask interactableLayerMask;
+	private LayerMask baseInteractableLayerMask;
 
 	private readonly float clickTimer = 0.15f;
 
 	private void Awake()
 	{
 		leftClick = new InputAction(binding: "<Mouse>/leftButton");
-		interactableLayerMask = LayerMask.GetMask("Interactable");
+		string[] layerNames = { "Interactable", "EnemyInteractable" };
+		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
 		mainCamera = Camera.main;
 	}
 
@@ -36,7 +37,7 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		Vector3 mousePosition = Mouse.current.position.ReadValue();
 		Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, interactableLayerMask);
+		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, baseInteractableLayerMask);
 		if (hit.collider != null)
 		{
 			GameObject hitGameObject = hit.collider.gameObject;
@@ -195,7 +196,7 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			Ray ray = new Ray(corners[index], Vector3.forward);
 
-			RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, interactableLayerMask);
+			RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, baseInteractableLayerMask);
 			if (cornerHit.collider != null)
 			{
 				IStackable stackableObject = cornerHit.collider.gameObject.GetComponent(typeof(IStackable)) as IStackable;
@@ -222,7 +223,7 @@ public class LeftClickHandler : MonoBehaviour
 		while (i < corners.Length)
 		{
 			Ray ray = new Ray(corners[i], Vector3.forward);
-			RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, interactableLayerMask);
+			RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, baseInteractableLayerMask);
 			if (cornerHit.collider != null)
 			{
 				return cornerHit.collider.gameObject;

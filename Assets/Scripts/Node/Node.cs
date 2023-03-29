@@ -106,6 +106,15 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 		}
 	}
 
+	public void killNode()
+	{
+		List<Card> allCards = new List<Card>(processCardStack.cards);
+		this.ejectCards(allCards);
+
+		Destroy(nodePlaneManager.gameObject);
+		Destroy(this.gameObject);
+	}
+
 	public void stackOnThis(Card newCard, Node prevNode)
 	{
 		if (isMarket())
@@ -225,10 +234,12 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			gameObject.transform.position.y - 4,
 			gameObject.transform.position.z
 		);
+
 		processCardStack.removeCardsFromStack(cards);
 
 		foreach (Card card in cards)
 		{
+			card.isInteractiveDisabled = false;
 			startingPosition.y = startingPosition.y - positionMinusInterval;
 			card.moveCard(startingPosition);
 		}

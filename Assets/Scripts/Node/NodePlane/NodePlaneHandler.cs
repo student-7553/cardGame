@@ -56,7 +56,7 @@ public class NodePlaneHandler : MonoBehaviour
 		// {
 		// 	titleTextMesh.text = "";
 		// }
-
+		titleTextMesh.text = "";
 		if (!connectedNode.isActive)
 		{
 			titleTextMesh.text = "[No Food] " + titleTextMesh.text;
