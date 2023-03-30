@@ -9,10 +9,17 @@ public class PlayerCardTrackerObject
 
 	public void ensureCardIdTracked(int cardId)
 	{
-		if (!aquiredCardsInLifetime.Contains(cardId))
+		if (aquiredCardsInLifetime.Contains(cardId))
 		{
-			aquiredCardsInLifetime.Add(cardId);
+			return;
 		}
+
+		if (cardId == 1004)
+		{
+			// enable enemy spawn
+		}
+
+		aquiredCardsInLifetime.Add(cardId);
 	}
 
 	public void ensureOneTimeProcessTracked(int uniqueId)

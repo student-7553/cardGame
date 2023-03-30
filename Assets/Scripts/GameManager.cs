@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 	[System.NonSerialized]
 	public BoardPlaneHandler boardPlaneHandler;
 
+	[System.NonSerialized]
+	public EnemySpawer enemySpawner;
+
 	void Start()
 	{
 		if (current != null)
@@ -19,10 +22,10 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		current = this;
+		DontDestroyOnLoad(gameObject);
 
 		CardDictionary.init();
 
-		DontDestroyOnLoad(gameObject);
 		gameSettings();
 		findTempLogic();
 		awakeGameLogic();
@@ -30,7 +33,9 @@ public class GameManager : MonoBehaviour
 
 	private void awakeGameLogic()
 	{
-		this.boardPlaneHandler = GameObject.FindObjectOfType<BoardPlaneHandler>();
+		this.boardPlaneHandler = GetComponent(typeof(BoardPlaneHandler)) as BoardPlaneHandler;
+		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
+		// this.enemySpawner.init(5);
 
 		foreach (GameObject singleCard in cards)
 		{

@@ -10,14 +10,14 @@ public class CardHandler : MonoBehaviour
 
 	public GameObject cardPrefab;
 	public GameObject nodePrefab;
+	public GameObject enemyNodePrefab;
 	public GameObject nodePlanePrefab;
 
 	public Sprite[] cardSprites;
 	public Sprite[] nodeSprites;
 
 	private Vector3 defaultCardPoint;
-	private Vector3 defaultNodePlanePositon = new Vector3(103, 0, HelperData.nodeBoardZ);
-	private Vector3 defaultNodePositon = new Vector3(225, 0, HelperData.baseZ);
+	private Vector3 defaultNodePlanePositon = new Vector3(-75, 0, HelperData.nodeBoardZ);
 
 	void Start()
 	{
@@ -60,22 +60,18 @@ public class CardHandler : MonoBehaviour
 		nodeGameObject.tag = "Nodes";
 		nodeGameObject.layer = 6;
 
-		// nodeGameObject.transform.position = this.defaultNodePositon;
-
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
-
 		ensureComponent<NodeProcess>(nodeGameObject);
-
 		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
+		newNodePlane.SetActive(false);
 
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
-		newNodePlane.SetActive(false);
 
 		newNode.init(nodePlane);
 
@@ -121,6 +117,12 @@ public class CardHandler : MonoBehaviour
 	{
 		GameObject newNodeGameObject = Instantiate(nodePrefab);
 		return this.createNode(cardId, newNodeGameObject);
+	}
+
+	public EnemyNode createEnemyNode(int cardId)
+	{
+		GameObject newNodeGameObject = Instantiate(enemyNodePrefab);
+		return this.createEnemyNode(cardId, newNodeGameObject);
 	}
 
 	private T ensureComponent<T>(GameObject gameObject) where T : Component
