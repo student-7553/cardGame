@@ -27,9 +27,9 @@ namespace Core
 
 	public static class NodeBaseStats
 	{
-		public static BaseNodeStats base1Stats = new BaseNodeStats(5, 10, 1, 1, 10000);
-		public static BaseNodeStats base2Stats = new BaseNodeStats(5, 15, 1, 1, 70);
-		public static BaseNodeStats base3Stats = new BaseNodeStats(10, 20, 1, 1, 70);
+		public static BaseNodeStats base1Stats = new BaseNodeStats(3, 10, 1, 1, 140);
+		public static BaseNodeStats base2Stats = new BaseNodeStats(9, 15, 1, 1, 70);
+		public static BaseNodeStats base3Stats = new BaseNodeStats(15, 20, 1, 1, 70);
 
 		public static BaseNodeStats getBaseStats(int nodeId)
 		{
