@@ -650,11 +650,18 @@
       "removingIds": [13],
       "requiredGold": 0,
       "requiredElectricity": 0,
-      "time": 15,
+      "time": 20,
       "addingCardObjects": [
         {
-          "odds": 1,
+          "odds": 0.6,
           "addingCardIds": [14],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        },
+        {
+          "odds": 0.4,
+          "addingCardIds": [14, 14],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
