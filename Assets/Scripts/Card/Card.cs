@@ -120,6 +120,10 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public void computeCorners()
 	{
+		if (this == null)
+		{
+			return;
+		}
 		this.corners = this.generateTheCorners();
 	}
 
@@ -186,6 +190,10 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	private CardCorners generateTheCorners()
 	{
+		if (gameObject == null)
+		{
+			return null;
+		}
 		Vector3 leftTopCornerPoint = new Vector3(
 			gameObject.transform.position.x - (baseCardX / 2),
 			gameObject.transform.position.y + (baseCardY / 2),

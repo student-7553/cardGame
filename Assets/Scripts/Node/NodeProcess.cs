@@ -83,7 +83,8 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		node.hadleRemovingCards(removingCards);
-		node.handleCreatingCards(addingCardIds);
+		List<Card> addingCards = node.handleCreatingCards(addingCardIds);
+		node.ejectCards(addingCards);
 
 		if (callback != null)
 		{
@@ -311,10 +312,12 @@ public class NodeProcess : MonoBehaviour
 			node.id = pickedAddingCardObject.updateCurrentNode;
 		}
 
+		List<Card> ejectingCards = new List<Card>();
 		if (node.isActive)
 		{
 			node.hadleRemovingCards(removingCards);
-			node.handleCreatingCards(addingCardIds);
+			List<Card> addingCards = node.handleCreatingCards(addingCardIds);
+			ejectingCards.AddRange(addingCards);
 		}
 		else
 		{
@@ -330,8 +333,8 @@ public class NodeProcess : MonoBehaviour
 			card.isInteractiveDisabled = false;
 		}
 
-		List<Card> ejectingCards = restNonInteractiveCards
-			.Where(
+		ejectingCards.AddRange(
+			restNonInteractiveCards.Where(
 				(card) =>
 				{
 					if (CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Infrastructure)
@@ -341,7 +344,7 @@ public class NodeProcess : MonoBehaviour
 					return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
 				}
 			)
-			.ToList();
+		);
 
 		node.ejectCards(ejectingCards);
 
@@ -467,7 +470,8 @@ public class NodeProcess : MonoBehaviour
 
 		node.hadleRemovingCards(removingCards);
 
-		node.handleCreatingCards(addingGoldCardIds);
+		List<Card> addingCards = node.handleCreatingCards(addingGoldCardIds);
+		node.ejectCards(addingCards);
 
 		node.consolidateTypeCards();
 

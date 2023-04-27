@@ -452,9 +452,9 @@
       "inNodeId": 0,
       "requiredIds": [19],
       "removingIds": [19],
-      "requiredGold": 10,
+      "requiredGold": 1,
       "requiredElectricity": 0,
-      "time": 20,
+      "time": 1,
       "addingCardObjects": [
         {
           "odds": 0.1,

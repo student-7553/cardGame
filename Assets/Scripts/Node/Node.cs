@@ -163,6 +163,7 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			return;
 		}
 		processCardStack.removeCardsFromStack(removingCards);
+		// this.ejectCards(removingCards);
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
@@ -170,15 +171,40 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 		}
 	}
 
-	public void handleCreatingCards(List<int> cardIds)
+	public List<Card> handleCreatingCards(List<int> cardIds)
 	{
 		if (cardIds.Count == 0)
 		{
-			return;
+			return null;
 		}
 
-		List<Card> addingNonTypeCards = new List<Card>();
-		List<Card> addingTypeCards = new List<Card>();
+		// List<Card> addingNonTypeCards = new List<Card>();
+		// List<Card> addingTypeCards = new List<Card>();
+		// foreach (int singleAddingCardId in cardIds)
+		// {
+		// 	if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
+		// 	{
+		// 		CardHandler.current.createNode(singleAddingCardId);
+		// 	}
+		// 	else
+		// 	{
+		// 		Card createdCard = CardHandler.current.createCard(singleAddingCardId);
+
+		// 		if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
+		// 		{
+		// 			addingNonTypeCards.Add(createdCard);
+		// 		}
+		// 		else
+		// 		{
+		// 			addingTypeCards.Add(createdCard);
+		// 		}
+		// 	}
+		// }
+
+		// processCardStack.addCardToStack(addingTypeCards);
+		// this.ejectCards(addingnontypecards);
+		List<Card> addingCards = new List<Card>();
+		// List<Card> addingTypeCards = new List<Card>();
 		foreach (int singleAddingCardId in cardIds)
 		{
 			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
@@ -189,20 +215,20 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			{
 				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
 
-				if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
-				{
-					addingNonTypeCards.Add(createdCard);
-				}
-				else
-				{
-					addingTypeCards.Add(createdCard);
-				}
+				// if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
+				// {
+				// 	addingNonTypeCards.Add(createdCard);
+				// }
+				// else
+				// {
+				// 	addingTypeCards.Add(createdCard);
+				// }
+				addingCards.Add(createdCard);
 			}
 		}
-
-		this.ejectCards(addingNonTypeCards);
-
-		processCardStack.addCardToStack(addingTypeCards);
+		processCardStack.addCardToStack(addingCards);
+		return addingCards;
+		// this.ejectCards(addingnontypecards);
 	}
 
 	public List<Card> getCards(List<int> cardIds)
@@ -229,19 +255,10 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 	public void ejectCards(List<Card> cards)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
-		// Vector3 dropPosition = new Vector3(basePosition.x - 0.25f, basePosition.y - 2f, basePosition.z);
 
 		for (int index = 0; index < cards.Count; index++)
 		{
-			// cards[index].isInteractiveDisabled = false;
-			// if (index == 0)
-			// {
 			cards[index].moveCard(basePosition);
-			// }
-			// else
-			// {
-			// 	cards[index].moveCard(dropPosition);
-			// }
 		}
 		processCardStack.removeCardsFromStack(cards);
 		StartCoroutine(delayedDragFinish(cards));
@@ -253,8 +270,8 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 		{
 			for (int index = 0; index < cards.Count; index++)
 			{
-				LeftClickHandler.current.dragFinishHandler(cards[index], this);
 				yield return null;
+				LeftClickHandler.current.dragFinishHandler(cards[index], this);
 			}
 		}
 	}
