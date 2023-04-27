@@ -10,11 +10,19 @@ public class LeftClickHandler : MonoBehaviour
 	private InputAction leftClick;
 	private Camera mainCamera;
 	private LayerMask baseInteractableLayerMask;
+	public static LeftClickHandler current;
 
 	private readonly float clickTimer = 0.15f;
 
 	private void Awake()
 	{
+		if (current != null)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		current = this;
+
 		leftClick = new InputAction(binding: "<Mouse>/leftButton");
 		string[] layerNames = { "Interactable", "EnemyInteractable" };
 		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
@@ -66,9 +74,6 @@ public class LeftClickHandler : MonoBehaviour
 		GameObject interactableGameObject = interactableObject.gameObject;
 
 		Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld(interactableGameObject);
-		// if(interactableObject is ){
-
-		// }
 
 		yield return new WaitForSeconds(clickTimer);
 
@@ -136,7 +141,7 @@ public class LeftClickHandler : MonoBehaviour
 		this.dragFinishHandler(draggingObject, previousStackedNode);
 	}
 
-	private void dragFinishHandler(Interactable draggingObject, Node previousStackedNode)
+	public void dragFinishHandler(Interactable draggingObject, Node previousStackedNode)
 	{
 		if (draggingObject.interactableType == CoreInteractableType.Cards)
 		{
@@ -144,6 +149,7 @@ public class LeftClickHandler : MonoBehaviour
 			Card card = draggingObject.getCard();
 
 			IStackable stackableObject = this.findTargetToStack(card);
+
 			if (stackableObject != null)
 			{
 				stackableObject.stackOnThis(card, previousStackedNode);
@@ -160,6 +166,7 @@ public class LeftClickHandler : MonoBehaviour
 					draggingGameObject.transform.position.y,
 					bottomGameObject.transform.position.z - 1f
 				);
+
 				return;
 			}
 
@@ -168,6 +175,7 @@ public class LeftClickHandler : MonoBehaviour
 				draggingGameObject.transform.position.y,
 				HelperData.baseZ
 			);
+
 			return;
 		}
 		else if (draggingObject.interactableType == CoreInteractableType.Nodes)
@@ -219,6 +227,7 @@ public class LeftClickHandler : MonoBehaviour
 			hitCard.corners.leftBottomCorner,
 			hitCard.corners.rightBottomCorner
 		};
+
 		int i = 0;
 		while (i < corners.Length)
 		{

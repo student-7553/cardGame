@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using Core;
 using System.Linq;
 using Helpers;
@@ -227,21 +228,34 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 
 	public void ejectCards(List<Card> cards)
 	{
-		int positionMinusInterval = 9;
+		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
+		// Vector3 dropPosition = new Vector3(basePosition.x - 0.25f, basePosition.y - 2f, basePosition.z);
 
-		Vector3 startingPosition = new Vector3(
-			gameObject.transform.position.x,
-			gameObject.transform.position.y - 4,
-			gameObject.transform.position.z
-		);
-
-		processCardStack.removeCardsFromStack(cards);
-
-		foreach (Card card in cards)
+		for (int index = 0; index < cards.Count; index++)
 		{
-			card.isInteractiveDisabled = false;
-			startingPosition.y = startingPosition.y - positionMinusInterval;
-			card.moveCard(startingPosition);
+			// cards[index].isInteractiveDisabled = false;
+			// if (index == 0)
+			// {
+			cards[index].moveCard(basePosition);
+			// }
+			// else
+			// {
+			// 	cards[index].moveCard(dropPosition);
+			// }
+		}
+		processCardStack.removeCardsFromStack(cards);
+		StartCoroutine(delayedDragFinish(cards));
+	}
+
+	public IEnumerator delayedDragFinish(List<Card> cards)
+	{
+		if (LeftClickHandler.current != null)
+		{
+			for (int index = 0; index < cards.Count; index++)
+			{
+				LeftClickHandler.current.dragFinishHandler(cards[index], this);
+				yield return null;
+			}
 		}
 	}
 

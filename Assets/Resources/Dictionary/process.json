@@ -410,7 +410,7 @@
       "addingCardObjects": [
         {
           "id": 1233336,
-          "odds": 1000,
+          "odds": 10000,
           "addingCardIds": [2012, 2000, 3000, 10001, 10001, 10201],
           "extraUnlockCardIds": [],
           "isOneTime": true,
@@ -500,7 +500,7 @@
         },
         {
           "id": 81351807,
-          "odds": 0.35,
+          "odds": 0.5,
           "addingCardIds": [2015, 4, 4],
           "extraUnlockCardIds": [],
           "isOneTime": true,
@@ -508,7 +508,7 @@
         },
         {
           "id": 81351807,
-          "odds": 0.35,
+          "odds": 0.5,
           "addingCardIds": [2005],
           "extraUnlockCardIds": [2015],
           "isOneTime": true,
@@ -516,7 +516,7 @@
         },
         {
           "id": 84232037,
-          "odds": 0.35,
+          "odds": 0.5,
           "addingCardIds": [2006, 11, 11],
           "extraUnlockCardIds": [2005],
           "isOneTime": true,
@@ -524,14 +524,14 @@
         },
         {
           "id": 44247922,
-          "odds": 0.35,
+          "odds": 0.5,
           "addingCardIds": [2011],
           "extraUnlockCardIds": [2006],
           "isOneTime": true,
           "updateCurrentNode": 0
         },
         {
-          "odds": 0.25,
+          "odds": 0.1,
           "addingCardIds": [13, 13],
           "extraUnlockCardIds": []
         }
