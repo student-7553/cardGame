@@ -178,33 +178,7 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			return null;
 		}
 
-		// List<Card> addingNonTypeCards = new List<Card>();
-		// List<Card> addingTypeCards = new List<Card>();
-		// foreach (int singleAddingCardId in cardIds)
-		// {
-		// 	if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
-		// 	{
-		// 		CardHandler.current.createNode(singleAddingCardId);
-		// 	}
-		// 	else
-		// 	{
-		// 		Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-
-		// 		if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
-		// 		{
-		// 			addingNonTypeCards.Add(createdCard);
-		// 		}
-		// 		else
-		// 		{
-		// 			addingTypeCards.Add(createdCard);
-		// 		}
-		// 	}
-		// }
-
-		// processCardStack.addCardToStack(addingTypeCards);
-		// this.ejectCards(addingnontypecards);
 		List<Card> addingCards = new List<Card>();
-		// List<Card> addingTypeCards = new List<Card>();
 		foreach (int singleAddingCardId in cardIds)
 		{
 			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
@@ -215,20 +189,11 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			{
 				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
 
-				// if (CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleAddingCardId].type))
-				// {
-				// 	addingNonTypeCards.Add(createdCard);
-				// }
-				// else
-				// {
-				// 	addingTypeCards.Add(createdCard);
-				// }
 				addingCards.Add(createdCard);
 			}
 		}
 		processCardStack.addCardToStack(addingCards);
 		return addingCards;
-		// this.ejectCards(addingnontypecards);
 	}
 
 	public List<Card> getCards(List<int> cardIds)
