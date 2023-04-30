@@ -383,7 +383,7 @@
         {
           "id": 9655323,
           "odds": 1000,
-          "addingCardIds": [1003, 3003, 10001, 10201],
+          "addingCardIds": [1003, 20, 3003, 10001, 10201],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 3001

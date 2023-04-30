@@ -175,7 +175,7 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 	{
 		if (cardIds.Count == 0)
 		{
-			return null;
+			return new List<Card>();
 		}
 
 		List<Card> addingCards = new List<Card>();
