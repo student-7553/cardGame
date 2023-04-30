@@ -84,19 +84,21 @@ public class NodeProcess : MonoBehaviour
 
 		node.hadleRemovingCards(removingCards);
 		List<Card> addingCards = node.handleCreatingCards(addingCardIds);
-
-		List<Card> ejectingCards = new List<Card>();
-		ejectingCards.AddRange(
-			addingCards
+		if (addingCards != null && addingCards.Count > 0)
+		{
+			List<Card> ejectingCards = addingCards
 				.Where(
 					(card) =>
 					{
 						return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
 					}
 				)
-				.ToList()
-		);
-		node.ejectCards(ejectingCards);
+				.ToList();
+			if (ejectingCards.Count > 0)
+			{
+				node.ejectCards(ejectingCards);
+			}
+		}
 
 		if (callback != null)
 		{
@@ -334,7 +336,8 @@ public class NodeProcess : MonoBehaviour
 				addingCards.Where(
 					(card) =>
 					{
-						return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type);
+						return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
+							|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity;
 					}
 				)
 			);
