@@ -494,7 +494,6 @@ public class NodeProcess : MonoBehaviour
 		node.hadleRemovingCards(removingCards);
 
 		List<Card> addingCards = node.handleCreatingCards(addingGoldCardIds);
-		node.ejectCards(addingCards);
 
 		node.consolidateTypeCards();
 
