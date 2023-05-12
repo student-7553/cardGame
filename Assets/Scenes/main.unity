@@ -7278,6 +7278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de73f2f6e0293943ae6735399746931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAcceleration: 4
+  cornerPoints:
+    up: 15
+    down: -15
+    left: -15
+    right: 15
   speed: 2
 --- !u!1 &966018139
 GameObject:
