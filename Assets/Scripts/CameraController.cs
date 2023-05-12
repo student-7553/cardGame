@@ -2,29 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct CornerPoints
+{
+	public float up;
+	public float down;
+	public float left;
+	public float right;
+}
+
 public class CameraController : MonoBehaviour
 {
-	private Camera mainCamera;
-	private Vector2 currentAcceleration;
 	public float maxAcceleration;
-
-	[System.Serializable]
-	public struct CornerPoints
-	{
-		public float up;
-		public float down;
-		public float left;
-		public float right;
-	}
-
+	public float maxZoom;
 	public CornerPoints cornerPoints;
-
 	public float speed;
 
-	void Start()
+	private Camera mainCamera;
+	private Vector2 currentAcceleration;
+	private float currentZoom;
+	private float initialZoom;
+
+	public void setZoom(float zoomValue)
+	{
+		float newZoomvalue = this.currentZoom + zoomValue;
+		newZoomvalue = Mathf.Clamp(newZoomvalue, this.initialZoom - maxZoom, this.initialZoom + maxZoom);
+		this.currentZoom = newZoomvalue;
+
+		mainCamera.orthographicSize = this.currentZoom;
+	}
+
+	private void Start()
 	{
 		mainCamera = Camera.main;
 		mainCamera.enabled = true;
+
+		this.initialZoom = mainCamera.orthographicSize;
+		this.currentZoom = this.initialZoom;
 	}
 
 	private void Update()

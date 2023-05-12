@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
 	public InputActionReference cameraMovement;
+	public InputActionReference zoomInAndOut;
 
 	public CameraController cameraController;
 
@@ -13,12 +14,23 @@ public class PlayerInput : MonoBehaviour
 	{
 		cameraMovement.action.performed += OnCameraMovement;
 		cameraMovement.action.canceled += OnCameraMovementCancel;
+
+		zoomInAndOut.action.performed += zoomHandler;
 	}
 
 	private void OnDisable()
 	{
 		cameraMovement.action.performed -= OnCameraMovement;
 		cameraMovement.action.canceled -= OnCameraMovementCancel;
+
+		zoomInAndOut.action.performed -= zoomHandler;
+	}
+
+	public void zoomHandler(InputAction.CallbackContext context)
+	{
+		float zoomvalue = context.ReadValue<float>();
+		Debug.Log(context.ReadValue<float>());
+		this.cameraController.setZoom(zoomvalue);
 	}
 
 	public void OnCameraMovement(InputAction.CallbackContext context)
