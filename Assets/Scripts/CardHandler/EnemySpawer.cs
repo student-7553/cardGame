@@ -13,7 +13,7 @@ public class EnemySpawer : MonoBehaviour
 	private float intervalPerSpawn;
 	private float timer;
 
-	private int edgeSpawnPadding = 35;
+	private int edgeSpawnPadding = 10;
 
 	void Start()
 	{
@@ -58,29 +58,35 @@ public class EnemySpawer : MonoBehaviour
 	private Vector3 getEnemyNodeSpawnPoint()
 	{
 		Vector3 spawnPosition = new Vector3(0, 0, 0);
-		float widthMinus = Random.Range(0f, edgeSpawnPadding);
 		if (Random.Range(-1f, 1f) > 0)
 		{
-			// spawnPosition.x = (boardSize.x / 2) - widthMinus;
-			spawnPosition.x = (boardSize.x / 4) - widthMinus;
+			spawnPosition.y = Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);
+			float widthMinus = Random.Range(0f, edgeSpawnPadding);
+			if (Random.Range(-1f, 1f) > 0)
+			{
+				spawnPosition.x = (boardSize.x / 2) - widthMinus;
+			}
+			else
+			{
+				spawnPosition.x = -(boardSize.x / 2) + widthMinus;
+			}
 		}
 		else
 		{
-			// spawnPosition.x = -(boardSize.x / 2) + widthMinus;
-			spawnPosition.x = -(boardSize.x / 4) + widthMinus;
+			spawnPosition.x = Random.Range(-(boardSize.x / 2) + edgeSpawnPadding, (boardSize.x / 2) - edgeSpawnPadding);
+			float heightMinus = Random.Range(0f, edgeSpawnPadding);
+			if (Random.Range(-1f, 1f) > 0)
+			{
+				spawnPosition.y = (boardSize.y / 2) - heightMinus;
+			}
+			else
+			{
+				spawnPosition.y = -(boardSize.y / 2) + heightMinus;
+			}
 		}
 
-		float heightMinus = Random.Range(0f, edgeSpawnPadding);
-		if (Random.Range(-1f, 1f) > 0)
-		{
-			// spawnPosition.y = (boardSize.y / 2) - heightMinus;
-			spawnPosition.y = (boardSize.y / 4) - heightMinus;
-		}
-		else
-		{
-			// spawnPosition.y = -(boardSize.y / 2) + heightMinus;
-			spawnPosition.y = -(boardSize.y / 4) + heightMinus;
-		}
+		Debug.Log(spawnPosition);
+
 		return spawnPosition;
 	}
 }

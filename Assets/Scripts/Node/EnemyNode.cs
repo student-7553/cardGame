@@ -98,7 +98,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		// god help this logic
 		// Prob need to change to read from a global variable
 
-		Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, 35, interactableLayerMask, 0f, 0f);
+		Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, 50, interactableLayerMask, 0f, 0f);
 		if (hits == null || hits.Length == 0)
 		{
 			return null;
