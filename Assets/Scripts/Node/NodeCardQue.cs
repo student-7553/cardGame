@@ -30,6 +30,7 @@ public class NodeCardQue : MonoBehaviour
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
 
 		yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
+
 		card.isInteractiveDisabled = false;
 		isProccessing = false;
 		queCards.RemoveAt(0);
