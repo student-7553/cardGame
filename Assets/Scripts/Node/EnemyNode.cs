@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemyNode : MonoBehaviour, BaseNode
 {
@@ -103,12 +104,15 @@ public class EnemyNode : MonoBehaviour, BaseNode
 			return null;
 		}
 
+		Array.Reverse(hits);
+
 		foreach (Collider2D singleHit in hits)
 		{
-			Node interactableObject = singleHit.GetComponent(typeof(Node)) as Node;
-			if (interactableObject != null)
+			Node interactableNode = singleHit.GetComponent(typeof(Node)) as Node;
+
+			if (interactableNode != null && !interactableNode.isMarket())
 			{
-				return interactableObject;
+				return interactableNode;
 			}
 		}
 		return null;
