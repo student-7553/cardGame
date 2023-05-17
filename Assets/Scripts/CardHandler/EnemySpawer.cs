@@ -61,21 +61,25 @@ public class EnemySpawer : MonoBehaviour
 		float widthMinus = Random.Range(0f, edgeSpawnPadding);
 		if (Random.Range(-1f, 1f) > 0)
 		{
-			spawnPosition.x = (boardSize.x / 2) - widthMinus;
+			// spawnPosition.x = (boardSize.x / 2) - widthMinus;
+			spawnPosition.x = (boardSize.x / 4) - widthMinus;
 		}
 		else
 		{
-			spawnPosition.x = -(boardSize.x / 2) + widthMinus;
+			// spawnPosition.x = -(boardSize.x / 2) + widthMinus;
+			spawnPosition.x = -(boardSize.x / 4) + widthMinus;
 		}
 
 		float heightMinus = Random.Range(0f, edgeSpawnPadding);
 		if (Random.Range(-1f, 1f) > 0)
 		{
-			spawnPosition.y = (boardSize.y / 2) - heightMinus;
+			// spawnPosition.y = (boardSize.y / 2) - heightMinus;
+			spawnPosition.y = (boardSize.y / 4) - heightMinus;
 		}
 		else
 		{
-			spawnPosition.y = -(boardSize.y / 2) + heightMinus;
+			// spawnPosition.y = -(boardSize.y / 2) + heightMinus;
+			spawnPosition.y = -(boardSize.y / 4) + heightMinus;
 		}
 		return spawnPosition;
 	}

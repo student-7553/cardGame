@@ -20,7 +20,6 @@ public class CardHandler : MonoBehaviour
 	private Vector3 defaultNodePlanePositon = new Vector3(-75, 0, HelperData.nodeBoardZ);
 
 	public Vector2Int enemySpawnInterval;
-
 	private EnemySpawer enemySpawner;
 
 	void Start()
