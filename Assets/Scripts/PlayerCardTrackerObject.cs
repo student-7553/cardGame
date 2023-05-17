@@ -14,11 +14,6 @@ public class PlayerCardTrackerObject
 			return;
 		}
 
-		if (cardId == 1004)
-		{
-			// enable enemy spawn
-		}
-
 		aquiredCardsInLifetime.Add(cardId);
 	}
 

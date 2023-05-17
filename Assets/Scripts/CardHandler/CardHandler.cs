@@ -19,6 +19,10 @@ public class CardHandler : MonoBehaviour
 	private Vector3 defaultCardPoint;
 	private Vector3 defaultNodePlanePositon = new Vector3(-75, 0, HelperData.nodeBoardZ);
 
+	public Vector2Int enemySpawnInterval;
+
+	private EnemySpawer enemySpawner;
+
 	void Start()
 	{
 		if (current != null)
@@ -30,6 +34,8 @@ public class CardHandler : MonoBehaviour
 
 		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
 		playerCardTracker = new PlayerCardTrackerObject();
+
+		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -51,6 +57,9 @@ public class CardHandler : MonoBehaviour
 
 		cardObject.init();
 		playerCardTracker.ensureCardIdTracked(cardId);
+
+		this.tempCreateCardHook(cardId);
+
 		return cardObject;
 	}
 
@@ -134,5 +143,15 @@ public class CardHandler : MonoBehaviour
 		}
 		;
 		return cardSpriteRenderer;
+	}
+
+	private void tempCreateCardHook(int cardId)
+	{
+		// qq
+		if (cardId == 1004)
+		{
+			float spawnIntervel = Random.Range(enemySpawnInterval.x, enemySpawnInterval.y);
+			this.enemySpawner.init(spawnIntervel);
+		}
 	}
 }

@@ -7,7 +7,7 @@ public class EnemySpawer : MonoBehaviour
 	public GameObject boardPlaneGameObject;
 	private Vector2 boardSize;
 
-	private bool isActive;
+	private bool isActive = false;
 	private int spawnCardId = 21000;
 
 	private float intervalPerSpawn;
@@ -26,7 +26,6 @@ public class EnemySpawer : MonoBehaviour
 		{
 			Debug.LogError("BOX COLLIDER MSSING [EnemySpawer]");
 		}
-		isActive = false;
 	}
 
 	public void init(float _intervalPerSpawn)

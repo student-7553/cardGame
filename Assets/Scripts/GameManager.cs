@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
 	[System.NonSerialized]
 	public BoardPlaneHandler boardPlaneHandler;
 
-	[System.NonSerialized]
-	public EnemySpawer enemySpawner;
-
 	void Start()
 	{
 		if (current != null)
@@ -34,8 +31,6 @@ public class GameManager : MonoBehaviour
 	private void awakeGameLogic()
 	{
 		this.boardPlaneHandler = GetComponent(typeof(BoardPlaneHandler)) as BoardPlaneHandler;
-		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
-		// this.enemySpawner.init(5);
 
 		foreach (GameObject singleCard in cards)
 		{
