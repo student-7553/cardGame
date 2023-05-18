@@ -709,7 +709,7 @@
       "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 5,
-      "typeValue": 0,
+      "typeValue": 1,
       "nodeTransferTimeCost": 0,
       "foodCost": 0
     },
@@ -721,8 +721,8 @@
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
-      "typeValue": 10,
-      "nodeTransferTimeCost": 0,
+      "typeValue": 1,
+      "nodeTransferTimeCost": 45,
       "foodCost": 0
     }
   ]

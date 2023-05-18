@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 public class EnemyNode : MonoBehaviour, BaseNode
 {
@@ -11,7 +13,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	[System.NonSerialized]
 	public EnemyNodeTextHandler enemyNodeTextHandler;
 
-	private readonly float detonationTime = 20f;
+	private float detonationTime;
 
 	public float proccessingLeft;
 
@@ -60,17 +62,38 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	public void stackOnThis(Card newCard, Node prevNode)
 	{
 		processCardStack.addCardToStack(newCard);
+		this.checkIfDead();
 	}
 
-	public void init(NodePlaneHandler nodePlane)
+	private void checkIfDead()
+	{
+		float currentTotalFighterValue = this.getCurrentFigherValue();
+		if (currentTotalFighterValue >= CardDictionary.globalCardDictionary[id].typeValue)
+		{
+			this.killNode();
+			// dead
+		}
+	}
+
+	private float getCurrentFigherValue()
+	{
+		float totalFighterValue = processCardStack.cards.Aggregate(
+			0,
+			(totalFighterValue, next) =>
+			{
+				return totalFighterValue + CardDictionary.globalCardDictionary[next.id].typeValue;
+			}
+		);
+		return totalFighterValue;
+	}
+
+	public void init(NodePlaneHandler nodePlane, float detonationTime)
 	{
 		nodePlaneManager = nodePlane;
 		this.proccessingLeft = detonationTime;
 		this.powerValue = CardDictionary.globalCardDictionary[id].typeValue;
 
 		StartCoroutine(enemyNodeDetonation());
-
-		// process
 	}
 
 	public IEnumerator enemyNodeDetonation()
@@ -133,6 +156,15 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		{
 			nodePlaneManager.gameObject.SetActive(true);
 		}
+	}
+
+	public void killNode()
+	{
+		// List<Card> allCards = new List<Card>(processCardStack.cards);
+		// this.ejectCards(allCards);
+
+		Destroy(nodePlaneManager.gameObject);
+		Destroy(this.gameObject);
 	}
 
 	// ---------------------------------------------------------

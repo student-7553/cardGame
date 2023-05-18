@@ -35,7 +35,9 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker = new PlayerCardTrackerObject();
 
 		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
-		this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
+
+		// Comment out the bellow later
+		// this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -103,7 +105,7 @@ public class CardHandler : MonoBehaviour
 		nodePlane.init(newEnemyNode);
 		newNodePlane.SetActive(false);
 
-		newEnemyNode.init(nodePlane);
+		newEnemyNode.init(nodePlane, CardDictionary.globalCardDictionary[cardId].nodeTransferTimeCost);
 
 		return newEnemyNode;
 	}
