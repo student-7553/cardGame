@@ -35,7 +35,6 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker = new PlayerCardTrackerObject();
 
 		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
-		// this.enemySpawner.init(2);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -148,12 +147,9 @@ public class CardHandler : MonoBehaviour
 	private void tempCreateCardHook(int cardId)
 	{
 		// qq
-
-		// if (cardId == 1004)
-		if (cardId == 1003)
+		if (cardId == 1004)
 		{
-			float spawnIntervel = Random.Range(enemySpawnInterval.x, enemySpawnInterval.y);
-			this.enemySpawner.init(spawnIntervel);
+			this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 		}
 	}
 }

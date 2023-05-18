@@ -453,7 +453,7 @@
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [1004, 2010, 20000, 10001, 10001],
+          "addingCardIds": [1004, 2010, 20000, 20000, 20000, 10001, 10001],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0

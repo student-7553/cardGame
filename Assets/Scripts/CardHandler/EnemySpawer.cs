@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// using System.Collections;
+// using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawer : MonoBehaviour
@@ -10,7 +10,9 @@ public class EnemySpawer : MonoBehaviour
 	private bool isActive = false;
 	private int spawnCardId = 21000;
 
-	private float intervalPerSpawn;
+	private float minSecTillSpawn;
+	private float maxSecTillSpawn;
+
 	private float timer;
 
 	private int edgeSpawnPadding = 10;
@@ -28,10 +30,22 @@ public class EnemySpawer : MonoBehaviour
 		}
 	}
 
-	public void init(float _intervalPerSpawn)
+	public void start(float _minSecTillSpawn, float _maxSecTillSpawn)
 	{
-		intervalPerSpawn = _intervalPerSpawn;
+		minSecTillSpawn = _minSecTillSpawn;
+		maxSecTillSpawn = _maxSecTillSpawn;
 		isActive = true;
+		this.timer = this.getSpawnIntervel();
+	}
+
+	public void stop()
+	{
+		isActive = false;
+	}
+
+	private float getSpawnIntervel()
+	{
+		return Random.Range(this.minSecTillSpawn, this.maxSecTillSpawn);
 	}
 
 	private void FixedUpdate()
@@ -41,11 +55,11 @@ public class EnemySpawer : MonoBehaviour
 			return;
 		}
 
-		timer = timer + Time.fixedDeltaTime;
-		if (timer > intervalPerSpawn)
+		this.timer = this.timer - Time.fixedDeltaTime;
+		if (timer <= 0)
 		{
-			timer = 0;
 			spawnTrigger();
+			this.timer = this.getSpawnIntervel();
 		}
 	}
 
@@ -84,8 +98,6 @@ public class EnemySpawer : MonoBehaviour
 				spawnPosition.y = -(boardSize.y / 2) + heightMinus;
 			}
 		}
-
-		Debug.Log(spawnPosition);
 
 		return spawnPosition;
 	}
