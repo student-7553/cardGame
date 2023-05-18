@@ -35,6 +35,7 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker = new PlayerCardTrackerObject();
 
 		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
+		this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
