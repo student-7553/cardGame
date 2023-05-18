@@ -35,7 +35,7 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker = new PlayerCardTrackerObject();
 
 		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
-		this.enemySpawner.init(2);
+		// this.enemySpawner.init(2);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)

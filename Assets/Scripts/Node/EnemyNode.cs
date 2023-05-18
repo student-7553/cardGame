@@ -11,7 +11,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	[System.NonSerialized]
 	public EnemyNodeTextHandler enemyNodeTextHandler;
 
-	private readonly float detonationTime = 5f;
+	private readonly float detonationTime = 20f;
 
 	public float proccessingLeft;
 
