@@ -241,6 +241,18 @@
       "foodCost": 0
     },
     {
+      "id": 21,
+      "name": "Iron fabricator [Infinite Iron]",
+      "type": "Resource",
+      "resourceInventoryCount": 5,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 0,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 14,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -534,6 +546,18 @@
     {
       "id": 2017,
       "name": "[Idea] Zenith",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 2018,
+      "name": "[Idea] Infinite Iron",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,

@@ -56,6 +56,7 @@ public class EnemySpawer : MonoBehaviour
 		}
 
 		this.timer = this.timer - Time.fixedDeltaTime;
+		// Debug.Log("[EnemySpawn] " + this.timer);
 		if (timer <= 0)
 		{
 			spawnTrigger();
