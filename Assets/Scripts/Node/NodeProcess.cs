@@ -303,22 +303,37 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		int electricityRemove = this.getElectricityRemove(pickedProcess);
-
-		if (electricityRemove > 0)
+		this.proccessingLeft = pickedProcess.time;
+		Debug.Log(this.node.nodeStats.currentNodeStats.currentElectricity);
+		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
 		{
+			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
+				pickedProcess.time,
+				this.node.nodeStats.currentNodeStats.currentElectricity
+			);
 			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-			this.proccessingLeft = pickedProcess.time - electricityRemove;
-		}
-		else
-		{
-			this.proccessingLeft = pickedProcess.time;
+			this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
 		}
 
 		while (this.proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
 			this.proccessingLeft = this.proccessingLeft - 1;
+
+			if (this.proccessingLeft > this.bufferProcessingTime)
+			{
+				// Is not in the buffer zone
+				if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
+				{
+					// electricity got updated
+					int electricityRemove = this.getElectricityToRemoveFromProcessTime(
+						(int)this.proccessingLeft,
+						this.node.nodeStats.currentNodeStats.currentElectricity
+					);
+					StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+					this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
+				}
+			}
 		}
 
 		if (pickedAddingCardObject.updateCurrentNode != 0 && node.id < pickedAddingCardObject.updateCurrentNode)
@@ -505,21 +520,27 @@ public class NodeProcess : MonoBehaviour
 		return CardDictionary.globalCardDictionary[cardId].sellingPrice;
 	}
 
-	private int getElectricityRemove(RawProcessObject pickedProcess)
+	private int getElectricityToRemoveFromProcessTime(int processTime, int currentElectricity)
 	{
-		int electricityRemove = 0;
-		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
+		if (currentElectricity > 0)
 		{
-			if (pickedProcess.time - bufferProcessingTime <= this.node.nodeStats.currentNodeStats.currentElectricity)
+			if (this.timeToElectricity(processTime - bufferProcessingTime) <= currentElectricity)
 			{
-				electricityRemove = pickedProcess.time - bufferProcessingTime;
+				return this.timeToElectricity(processTime - bufferProcessingTime);
 			}
-			else
-			{
-				electricityRemove = pickedProcess.time - this.node.nodeStats.currentNodeStats.currentElectricity;
-			}
-		}
 
-		return electricityRemove;
+			return currentElectricity;
+		}
+		return 0;
+	}
+
+	private int electricityToTime(int electricityValue)
+	{
+		return electricityValue * 5;
+	}
+
+	private int timeToElectricity(int timeSeconds)
+	{
+		return timeSeconds / 5;
 	}
 }
