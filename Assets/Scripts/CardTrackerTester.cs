@@ -6,7 +6,6 @@ public class CardTrackerTester : MonoBehaviour
 {
 	public List<int> pushedCardIds;
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		foreach (int cardId in pushedCardIds)
@@ -14,7 +13,4 @@ public class CardTrackerTester : MonoBehaviour
 			CardHandler.current.playerCardTracker.ensureCardIdTracked(cardId);
 		}
 	}
-
-	// // Update is called once per frame
-	// void Update() { }
 }

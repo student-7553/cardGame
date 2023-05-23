@@ -18100,6 +18100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraMovement: {fileID: 4932317439743959563, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
   zoomInAndOut: {fileID: -7749299162375649993, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
+  pauseButton: {fileID: 1662346524869698744, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
   cameraController: {fileID: 963194230}
 --- !u!4 &1399545600
 Transform:

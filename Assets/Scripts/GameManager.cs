@@ -78,6 +78,20 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void handleGamePauseAction()
+	{
+		if (Time.timeScale == 0)
+		{
+			Time.timeScale = 1;
+			Debug.Log("We are Resumed");
+		}
+		else
+		{
+			Time.timeScale = 0;
+			Debug.Log("We are Paused");
+		}
+	}
+
 	private void gameSettings()
 	{
 		Application.targetFrameRate = 60;

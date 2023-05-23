@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
 	public InputActionReference cameraMovement;
 	public InputActionReference zoomInAndOut;
+	public InputActionReference pauseButton;
 
 	public CameraController cameraController;
 
@@ -16,6 +17,7 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.canceled += OnCameraMovementCancel;
 
 		zoomInAndOut.action.performed += zoomHandler;
+		pauseButton.action.performed += pauseButtonHandler;
 	}
 
 	private void OnDisable()
@@ -24,6 +26,12 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.canceled -= OnCameraMovementCancel;
 
 		zoomInAndOut.action.performed -= zoomHandler;
+		pauseButton.action.performed -= pauseButtonHandler;
+	}
+
+	public void pauseButtonHandler(InputAction.CallbackContext context)
+	{
+		GameManager.current.handleGamePauseAction();
 	}
 
 	public void zoomHandler(InputAction.CallbackContext context)
