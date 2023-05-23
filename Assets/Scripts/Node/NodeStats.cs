@@ -76,7 +76,6 @@ public class NodeStats
 	public void computeStats()
 	{
 		List<int> cardIds = connectedNode.processCardStack.getAllCardIds();
-		cardIds.AddRange(connectedNode.processCardStack.getAllCardIds());
 
 		int calcResourceInventoryUsed = 0;
 		int calcResourceInventoryLimit = 0;
