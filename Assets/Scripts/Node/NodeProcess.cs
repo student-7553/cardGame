@@ -282,9 +282,7 @@ public class NodeProcess : MonoBehaviour
 			CardHandler.current.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
-		this.getAddingCards(pickedAddingCardObject);
-
-		addingCardIds.AddRange(pickedAddingCardObject.addingCardIds);
+		addingCardIds.AddRange(this.getAddingCards(pickedAddingCardObject));
 
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
@@ -305,7 +303,8 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		this.proccessingLeft = pickedProcess.time;
+		this.proccessingLeft = this.getProcessTime(pickedProcess);
+
 		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
 		{
 			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
@@ -456,12 +455,30 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
+	private int getProcessTime(RawProcessObject pickedProcess)
+	{
+		List<int> minusIntervalModuleIds = node.processCardStack.getAllCardIdsOfMinusIntervalModules();
+		int processTime = pickedProcess.time;
+		foreach (int cardId in minusIntervalModuleIds)
+		{
+			if (CardDictionary.globalCardDictionary[cardId].module.minusInterval.processIds.Contains(pickedProcess.id))
+			{
+				processTime = Math.Max(
+					processTime - CardDictionary.globalCardDictionary[cardId].module.minusInterval.time,
+					bufferProcessingTime
+				);
+			}
+		}
+		return processTime;
+	}
+
 	private List<int> getAddingCards(AddingCardsObject pickedAddingCardObject)
 	{
 		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 		if (pickedAddingCardObject.id == 5176)
 		{
+			// temp logic
 			// equals the food process
 			// food outcome is getting multiplied by how many food infra cards there are
 
@@ -478,6 +495,7 @@ public class NodeProcess : MonoBehaviour
 		}
 		if (pickedAddingCardObject.id == 632030)
 		{
+			// temp logic
 			// equals the electricity process
 			// food outcome is getting multiplied by how many food infra cards there are\
 			int basicElectricityId = 10100;
@@ -491,6 +509,7 @@ public class NodeProcess : MonoBehaviour
 				}
 			}
 		}
+
 		// everything else
 		return addingCardIds;
 	}

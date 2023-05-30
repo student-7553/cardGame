@@ -390,7 +390,10 @@
       "nodeTransferTimeCost": 10,
       "foodCost": 1,
       "module": {
-        "resourceInventoryIncrease": 10
+        "minusInterval": {
+          "time": 5,
+          "processIds": [6]
+        }
       }
     },
     {
@@ -405,7 +408,10 @@
       "nodeTransferTimeCost": 10,
       "foodCost": 1,
       "module": {
-        "resourceInventoryIncrease": 10
+        "minusInterval": {
+          "time": 5,
+          "processIds": [7]
+        }
       }
     },
     {
