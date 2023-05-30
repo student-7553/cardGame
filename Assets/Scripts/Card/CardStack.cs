@@ -149,7 +149,7 @@ public class CardStack
 
 	public List<int> getAllCardIdsOfMinusIntervalModules()
 	{
-		List<int> minusIntervalModules = new List<int>();
+		List<int> modules = new List<int>();
 		foreach (Card singleCard in cards)
 		{
 			if (
@@ -157,10 +157,26 @@ public class CardStack
 				&& CardDictionary.globalCardDictionary[singleCard.id].module.minusInterval != null
 			)
 			{
-				minusIntervalModules.Add(singleCard.id);
+				modules.Add(singleCard.id);
 			}
 		}
-		return minusIntervalModules;
+		return modules;
+	}
+
+	public List<int> getAllCardIdsOfUnityModules()
+	{
+		List<int> modules = new List<int>();
+		foreach (Card singleCard in cards)
+		{
+			if (
+				CardDictionary.globalCardDictionary[singleCard.id].module != null
+				&& CardDictionary.globalCardDictionary[singleCard.id].module.unityCount != 0
+			)
+			{
+				modules.Add(singleCard.id);
+			}
+		}
+		return modules;
 	}
 
 	public List<int> getActiveCardIds()

@@ -375,7 +375,7 @@
       "nodeTransferTimeCost": 10,
       "foodCost": 1,
       "module": {
-        "resourceInventoryIncrease": 10
+        "unityCount": 1
       }
     },
     {

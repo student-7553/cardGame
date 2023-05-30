@@ -76,6 +76,7 @@ namespace Core
 		public int increaseGoldGeneration;
 		public float minusMovementTime;
 		public ModuleMinusInterval minusInterval;
+		public int unityCount;
 	}
 
 	[System.Serializable]

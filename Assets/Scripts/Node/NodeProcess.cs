@@ -476,18 +476,32 @@ public class NodeProcess : MonoBehaviour
 	{
 		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
+
+		List<int> unityModuleCount = node.processCardStack.getAllCardIdsOfUnityModules();
+		int totalUnityValue = unityModuleCount.Aggregate(0, (total, next) => total + next);
+
 		if (pickedAddingCardObject.id == 5176)
 		{
 			// temp logic
 			// equals the food process
 			// food outcome is getting multiplied by how many food infra cards there are
-
 			int basicFoodId = 10200;
 			int foodInfraId = 1001;
+
 			int infraCount = cardIds.Where((cardId) => cardId == foodInfraId).Count();
 			if (infraCount > 1)
 			{
 				for (int index = 1; index < infraCount; index++)
+				{
+					addingCardIds.Add(basicFoodId);
+				}
+			}
+
+			if (totalUnityValue > 0)
+			{
+				// Double the food count if unity is higher than 0
+				int totalFoodCount = addingCardIds.Where((cardId) => cardId == basicFoodId).Count();
+				for (int index = 0; index < totalFoodCount; index++)
 				{
 					addingCardIds.Add(basicFoodId);
 				}
@@ -500,10 +514,21 @@ public class NodeProcess : MonoBehaviour
 			// food outcome is getting multiplied by how many food infra cards there are\
 			int basicElectricityId = 10100;
 			int electricityInfraId = 1002;
+
 			int infraCount = cardIds.Where((cardId) => cardId == electricityInfraId).Count();
 			if (infraCount > 1)
 			{
 				for (int index = 1; index < infraCount; index++)
+				{
+					addingCardIds.Add(basicElectricityId);
+				}
+			}
+
+			if (totalUnityValue > 0)
+			{
+				// Double the food count if unity is higher than 0
+				int totalElectricityCount = addingCardIds.Where((cardId) => cardId == basicElectricityId).Count();
+				for (int index = 0; index < totalElectricityCount; index++)
 				{
 					addingCardIds.Add(basicElectricityId);
 				}
