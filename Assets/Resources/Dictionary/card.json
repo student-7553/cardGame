@@ -253,6 +253,30 @@
       "foodCost": 0
     },
     {
+      "id": 22,
+      "name": "[Dormant] Solar",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 15,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 23,
+      "name": "[Dormant] Unity",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 30,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -332,6 +356,51 @@
       "infraInventoryCount": 1,
       "isSellable": true,
       "sellingPrice": 2,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 10,
+      "foodCost": 1,
+      "module": {
+        "resourceInventoryIncrease": 10
+      }
+    },
+    {
+      "id": 1101,
+      "name": "Unity",
+      "type": "Module",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
+      "isSellable": true,
+      "sellingPrice": 10,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 10,
+      "foodCost": 1,
+      "module": {
+        "resourceInventoryIncrease": 10
+      }
+    },
+    {
+      "id": 1102,
+      "name": "Food module [Rename later]",
+      "type": "Module",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
+      "isSellable": true,
+      "sellingPrice": 10,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 10,
+      "foodCost": 1,
+      "module": {
+        "resourceInventoryIncrease": 10
+      }
+    },
+    {
+      "id": 1103,
+      "name": "Electricity module [Rename later]",
+      "type": "Module",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 1,
+      "isSellable": true,
+      "sellingPrice": 10,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
       "foodCost": 1,

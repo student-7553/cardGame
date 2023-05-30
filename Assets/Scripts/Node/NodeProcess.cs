@@ -282,6 +282,8 @@ public class NodeProcess : MonoBehaviour
 			CardHandler.current.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
+		this.getAddingCards(pickedAddingCardObject);
+
 		addingCardIds.AddRange(pickedAddingCardObject.addingCardIds);
 
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
@@ -304,7 +306,6 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		this.proccessingLeft = pickedProcess.time;
-		Debug.Log(this.node.nodeStats.currentNodeStats.currentElectricity);
 		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
 		{
 			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
@@ -453,6 +454,45 @@ public class NodeProcess : MonoBehaviour
 			}
 			return restNonInteractiveCardIds;
 		}
+	}
+
+	private List<int> getAddingCards(AddingCardsObject pickedAddingCardObject)
+	{
+		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
+		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		if (pickedAddingCardObject.id == 5176)
+		{
+			// equals the food process
+			// food outcome is getting multiplied by how many food infra cards there are
+
+			int basicFoodId = 10200;
+			int foodInfraId = 1001;
+			int infraCount = cardIds.Where((cardId) => cardId == foodInfraId).Count();
+			if (infraCount > 1)
+			{
+				for (int index = 1; index < infraCount; index++)
+				{
+					addingCardIds.Add(basicFoodId);
+				}
+			}
+		}
+		if (pickedAddingCardObject.id == 632030)
+		{
+			// equals the electricity process
+			// food outcome is getting multiplied by how many food infra cards there are\
+			int basicElectricityId = 10100;
+			int electricityInfraId = 1002;
+			int infraCount = cardIds.Where((cardId) => cardId == electricityInfraId).Count();
+			if (infraCount > 1)
+			{
+				for (int index = 1; index < infraCount; index++)
+				{
+					addingCardIds.Add(basicElectricityId);
+				}
+			}
+		}
+		// everything else
+		return addingCardIds;
 	}
 
 	private IEnumerator handleProcessCooldown()
