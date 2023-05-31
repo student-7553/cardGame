@@ -223,7 +223,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 0,
+      "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 1,
       "foodCost": 0

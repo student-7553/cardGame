@@ -29,8 +29,8 @@ public class NodeCardQue : MonoBehaviour
 		isProccessing = true;
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
 
-		// yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
-		yield return null;
+		yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
+		// yield return null;
 
 		card.isInteractiveDisabled = false;
 		isProccessing = false;
