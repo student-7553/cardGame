@@ -20568,12 +20568,12 @@ GameObject:
   - component: {fileID: 1436398227}
   - component: {fileID: 1436398226}
   m_Layer: 0
-  m_Name: Tester
+  m_Name: TestCardProgressInjecter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1436398226
 MonoBehaviour:
   m_ObjectHideFlags: 0

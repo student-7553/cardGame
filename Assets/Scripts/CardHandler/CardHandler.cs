@@ -150,7 +150,7 @@ public class CardHandler : MonoBehaviour
 
 	private void tempCreateCardHook(int cardId)
 	{
-		// qq
+		// card spawn triggers
 		if (cardId == 1004)
 		{
 			this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);

@@ -216,7 +216,7 @@
         {
           "id": 2338809,
           "odds": 0.35,
-          "addingCardIds": [2016, 10200, 10200, 10200],
+          "addingCardIds": [2016, 12, 10200, 10200],
           "extraUnlockCardIds": [2006],
           "isOneTime": true,
           "updateCurrentNode": 0
@@ -230,7 +230,7 @@
         },
         {
           "odds": 0.025,
-          "addingCardIds": [6, 2, 6, 6],
+          "addingCardIds": [6, 12, 6, 6],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
