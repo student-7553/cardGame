@@ -192,7 +192,7 @@
         {
           "id": 7236556,
           "odds": 0.35,
-          "addingCardIds": [2002, 9, 9, 16, 10200, 10200],
+          "addingCardIds": [2004, 10201, 12],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 0
@@ -200,8 +200,8 @@
         {
           "id": 7236586,
           "odds": 0.35,
-          "addingCardIds": [2004, 10201, 12],
-          "extraUnlockCardIds": [2002],
+          "addingCardIds": [2002, 9, 9, 16, 10200, 10200],
+          "extraUnlockCardIds": [2004],
           "isOneTime": true,
           "updateCurrentNode": 0
         },
@@ -209,7 +209,7 @@
           "id": 1689686,
           "odds": 0.35,
           "addingCardIds": [2006, 11, 11, 10201],
-          "extraUnlockCardIds": [2004],
+          "extraUnlockCardIds": [2002],
           "isOneTime": true,
           "updateCurrentNode": 0
         },
