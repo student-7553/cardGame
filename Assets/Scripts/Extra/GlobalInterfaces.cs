@@ -27,9 +27,9 @@ namespace Core
 
 	public static class NodeBaseStats
 	{
-		public static BaseNodeStats base1Stats = new BaseNodeStats(1, 10, 1, 1, 60);
-		public static BaseNodeStats base2Stats = new BaseNodeStats(5, 15, 1, 1, 50);
-		public static BaseNodeStats base3Stats = new BaseNodeStats(12, 20, 1, 1, 50);
+		public static BaseNodeStats base1Stats = new BaseNodeStats(1, 10, 1, 1, 75);
+		public static BaseNodeStats base2Stats = new BaseNodeStats(5, 15, 1, 1, 68);
+		public static BaseNodeStats base3Stats = new BaseNodeStats(12, 20, 1, 1, 68);
 
 		public static BaseNodeStats getBaseStats(int nodeId)
 		{
@@ -127,7 +127,7 @@ namespace Core
 		public int id;
 		public int baseRequiredId;
 		public int[] unlockCardIds;
-		public int nodeIdHigher;
+		public int mustBeNodeId;
 		public int[] removingIds;
 		public int[] requiredIds;
 		public int requiredGold;

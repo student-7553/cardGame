@@ -235,13 +235,13 @@ public class NodeProcess : MonoBehaviour
 
 				bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
 
-				bool isInNode = singleProcess.nodeIdHigher != 0 ? singleProcess.nodeIdHigher == nodeId : true;
+				bool isRightNode = singleProcess.mustBeNodeId != 0 ? singleProcess.mustBeNodeId == nodeId : true;
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
 				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
 				bool electricityPassed =
 					CardHelpers.getTypeValueFromCardIds(CardsTypes.Electricity, cardIds) >= singleProcess.requiredElectricity;
 
-				if (isUnlocked && isInNode && ifRequiredCardsPassed && goldPassed && electricityPassed)
+				if (isUnlocked && isRightNode && ifRequiredCardsPassed && goldPassed && electricityPassed)
 				{
 					possibleProcesses = singleProcess;
 					break;
