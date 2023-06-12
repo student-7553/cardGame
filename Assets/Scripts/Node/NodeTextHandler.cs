@@ -29,7 +29,7 @@ public class NodeTextHandler
 		}
 
 		availableInventoryTextMesh.text =
-			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
+			$"Inven:{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit} Infra:{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
 
 		if (connectedNode.nodeProcess.isProccessing)
 		{
