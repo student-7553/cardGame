@@ -277,6 +277,18 @@
       "foodCost": 0
     },
     {
+      "id": 24,
+      "name": "[Dormant] Hydroponic",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 30,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
