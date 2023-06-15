@@ -234,7 +234,7 @@
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
-      "isSellable": true,
+      "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
       "nodeTransferTimeCost": 1,
