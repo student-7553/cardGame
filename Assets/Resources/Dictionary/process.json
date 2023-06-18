@@ -142,7 +142,7 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [5, 10200],
+          "addingCardIds": [5],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
