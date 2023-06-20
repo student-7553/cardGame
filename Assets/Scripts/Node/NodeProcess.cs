@@ -620,11 +620,11 @@ public class NodeProcess : MonoBehaviour
 
 	private int electricityToTime(int electricityValue)
 	{
-		return electricityValue * 5;
+		return electricityValue * 10;
 	}
 
 	private int timeToElectricity(int timeSeconds)
 	{
-		return timeSeconds / 5;
+		return timeSeconds / 10;
 	}
 }
