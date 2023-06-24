@@ -1,6 +1,7 @@
 using Core;
 
 public interface BaseNode : IStackable, IClickable
+// public interface BaseNode : IStackable, IClickable
 {
 	public NodePlaneHandler nodePlaneManager { get; set; }
 

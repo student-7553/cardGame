@@ -334,7 +334,7 @@
       "sellingPrice": 5,
       "typeValue": 0,
       "nodeTransferTimeCost": 7,
-      "foodCost": 0
+      "foodCost": 1
     },
     {
       "id": 1004,
@@ -346,7 +346,7 @@
       "sellingPrice": 0,
       "typeValue": 0,
       "nodeTransferTimeCost": 15,
-      "foodCost": 0
+      "foodCost": 1
     },
     {
       "id": 1005,
@@ -484,7 +484,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
-      "foodCost": 0
+      "foodCost": 1
     },
     {
       "id": 2005,
@@ -496,7 +496,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
-      "foodCost": 0
+      "foodCost": 1
     },
     {
       "id": 2006,

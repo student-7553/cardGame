@@ -49,6 +49,7 @@ public class NodeHungerHandler : MonoBehaviour
 	private void handleHungerInterval()
 	{
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
+		// int globalFood = ;
 
 		if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
 		{

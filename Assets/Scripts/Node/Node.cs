@@ -5,12 +5,7 @@ using Core;
 using System.Linq;
 using Helpers;
 
-public enum NodeCardStackType
-{
-	storage,
-	process
-}
-
+// public class Node : MonoBehaviour, BaseNode, Interactable
 public class Node : MonoBehaviour, BaseNode, Interactable
 {
 	// -------------------- Interactable Members -------------------------
@@ -236,7 +231,7 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 			for (int index = 0; index < cards.Count; index++)
 			{
 				yield return null;
-				LeftClickHandler.current.dragFinishHandler(cards[index], this);
+				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
 			}
 		}
 	}

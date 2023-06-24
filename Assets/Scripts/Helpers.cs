@@ -35,6 +35,30 @@ namespace Helpers
 			return hitCard;
 		}
 
+		public static Interactable getInteractableFromGameObject(GameObject cardObject)
+		{
+			Interactable interactable = cardObject.GetComponent(typeof(Interactable)) as Interactable;
+			return interactable;
+		}
+
+		public static bool getDraggingCardsAngle(Vector3 initalPostion, Vector3 currentPosition)
+		{
+			// get the angle of attack on the postions
+			Vector2 initalPostion2d = new Vector2(initalPostion.x, initalPostion.y);
+			Vector2 currentPosition2d = new Vector2(currentPosition.x, currentPosition.y);
+			float angle = Vector2.Angle(currentPosition2d - initalPostion2d, Vector2.up);
+			float directionalAngle = Vector3.Angle((currentPosition2d - initalPostion2d), Vector2.right);
+			if (directionalAngle > 90)
+			{
+				angle = 360 - angle;
+			}
+			if (angle > 150 && angle < 210)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public static bool isObjectDraggable(GameObject cardObject)
 		{
 			Card hitCard = cardObject.GetComponent(typeof(Card)) as Card;
