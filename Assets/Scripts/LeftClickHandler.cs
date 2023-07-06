@@ -75,20 +75,18 @@ public class LeftClickHandler : MonoBehaviour
 
 		GameObject interactableGameObject = interactableObject.gameObject;
 
-		Vector3 clickedDifferenceInWorld = findclickedDifferenceInWorld(interactableGameObject);
+		Vector3 clickedDifferenceInWorld = this.findclickedDifferenceInWorld(interactableGameObject);
 
 		yield return new WaitForSeconds(clickTimer);
 
 		if (leftClick.ReadValue<float>() == 0f)
 		{
-			// Still clicking
-			// Is there a better way to do this?
+			// clicking
 			interactableGameObject.GetComponent<IClickable>()?.OnClick();
 		}
 		else
 		{
 			// dragging
-
 			interactableGameObject.transform.position = new Vector3(
 				interactableGameObject.transform.position.x,
 				interactableGameObject.transform.position.y,
@@ -105,19 +103,6 @@ public class LeftClickHandler : MonoBehaviour
 
 			StartCoroutine(dragUpdate(draggingObjects, clickedDifferenceInWorld, previousStackedNode));
 		}
-
-		Vector3 findclickedDifferenceInWorld(GameObject interactableGameObject)
-		{
-			Vector3 mousePosition = Mouse.current.position.ReadValue();
-			Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
-
-			Vector3 clickedDifferenceInWorld = new Vector3(
-				interactableGameObject.transform.position.x - mousePositionInWorld.x,
-				interactableGameObject.transform.position.y - mousePositionInWorld.y,
-				0
-			);
-			return clickedDifferenceInWorld;
-		}
 	}
 
 	private IEnumerator dragUpdate(List<Interactable> draggingObjects, Vector3 clickedDifferenceInWorld, Node previousStackedNode)
@@ -129,7 +114,6 @@ public class LeftClickHandler : MonoBehaviour
 		float dragTimer = 0;
 
 		bool isMiddleLogicEnabled = this.isMiddleLogicEnabled(draggingObjects[0]);
-		Debug.Log(isMiddleLogicEnabled);
 
 		while (leftClick.ReadValue<float>() != 0)
 		{
@@ -143,14 +127,13 @@ public class LeftClickHandler : MonoBehaviour
 			if (isMiddleLogicEnabled == true && dragTimer > this.checkIntervel)
 			{
 				dragTimer = 0;
-				isMiddleLogicEnabled = this.handleSpecialLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
+				isMiddleLogicEnabled = this.handleMiddleLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
 			}
 
 			yield return null;
 		}
 		if (isMiddleLogicEnabled)
 		{
-			Debug.Log("Are we called?");
 			List<Card> draggingCards = draggingObjects
 				.Where((draggingObject) => draggingObject.interactableType == CoreInteractableType.Cards)
 				.Select((draggingObject) => draggingObject.getCard())
@@ -162,11 +145,11 @@ public class LeftClickHandler : MonoBehaviour
 		this.dragFinishHandler(draggingObjects, previousStackedNode);
 	}
 
-	private bool handleSpecialLogic(Interactable rootInteractable, Vector3 initialPostionOfStack, List<Interactable> draggingObjects)
+	private bool handleMiddleLogic(Interactable rootInteractable, Vector3 initialPostionOfStack, List<Interactable> draggingObjects)
 	{
 		Vector3 currentPositionOfCard = rootInteractable.gameObject.transform.position;
-		bool isDraggingMoreCardsFromStack = DragAndDropHelper.getDraggingCardsAngle(initialPostionOfStack, currentPositionOfCard);
-		if (isDraggingMoreCardsFromStack)
+		bool isEnded = DragAndDropHelper.getDraggingCardsAngle(initialPostionOfStack, currentPositionOfCard);
+		if (isEnded)
 		{
 			this.applyDownDragLogic(rootInteractable.getCard(), initialPostionOfStack, draggingObjects);
 			return true;
@@ -222,11 +205,14 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
+		// Means it is a card qq
+
 		if (draggingObjects[0].interactableType == CoreInteractableType.Cards)
 		{
 			IStackable stackableObject = this.findTargetToStack(draggingObjects[0].getCard());
+			bool isStackingOnATarget = stackableObject != null;
 
-			if (stackableObject != null)
+			if (isStackingOnATarget)
 			{
 				for (int i = 0; i < draggingObjects.Count; i++)
 				{
@@ -245,19 +231,17 @@ public class LeftClickHandler : MonoBehaviour
 				return;
 			}
 
-			GameObject bottomGameObject = this.findInteractableGameObject(draggingObjects[0].getCard());
-			GameObject draggingGameObject = draggingObjects[0].gameObject;
-
-			if (bottomGameObject != null)
-			{
-				draggingObjects[0].gameObject.transform.position = new Vector3(
-					draggingObjects[0].gameObject.transform.position.x,
-					draggingObjects[0].gameObject.transform.position.y,
-					bottomGameObject.transform.position.z - 1f
-				);
-
-				return;
-			}
+			//
+			// GameObject bottomGameObject = this.findInteractableGameObject(draggingObjects[0].getCard());
+			// if (bottomGameObject != null)
+			// {
+			// 	draggingObjects[0].gameObject.transform.position = new Vector3(
+			// 		draggingObjects[0].gameObject.transform.position.x,
+			// 		draggingObjects[0].gameObject.transform.position.y,
+			// 		bottomGameObject.transform.position.z - 1f
+			// 	);
+			// 	return;
+			// }
 
 			draggingObjects[0].gameObject.transform.position = new Vector3(
 				draggingObjects[0].gameObject.transform.position.x,
@@ -267,15 +251,13 @@ public class LeftClickHandler : MonoBehaviour
 
 			return;
 		}
-		else if (draggingObjects[0].interactableType == CoreInteractableType.Nodes)
-		{
-			GameObject draggingGameObject = draggingObjects[0].gameObject;
-			draggingGameObject.transform.position = new Vector3(
-				draggingGameObject.transform.position.x,
-				draggingGameObject.transform.position.y,
-				HelperData.baseZ
-			);
-		}
+		// Node dragging
+		GameObject draggingGameObject = draggingObjects[0].gameObject;
+		draggingGameObject.transform.position = new Vector3(
+			draggingGameObject.transform.position.x,
+			draggingGameObject.transform.position.y,
+			HelperData.baseZ
+		);
 	}
 
 	private IStackable findTargetToStack(Card hitCard)
@@ -306,30 +288,30 @@ public class LeftClickHandler : MonoBehaviour
 		return null;
 	}
 
-	private GameObject findInteractableGameObject(Card hitCard)
-	{
-		hitCard.computeCorners();
-		Vector3[] corners =
-		{
-			hitCard.corners.leftTopCorner,
-			hitCard.corners.rightTopCorner,
-			hitCard.corners.leftBottomCorner,
-			hitCard.corners.rightBottomCorner
-		};
+	// private GameObject findInteractableGameObject(Card hitCard)
+	// {
+	// 	hitCard.computeCorners();
+	// 	Vector3[] corners =
+	// 	{
+	// 		hitCard.corners.leftTopCorner,
+	// 		hitCard.corners.rightTopCorner,
+	// 		hitCard.corners.leftBottomCorner,
+	// 		hitCard.corners.rightBottomCorner
+	// 	};
 
-		int i = 0;
-		while (i < corners.Length)
-		{
-			Ray ray = new Ray(corners[i], Vector3.forward);
-			RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, baseInteractableLayerMask);
-			if (cornerHit.collider != null)
-			{
-				return cornerHit.collider.gameObject;
-			}
-			i++;
-		}
-		return null;
-	}
+	// 	int i = 0;
+	// 	while (i < corners.Length)
+	// 	{
+	// 		Ray ray = new Ray(corners[i], Vector3.forward);
+	// 		RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, baseInteractableLayerMask);
+	// 		if (cornerHit.collider != null)
+	// 		{
+	// 			return cornerHit.collider.gameObject;
+	// 		}
+	// 		i++;
+	// 	}
+	// 	return null;
+	// }
 
 	private void moveInteractableObjects(Vector3 movingToPoint, List<Interactable> interactableObjects)
 	{
@@ -345,5 +327,18 @@ public class LeftClickHandler : MonoBehaviour
 		Vector3 finalMovingPoint = movingToPoint;
 		finalMovingPoint.z = interactableGameObject.transform.position.z;
 		interactableGameObject.transform.position = finalMovingPoint;
+	}
+
+	private Vector3 findclickedDifferenceInWorld(GameObject interactableGameObject)
+	{
+		Vector3 mousePosition = Mouse.current.position.ReadValue();
+		Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
+
+		Vector3 clickedDifferenceInWorld = new Vector3(
+			interactableGameObject.transform.position.x - mousePositionInWorld.x,
+			interactableGameObject.transform.position.y - mousePositionInWorld.y,
+			0
+		);
+		return clickedDifferenceInWorld;
 	}
 }

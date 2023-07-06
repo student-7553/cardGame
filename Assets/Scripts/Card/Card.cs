@@ -42,19 +42,18 @@ public class CardDisable
 public class Card : MonoBehaviour, IStackable, Interactable
 {
 	// -------------------- Interactable Members -------------------------
-	private bool _isInteractiveDisabled;
+	private bool _isInteractiveDisabled = false;
 	public bool isInteractiveDisabled
 	{
 		get { return _isInteractiveDisabled; }
-		set
-		{
-			_isInteractiveDisabled = value;
-			reflectScreen();
-		}
+		set { _isInteractiveDisabled = value; }
 	}
 
 	public SpriteRenderer spriteRenderer { get; set; }
-	public CoreInteractableType interactableType { get; set; }
+	public CoreInteractableType interactableType
+	{
+		get { return CoreInteractableType.Cards; }
+	}
 
 	public Card getCard()
 	{
@@ -67,7 +66,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public CardStack joinedStack;
 
-	private bool _isStacked;
+	private bool _isStacked = false;
 	public bool isStacked
 	{
 		get { return _isStacked; }
@@ -82,8 +81,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 			_isStacked = value;
 		}
 	}
-
-	// public float timer;
 
 	public CardDisable cardDisable;
 
@@ -105,11 +102,12 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 
 		this.computeCorners();
-		isStacked = false;
-		isInteractiveDisabled = false;
-
-		interactableType = CoreInteractableType.Cards;
 		cardDisable = new CardDisable();
+	}
+
+	private void FixedUpdate()
+	{
+		reflectScreen();
 	}
 
 	public void moveCard(Vector3 newPosition)
@@ -142,16 +140,12 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 		else
 		{
-			List<Card> newCardStackCards = new List<Card>(new Card[] { this });
+			// List<Card> newCardStackCards = new List<Card>(new Card[] { this });
+			List<Card> newCardStackCards = new List<Card>() { this };
 			newCardStackCards.Add(draggingCard);
 			CardStack newStack = new CardStack(null);
 			newStack.addCardToStack(newCardStackCards);
 		}
-	}
-
-	public void init()
-	{
-		reflectScreen();
 	}
 
 	public void reflectScreen()

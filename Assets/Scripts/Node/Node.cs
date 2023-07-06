@@ -6,12 +6,15 @@ using System.Linq;
 using Helpers;
 
 // public class Node : MonoBehaviour, BaseNode, Interactable
-public class Node : MonoBehaviour, BaseNode, Interactable
+public class Node : MonoBehaviour, BaseNode
 {
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }
-	public CoreInteractableType interactableType { get; set; }
+	public CoreInteractableType interactableType
+	{
+		get { return CoreInteractableType.Nodes; }
+	}
 
 	// -------------------- Custom Class -------------------------
 	[System.NonSerialized]
@@ -64,8 +67,6 @@ public class Node : MonoBehaviour, BaseNode, Interactable
 
 		isInteractiveDisabled = false;
 		isActive = true;
-
-		interactableType = CoreInteractableType.Nodes;
 	}
 
 	private void FixedUpdate()

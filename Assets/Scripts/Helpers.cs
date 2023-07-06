@@ -174,7 +174,7 @@ namespace Helpers
 	{
 		public bool isInteractiveDisabled { get; set; }
 		public SpriteRenderer spriteRenderer { get; set; }
-		public CoreInteractableType interactableType { get; set; }
+		public CoreInteractableType interactableType { get; }
 		GameObject gameObject { get; }
 		public Card getCard();
 	}

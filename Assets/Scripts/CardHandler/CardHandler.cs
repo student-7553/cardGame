@@ -8,6 +8,7 @@ public class CardHandler : MonoBehaviour
 	public PlayerCardTrackerObject playerCardTracker;
 	public static CardHandler current;
 
+	// -----------------------PREFAB--------------------------
 	public GameObject cardPrefab;
 	public GameObject nodePrefab;
 	public GameObject enemyNodePrefab;
@@ -22,6 +23,7 @@ public class CardHandler : MonoBehaviour
 	public Vector2Int enemySpawnInterval;
 
 	private EnemySpawer enemySpawner;
+	private InteractableManager interactableManager;
 
 	void Start()
 	{
@@ -37,7 +39,7 @@ public class CardHandler : MonoBehaviour
 
 		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
 
-		// Comment out the bellow later
+		// test enemySpawn  Comment out the bellow later
 		// this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 	}
 
@@ -52,18 +54,18 @@ public class CardHandler : MonoBehaviour
 		cardGameObject.layer = 6;
 		cardGameObject.transform.position = cardOriginPoint;
 
-		Card cardObject = ensureComponent<Card>(cardGameObject);
+		Card newCard = ensureComponent<Card>(cardGameObject);
 
-		cardObject.id = cardId;
+		newCard.id = cardId;
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
-		cardObject.init();
 		playerCardTracker.ensureCardIdTracked(cardId);
+		interactableManager.registerCard(newCard);
 
-		this.tempCreateCardHook(cardId);
+		this.tempCardHooks(cardId);
 
-		return cardObject;
+		return newCard;
 	}
 
 	public Node createNode(int cardId, GameObject nodeGameObject)
@@ -86,6 +88,8 @@ public class CardHandler : MonoBehaviour
 		nodePlane.init(newNode);
 
 		newNode.init(nodePlane);
+
+		interactableManager.registerNode(newNode);
 
 		return newNode;
 	}
@@ -148,7 +152,7 @@ public class CardHandler : MonoBehaviour
 		return cardSpriteRenderer;
 	}
 
-	private void tempCreateCardHook(int cardId)
+	private void tempCardHooks(int cardId)
 	{
 		// card spawn triggers
 		if (cardId == 1004)

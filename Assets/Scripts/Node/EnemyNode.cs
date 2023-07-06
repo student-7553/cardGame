@@ -9,6 +9,13 @@ public class EnemyNode : MonoBehaviour, BaseNode
 {
 	// -------------------- Custom Class ------------------------
 
+	public bool isInteractiveDisabled { get; set; }
+	public SpriteRenderer spriteRenderer { get; set; }
+	public CoreInteractableType interactableType
+	{
+		get { return CoreInteractableType.Nodes; }
+	}
+
 	public NodePlaneHandler nodePlaneManager { get; set; }
 
 	[System.NonSerialized]
@@ -166,6 +173,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 		Destroy(nodePlaneManager.gameObject);
 		Destroy(this.gameObject);
+	}
+
+	public Card getCard()
+	{
+		return null;
 	}
 
 	// ---------------------------------------------------------

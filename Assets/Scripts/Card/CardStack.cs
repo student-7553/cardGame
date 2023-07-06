@@ -3,17 +3,11 @@ using UnityEngine;
 using Core;
 using Helpers;
 
-// public class NodeCardStack
-// {
-// 	public Node connectedNode;
-// }
-
 public class CardStack
 {
 	private static float stackDistance = 5;
 	private static float zDistancePerCards = 0.01f;
 
-	// public Node connectedNode;
 	public BaseNode connectedNode;
 
 	public CardStackType cardStackType;
@@ -87,7 +81,7 @@ public class CardStack
 			Card rootCard = this.getRootCard();
 			originPoint = rootCard.transform.position;
 		}
-		originPoint = originPoint + originPointAdjustment;
+		originPoint = originPoint + this.originPointAdjustment;
 		this.alignCards(originPoint);
 	}
 
