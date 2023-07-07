@@ -8,10 +8,10 @@ using System.Linq;
 
 public class LeftClickHandler : MonoBehaviour
 {
-	private InputAction leftClick;
 	private Camera mainCamera;
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
+	private bool isHolding;
 
 	private readonly float clickTimer = 0.15f;
 	private float checkIntervel = 0.01f;
@@ -25,87 +25,83 @@ public class LeftClickHandler : MonoBehaviour
 		}
 		current = this;
 
-		leftClick = new InputAction(binding: "<Mouse>/leftButton");
 		string[] layerNames = { "Interactable", "EnemyInteractable" };
 		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
 		mainCamera = Camera.main;
 	}
 
-	private void OnEnable()
+	private GameObject getMouseCloseGameObject(Vector3 mousePosition)
 	{
-		leftClick.Enable();
-		leftClick.performed += MousePressed;
-	}
-
-	private void OnDisable()
-	{
-		leftClick.performed -= MousePressed;
-		leftClick.Disable();
-	}
-
-	private void MousePressed(InputAction.CallbackContext context)
-	{
-		Vector3 mousePosition = Mouse.current.position.ReadValue();
 		Ray ray = mainCamera.ScreenPointToRay(mousePosition);
 		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, baseInteractableLayerMask);
-		if (hit.collider != null)
+		if (hit.collider == null)
 		{
-			GameObject hitGameObject = hit.collider.gameObject;
-			Interactable interactableObject = hitGameObject.GetComponent(typeof(Interactable)) as Interactable;
-
-			if (interactableObject == null)
-			{
-				hitGameObject.GetComponent<IClickable>()?.OnClick();
-			}
-			else
-			{
-				StartCoroutine(handleClickingInteractable(interactableObject));
-			}
+			return null;
 		}
+
+		return hit.collider.gameObject;
+	}
+
+	public void handleClickHold(Vector3 pressMousePosition)
+	{
+		GameObject hitGameObject = this.getMouseCloseGameObject(pressMousePosition);
+		if (hitGameObject == null)
+		{
+			return;
+		}
+		Interactable interactableObject = hitGameObject.GetComponent(typeof(Interactable)) as Interactable;
+		if (interactableObject == null)
+		{
+			return;
+		}
+		handleHoldingInteractable(interactableObject);
+	}
+
+	public void handleClickHoldEnd()
+	{
+		isHolding = false;
+	}
+
+	public void handleClick()
+	{
+		Vector3 mousePosition = Mouse.current.position.ReadValue();
+		GameObject hitGameObject = this.getMouseCloseGameObject(mousePosition);
+		if (hitGameObject == null)
+		{
+			return;
+		}
+		hitGameObject.GetComponent<IClickable>()?.OnClick();
 	}
 
 	// ################ CUSTOM FUNCTION ################
 
-	private IEnumerator handleClickingInteractable(Interactable interactableObject)
+	public void handleHoldingInteractable(Interactable interactableObject)
 	{
 		if (interactableObject.isInteractiveDisabled)
 		{
-			yield break;
+			return;
 		}
 
 		GameObject interactableGameObject = interactableObject.gameObject;
 
-		Vector3 clickedDifferenceInWorld = this.findclickedDifferenceInWorld(interactableGameObject);
+		interactableGameObject.transform.position = new Vector3(
+			interactableGameObject.transform.position.x,
+			interactableGameObject.transform.position.y,
+			HelperData.draggingBaseZ
+		);
 
-		yield return new WaitForSeconds(clickTimer);
+		Node previousStackedNode =
+			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getCard().isStacked
+				? (Node)interactableObject.getCard().joinedStack.connectedNode
+				: null;
 
-		if (leftClick.ReadValue<float>() == 0f)
-		{
-			// clicking
-			interactableGameObject.GetComponent<IClickable>()?.OnClick();
-		}
-		else
-		{
-			// dragging
-			interactableGameObject.transform.position = new Vector3(
-				interactableGameObject.transform.position.x,
-				interactableGameObject.transform.position.y,
-				HelperData.draggingBaseZ
-			);
+		List<Interactable> draggingObjects = new List<Interactable>();
+		draggingObjects.Add(interactableObject);
 
-			Node previousStackedNode =
-				interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getCard().isStacked
-					? (Node)interactableObject.getCard().joinedStack.connectedNode
-					: null;
-
-			List<Interactable> draggingObjects = new List<Interactable>();
-			draggingObjects.Add(interactableObject);
-
-			StartCoroutine(dragUpdate(draggingObjects, clickedDifferenceInWorld, previousStackedNode));
-		}
+		StartCoroutine(dragUpdate(draggingObjects, previousStackedNode));
 	}
 
-	private IEnumerator dragUpdate(List<Interactable> draggingObjects, Vector3 clickedDifferenceInWorld, Node previousStackedNode)
+	private IEnumerator dragUpdate(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
 		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
 
@@ -115,11 +111,11 @@ public class LeftClickHandler : MonoBehaviour
 
 		bool isMiddleLogicEnabled = this.isMiddleLogicEnabled(draggingObjects[0]);
 
-		while (leftClick.ReadValue<float>() != 0)
+		isHolding = true;
+		while (isHolding)
 		{
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera);
-			movingToPoint = movingToPoint + clickedDifferenceInWorld;
 
 			this.moveInteractableObjects(movingToPoint, draggingObjects);
 
@@ -288,31 +284,6 @@ public class LeftClickHandler : MonoBehaviour
 		return null;
 	}
 
-	// private GameObject findInteractableGameObject(Card hitCard)
-	// {
-	// 	hitCard.computeCorners();
-	// 	Vector3[] corners =
-	// 	{
-	// 		hitCard.corners.leftTopCorner,
-	// 		hitCard.corners.rightTopCorner,
-	// 		hitCard.corners.leftBottomCorner,
-	// 		hitCard.corners.rightBottomCorner
-	// 	};
-
-	// 	int i = 0;
-	// 	while (i < corners.Length)
-	// 	{
-	// 		Ray ray = new Ray(corners[i], Vector3.forward);
-	// 		RaycastHit2D cornerHit = Physics2D.GetRayIntersection(ray, 20, baseInteractableLayerMask);
-	// 		if (cornerHit.collider != null)
-	// 		{
-	// 			return cornerHit.collider.gameObject;
-	// 		}
-	// 		i++;
-	// 	}
-	// 	return null;
-	// }
-
 	private void moveInteractableObjects(Vector3 movingToPoint, List<Interactable> interactableObjects)
 	{
 		foreach (Interactable singleInteractable in interactableObjects)
@@ -327,18 +298,5 @@ public class LeftClickHandler : MonoBehaviour
 		Vector3 finalMovingPoint = movingToPoint;
 		finalMovingPoint.z = interactableGameObject.transform.position.z;
 		interactableGameObject.transform.position = finalMovingPoint;
-	}
-
-	private Vector3 findclickedDifferenceInWorld(GameObject interactableGameObject)
-	{
-		Vector3 mousePosition = Mouse.current.position.ReadValue();
-		Vector3 mousePositionInWorld = mainCamera.ScreenToWorldPoint(mousePosition);
-
-		Vector3 clickedDifferenceInWorld = new Vector3(
-			interactableGameObject.transform.position.x - mousePositionInWorld.x,
-			interactableGameObject.transform.position.y - mousePositionInWorld.y,
-			0
-		);
-		return clickedDifferenceInWorld;
 	}
 }

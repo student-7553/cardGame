@@ -51693,6 +51693,8 @@ MonoBehaviour:
   cameraMovement: {fileID: 4932317439743959563, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
   zoomInAndOut: {fileID: -7749299162375649993, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
   pauseButton: {fileID: 1662346524869698744, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
+  leftMouseClickButton: {fileID: -1050038587272110149, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
+  leftMousePressButton: {fileID: -1307047719597399480, guid: 6a60fb2978712234cba69a22522c121e, type: 3}
   cameraController: {fileID: 963194230}
 --- !u!4 &1399545600
 Transform:
