@@ -23,6 +23,8 @@ public class CardHandler : MonoBehaviour
 	public Vector2Int enemySpawnInterval;
 
 	private EnemySpawer enemySpawner;
+
+	[SerializeField]
 	private InteractableManager interactableManager;
 
 	void Start()

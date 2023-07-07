@@ -8,20 +8,14 @@ public class InteractableManager : MonoBehaviour
 	public List<Card> cards;
 	public List<Node> nodes;
 
-	void Start()
-	{
-		// foreach (int cardId in pushedCardIds)
-		// {
-		// 	CardHandler.current.playerCardTracker.ensureCardIdTracked(cardId);
-		// }
-	}
+	void Start() { }
 
-	void registerCard(Card newCard)
+	public void registerCard(Card newCard)
 	{
 		cards.Add(newCard);
 	}
 
-	void registerNode(Node nodeCard)
+	public void registerNode(Node nodeCard)
 	{
 		nodes.Add(nodeCard);
 	}

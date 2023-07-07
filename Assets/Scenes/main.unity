@@ -74489,6 +74489,7 @@ GameObject:
   - component: {fileID: 2055256184}
   - component: {fileID: 2055256185}
   - component: {fileID: 2055256186}
+  - component: {fileID: 2055256187}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -74544,6 +74545,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0ea0e185a344f3b42bf5aa0c9f1a96be, type: 3}
   nodeSprites: []
   enemySpawnInterval: {x: 120, y: 220}
+  interactableManager: {fileID: 2055256187}
 --- !u!114 &2055256184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74581,6 +74583,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardPlaneGameObject: {fileID: 1658122567}
+--- !u!114 &2055256187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055256180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54e801f34390db478cf553455fa1ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards: []
+  nodes: []
 --- !u!1 &2056807385
 GameObject:
   m_ObjectHideFlags: 0

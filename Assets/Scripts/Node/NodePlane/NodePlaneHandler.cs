@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using Core;
 
-public class NodePlaneHandler : MonoBehaviour
+public class NodePlaneHandler : MonoBehaviour, IStackable
 {
 	private BaseNode connectedNode;
 	public TextMeshPro titleTextMesh;
@@ -27,13 +28,9 @@ public class NodePlaneHandler : MonoBehaviour
 		GameManager.current.boardPlaneHandler.setActiveNodePlane(this);
 	}
 
-	public void cardIsStacking(object[] package)
+	public void stackOnThis(Card draggingCard, Node prevNode)
 	{
-		Card card = package[0] as Card;
-		string direction = package[1] as string;
-		Node prevNode = package[2] as Node;
-
-		connectedNode.stackOnThis(card, prevNode);
+		connectedNode.stackOnThis(draggingCard, prevNode);
 	}
 
 	private void FixedUpdate()
