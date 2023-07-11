@@ -29,6 +29,8 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	private LayerMask interactableLayerMask;
 
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+
 	// -------------------- Node Stats -------------------------
 
 
@@ -126,27 +128,34 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	private Node getNearestNode()
 	{
-		// god help this logic
-		// Prob need to change to read from a global variable
-
-		Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, 100, interactableLayerMask, 0f, 0f);
-		if (hits == null || hits.Length == 0)
+		Node closestNode = null;
+		Vector2 currentNodePosition = gameObject.transform.position;
+		float currentNodeDistance = 0;
+		foreach (Node node in interactableManagerScriptableObject.nodes)
 		{
-			return null;
-		}
-
-		Array.Reverse(hits);
-
-		foreach (Collider2D singleHit in hits)
-		{
-			Node interactableNode = singleHit.GetComponent(typeof(Node)) as Node;
-
-			if (interactableNode != null && !interactableNode.isMarket())
+			if (closestNode == null)
 			{
-				return interactableNode;
+				closestNode = node;
+				currentNodeDistance = this.getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
+				continue;
+			}
+
+			float distance = this.getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
+			if (distance < currentNodeDistance)
+			{
+				closestNode = node;
+				currentNodeDistance = distance;
 			}
 		}
-		return null;
+		return closestNode;
+	}
+
+	private float getDistanceBetweenTwoPoints(Vector2 pos1, Vector2 pos2)
+	{
+		float a = pos1.x - pos2.x;
+		float b = pos1.y - pos2.y;
+		float distance = Mathf.Sqrt(a * a + b * b);
+		return distance;
 	}
 
 	private void FixedUpdate()
