@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class StaticData : MonoBehaviour
 {
-    public int id;
-    // public int nodeId;
+	public int id;
+	// public int nodeId;
 }

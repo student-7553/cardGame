@@ -140,7 +140,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 		else
 		{
-			// List<Card> newCardStackCards = new List<Card>(new Card[] { this });
 			List<Card> newCardStackCards = new List<Card>() { this };
 			newCardStackCards.Add(draggingCard);
 			CardStack newStack = new CardStack(null);

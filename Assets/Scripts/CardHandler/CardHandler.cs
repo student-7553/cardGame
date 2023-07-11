@@ -24,8 +24,7 @@ public class CardHandler : MonoBehaviour
 
 	private EnemySpawer enemySpawner;
 
-	[SerializeField]
-	private InteractableManager interactableManager;
+	public InteractableManagerScriptableObject interactableManager;
 
 	void Start()
 	{

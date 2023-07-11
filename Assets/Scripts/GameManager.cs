@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] nodes;
 	private GameObject[] enemyNodes;
 
-	[System.NonSerialized]
-	public BoardPlaneHandler boardPlaneHandler;
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
 	void Start()
 	{
@@ -30,8 +29,6 @@ public class GameManager : MonoBehaviour
 
 	private void awakeGameLogic()
 	{
-		this.boardPlaneHandler = GetComponent(typeof(BoardPlaneHandler)) as BoardPlaneHandler;
-
 		foreach (GameObject singleCard in cards)
 		{
 			StaticData cardData = singleCard.GetComponent(typeof(StaticData)) as StaticData;
