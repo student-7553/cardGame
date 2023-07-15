@@ -163,7 +163,7 @@ public class Node : MonoBehaviour, BaseNode
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
-			Destroy(singleRemovingCard.gameObject);
+			singleRemovingCard.destroyCard();
 		}
 	}
 

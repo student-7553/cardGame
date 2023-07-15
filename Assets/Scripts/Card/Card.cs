@@ -72,13 +72,19 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		get { return _isStacked; }
 		set
 		{
-			if (value == false && _isStacked == true)
+			bool preValue = _isStacked;
+			_isStacked = value;
+
+			if (value == false && preValue == true)
 			{
-				joinedStack = null;
+				if (joinedStack != null)
+				{
+					joinedStack.removeCardsFromStack(new List<Card>() { this });
+					joinedStack = null;
+				}
 				gameObject.SetActive(true);
 				gameObject.transform.SetParent(null);
 			}
-			_isStacked = value;
 		}
 	}
 
@@ -114,6 +120,15 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	{
 		gameObject.transform.position = newPosition;
 		this.computeCorners();
+	}
+
+	public void destroyCard()
+	{
+		if (this.isStacked)
+		{
+			this.isStacked = false;
+		}
+		Destroy(gameObject);
 	}
 
 	public void computeCorners()

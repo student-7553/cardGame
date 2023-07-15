@@ -5,6 +5,18 @@ using System.Linq;
 
 namespace Helpers
 {
+	public struct TypeAdjustingData
+	{
+		public List<int> removingCardIds;
+		public List<int> addingCardIds;
+
+		public void init()
+		{
+			this.removingCardIds = new List<int>();
+			this.addingCardIds = new List<int>();
+		}
+	}
+
 	public static class DragAndDropHelper
 	{
 		public static bool getPositionAngle(Vector3 initalPostion, Vector3 currentPosition)
@@ -167,6 +179,30 @@ namespace Helpers
 				return true;
 			}
 			return false;
+		}
+
+		public static TypeAdjustingData handleTypeAdjusting(List<int> availableCardIds, CardsTypes cardType, int requiredTypeValue)
+		{
+			TypeAdjustingData returnData = new TypeAdjustingData { addingCardIds = new List<int>(), removingCardIds = new List<int>() };
+			int totalSum = 0;
+			List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
+			foreach (int typeCardId in ascTypeCardIds)
+			{
+				returnData.removingCardIds.Add(typeCardId);
+				totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
+				if (totalSum == requiredTypeValue)
+				{
+					break;
+				}
+				if (totalSum > requiredTypeValue)
+				{
+					int addingTypeValue = totalSum - requiredTypeValue;
+					List<int> newCardIds = CardHelpers.generateTypeValueCards(cardType, addingTypeValue);
+					returnData.addingCardIds.AddRange(newCardIds);
+					break;
+				}
+			}
+			return returnData;
 		}
 	}
 

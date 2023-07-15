@@ -65,13 +65,11 @@ public class NodeProcess : MonoBehaviour
 
 	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
-		List<int> removingCardIds = new List<int>();
-		List<int> addingCardIds = new List<int>();
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
-		this.handleTypeAdjusting(cardIds, cardType, typeValue, ref removingCardIds, ref addingCardIds);
+		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(cardIds, cardType, typeValue);
 
-		List<Card> removingCards = node.getCards(removingCardIds);
+		List<Card> removingCards = node.getCards(data.removingCardIds);
 
 		if (timer > 0)
 		{
@@ -83,7 +81,7 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		node.hadleRemovingCards(removingCards);
-		List<Card> addingCards = node.handleCreatingCards(addingCardIds);
+		List<Card> addingCards = node.handleCreatingCards(data.addingCardIds);
 		if (addingCards != null && addingCards.Count > 0)
 		{
 			List<Card> ejectingCards = addingCards
@@ -106,33 +104,33 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
-	public void handleTypeAdjusting(
-		List<int> availableCardIds,
-		CardsTypes cardType,
-		int requiredTypeValue,
-		ref List<int> removingCardIds,
-		ref List<int> addingCardIds
-	)
-	{
-		int totalSum = 0;
-		List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
-		foreach (int typeCardId in ascTypeCardIds)
-		{
-			removingCardIds.Add(typeCardId);
-			totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
-			if (totalSum == requiredTypeValue)
-			{
-				break;
-			}
-			if (totalSum > requiredTypeValue)
-			{
-				int addingTypeValue = totalSum - requiredTypeValue;
-				List<int> newCardIds = CardHelpers.generateTypeValueCards(cardType, addingTypeValue);
-				addingCardIds.AddRange(newCardIds);
-				break;
-			}
-		}
-	}
+	// public void handleTypeAdjusting(
+	// 	List<int> availableCardIds,
+	// 	CardsTypes cardType,
+	// 	int requiredTypeValue,
+	// 	ref List<int> removingCardIds,
+	// 	ref List<int> addingCardIds
+	// )
+	// {
+	// 	int totalSum = 0;
+	// 	List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
+	// 	foreach (int typeCardId in ascTypeCardIds)
+	// 	{
+	// 		removingCardIds.Add(typeCardId);
+	// 		totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
+	// 		if (totalSum == requiredTypeValue)
+	// 		{
+	// 			break;
+	// 		}
+	// 		if (totalSum > requiredTypeValue)
+	// 		{
+	// 			int addingTypeValue = totalSum - requiredTypeValue;
+	// 			List<int> newCardIds = CardHelpers.generateTypeValueCards(cardType, addingTypeValue);
+	// 			addingCardIds.AddRange(newCardIds);
+	// 			break;
+	// 		}
+	// 	}
+	// }
 
 	private void handleMarketProcess()
 	{
@@ -286,7 +284,10 @@ public class NodeProcess : MonoBehaviour
 
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
-		this.handleProcessAdjustingCardIds(cardIds, pickedProcess, ref removingCardIds, ref addingCardIds);
+		TypeAdjustingData adjData = this.handleProcessAdjustingCardIds(cardIds, pickedProcess);
+
+		removingCardIds.AddRange(adjData.removingCardIds);
+		addingCardIds.AddRange(adjData.addingCardIds);
 
 		List<Card> removingCards = node.getCards(removingCardIds);
 
@@ -547,31 +548,27 @@ public class NodeProcess : MonoBehaviour
 		this.isOnCooldown = false;
 	}
 
-	private void handleProcessAdjustingCardIds(
-		List<int> cardIds,
-		RawProcessObject pickedProcess,
-		ref List<int> removingCardIds,
-		ref List<int> addingCardIds
-	)
+	private TypeAdjustingData handleProcessAdjustingCardIds(List<int> cardIds, RawProcessObject pickedProcess)
 	{
-		removingCardIds.AddRange(pickedProcess.removingIds);
+		TypeAdjustingData data = new TypeAdjustingData();
+		data.init();
+
+		data.removingCardIds.AddRange(pickedProcess.removingIds);
 
 		if (pickedProcess.requiredGold > 0)
 		{
-			this.handleTypeAdjusting(cardIds, CardsTypes.Gold, pickedProcess.requiredGold, ref removingCardIds, ref addingCardIds);
+			TypeAdjustingData goldData = CardHelpers.handleTypeAdjusting(cardIds, CardsTypes.Gold, pickedProcess.requiredGold);
+			data.addingCardIds.AddRange(goldData.addingCardIds);
+			data.removingCardIds.AddRange(goldData.removingCardIds);
 		}
 
 		if (pickedProcess.requiredElectricity > 0)
 		{
-			this.handleTypeAdjusting(
-				cardIds,
-				CardsTypes.Electricity,
-				pickedProcess.requiredElectricity,
-				ref removingCardIds,
-				ref addingCardIds
-			);
+			TypeAdjustingData elcData = CardHelpers.handleTypeAdjusting(cardIds, CardsTypes.Electricity, pickedProcess.requiredElectricity);
+			data.addingCardIds.AddRange(elcData.addingCardIds);
+			data.removingCardIds.AddRange(elcData.removingCardIds);
 		}
-		return;
+		return data;
 	}
 
 	private IEnumerator sellCard(Card card)

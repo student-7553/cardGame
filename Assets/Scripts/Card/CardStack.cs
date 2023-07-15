@@ -87,12 +87,22 @@ public class CardStack
 
 	public void removeCardsFromStack(List<Card> removingCards)
 	{
+		bool changed = false;
 		foreach (Card singleCard in removingCards)
 		{
+			if (!cards.Contains(singleCard))
+			{
+				continue;
+			}
+			changed = true;
 			cards.Remove(singleCard);
 			singleCard.isStacked = false;
 		}
-		this.alignCards();
+
+		if (changed)
+		{
+			this.alignCards();
+		}
 	}
 
 	public void addCardToStack(List<Card> addingCards)
