@@ -128,10 +128,9 @@ public class Node : MonoBehaviour, BaseNode
 			processCardStack.addCardToStack(newCard);
 			return;
 		}
-
 		if (
 			CardDictionary.globalCardDictionary[newCard.id].resourceInventoryCount + nodeStats.currentNodeStats.resourceInventoryUsed
-			>= nodeStats.currentNodeStats.resourceInventoryLimit
+			> nodeStats.currentNodeStats.resourceInventoryLimit
 		)
 		{
 			return;
@@ -139,7 +138,7 @@ public class Node : MonoBehaviour, BaseNode
 
 		if (
 			CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount + nodeStats.currentNodeStats.infraInventoryUsed
-			>= nodeStats.currentNodeStats.infraInventoryLimit
+			> nodeStats.currentNodeStats.infraInventoryLimit
 		)
 		{
 			return;
@@ -192,27 +191,6 @@ public class Node : MonoBehaviour, BaseNode
 		return addingCards;
 	}
 
-	public List<Card> getCards(List<int> cardIds)
-	{
-		Dictionary<int, int> indexedCardIds = this.indexCardIds(cardIds);
-		List<Card> cards = new List<Card>();
-
-		foreach (Card singleCard in processCardStack.cards)
-		{
-			if (indexedCardIds.ContainsKey(singleCard.id))
-			{
-				indexedCardIds[singleCard.id]--;
-				if (indexedCardIds[singleCard.id] == 0)
-				{
-					indexedCardIds.Remove(singleCard.id);
-				}
-				cards.Add(singleCard);
-			}
-		}
-
-		return cards;
-	}
-
 	public void ejectCards(List<Card> cards)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
@@ -237,23 +215,6 @@ public class Node : MonoBehaviour, BaseNode
 		}
 	}
 
-	public Dictionary<int, int> indexCardIds(List<int> requiredIds)
-	{
-		Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
-		foreach (int baseRequiredId in requiredIds)
-		{
-			if (indexedRequiredIds.ContainsKey(baseRequiredId))
-			{
-				indexedRequiredIds[baseRequiredId] = indexedRequiredIds[baseRequiredId] + 1;
-			}
-			else
-			{
-				indexedRequiredIds.Add(baseRequiredId, 1);
-			}
-		}
-		return indexedRequiredIds;
-	}
-
 	public void consolidateTypeCards()
 	{
 		CardsTypes[] types = new CardsTypes[] { CardsTypes.Gold, CardsTypes.Electricity, CardsTypes.Food };
@@ -269,7 +230,7 @@ public class Node : MonoBehaviour, BaseNode
 
 			List<int> removingCardIds = this.getListEdge(cardIds, generatingCardIds);
 
-			List<Card> removingCards = this.getCards(removingCardIds);
+			List<Card> removingCards = this.processCardStack.getCards(removingCardIds);
 
 			if (removingCards.Count > 0)
 			{

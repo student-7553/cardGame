@@ -201,14 +201,11 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
-		// Means it is a card qq
-
 		if (draggingObjects[0].interactableType == CoreInteractableType.Cards)
 		{
 			IStackable stackableObject = this.findTargetToStack(draggingObjects[0].getCard());
-			bool isStackingOnATarget = stackableObject != null;
 
-			if (isStackingOnATarget)
+			if (stackableObject != null)
 			{
 				for (int i = 0; i < draggingObjects.Count; i++)
 				{

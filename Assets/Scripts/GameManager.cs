@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] nodes;
 	private GameObject[] enemyNodes;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	// public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
 	void Start()
 	{

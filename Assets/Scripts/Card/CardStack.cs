@@ -135,7 +135,7 @@ public class CardStack
 
 	private void logCards()
 	{
-		foreach (Card singleCard in cards)
+		foreach (Card singleCard in this.cards)
 		{
 			Debug.Log(singleCard);
 		}
@@ -149,6 +149,27 @@ public class CardStack
 			ids.Add(singleCard.id);
 		}
 		return ids;
+	}
+
+	public List<Card> getCards(List<int> cardIds)
+	{
+		Dictionary<int, int> indexedCardIds = CardHelpers.indexCardIds(cardIds);
+		List<Card> returnCards = new List<Card>();
+
+		foreach (Card singleCard in this.cards)
+		{
+			if (indexedCardIds.ContainsKey(singleCard.id))
+			{
+				indexedCardIds[singleCard.id]--;
+				if (indexedCardIds[singleCard.id] == 0)
+				{
+					indexedCardIds.Remove(singleCard.id);
+				}
+				returnCards.Add(singleCard);
+			}
+		}
+
+		return returnCards;
 	}
 
 	public List<int> getAllCardIdsOfMinusIntervalModules()
@@ -194,6 +215,19 @@ public class CardStack
 			}
 		}
 		return ids;
+	}
+
+	public List<Card> getActiveCards()
+	{
+		List<Card> returnCards = new List<Card>();
+		foreach (Card singleCard in cards)
+		{
+			if (!singleCard.isInteractiveDisabled)
+			{
+				returnCards.Add(singleCard);
+			}
+		}
+		return returnCards;
 	}
 
 	public List<int> getNonTypeActiveCardIds()

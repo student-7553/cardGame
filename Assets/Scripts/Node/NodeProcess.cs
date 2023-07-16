@@ -65,22 +65,20 @@ public class NodeProcess : MonoBehaviour
 
 	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
-		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		List<Card> cards = node.processCardStack.getActiveCards();
 
-		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(cardIds, cardType, typeValue);
-
-		List<Card> removingCards = node.getCards(data.removingCardIds);
+		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(cards, cardType, typeValue);
 
 		if (timer > 0)
 		{
-			foreach (Card card in removingCards)
+			foreach (Card card in data.removingCards)
 			{
 				card.disableInteractiveForATime(timer, CardDisableType.Process);
 			}
 			yield return new WaitForSeconds(timer);
 		}
 
-		node.hadleRemovingCards(removingCards);
+		node.hadleRemovingCards(data.removingCards);
 		List<Card> addingCards = node.handleCreatingCards(data.addingCardIds);
 		if (addingCards != null && addingCards.Count > 0)
 		{
@@ -229,7 +227,7 @@ public class NodeProcess : MonoBehaviour
 
 			foreach (RawProcessObject singleProcess in CardDictionary.globalProcessDictionary[cardIds[index]])
 			{
-				Dictionary<int, int> indexedRequiredIds = node.indexCardIds(singleProcess.requiredIds.ToList());
+				Dictionary<int, int> indexedRequiredIds = CardHelpers.indexCardIds(singleProcess.requiredIds.ToList());
 
 				bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
 
@@ -271,7 +269,7 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcess(RawProcessObject pickedProcess)
 	{
-		List<int> removingCardIds = new List<int>();
+		// List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
 
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
@@ -282,18 +280,17 @@ public class NodeProcess : MonoBehaviour
 
 		addingCardIds.AddRange(this.getAddingCards(pickedAddingCardObject));
 
-		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		List<Card> activeCards = node.processCardStack.getActiveCards();
 
-		TypeAdjustingData adjData = this.handleProcessAdjustingCardIds(cardIds, pickedProcess);
+		TypeAdjustingData adjData = this.handleProcessAdjustingCardIds(activeCards, pickedProcess);
 
-		removingCardIds.AddRange(adjData.removingCardIds);
 		addingCardIds.AddRange(adjData.addingCardIds);
 
-		List<Card> removingCards = node.getCards(removingCardIds);
+		List<Card> removingCards = adjData.removingCards;
 
 		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
 
-		List<Card> restNonInteractiveCards = node.getCards(restNonInteractiveCardIds);
+		List<Card> restNonInteractiveCards = node.processCardStack.getCards(restNonInteractiveCardIds);
 
 		foreach (Card card in restNonInteractiveCards)
 		{
@@ -444,9 +441,9 @@ public class NodeProcess : MonoBehaviour
 			List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
 			restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
 
-			foreach (int removingCardId in removingCardIds)
+			foreach (Card removingCard in removingCards)
 			{
-				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCardId);
+				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCard.id);
 				if (foundId != -1)
 				{
 					restNonInteractiveCardIds.RemoveAt(foundId);
@@ -548,25 +545,30 @@ public class NodeProcess : MonoBehaviour
 		this.isOnCooldown = false;
 	}
 
-	private TypeAdjustingData handleProcessAdjustingCardIds(List<int> cardIds, RawProcessObject pickedProcess)
+	private TypeAdjustingData handleProcessAdjustingCardIds(List<Card> activeCards, RawProcessObject pickedProcess)
 	{
 		TypeAdjustingData data = new TypeAdjustingData();
 		data.init();
 
-		data.removingCardIds.AddRange(pickedProcess.removingIds);
+		List<Card> processRemovingCard = this.node.processCardStack.getCards(pickedProcess.removingIds.ToList());
+		data.removingCards.AddRange(processRemovingCard);
 
 		if (pickedProcess.requiredGold > 0)
 		{
-			TypeAdjustingData goldData = CardHelpers.handleTypeAdjusting(cardIds, CardsTypes.Gold, pickedProcess.requiredGold);
+			TypeAdjustingData goldData = CardHelpers.handleTypeAdjusting(activeCards, CardsTypes.Gold, pickedProcess.requiredGold);
 			data.addingCardIds.AddRange(goldData.addingCardIds);
-			data.removingCardIds.AddRange(goldData.removingCardIds);
+			data.removingCards.AddRange(goldData.removingCards);
 		}
 
 		if (pickedProcess.requiredElectricity > 0)
 		{
-			TypeAdjustingData elcData = CardHelpers.handleTypeAdjusting(cardIds, CardsTypes.Electricity, pickedProcess.requiredElectricity);
+			TypeAdjustingData elcData = CardHelpers.handleTypeAdjusting(
+				activeCards,
+				CardsTypes.Electricity,
+				pickedProcess.requiredElectricity
+			);
 			data.addingCardIds.AddRange(elcData.addingCardIds);
-			data.removingCardIds.AddRange(elcData.removingCardIds);
+			data.removingCards.AddRange(elcData.removingCards);
 		}
 		return data;
 	}

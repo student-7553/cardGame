@@ -485,8 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbe0ab79d1167a40b2624824981499b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCardTracker: {fileID: 11400000, guid: 2894153470c94494b9ea706ae6695263, type: 2}
-  isActive: 0
 --- !u!114 &2509289101251820015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451dd30c467164b47bf207db1af8153c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableManagerScriptableObject: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
+  staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
 --- !u!114 &3921895229394181654
 MonoBehaviour:
   m_ObjectHideFlags: 0

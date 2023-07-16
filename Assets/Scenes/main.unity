@@ -74545,7 +74545,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0ea0e185a344f3b42bf5aa0c9f1a96be, type: 3}
   nodeSprites: []
   enemySpawnInterval: {x: 120, y: 220}
-  interactableManager: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
+  interactableManagerScriptableObject: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
+  staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
 --- !u!114 &2055256184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74558,7 +74559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d09419a6c1c2884f842b04286980e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableManagerScriptableObject: {fileID: 0}
+  interactableManagerScriptableObject: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
 --- !u!114 &2055256186
 MonoBehaviour:
   m_ObjectHideFlags: 0

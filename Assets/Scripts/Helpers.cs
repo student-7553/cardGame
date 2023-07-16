@@ -7,12 +7,13 @@ namespace Helpers
 {
 	public struct TypeAdjustingData
 	{
-		public List<int> removingCardIds;
+		// public List<int> removingCardIds;
+		public List<Card> removingCards;
 		public List<int> addingCardIds;
 
 		public void init()
 		{
-			this.removingCardIds = new List<int>();
+			this.removingCards = new List<Card>();
 			this.addingCardIds = new List<int>();
 		}
 	}
@@ -113,6 +114,31 @@ namespace Helpers
 			return ascTypeCardIds;
 		}
 
+		public static List<Card> getAscTypeValueCards(CardsTypes cardType, List<Card> cards)
+		{
+			List<Card> ascTypeCards = new List<Card>();
+			if (isNonValueTypeCard(cardType))
+			{
+				return ascTypeCards;
+			}
+
+			var populatedCards = cards
+				.Where(
+					(card) =>
+					{
+						return CardDictionary.globalCardDictionary.ContainsKey(card.id)
+							&& CardDictionary.globalCardDictionary[card.id].type == cardType;
+					}
+				)
+				.Select((card) => new { cardObject = CardDictionary.globalCardDictionary[card.id], card = card })
+				.OrderBy(o => o.cardObject.typeValue)
+				.ToList();
+
+			List<Card> returnCards = populatedCards.Select((populatedCard) => populatedCard.card).ToList();
+
+			return returnCards;
+		}
+
 		public static List<int> generateTypeValueCards(CardsTypes cardType, int value)
 		{
 			List<int> ascTypeCardIds = new List<int>();
@@ -181,15 +207,15 @@ namespace Helpers
 			return false;
 		}
 
-		public static TypeAdjustingData handleTypeAdjusting(List<int> availableCardIds, CardsTypes cardType, int requiredTypeValue)
+		public static TypeAdjustingData handleTypeAdjusting(List<Card> availableCards, CardsTypes cardType, int requiredTypeValue)
 		{
-			TypeAdjustingData returnData = new TypeAdjustingData { addingCardIds = new List<int>(), removingCardIds = new List<int>() };
+			TypeAdjustingData returnData = new TypeAdjustingData { addingCardIds = new List<int>(), removingCards = new List<Card>() };
 			int totalSum = 0;
-			List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
-			foreach (int typeCardId in ascTypeCardIds)
+			List<Card> ascTypeCards = CardHelpers.getAscTypeValueCards(cardType, availableCards);
+			foreach (Card singleCard in ascTypeCards)
 			{
-				returnData.removingCardIds.Add(typeCardId);
-				totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
+				returnData.removingCards.Add(singleCard);
+				totalSum = totalSum + CardDictionary.globalCardDictionary[singleCard.id].typeValue;
 				if (totalSum == requiredTypeValue)
 				{
 					break;
@@ -203,6 +229,23 @@ namespace Helpers
 				}
 			}
 			return returnData;
+		}
+
+		public static Dictionary<int, int> indexCardIds(List<int> requiredIds)
+		{
+			Dictionary<int, int> indexedRequiredIds = new Dictionary<int, int>();
+			foreach (int baseRequiredId in requiredIds)
+			{
+				if (indexedRequiredIds.ContainsKey(baseRequiredId))
+				{
+					indexedRequiredIds[baseRequiredId] = indexedRequiredIds[baseRequiredId] + 1;
+				}
+				else
+				{
+					indexedRequiredIds.Add(baseRequiredId, 1);
+				}
+			}
+			return indexedRequiredIds;
 		}
 	}
 

@@ -58,14 +58,15 @@ public class NodeHungerHandler : MonoBehaviour
 	{
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
 
-		if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
-		{
-			connectedNode.isActive = false;
-		}
-		else
-		{
-			StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
-		}
+		this.handleHunger(foodMinus);
+		// if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
+		// {
+		// 	connectedNode.isActive = false;
+		// }
+		// else
+		// {
+		// 	StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
+		// }
 	}
 
 	// private List<Card> getCloseFoods(int foodValue)
@@ -81,7 +82,7 @@ public class NodeHungerHandler : MonoBehaviour
 			)
 			.ToList();
 
-		List<int> allFoodCardIds = allFoodCards.Select((card) => card.id).ToList();
+		// List<int> allFoodCardIds = allFoodCards.Select((card) => card.id).ToList();
 
 		int allFoodValue = allFoodCards.Aggregate(0, (total, card) => total + CardDictionary.globalCardDictionary[card.id].typeValue);
 		if (allFoodValue < foodValue)
@@ -93,10 +94,14 @@ public class NodeHungerHandler : MonoBehaviour
 		List<Card> removingCards = new List<Card>();
 		List<Card> creatingCards = new List<Card>();
 
-		TypeAdjustingData foodAdjData = CardHelpers.handleTypeAdjusting(allFoodCardIds, CardsTypes.Food, foodValue);
-		// foodAdjData.removingCardIds.for
-		// data.addingCardIds.AddRange(goldData.addingCardIds);
-		// data.removingCardIds.AddRange(goldData.removingCardIds);
+		TypeAdjustingData foodAdjData = CardHelpers.handleTypeAdjusting(allFoodCards, CardsTypes.Food, foodValue);
+
+		foreach (Card card in foodAdjData.removingCards)
+		{
+			card.destroyCard();
+		}
+		List<Card> addingCards = this.connectedNode.handleCreatingCards(foodAdjData.addingCardIds);
+		this.connectedNode.ejectCards(addingCards);
 
 		return;
 	}

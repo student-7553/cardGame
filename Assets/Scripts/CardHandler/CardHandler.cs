@@ -24,7 +24,8 @@ public class CardHandler : MonoBehaviour
 
 	private EnemySpawer enemySpawner;
 
-	public InteractableManagerScriptableObject interactableManager;
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public StaticVariables staticVariables;
 
 	void Start()
 	{
@@ -62,7 +63,7 @@ public class CardHandler : MonoBehaviour
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		playerCardTracker.ensureCardIdTracked(cardId);
-		interactableManager.registerCard(newCard);
+		interactableManagerScriptableObject.registerCard(newCard);
 
 		this.tempCardHooks(cardId);
 
@@ -80,7 +81,9 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		ensureComponent<NodeProcess>(nodeGameObject);
-		ensureComponent<NodeHungerHandler>(nodeGameObject);
+		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
+		nodeHungerHandler.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
+		nodeHungerHandler.staticVariables = this.staticVariables;
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
 		newNodePlane.SetActive(false);
@@ -90,7 +93,7 @@ public class CardHandler : MonoBehaviour
 
 		newNode.init(nodePlane);
 
-		interactableManager.registerNode(newNode);
+		interactableManagerScriptableObject.registerNode(newNode);
 
 		return newNode;
 	}
