@@ -92,6 +92,8 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	private TextMeshPro titleTextMesh;
 
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+
 	// --------------------Readonly Stats-------------------------
 	public static float baseCardX = 5;
 	public static float baseCardY = 8;
@@ -118,7 +120,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public void moveCard(Vector3 newPosition)
 	{
-		gameObject.transform.position = newPosition;
+		this.gameObject.transform.position = newPosition;
 		this.computeCorners();
 	}
 
@@ -128,7 +130,8 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			this.isStacked = false;
 		}
-		Destroy(gameObject);
+		this.interactableManagerScriptableObject.removeCard(this);
+		Destroy(this.gameObject);
 	}
 
 	public void computeCorners()

@@ -15,9 +15,6 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private bool isInit = false;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
-	public StaticVariables staticVariables;
-
 	public void Awake()
 	{
 		intervalTimer = 0;
@@ -73,11 +70,11 @@ public class NodeHungerHandler : MonoBehaviour
 	private void handleHunger(int foodValue)
 	{
 		List<Card> foodCards = new List<Card>();
-		List<Card> allFoodCards = interactableManagerScriptableObject.cards
+		List<Card> allFoodCards = this.connectedNode.interactableManagerScriptableObject.cards
 			.Where(
 				(card) =>
 				{
-					return staticVariables.foodCardIds.Exists((foodCardId) => card.id == foodCardId);
+					return this.connectedNode.staticVariables.foodCardIds.Exists((foodCardId) => card.id == foodCardId);
 				}
 			)
 			.ToList();

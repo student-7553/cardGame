@@ -24,6 +24,16 @@ public class InteractableManagerScriptableObject : ScriptableObject
 		nodes.Add(nodeCard);
 	}
 
+	public void removeCard(Card newCard)
+	{
+		cards.Remove(newCard);
+	}
+
+	public void removeNode(Node nodeCard)
+	{
+		nodes.Remove(nodeCard);
+	}
+
 	public void setActiveNodePlane(NodePlaneHandler newNodePlaneHandler)
 	{
 		if (currentNodePlaneHandler != null && currentNodePlaneHandler != newNodePlaneHandler)

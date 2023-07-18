@@ -34,6 +34,10 @@ public class Node : MonoBehaviour, BaseNode
 
 	public NodePlaneHandler nodePlaneManager { get; set; }
 
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+
+	public StaticVariables staticVariables;
+
 	// -------------------- Node Stats -------------------------
 
 	public CardStack processCardStack { get; set; }
@@ -107,6 +111,8 @@ public class Node : MonoBehaviour, BaseNode
 	{
 		List<Card> allCards = new List<Card>(processCardStack.cards);
 		this.ejectCards(allCards);
+
+		this.interactableManagerScriptableObject.removeNode(this);
 
 		Destroy(nodePlaneManager.gameObject);
 		Destroy(this.gameObject);

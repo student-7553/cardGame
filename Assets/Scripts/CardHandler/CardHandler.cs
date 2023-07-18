@@ -58,7 +58,9 @@ public class CardHandler : MonoBehaviour
 
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
+		newCard.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
 		newCard.id = cardId;
+
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
@@ -78,12 +80,12 @@ public class CardHandler : MonoBehaviour
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
+		newNode.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
+		newNode.staticVariables = this.staticVariables;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		ensureComponent<NodeProcess>(nodeGameObject);
 		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
-		nodeHungerHandler.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
-		nodeHungerHandler.staticVariables = this.staticVariables;
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
 		newNodePlane.SetActive(false);

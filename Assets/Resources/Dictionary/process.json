@@ -156,13 +156,6 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [5],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        },
-        {
-          "odds": 0.075,
           "addingCardIds": [5, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
@@ -170,7 +163,7 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [4, 2],
+          "addingCardIds": [4, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -184,14 +177,14 @@
         },
         {
           "odds": 0.075,
-          "addingCardIds": [4],
+          "addingCardIds": [4, 2],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
           "id": 7236586,
-          "odds": 0.35,
+          "odds": 0.4,
           "addingCardIds": [2002, 9, 9, 10200, 10200],
           "extraUnlockCardIds": [],
           "isOneTime": true,
@@ -199,7 +192,7 @@
         },
         {
           "id": 1689686,
-          "odds": 0.35,
+          "odds": 0.4,
           "addingCardIds": [2006, 11, 11, 10200],
           "extraUnlockCardIds": [2002],
           "isOneTime": true,
@@ -207,7 +200,7 @@
         },
         {
           "id": 2338809,
-          "odds": 0.35,
+          "odds": 0.4,
           "addingCardIds": [2016, 12, 10200, 10200, 10200],
           "extraUnlockCardIds": [2006],
           "isOneTime": true,
@@ -215,7 +208,7 @@
         },
         {
           "id": 7236556,
-          "odds": 0.35,
+          "odds": 0.4,
           "addingCardIds": [2004, 10201, 12],
           "extraUnlockCardIds": [2016],
           "isOneTime": true,
@@ -401,7 +394,7 @@
         {
           "id": 9655323,
           "odds": 1000,
-          "addingCardIds": [1003, 20, 3003, 10001, 10201],
+          "addingCardIds": [1003, 20, 3003, 10001],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 3001
