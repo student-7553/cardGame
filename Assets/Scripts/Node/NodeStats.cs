@@ -97,8 +97,6 @@ public class NodeStats
 			{
 				case CardsTypes.Electricity:
 					calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
-					Debug.Log("Triggered.." + calcElectricity + "/" + id + "/" + cardIds.Count);
-					//
 					break;
 				case CardsTypes.Gold:
 					calcGold += CardDictionary.globalCardDictionary[id].typeValue;

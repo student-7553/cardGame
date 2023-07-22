@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: StaticVariables
   m_EditorClassIdentifier: 
   foodCardIds: d8270000d9270000da270000db270000
+  comboTimeMinus: 5

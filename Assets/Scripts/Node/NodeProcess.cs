@@ -16,14 +16,6 @@ public class NodeProcess : MonoBehaviour
 
 	public float proccessingLeft; // ********* sec, how many seconds are left for process to finish  *********
 
-	// ********* Readonly static variables *********
-
-	private readonly float processCooldown = 2f;
-
-	private readonly float sellTimer = 1f;
-
-	private readonly int bufferProcessingTime = 1;
-
 	private bool isInit = false;
 
 	public void Awake()
@@ -102,34 +94,6 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
-	// public void handleTypeAdjusting(
-	// 	List<int> availableCardIds,
-	// 	CardsTypes cardType,
-	// 	int requiredTypeValue,
-	// 	ref List<int> removingCardIds,
-	// 	ref List<int> addingCardIds
-	// )
-	// {
-	// 	int totalSum = 0;
-	// 	List<int> ascTypeCardIds = CardHelpers.getAscTypeValueCardIds(cardType, availableCardIds);
-	// 	foreach (int typeCardId in ascTypeCardIds)
-	// 	{
-	// 		removingCardIds.Add(typeCardId);
-	// 		totalSum = totalSum + CardDictionary.globalCardDictionary[typeCardId].typeValue;
-	// 		if (totalSum == requiredTypeValue)
-	// 		{
-	// 			break;
-	// 		}
-	// 		if (totalSum > requiredTypeValue)
-	// 		{
-	// 			int addingTypeValue = totalSum - requiredTypeValue;
-	// 			List<int> newCardIds = CardHelpers.generateTypeValueCards(cardType, addingTypeValue);
-	// 			addingCardIds.AddRange(newCardIds);
-	// 			break;
-	// 		}
-	// 	}
-	// }
-
 	private void handleMarketProcess()
 	{
 		Card sellingCard = node.processCardStack.cards.Find(
@@ -164,7 +128,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedProcess != null)
 		{
-			StartCoroutine(handleProcess(pickedProcess));
+			StartCoroutine(handleProcess(pickedProcess, false));
 		}
 		else
 		{
@@ -267,7 +231,7 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
-	private IEnumerator handleProcess(RawProcessObject pickedProcess)
+	private IEnumerator handleProcess(RawProcessObject pickedProcess, bool isCombo)
 	{
 		// List<int> removingCardIds = new List<int>();
 		List<int> addingCardIds = new List<int>();
@@ -301,24 +265,24 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		this.proccessingLeft = this.getProcessTime(pickedProcess);
+		this.proccessingLeft = this.getProcessTime(pickedProcess, isCombo);
 
-		if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
-		{
-			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
-				pickedProcess.time,
-				this.node.nodeStats.currentNodeStats.currentElectricity
-			);
-			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-			this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
-		}
+		// if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
+		// {
+		// 	int electricityRemove = this.getElectricityToRemoveFromProcessTime(
+		// 		pickedProcess.time,
+		// 		this.node.nodeStats.currentNodeStats.currentElectricity
+		// 	);
+		// 	StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+		// 	this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
+		// }
 
 		while (this.proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
 			this.proccessingLeft = this.proccessingLeft - 1;
 
-			if (this.proccessingLeft > this.bufferProcessingTime)
+			if (this.proccessingLeft > this.node.staticVariables.bufferProcessingTime)
 			{
 				// Is not in the buffer zone
 				if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
@@ -326,7 +290,8 @@ public class NodeProcess : MonoBehaviour
 					// electricity got updated
 					int electricityRemove = this.getElectricityToRemoveFromProcessTime(
 						(int)this.proccessingLeft,
-						this.node.nodeStats.currentNodeStats.currentElectricity
+						this.node.nodeStats.currentNodeStats.currentElectricity,
+						isCombo
 					);
 					StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
 					this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
@@ -383,7 +348,6 @@ public class NodeProcess : MonoBehaviour
 		);
 
 		node.ejectCards(ejectingCards);
-
 		node.consolidateTypeCards();
 
 		StartCoroutine(handleProcessCooldown());
@@ -453,7 +417,7 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
-	private int getProcessTime(RawProcessObject pickedProcess)
+	private int getProcessTime(RawProcessObject pickedProcess, bool isCombo)
 	{
 		List<int> minusIntervalModuleIds = node.processCardStack.getAllCardIdsOfMinusIntervalModules();
 		int processTime = pickedProcess.time;
@@ -463,10 +427,28 @@ public class NodeProcess : MonoBehaviour
 			{
 				processTime = Math.Max(
 					processTime - CardDictionary.globalCardDictionary[cardId].module.minusInterval.time,
-					bufferProcessingTime
+					// bufferProcessingTime
+					this.node.staticVariables.bufferProcessingTime
 				);
 			}
 		}
+
+		if (isCombo)
+		{
+			processTime = Math.Max(processTime - this.node.staticVariables.comboTimeFlatMinus, this.node.staticVariables.processingTimeMin);
+		}
+
+		if (this.node.nodeStats.currentNodeStats.currentElectricity > this.node.staticVariables.processingTimeMin)
+		{
+			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
+				pickedProcess.time,
+				this.node.nodeStats.currentNodeStats.currentElectricity,
+				false
+			);
+			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+			processTime = pickedProcess.time - this.electricityToTime(electricityRemove);
+		}
+
 		return processTime;
 	}
 
@@ -541,8 +523,24 @@ public class NodeProcess : MonoBehaviour
 	{
 		this.isProccessing = false;
 		this.isOnCooldown = true;
-		yield return new WaitForSeconds(processCooldown);
+
+		RawProcessObject nextProcess = this.getNextAvailableProcess();
+		if (nextProcess != null)
+		{
+			// Combo start
+			this.isOnCooldown = false;
+			StartCoroutine(handleProcess(nextProcess, true));
+			yield break;
+		}
+		yield return new WaitForSeconds(this.node.staticVariables.processCooldown);
 		this.isOnCooldown = false;
+	}
+
+	private RawProcessObject getNextAvailableProcess()
+	{
+		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
+		return pickedProcess;
 	}
 
 	private TypeAdjustingData handleProcessAdjustingCardIds(List<Card> activeCards, RawProcessObject pickedProcess)
@@ -583,9 +581,9 @@ public class NodeProcess : MonoBehaviour
 		int goldAmount = this.getGoldAmount(card.id);
 		List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
-		card.disableInteractiveForATime(sellTimer, CardDisableType.Process);
+		card.disableInteractiveForATime(this.node.staticVariables.sellTimer, CardDisableType.Process);
 
-		yield return new WaitForSeconds(sellTimer);
+		yield return new WaitForSeconds(this.node.staticVariables.sellTimer);
 
 		List<Card> removingCards = new List<Card> { card };
 
@@ -603,13 +601,13 @@ public class NodeProcess : MonoBehaviour
 		return CardDictionary.globalCardDictionary[cardId].sellingPrice;
 	}
 
-	private int getElectricityToRemoveFromProcessTime(int processTime, int currentElectricity)
+	private int getElectricityToRemoveFromProcessTime(int processTime, int currentElectricity, bool isCombo)
 	{
 		if (currentElectricity > 0)
 		{
-			if (this.timeToElectricity(processTime - bufferProcessingTime) <= currentElectricity)
+			if (this.timeToElectricity(processTime - this.node.staticVariables.bufferProcessingTime) <= currentElectricity)
 			{
-				return this.timeToElectricity(processTime - bufferProcessingTime);
+				return this.timeToElectricity(processTime - this.node.staticVariables.bufferProcessingTime);
 			}
 
 			return currentElectricity;
@@ -619,11 +617,13 @@ public class NodeProcess : MonoBehaviour
 
 	private int electricityToTime(int electricityValue)
 	{
-		return electricityValue * 10;
+		// return electricityValue
+		// 	* (isCombo ? (this.node.staticVariables.electricityTimeMinus) : this.node.staticVariables.electricityTimeMinus);
+		return electricityValue * this.node.staticVariables.electricityTimeMinus;
 	}
 
 	private int timeToElectricity(int timeSeconds)
 	{
-		return timeSeconds / 10;
+		return timeSeconds / this.node.staticVariables.electricityTimeMinus;
 	}
 }

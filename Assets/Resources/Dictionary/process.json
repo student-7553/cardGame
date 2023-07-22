@@ -608,6 +608,14 @@
       "time": 60,
       "addingCardObjects": [
         {
+          "id": 9333302,
+          "odds": 100000,
+          "addingCardIds": [3000, 10201],
+          "extraUnlockCardIds": [],
+          "isOneTime": true,
+          "updateCurrentNode": 0
+        },
+        {
           "odds": 1,
           "addingCardIds": [3000],
           "extraUnlockCardIds": [],
