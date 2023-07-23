@@ -35,8 +35,6 @@ public class NodeProcess : MonoBehaviour
 			return;
 		}
 
-		this.isProccessing = true;
-
 		if (node.isMarket())
 		{
 			// Market process
@@ -102,10 +100,8 @@ public class NodeProcess : MonoBehaviour
 
 		if (sellingCard == null)
 		{
-			this.isProccessing = false;
 			return;
 		}
-
 		StartCoroutine(sellCard(sellingCard));
 	}
 
@@ -146,6 +142,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (shouldBeActive)
 		{
+			this.isProccessing = true;
 			StartCoroutine(
 				this.queUpTypeDeletion(
 					CardsTypes.Food,
@@ -153,6 +150,7 @@ public class NodeProcess : MonoBehaviour
 					timer,
 					() =>
 					{
+						this.isProccessing = false;
 						node.isActive = true;
 						StartCoroutine(handleProcessCooldown());
 					}
@@ -233,7 +231,7 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcess(RawProcessObject pickedProcess, bool isCombo)
 	{
-		// List<int> removingCardIds = new List<int>();
+		this.isProccessing = true;
 		List<int> addingCardIds = new List<int>();
 
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
@@ -350,6 +348,8 @@ public class NodeProcess : MonoBehaviour
 		node.ejectCards(ejectingCards);
 		node.consolidateTypeCards();
 
+		this.isProccessing = false;
+
 		StartCoroutine(handleProcessCooldown());
 
 		AddingCardsObject pickAddingCardsObject(RawProcessObject pickedProcess)
@@ -362,9 +362,6 @@ public class NodeProcess : MonoBehaviour
 				{
 					if (addingCardObject.isOneTime)
 					{
-						// addingCardObject.id can't be inside CardTracker
-
-						// bool isOneTimeUnlocked = PlayerCardTracker.current.didPlayerUnlockOneTimeProcess(addingCardObject.id);
 						bool isOneTimeUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockOneTimeProcess(addingCardObject.id);
 						if (isOneTimeUnlocked)
 						{
@@ -521,9 +518,7 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcessCooldown()
 	{
-		this.isProccessing = false;
-		this.isOnCooldown = true;
-
+		// this.isProccessing = false;
 		RawProcessObject nextProcess = this.getNextAvailableProcess();
 		if (nextProcess != null)
 		{
@@ -532,6 +527,8 @@ public class NodeProcess : MonoBehaviour
 			StartCoroutine(handleProcess(nextProcess, true));
 			yield break;
 		}
+
+		this.isOnCooldown = true;
 		yield return new WaitForSeconds(this.node.staticVariables.processCooldown);
 		this.isOnCooldown = false;
 	}
@@ -573,6 +570,7 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator sellCard(Card card)
 	{
+		this.isProccessing = true;
 		if (card == null)
 		{
 			yield break;
@@ -617,8 +615,6 @@ public class NodeProcess : MonoBehaviour
 
 	private int electricityToTime(int electricityValue)
 	{
-		// return electricityValue
-		// 	* (isCombo ? (this.node.staticVariables.electricityTimeMinus) : this.node.staticVariables.electricityTimeMinus);
 		return electricityValue * this.node.staticVariables.electricityTimeMinus;
 	}
 
