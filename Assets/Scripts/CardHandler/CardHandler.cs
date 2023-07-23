@@ -27,6 +27,8 @@ public class CardHandler : MonoBehaviour
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 	public StaticVariables staticVariables;
 
+	public bool disableEnemySpawner = false;
+
 	void Start()
 	{
 		if (current != null)
@@ -161,7 +163,7 @@ public class CardHandler : MonoBehaviour
 	private void tempCardHooks(int cardId)
 	{
 		// card spawn triggers
-		if (cardId == 1004)
+		if (cardId == 1004 && this.disableEnemySpawner == false)
 		{
 			this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 		}
