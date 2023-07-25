@@ -56,8 +56,11 @@ public class CardStack
 			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
 
 			paddingCounter++;
-			singleCard.transform.position = newPostionForCardInSubject;
-			singleCard.computeCorners();
+			if (singleCard != null)
+			{
+				singleCard.transform.position = newPostionForCardInSubject;
+				singleCard.computeCorners();
+			}
 		}
 	}
 

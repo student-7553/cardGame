@@ -292,7 +292,7 @@ public class NodeProcess : MonoBehaviour
 						isCombo
 					);
 					StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-					this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
+					this.proccessingLeft = this.proccessingLeft - this.electricityToTime(electricityRemove);
 				}
 			}
 		}
