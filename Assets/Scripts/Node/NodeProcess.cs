@@ -193,7 +193,8 @@ public class NodeProcess : MonoBehaviour
 
 				bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
 
-				bool isRightNode = singleProcess.mustBeNodeId != 0 ? singleProcess.mustBeNodeId == nodeId : true;
+				// bool isRightNode = singleProcess.mustBeNodeId != 0 ? singleProcess.mustBeNodeId == nodeId : true;
+				bool isRightNode = this.getIfInRightNodePassed(singleProcess, nodeId);
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
 				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
 				bool electricityPassed =
@@ -228,6 +229,19 @@ public class NodeProcess : MonoBehaviour
 			}
 			return isAvailableToProcess;
 		}
+	}
+
+	bool getIfInRightNodePassed(RawProcessObject singleProcess, int nodeId)
+	{
+		if (singleProcess.nodeRequirement.mustBeNodeId != 0)
+		{
+			return singleProcess.nodeRequirement.mustBeNodeId == nodeId;
+		}
+		if (singleProcess.nodeRequirement.mustBeAtleastNodeId != 0)
+		{
+			return singleProcess.nodeRequirement.mustBeAtleastNodeId <= nodeId;
+		}
+		return true;
 	}
 
 	private IEnumerator handleProcess(RawProcessObject pickedProcess, bool isCombo)

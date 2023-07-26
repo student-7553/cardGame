@@ -127,12 +127,21 @@ namespace Core
 	}
 
 	[System.Serializable]
+	public class NodeRequirement
+	{
+		public int mustBeNodeId;
+		public int mustBeAtleastNodeId;
+	}
+
+	[System.Serializable]
 	public class RawProcessObject
 	{
 		public int id;
 		public int baseRequiredId;
 		public int[] unlockCardIds;
-		public int mustBeNodeId;
+
+		// public int mustBeNodeId;
+		public NodeRequirement nodeRequirement;
 		public int[] removingIds;
 		public int[] requiredIds;
 		public int requiredGold;
