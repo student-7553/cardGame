@@ -85,7 +85,7 @@ namespace Helpers
 
 	public static class CardHelpers
 	{
-		private static CardsTypes[] valueCardTypes = { CardsTypes.Electricity, CardsTypes.Gold, CardsTypes.Food };
+		public static CardsTypes[] valueCardTypes = { CardsTypes.Electricity, CardsTypes.Will, CardsTypes.Gold, CardsTypes.Food };
 
 		public static List<int> getAscTypeValueCardIds(CardsTypes cardType, List<int> cardIds)
 		{

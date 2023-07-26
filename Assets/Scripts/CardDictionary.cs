@@ -84,6 +84,9 @@ public static class CardDictionary
 			case "Electricity":
 				newEntry.type = CardsTypes.Electricity;
 				break;
+			case "Will":
+				newEntry.type = CardsTypes.Will;
+				break;
 			case "Food":
 				newEntry.type = CardsTypes.Food;
 				break;

@@ -40,6 +40,8 @@ public class CurrentNodeStats
 
 	public int currentElectricity;
 
+	public int currentWill;
+
 	public int currentGold;
 
 	public int goldGeneration;
@@ -84,6 +86,7 @@ public class NodeStats
 		int calcGoldGeneration = 0;
 		int calcHungerCheck = 0;
 		int calcElectricity = 0;
+		int calcWill = 0;
 		int calcGold = 0;
 		int calcFood = 0;
 
@@ -97,6 +100,9 @@ public class NodeStats
 			{
 				case CardsTypes.Electricity:
 					calcElectricity += CardDictionary.globalCardDictionary[id].typeValue;
+					break;
+				case CardsTypes.Will:
+					calcWill += CardDictionary.globalCardDictionary[id].typeValue;
 					break;
 				case CardsTypes.Gold:
 					calcGold += CardDictionary.globalCardDictionary[id].typeValue;
@@ -123,11 +129,7 @@ public class NodeStats
 		currentNodeStats.goldGeneration = baseNodeStat.goldGeneration + calcGoldGeneration;
 		currentNodeStats.currentFoodCheck = baseNodeStat.currentFoodCheck + calcHungerCheck;
 		currentNodeStats.currentElectricity = calcElectricity;
-		// if (currentNodeStats.currentElectricity > 0)
-		// {
-		// 	Debug.Log(currentNodeStats.currentElectricity);
-		// 	//
-		// }
+		currentNodeStats.currentWill = calcWill;
 		currentNodeStats.currentGold = calcGold;
 		currentNodeStats.currentFood = calcFood;
 	}

@@ -8,6 +8,8 @@ public class NodeCardQue : MonoBehaviour
 	public List<Card> queCards = new List<Card>();
 	private bool isProccessing = false;
 
+	private int overrideTimeCost = 0;
+
 	private void FixedUpdate()
 	{
 		if (!isProccessing && queCards.Count > 0)
@@ -28,9 +30,14 @@ public class NodeCardQue : MonoBehaviour
 		Card card = queCards[0];
 		isProccessing = true;
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
-
-		yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
-		// yield return null;
+		if (overrideTimeCost > 0)
+		{
+			yield return new WaitForSeconds(overrideTimeCost);
+		}
+		else
+		{
+			yield return new WaitForSeconds(cardObject.nodeTransferTimeCost);
+		}
 
 		card.isInteractiveDisabled = false;
 		isProccessing = false;

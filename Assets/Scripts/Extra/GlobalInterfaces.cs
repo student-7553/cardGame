@@ -56,6 +56,7 @@ namespace Core
 		Resource,
 		Gold,
 		Electricity,
+		Will,
 		Food,
 		Infrastructure,
 		Module,
@@ -136,6 +137,7 @@ namespace Core
 		public int[] requiredIds;
 		public int requiredGold;
 		public int requiredElectricity;
+		public int requiredWill;
 		public int time;
 		public AddingCardsObject[] addingCardObjects;
 	}

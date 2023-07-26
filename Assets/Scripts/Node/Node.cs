@@ -223,8 +223,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	public void consolidateTypeCards()
 	{
-		CardsTypes[] types = new CardsTypes[] { CardsTypes.Gold, CardsTypes.Electricity, CardsTypes.Food };
-		foreach (CardsTypes cardType in types)
+		foreach (CardsTypes cardType in CardHelpers.valueCardTypes)
 		{
 			List<int> cardIds = processCardStack.getTypeActiveCards(cardType);
 

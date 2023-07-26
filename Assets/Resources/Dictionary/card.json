@@ -218,13 +218,13 @@
     },
     {
       "id": 19,
-      "name": "Will",
-      "type": "Resource",
+      "name": "Will 1",
+      "type": "Will",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
       "sellingPrice": 1,
-      "typeValue": 0,
+      "typeValue": 1,
       "nodeTransferTimeCost": 1,
       "foodCost": 0
     },
@@ -286,6 +286,30 @@
       "sellingPrice": 30,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
+      "foodCost": 0
+    },
+    {
+      "id": 25,
+      "name": "Will 3",
+      "type": "Will",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 3,
+      "nodeTransferTimeCost": 1,
+      "foodCost": 0
+    },
+    {
+      "id": 26,
+      "name": "Will 6",
+      "type": "Will",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 6,
+      "nodeTransferTimeCost": 1,
       "foodCost": 0
     },
     {

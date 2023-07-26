@@ -239,9 +239,7 @@ public class CardStack
 		foreach (Card singleCard in cards)
 		{
 			if (
-				CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Gold
-				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Electricity
-				&& CardDictionary.globalCardDictionary[singleCard.id].type != CardsTypes.Food
+				CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleCard.id].type)
 				&& singleCard.isInteractiveDisabled == false
 			)
 			{

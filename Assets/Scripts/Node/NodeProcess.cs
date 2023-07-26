@@ -198,8 +198,9 @@ public class NodeProcess : MonoBehaviour
 				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
 				bool electricityPassed =
 					CardHelpers.getTypeValueFromCardIds(CardsTypes.Electricity, cardIds) >= singleProcess.requiredElectricity;
+				bool willPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Will, cardIds) >= singleProcess.requiredWill;
 
-				if (isUnlocked && isRightNode && ifRequiredCardsPassed && goldPassed && electricityPassed)
+				if (isUnlocked && isRightNode && ifRequiredCardsPassed && goldPassed && electricityPassed && willPassed)
 				{
 					possibleProcesses = singleProcess;
 					break;
@@ -264,16 +265,6 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		this.proccessingLeft = this.getProcessTime(pickedProcess, isCombo);
-
-		// if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
-		// {
-		// 	int electricityRemove = this.getElectricityToRemoveFromProcessTime(
-		// 		pickedProcess.time,
-		// 		this.node.nodeStats.currentNodeStats.currentElectricity
-		// 	);
-		// 	StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-		// 	this.proccessingLeft = pickedProcess.time - this.electricityToTime(electricityRemove);
-		// }
 
 		while (this.proccessingLeft > 0)
 		{
@@ -564,6 +555,13 @@ public class NodeProcess : MonoBehaviour
 			);
 			data.addingCardIds.AddRange(elcData.addingCardIds);
 			data.removingCards.AddRange(elcData.removingCards);
+		}
+
+		if (pickedProcess.requiredWill > 0)
+		{
+			TypeAdjustingData valueData = CardHelpers.handleTypeAdjusting(activeCards, CardsTypes.Electricity, pickedProcess.requiredWill);
+			data.addingCardIds.AddRange(valueData.addingCardIds);
+			data.removingCards.AddRange(valueData.removingCards);
 		}
 		return data;
 	}
