@@ -253,6 +253,7 @@
       "requiredIds": [],
       "removingIds": [],
       "requiredGold": 0,
+      "requiredWill": 1,
       "requiredElectricity": 0,
       "time": 15,
       "addingCardObjects": [
@@ -375,7 +376,7 @@
       "baseRequiredId": 3,
       "unlockCardIds": [],
       "nodeRequirement": {
-        "mustBeNodeId": 3000
+        "mustBeNodeIds": [3000]
       },
       "requiredIds": [2],
       "removingIds": [3, 2],
@@ -405,7 +406,7 @@
       "baseRequiredId": 10,
       "unlockCardIds": [2002],
       "nodeRequirement": {
-        "mustBeNodeId": 3001
+        "mustBeNodeIds": [3001]
       },
       "requiredIds": [3, 3],
       "removingIds": [10, 3, 3],
@@ -765,6 +766,9 @@
       "id": 28,
       "baseRequiredId": 20,
       "unlockCardIds": [],
+      "nodeRequirement": {
+        "mustBeNodeIds": [3000]
+      },
       "requiredIds": [],
       "removingIds": [],
       "requiredGold": 0,
@@ -869,6 +873,50 @@
         {
           "odds": 1,
           "addingCardIds": [1101],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "baseRequiredId": 20,
+      "unlockCardIds": [],
+      "nodeRequirement": {
+        "mustBeNodeIds": [3001]
+      },
+      "requiredIds": [],
+      "removingIds": [],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 4,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [25],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "baseRequiredId": 20,
+      "unlockCardIds": [],
+      "nodeRequirement": {
+        "mustBeNodeIds": [3002, 3004]
+      },
+      "requiredIds": [],
+      "removingIds": [],
+      "requiredGold": 0,
+      "requiredElectricity": 0,
+      "time": 4,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [26],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0

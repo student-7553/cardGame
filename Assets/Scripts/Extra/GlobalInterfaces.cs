@@ -129,8 +129,7 @@ namespace Core
 	[System.Serializable]
 	public class NodeRequirement
 	{
-		public int mustBeNodeId;
-		public int mustBeAtleastNodeId;
+		public int[] mustBeNodeIds;
 	}
 
 	[System.Serializable]
@@ -140,7 +139,6 @@ namespace Core
 		public int baseRequiredId;
 		public int[] unlockCardIds;
 
-		// public int mustBeNodeId;
 		public NodeRequirement nodeRequirement;
 		public int[] removingIds;
 		public int[] requiredIds;

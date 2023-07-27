@@ -183,6 +183,7 @@ public class CardStack
 			if (
 				CardDictionary.globalCardDictionary[singleCard.id].module != null
 				&& CardDictionary.globalCardDictionary[singleCard.id].module.minusInterval != null
+				&& CardDictionary.globalCardDictionary[singleCard.id].module.minusInterval.time != 0
 			)
 			{
 				modules.Add(singleCard.id);
