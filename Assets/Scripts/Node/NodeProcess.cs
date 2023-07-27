@@ -460,7 +460,14 @@ public class NodeProcess : MonoBehaviour
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
 		List<int> unityModuleCount = node.processCardStack.getAllCardIdsOfUnityModules();
-		int totalUnityValue = unityModuleCount.Aggregate(0, (total, next) => total + next);
+
+		int totalUnityValue = unityModuleCount.Aggregate(
+			0,
+			(total, cardId) =>
+			{
+				return total + CardDictionary.globalCardDictionary[cardId].module.unityCount;
+			}
+		);
 
 		if (pickedAddingCardObject.id == 5176)
 		{
