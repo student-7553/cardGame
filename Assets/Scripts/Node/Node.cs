@@ -216,7 +216,10 @@ public class Node : MonoBehaviour, BaseNode
 			for (int index = 0; index < cards.Count; index++)
 			{
 				yield return null;
-				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
+				if (cards[index] != null)
+				{
+					LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
+				}
 			}
 		}
 	}

@@ -224,18 +224,6 @@ public class LeftClickHandler : MonoBehaviour
 				return;
 			}
 
-			//
-			// GameObject bottomGameObject = this.findInteractableGameObject(draggingObjects[0].getCard());
-			// if (bottomGameObject != null)
-			// {
-			// 	draggingObjects[0].gameObject.transform.position = new Vector3(
-			// 		draggingObjects[0].gameObject.transform.position.x,
-			// 		draggingObjects[0].gameObject.transform.position.y,
-			// 		bottomGameObject.transform.position.z - 1f
-			// 	);
-			// 	return;
-			// }
-
 			draggingObjects[0].gameObject.transform.position = new Vector3(
 				draggingObjects[0].gameObject.transform.position.x,
 				draggingObjects[0].gameObject.transform.position.y,
