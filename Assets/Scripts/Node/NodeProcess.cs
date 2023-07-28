@@ -312,16 +312,22 @@ public class NodeProcess : MonoBehaviour
 			node.hadleRemovingCards(removingCards);
 			List<Card> addingCards = node.handleCreatingCards(addingCardIds);
 
-			ejectingCards.AddRange(
-				addingCards.Where(
-					(card) =>
-					{
-						return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
-							|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity
-							|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Will;
-					}
-				)
-			);
+			if (pickedProcess.id == 34 || pickedProcess.id == 35 || pickedProcess.id == 28)
+			{
+				ejectingCards.AddRange(addingCards);
+			}
+			else
+			{
+				ejectingCards.AddRange(
+					addingCards.Where(
+						(card) =>
+						{
+							return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
+								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity;
+						}
+					)
+				);
+			}
 		}
 		else
 		{
