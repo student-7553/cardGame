@@ -194,7 +194,7 @@
     },
     {
       "id": 17,
-      "name": "Infinite ice",
+      "name": "Infinite water",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -309,6 +309,18 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 4,
+      "nodeTransferTimeCost": 1,
+      "foodCost": 0
+    },
+    {
+      "id": 27,
+      "name": "Zenith",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 0,
       "nodeTransferTimeCost": 1,
       "foodCost": 0
     },
@@ -632,7 +644,7 @@
     },
     {
       "id": 2015,
-      "name": "[Idea] Infinite ice",
+      "name": "[Idea] Infinite water",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
