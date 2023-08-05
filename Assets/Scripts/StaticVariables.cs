@@ -21,4 +21,6 @@ public class StaticVariables : ScriptableObject
 	public int bufferProcessingTime = 1;
 
 	public int processingTimeMin = 1;
+
+	public float floatingTextDurationSec = 1f;
 }

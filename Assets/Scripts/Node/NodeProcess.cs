@@ -254,7 +254,8 @@ public class NodeProcess : MonoBehaviour
 			CardHandler.current.playerCardTracker.ensureOneTimeProcessTracked(pickedAddingCardObject.id);
 		}
 
-		addingCardIds.AddRange(this.getAddingCards(pickedAddingCardObject));
+		List<int> addingCardsFromProcess = GetAddingCards(pickedAddingCardObject);
+		addingCardIds.AddRange(addingCardsFromProcess);
 
 		List<Card> activeCards = node.processCardStack.getActiveCards();
 
@@ -278,6 +279,8 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		this.proccessingLeft = this.getProcessTime(pickedProcess, isCombo);
+
+		GameManager.current.SpawnFloatingText("COMBO", this.transform.position);
 
 		while (this.proccessingLeft > 0)
 		{
@@ -341,6 +344,11 @@ public class NodeProcess : MonoBehaviour
 		foreach (Card card in restNonInteractiveCards)
 		{
 			card.isInteractiveDisabled = false;
+		}
+
+		foreach (int newCardId in addingCardsFromProcess)
+		{
+			GameManager.current.SpawnFloatingText("[" + CardDictionary.globalCardDictionary[newCardId].name + "]", this.transform.position);
 		}
 
 		ejectingCards.AddRange(
@@ -460,7 +468,7 @@ public class NodeProcess : MonoBehaviour
 		return processTime;
 	}
 
-	private List<int> getAddingCards(AddingCardsObject pickedAddingCardObject)
+	private List<int> GetAddingCards(AddingCardsObject pickedAddingCardObject)
 	{
 		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
 		List<int> cardIds = node.processCardStack.getActiveCardIds();

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] nodes;
 	private GameObject[] enemyNodes;
 
-	// public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	private readonly GameObject floatingTextPrefab;
 
 	void Start()
 	{
@@ -24,10 +24,16 @@ public class GameManager : MonoBehaviour
 
 		gameSettings();
 		findTempLogic();
-		awakeGameLogic();
+		AwakeGameLogic();
 	}
 
-	private void awakeGameLogic()
+	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)
+	{
+		GameObject floatingTextObject = Instantiate(floatingTextPrefab, spawnLocation, Quaternion.identity);
+		floatingTextObject.GetComponent<FloatingText>().Run(floatingText);
+	}
+
+	private void AwakeGameLogic()
 	{
 		foreach (GameObject singleCard in cards)
 		{

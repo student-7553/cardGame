@@ -57,5 +57,6 @@
   },
   "[csharp]": {
     "editor.defaultFormatter": "csharpier.csharpier-vscode"
-  }
+  },
+  "dotnet.defaultSolution": "cardGame.sln"
 }
