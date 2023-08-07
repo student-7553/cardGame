@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] nodes;
 	private GameObject[] enemyNodes;
 
-	private readonly GameObject floatingTextPrefab;
+	public GameObject floatingTextPrefab;
 
 	void Start()
 	{
@@ -29,7 +29,17 @@ public class GameManager : MonoBehaviour
 
 	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)
 	{
-		GameObject floatingTextObject = Instantiate(floatingTextPrefab, spawnLocation, Quaternion.identity);
+		int heightMin = -2;
+		int heightMax = 2;
+
+		int widthMin = -2;
+		int widthMax = 2;
+
+		Vector3 newSpawnLocation =
+			(Vector3)spawnLocation + new Vector3(Random.Range(widthMin, widthMax), Random.Range(heightMin, heightMax), -8);
+
+		GameObject floatingTextObject = Instantiate(floatingTextPrefab, newSpawnLocation, Quaternion.identity);
+
 		floatingTextObject.GetComponent<FloatingText>().Run(floatingText);
 	}
 

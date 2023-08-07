@@ -520,7 +520,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 2005,
@@ -532,7 +532,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 0,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 2006,

@@ -280,7 +280,10 @@ public class NodeProcess : MonoBehaviour
 
 		this.proccessingLeft = this.getProcessTime(pickedProcess, isCombo);
 
-		GameManager.current.SpawnFloatingText("COMBO", this.transform.position);
+		if (isCombo)
+		{
+			GameManager.current.SpawnFloatingText("COMBO", this.transform.position);
+		}
 
 		while (this.proccessingLeft > 0)
 		{

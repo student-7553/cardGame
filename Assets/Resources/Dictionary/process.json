@@ -189,7 +189,7 @@
         {
           "id": 1689686,
           "odds": 0.4,
-          "addingCardIds": [2006, 11, 11, 10200],
+          "addingCardIds": [2006, 11, 11, 4],
           "extraUnlockCardIds": [2002],
           "isOneTime": true,
           "updateCurrentNode": 0
@@ -463,14 +463,14 @@
       "addingCardObjects": [
         {
           "odds": 0.1,
-          "addingCardIds": [6, 5, 12, 12],
+          "addingCardIds": [5, 5, 12, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
           "odds": 0.1,
-          "addingCardIds": [4, 4, 4, 4, 5],
+          "addingCardIds": [4, 4, 4, 4, 4, 4, 5],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -484,7 +484,7 @@
         },
         {
           "odds": 0.1,
-          "addingCardIds": [10201, 10002, 5, 5],
+          "addingCardIds": [10201, 4, 4, 5, 5],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0

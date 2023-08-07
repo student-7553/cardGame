@@ -13,13 +13,9 @@ public class FloatingText : MonoBehaviour
 
 	private TextMeshPro textMesh;
 
-	void Start()
-	{
-		textMesh = GetComponent<TextMeshPro>();
-	}
-
 	public void Run(string floatingText)
 	{
+		textMesh = GetComponent<TextMeshPro>();
 		textMesh.text = floatingText;
 		gameObject.transform
 			.DOMoveY(gameObject.transform.position.y + positonY, staticVariables.floatingTextDurationSec)
