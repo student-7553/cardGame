@@ -325,6 +325,18 @@
       "foodCost": 0
     },
     {
+      "id": 28,
+      "name": "Singular",
+      "type": "Resource",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 30,
+      "typeValue": 0,
+      "nodeTransferTimeCost": 1,
+      "foodCost": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
