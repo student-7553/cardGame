@@ -265,5 +265,7 @@ namespace Helpers
 		public static readonly float nodeBoardZ = -2f;
 
 		public static readonly float draggingBaseZ = -4f;
+
+		public static readonly float enemyNodeBaseZ = -9f;
 	}
 }

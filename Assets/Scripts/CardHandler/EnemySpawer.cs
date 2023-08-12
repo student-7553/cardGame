@@ -1,5 +1,6 @@
 // using System.Collections;
 // using System.Collections.Generic;
+using Helpers;
 using UnityEngine;
 
 public class EnemySpawer : MonoBehaviour
@@ -8,14 +9,14 @@ public class EnemySpawer : MonoBehaviour
 	private Vector2 boardSize;
 
 	private bool isActive = false;
-	private int spawnCardId = 21000;
+	private readonly int spawnCardId = 21000;
 
 	private float minSecTillSpawn;
 	private float maxSecTillSpawn;
 
 	private float timer;
 
-	private int edgeSpawnPadding = 10;
+	private readonly int edgeSpawnPadding = 10;
 
 	void Start()
 	{
@@ -30,20 +31,20 @@ public class EnemySpawer : MonoBehaviour
 		}
 	}
 
-	public void start(float _minSecTillSpawn, float _maxSecTillSpawn)
+	public void Run(float _minSecTillSpawn, float _maxSecTillSpawn)
 	{
 		minSecTillSpawn = _minSecTillSpawn;
 		maxSecTillSpawn = _maxSecTillSpawn;
 		isActive = true;
-		this.timer = this.getSpawnIntervel();
+		timer = GetSpawnIntervel();
 	}
 
-	public void stop()
+	public void StopRun()
 	{
 		isActive = false;
 	}
 
-	private float getSpawnIntervel()
+	private float GetSpawnIntervel()
 	{
 		return Random.Range(this.minSecTillSpawn, this.maxSecTillSpawn);
 	}
@@ -59,12 +60,12 @@ public class EnemySpawer : MonoBehaviour
 		// Debug.Log("[EnemySpawn] " + this.timer);
 		if (timer <= 0)
 		{
-			spawnTrigger();
-			this.timer = this.getSpawnIntervel();
+			SpawnTrigger();
+			this.timer = this.GetSpawnIntervel();
 		}
 	}
 
-	void spawnTrigger()
+	private void SpawnTrigger()
 	{
 		EnemyNode createdEnemyNode = CardHandler.current.createEnemyNode(spawnCardId);
 		createdEnemyNode.gameObject.transform.position = this.getEnemyNodeSpawnPoint();
@@ -72,7 +73,7 @@ public class EnemySpawer : MonoBehaviour
 
 	private Vector3 getEnemyNodeSpawnPoint()
 	{
-		Vector3 spawnPosition = new Vector3(0, 0, 0);
+		Vector3 spawnPosition = new Vector3(0, 0, HelperData.enemyNodeBaseZ);
 		if (Random.Range(-1f, 1f) > 0)
 		{
 			spawnPosition.y = Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);

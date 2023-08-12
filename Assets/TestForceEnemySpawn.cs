@@ -3,10 +3,12 @@ using UnityEngine;
 public class TestForceEnemySpawn : MonoBehaviour
 {
 	public EnemySpawer enemySpawner;
-	public Vector2Int enemySpawnInterval;
+
+	public int minEnemySpawnInterval;
+	public int maxEnemySpawnInterval;
 
 	void Start()
 	{
-		this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
+		enemySpawner.Run(minEnemySpawnInterval, maxEnemySpawnInterval);
 	}
 }

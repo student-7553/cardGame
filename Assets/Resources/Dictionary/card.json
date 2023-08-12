@@ -394,7 +394,7 @@
       "sellingPrice": 0,
       "typeValue": 0,
       "nodeTransferTimeCost": 15,
-      "foodCost": 1
+      "foodCost": 2
     },
     {
       "id": 1005,
@@ -406,7 +406,7 @@
       "sellingPrice": 5,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 1
+      "foodCost": 2
     },
     {
       "id": 1100,
@@ -433,7 +433,7 @@
       "sellingPrice": 10,
       "typeValue": 0,
       "nodeTransferTimeCost": 10,
-      "foodCost": 1,
+      "foodCost": 2,
       "module": {
         "unityCount": 1
       }

@@ -18,6 +18,7 @@ public class CardHandler : MonoBehaviour
 	public Sprite[] nodeSprites;
 
 	private Vector3 defaultCardPoint;
+	private Vector3 defaultNodePoint;
 	private Vector3 defaultNodePlanePositon = new Vector3(-75, 0, HelperData.nodeBoardZ);
 
 	public Vector2Int enemySpawnInterval;
@@ -39,12 +40,13 @@ public class CardHandler : MonoBehaviour
 		current = this;
 
 		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
+		defaultNodePoint = new Vector3(0, 0, HelperData.baseZ);
 		playerCardTracker = new PlayerCardTrackerObject();
 
-		this.enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
+		enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
 
 		// test enemySpawn  Comment out the bellow later
-		// this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
+		// enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -60,7 +62,7 @@ public class CardHandler : MonoBehaviour
 
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
-		newCard.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
+		newCard.interactableManagerScriptableObject = interactableManagerScriptableObject;
 		newCard.id = cardId;
 
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
@@ -69,7 +71,7 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker.ensureCardIdTracked(cardId);
 		interactableManagerScriptableObject.registerCard(newCard);
 
-		this.tempCardHooks(cardId);
+		tempCardHooks(cardId);
 
 		return newCard;
 	}
@@ -82,14 +84,14 @@ public class CardHandler : MonoBehaviour
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
-		newNode.interactableManagerScriptableObject = this.interactableManagerScriptableObject;
-		newNode.staticVariables = this.staticVariables;
+		newNode.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newNode.staticVariables = staticVariables;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		ensureComponent<NodeProcess>(nodeGameObject);
 		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
 
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
 		newNodePlane.SetActive(false);
 
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
@@ -113,7 +115,7 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<EnemyNodeProcess>(nodeGameObject);
 
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, this.defaultNodePlanePositon, Quaternion.identity);
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newEnemyNode);
 		newNodePlane.SetActive(false);
@@ -139,14 +141,14 @@ public class CardHandler : MonoBehaviour
 
 	public Node createNode(int cardId)
 	{
-		GameObject newNodeGameObject = Instantiate(nodePrefab);
-		return this.createNode(cardId, newNodeGameObject);
+		GameObject newNodeGameObject = Instantiate(nodePrefab, defaultNodePoint, Quaternion.identity);
+		return createNode(cardId, newNodeGameObject);
 	}
 
 	public EnemyNode createEnemyNode(int cardId)
 	{
 		GameObject newNodeGameObject = Instantiate(enemyNodePrefab);
-		return this.createEnemyNode(cardId, newNodeGameObject);
+		return createEnemyNode(cardId, newNodeGameObject);
 	}
 
 	private T ensureComponent<T>(GameObject gameObject) where T : Component
@@ -163,9 +165,9 @@ public class CardHandler : MonoBehaviour
 	private void tempCardHooks(int cardId)
 	{
 		// card spawn triggers
-		if (cardId == 1004 && this.disableEnemySpawner == false)
+		if (cardId == 1004 && disableEnemySpawner == false)
 		{
-			this.enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
+			enemySpawner.Run(enemySpawnInterval.x, enemySpawnInterval.y);
 		}
 	}
 }

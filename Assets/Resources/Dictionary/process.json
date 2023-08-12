@@ -527,9 +527,9 @@
       "id": 17,
       "baseRequiredId": 6,
       "unlockCardIds": [2006],
-      "requiredIds": [6, 6, 6, 6],
-      "removingIds": [6, 6, 6, 6, 6],
-      "requiredGold": 15,
+      "requiredIds": [6, 6, 6],
+      "removingIds": [6, 6, 6, 6],
+      "requiredGold": 10,
       "requiredElectricity": 0,
       "time": 25,
       "addingCardObjects": [
