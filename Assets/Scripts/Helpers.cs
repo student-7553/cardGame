@@ -13,8 +13,8 @@ namespace Helpers
 
 		public void init()
 		{
-			this.removingCards = new List<Card>();
-			this.addingCardIds = new List<int>();
+			removingCards = new List<Card>();
+			addingCardIds = new List<int>();
 		}
 	}
 

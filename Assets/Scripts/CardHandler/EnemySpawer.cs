@@ -8,13 +8,12 @@ public class EnemySpawer : MonoBehaviour
 	public GameObject boardPlaneGameObject;
 	private Vector2 boardSize;
 
-	private bool isActive = false;
+	public EnemySpawnerScriptableObject enemySpawnerScriptableObject;
+
 	private readonly int spawnCardId = 21000;
 
 	private float minSecTillSpawn;
 	private float maxSecTillSpawn;
-
-	private float timer;
 
 	private readonly int edgeSpawnPadding = 10;
 
@@ -35,13 +34,13 @@ public class EnemySpawer : MonoBehaviour
 	{
 		minSecTillSpawn = _minSecTillSpawn;
 		maxSecTillSpawn = _maxSecTillSpawn;
-		isActive = true;
-		timer = GetSpawnIntervel();
+		enemySpawnerScriptableObject.isEnabled = true;
+		enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 	}
 
 	public void StopRun()
 	{
-		isActive = false;
+		enemySpawnerScriptableObject.isEnabled = false;
 	}
 
 	private float GetSpawnIntervel()
@@ -51,17 +50,17 @@ public class EnemySpawer : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!isActive)
+		if (!enemySpawnerScriptableObject.isEnabled)
 		{
 			return;
 		}
 
-		this.timer = this.timer - Time.fixedDeltaTime;
-		// Debug.Log("[EnemySpawn] " + this.timer);
-		if (timer <= 0)
+		this.enemySpawnerScriptableObject.timer = this.enemySpawnerScriptableObject.timer - Time.fixedDeltaTime;
+		// Debug.Log("[EnemySpawn] " + this.enemySpawnerScriptableObject.timer);
+		if (enemySpawnerScriptableObject.timer <= 0)
 		{
 			SpawnTrigger();
-			this.timer = this.GetSpawnIntervel();
+			this.enemySpawnerScriptableObject.timer = this.GetSpawnIntervel();
 		}
 	}
 
