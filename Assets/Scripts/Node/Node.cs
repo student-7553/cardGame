@@ -50,9 +50,9 @@ public class Node : MonoBehaviour, BaseNode
 		set
 		{
 			_id = value;
-			if (this.nodeHungerHandler != null)
+			if (nodeHungerHandler != null)
 			{
-				this.nodeHungerHandler.intervalTimer = 0;
+				nodeHungerHandler.intervalTimer = 0;
 			}
 			nodeStats = new NodeStats(this);
 		}
@@ -110,12 +110,12 @@ public class Node : MonoBehaviour, BaseNode
 	public void killNode()
 	{
 		List<Card> allCards = new List<Card>(processCardStack.cards);
-		this.ejectCards(allCards);
+		ejectCards(allCards);
 
-		this.interactableManagerScriptableObject.removeNode(this);
+		interactableManagerScriptableObject.removeNode(this);
 
 		Destroy(nodePlaneManager.gameObject);
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 	}
 
 	public void stackOnThis(Card newCard, Node prevNode)
@@ -164,7 +164,6 @@ public class Node : MonoBehaviour, BaseNode
 			return;
 		}
 		processCardStack.removeCardsFromStack(removingCards);
-		// this.ejectCards(removingCards);
 
 		foreach (Card singleRemovingCard in removingCards)
 		{
@@ -204,6 +203,7 @@ public class Node : MonoBehaviour, BaseNode
 		for (int index = 0; index < cards.Count; index++)
 		{
 			cards[index].moveCard(basePosition);
+			cards[index].isInteractiveDisabled = false;
 		}
 		processCardStack.removeCardsFromStack(cards);
 		StartCoroutine(delayedDragFinish(cards));
@@ -234,20 +234,20 @@ public class Node : MonoBehaviour, BaseNode
 
 			List<int> generatingCardIds = CardHelpers.generateTypeValueCards(cardType, value);
 
-			List<int> newCardIds = this.getListEdge(generatingCardIds, cardIds);
+			List<int> newCardIds = getListEdge(generatingCardIds, cardIds);
 
-			List<int> removingCardIds = this.getListEdge(cardIds, generatingCardIds);
+			List<int> removingCardIds = getListEdge(cardIds, generatingCardIds);
 
-			List<Card> removingCards = this.processCardStack.getCards(removingCardIds);
+			List<Card> removingCards = processCardStack.getCards(removingCardIds);
 
 			if (removingCards.Count > 0)
 			{
-				this.hadleRemovingCards(removingCards);
+				hadleRemovingCards(removingCards);
 			}
 
 			if (newCardIds.Count > 0)
 			{
-				this.handleCreatingCards(newCardIds);
+				handleCreatingCards(newCardIds);
 			}
 		}
 	}

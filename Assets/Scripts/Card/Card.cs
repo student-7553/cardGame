@@ -109,7 +109,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 
-		this.computeCorners();
+		computeCorners();
 		cardDisable = new CardDisable();
 	}
 
@@ -120,18 +120,18 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public void moveCard(Vector3 newPosition)
 	{
-		this.gameObject.transform.position = newPosition;
-		this.computeCorners();
+		gameObject.transform.position = newPosition;
+		computeCorners();
 	}
 
 	public void destroyCard()
 	{
-		if (this.isStacked)
+		if (isStacked)
 		{
-			this.isStacked = false;
+			isStacked = false;
 		}
-		this.interactableManagerScriptableObject.removeCard(this);
-		Destroy(this.gameObject);
+		interactableManagerScriptableObject.removeCard(this);
+		Destroy(gameObject);
 	}
 
 	public void computeCorners()
@@ -140,7 +140,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			return;
 		}
-		this.corners = this.generateTheCorners();
+		corners = generateTheCorners();
 	}
 
 	public void addToCardStack(CardStack newCardStack)
