@@ -112,6 +112,7 @@ public class CardHandler : MonoBehaviour
 
 		EnemyNode newEnemyNode = ensureComponent<EnemyNode>(nodeGameObject);
 		newEnemyNode.id = cardId;
+		newEnemyNode.interactableManagerScriptableObject = interactableManagerScriptableObject;
 
 		ensureComponent<EnemyNodeProcess>(nodeGameObject);
 

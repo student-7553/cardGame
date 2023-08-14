@@ -881,7 +881,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
-      "nodeTransferTimeCost": 45,
+      "nodeTransferTimeCost": 8,
       "foodCost": 0
     }
   ]

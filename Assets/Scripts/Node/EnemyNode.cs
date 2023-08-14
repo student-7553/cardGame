@@ -18,16 +18,12 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	public NodePlaneHandler nodePlaneManager { get; set; }
 
-	[System.NonSerialized]
+	[NonSerialized]
 	public EnemyNodeTextHandler enemyNodeTextHandler;
-
-	private float detonationTime;
 
 	public float proccessingLeft;
 
 	public int powerValue;
-
-	private LayerMask interactableLayerMask;
 
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
@@ -42,7 +38,6 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		processCardStack.originPointAdjustment = new Vector3(0f, 35f, 0);
 
 		isActive = true;
-		interactableLayerMask = LayerMask.GetMask("Interactable");
 
 		enemyNodeTextHandler = new EnemyNodeTextHandler(this);
 	}
@@ -63,7 +58,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 			if (!value && _isActive)
 			{
 				Destroy(nodePlaneManager.gameObject);
-				Destroy(this.gameObject);
+				Destroy(gameObject);
 			}
 			_isActive = value;
 		}
@@ -72,15 +67,15 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	public void stackOnThis(Card newCard, Node prevNode)
 	{
 		processCardStack.addCardToStack(newCard);
-		this.checkIfDead();
+		checkIfDead();
 	}
 
 	private void checkIfDead()
 	{
-		float currentTotalFighterValue = this.getCurrentFigherValue();
+		float currentTotalFighterValue = getCurrentFigherValue();
 		if (currentTotalFighterValue >= CardDictionary.globalCardDictionary[id].typeValue)
 		{
-			this.killNode();
+			killNode();
 			// dead
 		}
 	}
@@ -100,23 +95,23 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	public void init(NodePlaneHandler nodePlane, float detonationTime)
 	{
 		nodePlaneManager = nodePlane;
-		this.proccessingLeft = detonationTime;
-		this.powerValue = CardDictionary.globalCardDictionary[id].typeValue;
+		proccessingLeft = detonationTime;
+		powerValue = CardDictionary.globalCardDictionary[id].typeValue;
 
 		StartCoroutine(enemyNodeDetonation());
 	}
 
 	public IEnumerator enemyNodeDetonation()
 	{
-		while (this.proccessingLeft > 0)
+		while (proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
-			this.proccessingLeft = this.proccessingLeft - 1f;
+			proccessingLeft = proccessingLeft - 1f;
 		}
 
 		if (isActive)
 		{
-			Node nearestNode = this.getNearestNode();
+			Node nearestNode = getNearestNode();
 			if (nearestNode)
 			{
 				nearestNode.killNode();
@@ -136,11 +131,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 			if (closestNode == null)
 			{
 				closestNode = node;
-				currentNodeDistance = this.getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
+				currentNodeDistance = getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
 				continue;
 			}
 
-			float distance = this.getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
+			float distance = getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
 			if (distance < currentNodeDistance)
 			{
 				closestNode = node;
@@ -177,11 +172,8 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	public void killNode()
 	{
-		// List<Card> allCards = new List<Card>(processCardStack.cards);
-		// this.ejectCards(allCards);
-
 		Destroy(nodePlaneManager.gameObject);
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 	}
 
 	public Card getCard()
