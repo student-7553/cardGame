@@ -295,7 +295,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 1,
+      "sellingPrice": 2,
       "typeValue": 2,
       "nodeTransferTimeCost": 1,
       "foodCost": 0
@@ -307,7 +307,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 1,
+      "sellingPrice": 4,
       "typeValue": 4,
       "nodeTransferTimeCost": 1,
       "foodCost": 0
