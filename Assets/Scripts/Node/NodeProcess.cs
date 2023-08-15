@@ -30,7 +30,7 @@ public class NodeProcess : MonoBehaviour
 			return;
 		}
 
-		if (!this.isAvailableForNextProcess())
+		if (!isAvailableForNextProcess())
 		{
 			return;
 		}
@@ -38,12 +38,12 @@ public class NodeProcess : MonoBehaviour
 		if (node.isMarket())
 		{
 			// Market process
-			this.handleMarketProcess();
+			handleMarketProcess();
 		}
 		else
 		{
 			// Node process
-			this.handleNodeProcess();
+			handleNodeProcess();
 		}
 	}
 
@@ -94,9 +94,7 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleMarketProcess()
 	{
-		Card sellingCard = node.processCardStack.cards.Find(
-			(card) => CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
-		);
+		Card sellingCard = node.processCardStack.cards.Find((card) => CardDictionary.globalCardDictionary[card.id].type != CardsTypes.Gold);
 
 		if (sellingCard == null)
 		{
@@ -109,18 +107,18 @@ public class NodeProcess : MonoBehaviour
 	{
 		if (node.isActive)
 		{
-			this.handleActiveNodeProcess();
+			handleActiveNodeProcess();
 		}
 		else
 		{
-			this.handleInActiveNodeProcess();
+			handleInActiveNodeProcess();
 		}
 	}
 
 	private void handleActiveNodeProcess()
 	{
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
-		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
+		RawProcessObject pickedProcess = getAvailableProcess(cardIds, node.id);
 
 		if (pickedProcess != null)
 		{
@@ -142,15 +140,15 @@ public class NodeProcess : MonoBehaviour
 
 		if (shouldBeActive)
 		{
-			this.isProccessing = true;
+			isProccessing = true;
 			StartCoroutine(
-				this.queUpTypeDeletion(
+				queUpTypeDeletion(
 					CardsTypes.Food,
 					foodNeededToBeActive,
 					timer,
 					() =>
 					{
-						this.isProccessing = false;
+						isProccessing = false;
 						node.isActive = true;
 						StartCoroutine(handleProcessCooldown());
 					}
@@ -193,7 +191,7 @@ public class NodeProcess : MonoBehaviour
 
 				bool isUnlocked = CardHandler.current.playerCardTracker.didPlayerUnlockCards(singleProcess.unlockCardIds);
 
-				bool isRightNode = this.getIfInRightNodePassed(singleProcess, nodeId);
+				bool isRightNode = getIfInRightNodePassed(singleProcess, nodeId);
 				bool ifRequiredCardsPassed = getIfRequiredCardsPassed(indexedRequiredIds, clonedCardIds);
 				bool goldPassed = CardHelpers.getTypeValueFromCardIds(CardsTypes.Gold, cardIds) >= singleProcess.requiredGold;
 				bool electricityPassed =
@@ -245,7 +243,7 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcess(RawProcessObject pickedProcess, bool isCombo)
 	{
-		this.isProccessing = true;
+		isProccessing = true;
 		List<int> addingCardIds = new List<int>();
 
 		AddingCardsObject pickedAddingCardObject = pickAddingCardsObject(pickedProcess);
@@ -259,7 +257,7 @@ public class NodeProcess : MonoBehaviour
 
 		List<Card> activeCards = node.processCardStack.getActiveCards();
 
-		TypeAdjustingData adjData = this.handleProcessAdjustingCardIds(activeCards, pickedProcess);
+		TypeAdjustingData adjData = handleProcessAdjustingCardIds(activeCards, pickedProcess);
 
 		addingCardIds.AddRange(adjData.addingCardIds);
 
@@ -278,31 +276,31 @@ public class NodeProcess : MonoBehaviour
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
 
-		this.proccessingLeft = this.getProcessTime(pickedProcess, isCombo);
+		proccessingLeft = getProcessTime(pickedProcess, isCombo);
 
 		if (isCombo)
 		{
-			GameManager.current.SpawnFloatingText("COMBO", this.transform.position);
+			GameManager.current.SpawnFloatingText("COMBO", transform.position);
 		}
 
-		while (this.proccessingLeft > 0)
+		while (proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
-			this.proccessingLeft = this.proccessingLeft - 1;
+			proccessingLeft = proccessingLeft - 1;
 
-			if (this.proccessingLeft > this.node.staticVariables.bufferProcessingTime)
+			if (proccessingLeft > node.staticVariables.bufferProcessingTime)
 			{
 				// Is not in the buffer zone
-				if (this.node.nodeStats.currentNodeStats.currentElectricity > 0)
+				if (node.nodeStats.currentNodeStats.currentElectricity > 0)
 				{
 					// electricity got updated
-					int electricityRemove = this.getElectricityToRemoveFromProcessTime(
-						(int)this.proccessingLeft,
-						this.node.nodeStats.currentNodeStats.currentElectricity,
+					int electricityRemove = getElectricityToRemoveFromProcessTime(
+						(int)proccessingLeft,
+						node.nodeStats.currentNodeStats.currentElectricity,
 						isCombo
 					);
-					StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-					this.proccessingLeft = this.proccessingLeft - this.electricityToTime(electricityRemove);
+					StartCoroutine(queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+					proccessingLeft = proccessingLeft - electricityToTime(electricityRemove);
 				}
 			}
 		}
@@ -351,7 +349,7 @@ public class NodeProcess : MonoBehaviour
 
 		foreach (int newCardId in addingCardsFromProcess)
 		{
-			GameManager.current.SpawnFloatingText("[" + CardDictionary.globalCardDictionary[newCardId].name + "]", this.transform.position);
+			GameManager.current.SpawnFloatingText("[" + CardDictionary.globalCardDictionary[newCardId].name + "]", transform.position);
 		}
 
 		ejectingCards.AddRange(
@@ -370,7 +368,7 @@ public class NodeProcess : MonoBehaviour
 		node.ejectCards(ejectingCards);
 		node.consolidateTypeCards();
 
-		this.isProccessing = false;
+		isProccessing = false;
 
 		StartCoroutine(handleProcessCooldown());
 
@@ -447,25 +445,25 @@ public class NodeProcess : MonoBehaviour
 				processTime = Math.Max(
 					processTime - CardDictionary.globalCardDictionary[cardId].module.minusInterval.time,
 					// bufferProcessingTime
-					this.node.staticVariables.bufferProcessingTime
+					node.staticVariables.bufferProcessingTime
 				);
 			}
 		}
 
 		if (isCombo)
 		{
-			processTime = Math.Max(processTime - this.node.staticVariables.comboTimeFlatMinus, this.node.staticVariables.processingTimeMin);
+			processTime = Math.Max(processTime - node.staticVariables.comboTimeFlatMinus, node.staticVariables.processingTimeMin);
 		}
 
-		if (this.node.nodeStats.currentNodeStats.currentElectricity > this.node.staticVariables.processingTimeMin)
+		if (node.nodeStats.currentNodeStats.currentElectricity > node.staticVariables.processingTimeMin)
 		{
-			int electricityRemove = this.getElectricityToRemoveFromProcessTime(
+			int electricityRemove = getElectricityToRemoveFromProcessTime(
 				pickedProcess.time,
-				this.node.nodeStats.currentNodeStats.currentElectricity,
+				node.nodeStats.currentNodeStats.currentElectricity,
 				false
 			);
-			StartCoroutine(this.queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-			processTime = pickedProcess.time - this.electricityToTime(electricityRemove);
+			StartCoroutine(queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+			processTime = pickedProcess.time - electricityToTime(electricityRemove);
 		}
 
 		return processTime;
@@ -547,25 +545,25 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcessCooldown()
 	{
-		// this.isProccessing = false;
-		RawProcessObject nextProcess = this.getNextAvailableProcess();
+		// isProccessing = false;
+		RawProcessObject nextProcess = getNextAvailableProcess();
 		if (nextProcess != null)
 		{
 			// Combo start
-			this.isOnCooldown = false;
+			isOnCooldown = false;
 			StartCoroutine(handleProcess(nextProcess, true));
 			yield break;
 		}
 
-		this.isOnCooldown = true;
-		yield return new WaitForSeconds(this.node.staticVariables.processCooldown);
-		this.isOnCooldown = false;
+		isOnCooldown = true;
+		yield return new WaitForSeconds(node.staticVariables.processCooldown);
+		isOnCooldown = false;
 	}
 
 	private RawProcessObject getNextAvailableProcess()
 	{
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
-		RawProcessObject pickedProcess = this.getAvailableProcess(cardIds, node.id);
+		RawProcessObject pickedProcess = getAvailableProcess(cardIds, node.id);
 		return pickedProcess;
 	}
 
@@ -574,7 +572,7 @@ public class NodeProcess : MonoBehaviour
 		TypeAdjustingData data = new TypeAdjustingData();
 		data.init();
 
-		List<Card> processRemovingCard = this.node.processCardStack.getCards(pickedProcess.removingIds.ToList());
+		List<Card> processRemovingCard = node.processCardStack.getCards(pickedProcess.removingIds.ToList());
 		data.removingCards.AddRange(processRemovingCard);
 
 		if (pickedProcess.requiredGold > 0)
@@ -606,18 +604,18 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator sellCard(Card card)
 	{
-		this.isProccessing = true;
+		isProccessing = true;
 		if (card == null)
 		{
 			yield break;
 		}
 
-		int goldAmount = this.getGoldAmount(card.id);
+		int goldAmount = getGoldAmount(card.id);
 		List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
-		card.disableInteractiveForATime(this.node.staticVariables.sellTimer, CardDisableType.Process);
+		card.disableInteractiveForATime(node.staticVariables.sellTimer, CardDisableType.Process);
 
-		yield return new WaitForSeconds(this.node.staticVariables.sellTimer);
+		yield return new WaitForSeconds(node.staticVariables.sellTimer);
 
 		List<Card> removingCards = new List<Card> { card };
 
@@ -639,9 +637,9 @@ public class NodeProcess : MonoBehaviour
 	{
 		if (currentElectricity > 0)
 		{
-			if (this.timeToElectricity(processTime - this.node.staticVariables.bufferProcessingTime) <= currentElectricity)
+			if (timeToElectricity(processTime - node.staticVariables.bufferProcessingTime) <= currentElectricity)
 			{
-				return this.timeToElectricity(processTime - this.node.staticVariables.bufferProcessingTime);
+				return timeToElectricity(processTime - node.staticVariables.bufferProcessingTime);
 			}
 
 			return currentElectricity;
@@ -651,11 +649,11 @@ public class NodeProcess : MonoBehaviour
 
 	private int electricityToTime(int electricityValue)
 	{
-		return electricityValue * this.node.staticVariables.electricityTimeMinus;
+		return electricityValue * node.staticVariables.electricityTimeMinus;
 	}
 
 	private int timeToElectricity(int timeSeconds)
 	{
-		return timeSeconds / this.node.staticVariables.electricityTimeMinus;
+		return timeSeconds / node.staticVariables.electricityTimeMinus;
 	}
 }

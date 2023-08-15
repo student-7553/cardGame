@@ -198,9 +198,7 @@ namespace Helpers
 
 		public static bool isNonValueTypeCard(CardsTypes cardType)
 		{
-			List<int> ascTypeCardIds = new List<int>();
-			List<CardsTypes> listAllowedCardTypes = new List<CardsTypes>(valueCardTypes);
-			if (!listAllowedCardTypes.Contains(cardType))
+			if (!valueCardTypes.Contains(cardType))
 			{
 				return true;
 			}

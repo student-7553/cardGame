@@ -818,8 +818,8 @@
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 4,
       "typeValue": 1,
       "nodeTransferTimeCost": 3,
       "foodCost": 0
@@ -830,8 +830,8 @@
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 20,
       "typeValue": 5,
       "nodeTransferTimeCost": 15,
       "foodCost": 0
@@ -842,8 +842,8 @@
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 100,
       "typeValue": 25,
       "nodeTransferTimeCost": 30,
       "foodCost": 0
