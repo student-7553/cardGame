@@ -128,7 +128,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		float currentNodeDistance = 0;
 		foreach (Node node in interactableManagerScriptableObject.nodes)
 		{
-			if (closestNode == null)
+			if (closestNode == null && !node.isMarket())
 			{
 				closestNode = node;
 				currentNodeDistance = getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
@@ -136,7 +136,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 			}
 
 			float distance = getDistanceBetweenTwoPoints(node.transform.position, currentNodePosition);
-			if (distance < currentNodeDistance)
+			if (distance < currentNodeDistance && !node.isMarket())
 			{
 				closestNode = node;
 				currentNodeDistance = distance;
