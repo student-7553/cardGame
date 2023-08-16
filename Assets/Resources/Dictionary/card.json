@@ -781,8 +781,8 @@
       "type": "Electricity",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 2,
       "typeValue": 1,
       "nodeTransferTimeCost": 0.1,
       "foodCost": 0
@@ -793,8 +793,8 @@
       "type": "Electricity",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 13,
       "typeValue": 5,
       "nodeTransferTimeCost": 0.1,
       "foodCost": 0
@@ -805,8 +805,8 @@
       "type": "Electricity",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
-      "isSellable": false,
-      "sellingPrice": 0,
+      "isSellable": true,
+      "sellingPrice": 100,
       "typeValue": 25,
       "nodeTransferTimeCost": 0.1,
       "foodCost": 0
