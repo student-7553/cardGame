@@ -956,6 +956,227 @@
           "updateCurrentNode": 0
         }
       ]
+    },
+    {
+      "id": 38,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [6],
+      "removingIds": [29, 6],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1104],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [10],
+      "removingIds": [29, 10],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1105],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [2],
+      "removingIds": [29, 2],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1106],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [19],
+      "removingIds": [29, 19],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1107],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [25],
+      "removingIds": [29, 25],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1107],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [26],
+      "removingIds": [29, 26],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1107],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [10100],
+      "removingIds": [29, 10100],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1108],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [10101],
+      "removingIds": [29, 10101],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1108],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [10102],
+      "removingIds": [29, 10102],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1108],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [4],
+      "removingIds": [29, 4],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1109],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [5],
+      "removingIds": [29, 5],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1109],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [12],
+      "removingIds": [29, 12],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1109],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "baseRequiredId": 29,
+      "unlockCardIds": [],
+      "requiredIds": [9],
+      "removingIds": [29, 9],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1110],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
     }
   ]
 }
