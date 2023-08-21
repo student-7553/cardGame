@@ -16,6 +16,7 @@ public class MagneticModuleManager : MonoBehaviour
 		selfIntervelTimer = selfIntervelTimer + Time.fixedDeltaTime;
 		if (selfIntervelTimer > staticVariables.magnetizedIntervel)
 		{
+			selfIntervelTimer = 0;
 			run();
 		}
 	}
@@ -43,6 +44,7 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void handleMagnetizeCard(Node node, Card targetMagnetCard)
 	{
+		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime,CardDisableType.AutoMoving);
 		Vector3 targetNodePosition = node.transform.position;
 		transform
 			.DOMove(targetNodePosition, magnetizeMoveTime)
