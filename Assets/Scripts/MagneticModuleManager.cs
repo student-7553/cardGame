@@ -44,6 +44,7 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void handleMagnetizeCard(Node node, Card targetMagnetCard)
 	{
+		targetMagnetCard.isStacked = false;
 		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime,CardDisableType.AutoMoving);
 		Vector3 targetNodePosition = node.transform.position;
 		transform
