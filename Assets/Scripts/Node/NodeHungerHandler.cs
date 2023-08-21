@@ -4,8 +4,6 @@ using Helpers;
 using System.Linq;
 using System.Collections.Generic;
 
-// using System.Collections;
-
 public class NodeHungerHandler : MonoBehaviour
 {
 	private Node connectedNode;
@@ -47,7 +45,7 @@ public class NodeHungerHandler : MonoBehaviour
 		if (intervalTimer > connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer)
 		{
 			intervalTimer = 0;
-			this.handleHungerInterval();
+			handleHungerInterval();
 		}
 	}
 
@@ -55,7 +53,7 @@ public class NodeHungerHandler : MonoBehaviour
 	{
 		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
 
-		this.handleHunger(foodMinus);
+		handleHunger(foodMinus);
 		// if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
 		// {
 		// 	connectedNode.isActive = false;
@@ -70,11 +68,11 @@ public class NodeHungerHandler : MonoBehaviour
 	private void handleHunger(int foodValue)
 	{
 		List<Card> foodCards = new List<Card>();
-		List<Card> allFoodCards = this.connectedNode.interactableManagerScriptableObject.cards
+		List<Card> allFoodCards = connectedNode.interactableManagerScriptableObject.cards
 			.Where(
 				(card) =>
 				{
-					return this.connectedNode.staticVariables.foodCardIds.Exists((foodCardId) => card.id == foodCardId);
+					return connectedNode.staticVariables.foodCardIds.Exists((foodCardId) => card.id == foodCardId);
 				}
 			)
 			.ToList();
@@ -97,8 +95,8 @@ public class NodeHungerHandler : MonoBehaviour
 		{
 			card.destroyCard();
 		}
-		List<Card> addingCards = this.connectedNode.handleCreatingCards(foodAdjData.addingCardIds);
-		this.connectedNode.ejectCards(addingCards);
+		List<Card> addingCards = connectedNode.handleCreatingCards(foodAdjData.addingCardIds);
+		connectedNode.ejectCards(addingCards);
 
 		return;
 	}

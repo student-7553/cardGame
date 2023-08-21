@@ -21,3 +21,4 @@ MonoBehaviour:
   bufferProcessingTime: 1
   processingTimeMin: 1
   floatingTextDurationSec: 1.5
+  magnetizedIntervel: 5

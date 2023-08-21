@@ -25,16 +25,15 @@ public enum CardDisableType
 	Que,
 	Process,
 	Dead,
+	AutoMoving
 }
 
 public class CardDisable
 {
 	public CardDisableType? disableType;
-	public float timer;
 
 	public CardDisable()
 	{
-		timer = 0;
 		disableType = null;
 	}
 }
@@ -67,6 +66,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 	public CardStack joinedStack;
 
 	private bool _isStacked = false;
+
 	public bool isStacked
 	{
 		get { return _isStacked; }
@@ -194,7 +194,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public void disableInteractiveForATime(float timer, CardDisableType disableType)
 	{
-		cardDisable.timer = timer;
 		cardDisable.disableType = disableType;
 		isInteractiveDisabled = true;
 	}

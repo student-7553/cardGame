@@ -23,4 +23,6 @@ public class StaticVariables : ScriptableObject
 	public int processingTimeMin = 1;
 
 	public float floatingTextDurationSec = 1f;
+
+	public float magnetizedIntervel = 5f;
 }
