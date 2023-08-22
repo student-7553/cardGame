@@ -327,7 +327,8 @@ public class NodeProcess : MonoBehaviour
 						(card) =>
 						{
 							return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
-								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity;
+								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity
+								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Food;
 						}
 					)
 				);

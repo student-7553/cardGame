@@ -1180,10 +1180,10 @@
     },
     {
       "id": 51,
-      "baseRequiredId": 6,
+      "baseRequiredId": 15,
       "unlockCardIds": [],
-      "requiredIds": [10, 16],
-      "removingIds": [6, 10, 16],
+      "requiredIds": [16],
+      "removingIds": [15, 16],
       "time": 10,
       "addingCardObjects": [
         {
