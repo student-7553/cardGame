@@ -1177,6 +1177,23 @@
           "updateCurrentNode": 0
         }
       ]
+    },
+    {
+      "id": 51,
+      "baseRequiredId": 6,
+      "unlockCardIds": [],
+      "requiredIds": [10, 16],
+      "removingIds": [6, 10, 16],
+      "time": 10,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [29],
+          "extraUnlockCardIds": [],
+          "isOneTime": false,
+          "updateCurrentNode": 0
+        }
+      ]
     }
   ]
 }
