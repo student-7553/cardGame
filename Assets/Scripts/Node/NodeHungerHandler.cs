@@ -51,20 +51,9 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void handleHungerInterval()
 	{
-		int foodMinus = connectedNode.nodeStats.currentNodeStats.currentFoodCheck;
-
-		handleHunger(foodMinus);
-		// if (connectedNode.nodeStats.currentNodeStats.currentFood - foodMinus <= 0)
-		// {
-		// 	connectedNode.isActive = false;
-		// }
-		// else
-		// {
-		// 	StartCoroutine(connectedNode.nodeProcess.queUpTypeDeletion(CardsTypes.Food, foodMinus, 2f, null));
-		// }
+		handleHunger(connectedNode.nodeStats.currentNodeStats.currentFoodCheck);
 	}
 
-	// private List<Card> getCloseFoods(int foodValue)
 	private void handleHunger(int foodValue)
 	{
 		List<Card> foodCards = new List<Card>();
@@ -76,8 +65,6 @@ public class NodeHungerHandler : MonoBehaviour
 				}
 			)
 			.ToList();
-
-		// List<int> allFoodCardIds = allFoodCards.Select((card) => card.id).ToList();
 
 		int allFoodValue = allFoodCards.Aggregate(0, (total, card) => total + CardDictionary.globalCardDictionary[card.id].typeValue);
 		if (allFoodValue < foodValue)

@@ -158,8 +158,7 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 		else
 		{
-			List<Card> newCardStackCards = new List<Card>() { this };
-			newCardStackCards.Add(draggingCard);
+			List<Card> newCardStackCards = new List<Card> { this, draggingCard };
 			CardStack newStack = new CardStack(null);
 			newStack.addCardToStack(newCardStackCards);
 		}
@@ -182,6 +181,14 @@ public class Card : MonoBehaviour, IStackable, Interactable
 			if (cardDisable.disableType != null)
 			{
 				disabledTitle = disabledTitle + $"[{cardDisable.disableType}]";
+				if (cardDisable.disableType == CardDisableType.AutoMoving)
+				{
+					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
+				}
+				else
+				{
+					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+				}
 			}
 			cardTitle = disabledTitle + cardTitle;
 		}

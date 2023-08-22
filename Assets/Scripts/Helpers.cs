@@ -7,7 +7,6 @@ namespace Helpers
 {
 	public struct TypeAdjustingData
 	{
-		// public List<int> removingCardIds;
 		public List<Card> removingCards;
 		public List<int> addingCardIds;
 
