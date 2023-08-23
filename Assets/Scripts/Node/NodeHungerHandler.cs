@@ -82,7 +82,7 @@ public class NodeHungerHandler : MonoBehaviour
 		{
 			card.destroyCard();
 		}
-		List<Card> addingCards = connectedNode.handleCreatingCards(foodAdjData.addingCardIds);
+		List<Card> addingCards = connectedNode.processCardStack.handleCreatingCards(foodAdjData.addingCardIds);
 		connectedNode.ejectCards(addingCards);
 
 		return;

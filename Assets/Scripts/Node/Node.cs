@@ -157,55 +157,18 @@ public class Node : MonoBehaviour, BaseNode
 		processCardStack.addCardToStack(newCard);
 	}
 
-	public void hadleRemovingCards(List<Card> removingCards)
-	{
-		if (removingCards.Count == 0)
-		{
-			return;
-		}
-		processCardStack.removeCardsFromStack(removingCards);
-
-		foreach (Card singleRemovingCard in removingCards)
-		{
-			singleRemovingCard.destroyCard();
-		}
-	}
-
-	public List<Card> handleCreatingCards(List<int> cardIds)
-	{
-		if (cardIds.Count == 0)
-		{
-			return new List<Card>();
-		}
-
-		List<Card> addingCards = new List<Card>();
-		foreach (int singleAddingCardId in cardIds)
-		{
-			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
-			{
-				CardHandler.current.createNode(singleAddingCardId);
-			}
-			else
-			{
-				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-
-				addingCards.Add(createdCard);
-			}
-		}
-		processCardStack.addCardToStack(addingCards);
-		return addingCards;
-	}
-
 	public void ejectCards(List<Card> cards)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
+
+		processCardStack.removeCardsFromStack(cards);
 
 		for (int index = 0; index < cards.Count; index++)
 		{
 			cards[index].moveCard(basePosition);
 			cards[index].isInteractiveDisabled = false;
 		}
-		processCardStack.removeCardsFromStack(cards);
+
 		StartCoroutine(delayedDragFinish(cards));
 	}
 
@@ -222,49 +185,6 @@ public class Node : MonoBehaviour, BaseNode
 				}
 			}
 		}
-	}
-
-	public void consolidateTypeCards()
-	{
-		foreach (CardsTypes cardType in CardHelpers.valueCardTypes)
-		{
-			List<int> cardIds = processCardStack.getTypeActiveCards(cardType);
-
-			int value = CardHelpers.getTypeValueFromCardIds(cardType, cardIds);
-
-			List<int> generatingCardIds = CardHelpers.generateTypeValueCards(cardType, value);
-
-			List<int> newCardIds = getListEdge(generatingCardIds, cardIds);
-
-			List<int> removingCardIds = getListEdge(cardIds, generatingCardIds);
-
-			List<Card> removingCards = processCardStack.getCards(removingCardIds);
-
-			if (removingCards.Count > 0)
-			{
-				hadleRemovingCards(removingCards);
-			}
-
-			if (newCardIds.Count > 0)
-			{
-				handleCreatingCards(newCardIds);
-			}
-		}
-	}
-
-	private List<int> getListEdge(List<int> mainlist, List<int> excludeList)
-	{
-		List<int> newCardIds = new List<int>(mainlist);
-
-		foreach (int removingCardId in excludeList)
-		{
-			int foundIndex = newCardIds.FindIndex((newCardId) => newCardId == removingCardId);
-			if (foundIndex != -1)
-			{
-				newCardIds.RemoveAt(foundIndex);
-			}
-		}
-		return newCardIds;
 	}
 
 	public bool isMarket()

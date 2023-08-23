@@ -68,8 +68,13 @@ public class NodeProcess : MonoBehaviour
 			yield return new WaitForSeconds(timer);
 		}
 
-		node.hadleRemovingCards(data.removingCards);
-		List<Card> addingCards = node.handleCreatingCards(data.addingCardIds);
+		// node.hadleRemovingCards(data.removingCards);
+		foreach (Card singleRemovingCard in data.removingCards)
+		{
+			singleRemovingCard.destroyCard();
+		}
+
+		List<Card> addingCards = node.processCardStack.handleCreatingCards(data.addingCardIds);
 		if (addingCards != null && addingCards.Count > 0)
 		{
 			List<Card> ejectingCards = addingCards
@@ -313,8 +318,13 @@ public class NodeProcess : MonoBehaviour
 		List<Card> ejectingCards = new List<Card>();
 		if (node.isActive)
 		{
-			node.hadleRemovingCards(removingCards);
-			List<Card> addingCards = node.handleCreatingCards(addingCardIds);
+			// node.hadleRemovingCards(removingCards);
+			foreach (Card singleRemovingCard in removingCards)
+			{
+				singleRemovingCard.destroyCard();
+			}
+
+			List<Card> addingCards = node.processCardStack.handleCreatingCards(addingCardIds);
 
 			if (pickedProcess.id == 34 || pickedProcess.id == 35 || pickedProcess.id == 28)
 			{
@@ -367,7 +377,8 @@ public class NodeProcess : MonoBehaviour
 		);
 
 		node.ejectCards(ejectingCards);
-		node.consolidateTypeCards();
+
+		node.processCardStack.consolidateTypeCards();
 
 		isProccessing = false;
 
@@ -620,11 +631,14 @@ public class NodeProcess : MonoBehaviour
 
 		List<Card> removingCards = new List<Card> { card };
 
-		node.hadleRemovingCards(removingCards);
+		foreach (Card singleRemovingCard in removingCards)
+		{
+			singleRemovingCard.destroyCard();
+		}
 
-		List<Card> addingCards = node.handleCreatingCards(addingGoldCardIds);
+		node.processCardStack.handleCreatingCards(addingGoldCardIds);
 
-		node.consolidateTypeCards();
+		node.processCardStack.consolidateTypeCards();
 
 		isProccessing = false;
 	}
