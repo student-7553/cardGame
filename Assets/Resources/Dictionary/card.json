@@ -194,7 +194,7 @@
     },
     {
       "id": 17,
-      "name": "Infinite water",
+      "name": "Infinite water Deprecated",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -206,7 +206,7 @@
     },
     {
       "id": 18,
-      "name": "Infinite stone",
+      "name": "Infinite stone Deprecated",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -242,7 +242,7 @@
     },
     {
       "id": 21,
-      "name": "Iron fabricator [Infinite Iron]",
+      "name": "Iron fabricator [Infinite Iron] deprecated",
       "type": "Resource",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -404,7 +404,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 0,
-      "nodeTransferTimeCost": 15,
+      "nodeTransferTimeCost": 10,
       "foodCost": 2
     },
     {
@@ -529,7 +529,7 @@
     },
     {
       "id": 1107,
-      "name": "Magnetize Processed (Will)",
+      "name": "Magnetize Processed (Will) Deprecated",
       "type": "Module",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -753,7 +753,7 @@
     },
     {
       "id": 2014,
-      "name": "[Idea] Infinite stone",
+      "name": "[Idea] Infinite stone Deprecated",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -765,7 +765,7 @@
     },
     {
       "id": 2015,
-      "name": "[Idea] Infinite water",
+      "name": "[Idea] Infinite water Deprecated",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -801,7 +801,7 @@
     },
     {
       "id": 2018,
-      "name": "[Idea] Infinite Iron",
+      "name": "[Idea] Infinite Iron Deprecated",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -869,7 +869,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 25,
-      "nodeTransferTimeCost": 35,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -881,7 +881,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 10020,
-      "nodeTransferTimeCost": 60,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -954,7 +954,7 @@
       "isSellable": true,
       "sellingPrice": 100,
       "typeValue": 25,
-      "nodeTransferTimeCost": 30,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {
@@ -966,7 +966,7 @@
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 100,
-      "nodeTransferTimeCost": 60,
+      "nodeTransferTimeCost": 10,
       "foodCost": 0
     },
     {

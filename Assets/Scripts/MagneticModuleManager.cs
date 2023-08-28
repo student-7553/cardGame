@@ -23,9 +23,13 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void run()
 	{
-		List<Card> availableCards = getAvailableCards();
 		foreach (Node node in interactableManagerScriptableObject.nodes)
 		{
+			if (node.nodeStats.currentNodeStats.resourceInventoryLimit - node.nodeStats.currentNodeStats.resourceInventoryUsed < 4)
+			{
+				continue;
+			}
+			List<Card> availableCards = getAvailableCards();
 			List<int> magnetizedCards = getMagnetizedCards(node.processCardStack.cards);
 			if (magnetizedCards.Count == 0)
 			{

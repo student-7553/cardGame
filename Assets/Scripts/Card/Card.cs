@@ -126,6 +126,10 @@ public class Card : MonoBehaviour, IStackable, Interactable
 
 	public void destroyCard()
 	{
+		if (!gameObject)
+		{
+			return;
+		}
 		if (isStacked)
 		{
 			isStacked = false;

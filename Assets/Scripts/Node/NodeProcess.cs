@@ -71,7 +71,10 @@ public class NodeProcess : MonoBehaviour
 		// node.hadleRemovingCards(data.removingCards);
 		foreach (Card singleRemovingCard in data.removingCards)
 		{
-			singleRemovingCard.destroyCard();
+			if (singleRemovingCard != null)
+			{
+				singleRemovingCard.destroyCard();
+			}
 		}
 
 		List<Card> addingCards = node.processCardStack.handleCreatingCards(data.addingCardIds);
@@ -337,8 +340,8 @@ public class NodeProcess : MonoBehaviour
 						(card) =>
 						{
 							return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
-								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity
-								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Food;
+								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity;
+							// || CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Food;
 						}
 					)
 				);
