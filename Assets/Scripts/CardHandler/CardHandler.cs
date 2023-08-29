@@ -19,7 +19,8 @@ public class CardHandler : MonoBehaviour
 
 	private Vector3 defaultCardPoint;
 	private Vector3 defaultNodePoint;
-	private Vector3 defaultNodePlanePositon = new Vector3(-75, 0, HelperData.nodeBoardZ);
+
+	public Vector3 defaultNodePlanePositon;
 
 	public Vector2Int enemySpawnInterval;
 
@@ -42,6 +43,11 @@ public class CardHandler : MonoBehaviour
 		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
 		defaultNodePoint = new Vector3(0, 0, HelperData.baseZ);
 		playerCardTracker = new PlayerCardTrackerObject();
+		defaultNodePlanePositon = new Vector3(
+			staticVariables.defaultNodePlanePositon.x,
+			staticVariables.defaultNodePlanePositon.y,
+			HelperData.nodeBoardZ
+		);
 
 		enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
 

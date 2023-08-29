@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1706.6667
     height: 869.3334
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 96
+  controlID: 27
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 350
     width: 374
     height: 469.3333
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 15}
@@ -246,8 +246,8 @@ MonoBehaviour:
     y: 0
     width: 278
     height: 819.3333
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -1192,9 +1192,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -44.72778, y: -49.395893, z: 9.815735}
+    m_Target: {x: -11.315048, y: 3.513348, z: 11.194072}
     speed: 2
-    m_Value: {x: -44.72778, y: -49.395893, z: 9.815735}
+    m_Value: {x: -11.315048, y: 3.513348, z: 11.194072}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1244,9 +1244,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 169.1185
+    m_Target: 104.59134
     speed: 2
-    m_Value: 169.1185
+    m_Value: 104.59134
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1307,24 +1307,24 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 140}
-      m_SelectedIDs: cc920000
-      m_LastClickedID: 37580
-      m_ExpandedIDs: dafaffffc28b000056920000
+      scrollPos: {x: 0, y: 796}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 6a8affffa28affffbe8affff1e8bfffff2faffff92920000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Space dome (1)
-        m_OriginalName: Space dome (1)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -14032
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -1396,7 +1396,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 8e980000
     m_LastClickedID: 39054
-    m_ExpandedIDs: 000000008e980000909800009298000000ca9a3b
+    m_ExpandedIDs: 00000000d6980000d8980000da980000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1424,7 +1424,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008e9800009098000092980000
+    m_ExpandedIDs: 00000000d6980000d8980000da980000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

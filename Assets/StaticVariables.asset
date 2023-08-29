@@ -22,3 +22,4 @@ MonoBehaviour:
   processingTimeMin: 1
   floatingTextDurationSec: 1.5
   magnetizedIntervel: 11
+  defaultNodePlanePositon: {x: -120, y: 0}

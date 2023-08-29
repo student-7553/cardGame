@@ -354,10 +354,10 @@
     },
     {
       "id": 11,
-      "baseRequiredId": 15,
+      "baseRequiredId": 11,
       "unlockCardIds": [2005],
-      "requiredIds": [15, 3],
-      "removingIds": [15, 15, 3],
+      "requiredIds": [3, 3],
+      "removingIds": [11, 3, 3],
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 10,
@@ -529,7 +529,7 @@
     {
       "id": 18,
       "baseRequiredId": 1005,
-      "unlockCardIds": [2007],
+      "unlockCardIds": [],
       "requiredIds": [6, 6],
       "removingIds": [6, 6],
       "requiredGold": 5,
