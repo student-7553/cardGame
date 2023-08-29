@@ -166,9 +166,9 @@ public class CardHandler : MonoBehaviour
 	private void tempCardHooks(int cardId)
 	{
 		// card spawn triggers
-		if (cardId == 1004 && disableEnemySpawner == false)
-		{
-			enemySpawner.Run(enemySpawnInterval.x, enemySpawnInterval.y);
-		}
+		// if (cardId == 1004 && disableEnemySpawner == false)
+		// {
+		// 	enemySpawner.Run(enemySpawnInterval.x, enemySpawnInterval.y);
+		// }
 	}
 }

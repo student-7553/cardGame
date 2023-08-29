@@ -9,6 +9,7 @@ public class EnemySpawer : MonoBehaviour
 	private Vector2 boardSize;
 
 	public EnemySpawnerScriptableObject enemySpawnerScriptableObject;
+	public bool isEnabled;
 
 	private readonly int spawnCardId = 21000;
 
@@ -34,13 +35,13 @@ public class EnemySpawer : MonoBehaviour
 	{
 		minSecTillSpawn = _minSecTillSpawn;
 		maxSecTillSpawn = _maxSecTillSpawn;
-		enemySpawnerScriptableObject.isEnabled = true;
+		isEnabled = true;
 		enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 	}
 
 	public void StopRun()
 	{
-		enemySpawnerScriptableObject.isEnabled = false;
+		isEnabled = false;
 	}
 
 	private float GetSpawnIntervel()
@@ -50,7 +51,7 @@ public class EnemySpawer : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!enemySpawnerScriptableObject.isEnabled)
+		if (!isEnabled)
 		{
 			return;
 		}

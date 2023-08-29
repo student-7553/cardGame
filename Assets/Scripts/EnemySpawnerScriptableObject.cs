@@ -7,5 +7,4 @@ using Core;
 public class EnemySpawnerScriptableObject : ScriptableObject
 {
 	public float timer;
-	public bool isEnabled;
 }

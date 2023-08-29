@@ -20,12 +20,9 @@ public class NodeTextHandler
 
 	public void reflectToScreen()
 	{
-		if (titleTextMesh.text == "")
+		if (CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))
 		{
-			if (CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))
-			{
-				titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
-			}
+			titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
 		}
 
 		availableInventoryTextMesh.text =

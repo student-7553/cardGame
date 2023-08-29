@@ -42,7 +42,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	public CardStack processCardStack { get; set; }
 
-	private int _id { get; set; }
+	public int _id;
 
 	public int id
 	{
