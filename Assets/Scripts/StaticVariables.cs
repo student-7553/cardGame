@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Core;
 
 [CreateAssetMenu(fileName = "StaticVariables", menuName = "ScriptableObjects/StaticVariables", order = 1)]
 public class StaticVariables : ScriptableObject
@@ -27,4 +25,6 @@ public class StaticVariables : ScriptableObject
 	public float magnetizedIntervel = 5f;
 
 	public Vector2 defaultNodePlanePositon = new Vector2(-75, 0);
+
+	public int endingCardId;
 }

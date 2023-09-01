@@ -176,5 +176,10 @@ public class CardHandler : MonoBehaviour
 		// {
 		// 	enemySpawner.Run(enemySpawnInterval.x, enemySpawnInterval.y);
 		// }
+
+		if (cardId == staticVariables.endingCardId)
+		{
+			Debug.Log("GAME ENDED");
+		}
 	}
 }
