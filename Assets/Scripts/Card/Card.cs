@@ -178,6 +178,12 @@ public class Card : MonoBehaviour, IStackable, Interactable
 				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 			}
 		}
+
+		if (spriteRenderer.color.a != 1f)
+		{
+			spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+		}
+
 		if (isInteractiveDisabled)
 		{
 			string disabledTitle = "[DISABLED] ";
@@ -188,10 +194,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 				if (cardDisable.disableType == CardDisableType.AutoMoving)
 				{
 					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
-				}
-				else
-				{
-					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
 				}
 			}
 			cardTitle = disabledTitle + cardTitle;
