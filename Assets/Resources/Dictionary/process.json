@@ -463,21 +463,21 @@
       "addingCardObjects": [
         {
           "odds": 0.2,
-          "addingCardIds": [5, 5, 5, 12, 12, 12],
+          "addingCardIds": [5, 5, 5, 12, 12, 12, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
           "odds": 0.2,
-          "addingCardIds": [4, 4, 4, 4, 4, 4, 5, 5],
+          "addingCardIds": [4, 4, 4, 4, 4, 4, 4, 12, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
         },
         {
           "odds": 0.1,
-          "addingCardIds": [5, 5, 5, 6, 6, 6, 9],
+          "addingCardIds": [5, 5, 5, 9, 12, 12],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -929,6 +929,7 @@
       "requiredWill": 1,
       "requiredElectricity": 0,
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -946,6 +947,7 @@
       "requiredIds": [6],
       "removingIds": [29, 6],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -963,6 +965,7 @@
       "requiredIds": [10],
       "removingIds": [29, 10],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -980,6 +983,7 @@
       "requiredIds": [2],
       "removingIds": [29, 2],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -997,6 +1001,7 @@
       "requiredIds": [19],
       "removingIds": [29, 19],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1014,6 +1019,7 @@
       "requiredIds": [25],
       "removingIds": [29, 25],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1031,61 +1037,11 @@
       "requiredIds": [26],
       "removingIds": [29, 26],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
           "addingCardIds": [1107],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
-      "id": 44,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [10100],
-      "removingIds": [29, 10100],
-      "time": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1108],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
-      "id": 45,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [10101],
-      "removingIds": [29, 10101],
-      "time": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1108],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
-      "id": 46,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [10102],
-      "removingIds": [29, 10102],
-      "time": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1108],
           "extraUnlockCardIds": [],
           "isOneTime": false,
           "updateCurrentNode": 0
@@ -1099,6 +1055,7 @@
       "requiredIds": [4],
       "removingIds": [29, 4],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1116,6 +1073,7 @@
       "requiredIds": [5],
       "removingIds": [29, 5],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1133,6 +1091,7 @@
       "requiredIds": [12],
       "removingIds": [29, 12],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1150,6 +1109,7 @@
       "requiredIds": [9],
       "removingIds": [29, 9],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -1167,6 +1127,7 @@
       "requiredIds": [16],
       "removingIds": [15, 16],
       "time": 10,
+      "priority": 10,
       "addingCardObjects": [
         {
           "odds": 1,

@@ -1,23 +1,22 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using Core;
 using System.Linq;
 
 public static class CardDictionary
 {
-	public static Dictionary<int, CardObject> globalCardDictionary;
-	public static Dictionary<int, List<RawProcessObject>> globalProcessDictionary;
+	public static Dictionary<int, CardObject> globalCardDictionary = new Dictionary<int, CardObject>();
+	public static Dictionary<int, List<RawProcessObject>> globalProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
 
 	public static void init()
 	{
-		initCardDictionary();
-		initProcessDictionary();
+		globalCardDictionary = getNewCardDictionary();
+		globalProcessDictionary = getNewProcessDictionary();
 	}
 
-	private static void initCardDictionary()
+	private static Dictionary<int, CardObject> getNewCardDictionary()
 	{
-		globalCardDictionary = new Dictionary<int, CardObject>();
+		Dictionary<int, CardObject> newCardDictionary = new Dictionary<int, CardObject>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/card");
 
 		RawCardObject[] listOfCards = JsonHelper.FromJson<RawCardObject>(jsonTextFile.text);
@@ -26,43 +25,46 @@ public static class CardDictionary
 		foreach (RawCardObject singleCard in reversedListOfCards)
 		{
 			CardObject newObject = processRawCardObject(singleCard);
-			globalCardDictionary.Add(singleCard.id, newObject);
+			newCardDictionary.Add(singleCard.id, newObject);
 		}
+		return newCardDictionary;
 	}
 
-	private static void initProcessDictionary()
+	private static Dictionary<int, List<RawProcessObject>> getNewProcessDictionary()
 	{
-		globalProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
+		Dictionary<int, List<RawProcessObject>> newProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/process");
 		RawProcessObject[] listOfProcess = JsonHelper.FromJson<RawProcessObject>(jsonTextFile.text);
 
 		foreach (RawProcessObject singleProcess in listOfProcess.Reverse())
 		{
-			if (globalProcessDictionary.ContainsKey(singleProcess.baseRequiredId))
+			if (newProcessDictionary.ContainsKey(singleProcess.baseRequiredId))
 			{
-				globalProcessDictionary[singleProcess.baseRequiredId].Add(singleProcess);
+				newProcessDictionary[singleProcess.baseRequiredId].Add(singleProcess);
 			}
 			else
 			{
-				List<RawProcessObject> newProcesses = new List<RawProcessObject>();
-				newProcesses.Add(singleProcess);
-				globalProcessDictionary.Add(singleProcess.baseRequiredId, newProcesses);
+				List<RawProcessObject> newProcesses = new List<RawProcessObject>() { singleProcess };
+				newProcessDictionary.Add(singleProcess.baseRequiredId, newProcesses);
 			}
 		}
+		return newProcessDictionary;
 	}
 
 	private static CardObject processRawCardObject(RawCardObject rawCardObject)
 	{
-		CardObject newEntry = new CardObject();
-		newEntry.id = rawCardObject.id;
-		newEntry.name = rawCardObject.name;
-		newEntry.resourceInventoryCount = rawCardObject.resourceInventoryCount;
-		newEntry.infraInventoryCount = rawCardObject.infraInventoryCount;
-		newEntry.isSellable = rawCardObject.isSellable;
-		newEntry.sellingPrice = rawCardObject.sellingPrice;
-		newEntry.typeValue = rawCardObject.typeValue;
-		newEntry.nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost;
-		newEntry.foodCost = rawCardObject.foodCost;
+		CardObject newEntry = new CardObject
+		{
+			id = rawCardObject.id,
+			name = rawCardObject.name,
+			resourceInventoryCount = rawCardObject.resourceInventoryCount,
+			infraInventoryCount = rawCardObject.infraInventoryCount,
+			isSellable = rawCardObject.isSellable,
+			sellingPrice = rawCardObject.sellingPrice,
+			typeValue = rawCardObject.typeValue,
+			nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost,
+			foodCost = rawCardObject.foodCost
+		};
 
 		switch (rawCardObject.type)
 		{

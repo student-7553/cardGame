@@ -125,8 +125,7 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleActiveNodeProcess()
 	{
-		List<int> cardIds = node.processCardStack.getActiveCardIds();
-		RawProcessObject pickedProcess = getAvailableProcess(cardIds, node.id);
+		RawProcessObject pickedProcess = getNextAvailableProcess();
 
 		if (pickedProcess != null)
 		{
@@ -178,9 +177,9 @@ public class NodeProcess : MonoBehaviour
 		return true;
 	}
 
-	private RawProcessObject getAvailableProcess(List<int> cardIds, int nodeId)
+	private List<RawProcessObject> getAvailableProcesses(List<int> cardIds, int nodeId)
 	{
-		RawProcessObject possibleProcesses = null;
+		List<RawProcessObject> possibleProcesses = new List<RawProcessObject>();
 
 		for (int index = 0; index < cardIds.Count; index++)
 		{
@@ -208,32 +207,12 @@ public class NodeProcess : MonoBehaviour
 
 				if (isUnlocked && isRightNode && ifRequiredCardsPassed && goldPassed && electricityPassed && willPassed)
 				{
-					possibleProcesses = singleProcess;
+					possibleProcesses.Add(singleProcess);
 					break;
 				}
-			}
-			if (possibleProcesses != null)
-			{
-				break;
 			}
 		}
 		return possibleProcesses;
-
-		bool getIfRequiredCardsPassed(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
-		{
-			bool isAvailableToProcess = true;
-			foreach (int baseRequiredId in indexedRequiredIds.Keys)
-			{
-				int howManyRequired = indexedRequiredIds[baseRequiredId];
-				int howManyIsAvailable = clonedCardIds.Where(x => x.Equals(baseRequiredId)).Count();
-				if (howManyIsAvailable < howManyRequired)
-				{
-					isAvailableToProcess = false;
-					break;
-				}
-			}
-			return isAvailableToProcess;
-		}
 	}
 
 	bool getIfInRightNodePassed(RawProcessObject singleProcess, int nodeId)
@@ -247,6 +226,22 @@ public class NodeProcess : MonoBehaviour
 			return singleProcess.nodeRequirement.mustBeNodeIds.Contains(nodeId);
 		}
 		return true;
+	}
+
+	bool getIfRequiredCardsPassed(Dictionary<int, int> indexedRequiredIds, List<int> clonedCardIds)
+	{
+		bool isAvailableToProcess = true;
+		foreach (int baseRequiredId in indexedRequiredIds.Keys)
+		{
+			int howManyRequired = indexedRequiredIds[baseRequiredId];
+			int howManyIsAvailable = clonedCardIds.Where(x => x.Equals(baseRequiredId)).Count();
+			if (howManyIsAvailable < howManyRequired)
+			{
+				isAvailableToProcess = false;
+				break;
+			}
+		}
+		return isAvailableToProcess;
 	}
 
 	private IEnumerator handleProcess(RawProcessObject pickedProcess, bool isCombo)
@@ -560,7 +555,6 @@ public class NodeProcess : MonoBehaviour
 
 	private IEnumerator handleProcessCooldown()
 	{
-		// isProccessing = false;
 		RawProcessObject nextProcess = getNextAvailableProcess();
 		if (nextProcess != null)
 		{
@@ -578,8 +572,13 @@ public class NodeProcess : MonoBehaviour
 	private RawProcessObject getNextAvailableProcess()
 	{
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
-		RawProcessObject pickedProcess = getAvailableProcess(cardIds, node.id);
-		return pickedProcess;
+		List<RawProcessObject> possibleProcess = getAvailableProcesses(cardIds, node.id);
+		if (possibleProcess.Count == 0)
+		{
+			return null;
+		}
+		IEnumerable<RawProcessObject> processEnumerable = possibleProcess.OrderByDescending((process) => process.priority);
+		return processEnumerable.First();
 	}
 
 	private TypeAdjustingData handleProcessAdjustingCardIds(List<Card> activeCards, RawProcessObject pickedProcess)

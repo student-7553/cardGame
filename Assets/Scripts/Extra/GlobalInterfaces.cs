@@ -143,6 +143,7 @@ namespace Core
 		public int requiredElectricity;
 		public int requiredWill;
 		public int time;
+		public float priority;
 		public AddingCardsObject[] addingCardObjects;
 	}
 }
