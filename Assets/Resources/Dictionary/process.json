@@ -995,60 +995,6 @@
       ]
     },
     {
-      "id": 41,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [19],
-      "removingIds": [29, 19],
-      "time": 10,
-      "priority": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1107],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
-      "id": 42,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [25],
-      "removingIds": [29, 25],
-      "time": 10,
-      "priority": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1107],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
-      "id": 43,
-      "baseRequiredId": 29,
-      "unlockCardIds": [],
-      "requiredIds": [26],
-      "removingIds": [29, 26],
-      "time": 10,
-      "priority": 10,
-      "addingCardObjects": [
-        {
-          "odds": 1,
-          "addingCardIds": [1107],
-          "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
-        }
-      ]
-    },
-    {
       "id": 47,
       "baseRequiredId": 29,
       "unlockCardIds": [],
