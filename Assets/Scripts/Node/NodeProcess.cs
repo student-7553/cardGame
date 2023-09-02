@@ -256,6 +256,7 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		List<int> addingCardsFromProcess = GetAddingCards(pickedAddingCardObject);
+
 		addingCardIds.AddRange(addingCardsFromProcess);
 
 		List<Card> activeCards = node.processCardStack.getActiveCards();
@@ -316,6 +317,21 @@ public class NodeProcess : MonoBehaviour
 
 		GameManager.current.gameFoodManager.addFood(pickedAddingCardObject.addingFood);
 
+		if (pickedAddingCardObject.id == 5176)
+		{
+			int foodInfraId = 1001;
+			int infraCount = activeCards.Where((card) => card.id == foodInfraId).Count();
+			int totalUnityValue = getUnityValue();
+
+			int plusFoodCount = infraCount;
+
+			if (totalUnityValue > 0)
+			{
+				plusFoodCount = plusFoodCount * 2;
+			}
+			GameManager.current.gameFoodManager.addFood(plusFoodCount - pickedAddingCardObject.addingFood);
+		}
+
 		// Fillers end
 
 		List<Card> ejectingCards = new List<Card>();
@@ -341,7 +357,6 @@ public class NodeProcess : MonoBehaviour
 						{
 							return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
 								|| CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Electricity;
-							// || CardDictionary.globalCardDictionary[card.id].type == CardsTypes.Food;
 						}
 					)
 				);
@@ -449,6 +464,19 @@ public class NodeProcess : MonoBehaviour
 		}
 	}
 
+	private int getUnityValue()
+	{
+		List<int> unityModuleCount = node.processCardStack.getAllCardIdsOfUnityModules();
+		int totalUnityValue = unityModuleCount.Aggregate(
+			0,
+			(total, cardId) =>
+			{
+				return total + CardDictionary.globalCardDictionary[cardId].module.unityCount;
+			}
+		);
+		return totalUnityValue;
+	}
+
 	private int getProcessTime(RawProcessObject pickedProcess, bool isCombo)
 	{
 		List<int> minusIntervalModuleIds = node.processCardStack.getAllCardIdsOfMinusIntervalModules();
@@ -489,43 +517,8 @@ public class NodeProcess : MonoBehaviour
 		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
 		List<int> cardIds = node.processCardStack.getActiveCardIds();
 
-		List<int> unityModuleCount = node.processCardStack.getAllCardIdsOfUnityModules();
+		int totalUnityValue = getUnityValue();
 
-		int totalUnityValue = unityModuleCount.Aggregate(
-			0,
-			(total, cardId) =>
-			{
-				return total + CardDictionary.globalCardDictionary[cardId].module.unityCount;
-			}
-		);
-
-		if (pickedAddingCardObject.id == 5176)
-		{
-			// temp logic
-			// equals the food process
-			// food outcome is getting multiplied by how many food infra cards there are
-			int basicFoodId = 10200;
-			int foodInfraId = 1001;
-
-			int infraCount = cardIds.Where((cardId) => cardId == foodInfraId).Count();
-			if (infraCount > 1)
-			{
-				for (int index = 1; index < infraCount; index++)
-				{
-					addingCardIds.Add(basicFoodId);
-				}
-			}
-
-			if (totalUnityValue > 0)
-			{
-				// Double the food count if unity is higher than 0
-				int totalFoodCount = addingCardIds.Where((cardId) => cardId == basicFoodId).Count();
-				for (int index = 0; index < totalFoodCount; index++)
-				{
-					addingCardIds.Add(basicFoodId);
-				}
-			}
-		}
 		if (pickedAddingCardObject.id == 632030)
 		{
 			// temp logic

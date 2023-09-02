@@ -13,7 +13,6 @@ public class LeftClickHandler : MonoBehaviour
 	public static LeftClickHandler current;
 	private bool isHolding;
 
-	private readonly float clickTimer = 0.15f;
 	private float checkIntervel = 0.01f;
 
 	private void Awake()
