@@ -14,22 +14,19 @@
           "odds": 0.9,
           "addingCardIds": [2],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.05,
           "addingCardIds": [4],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.05,
           "addingCardIds": [5],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -47,8 +44,7 @@
           "odds": 1,
           "addingCardIds": [3],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -66,22 +62,19 @@
           "odds": 0.5,
           "addingCardIds": [9],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.3,
           "addingCardIds": [9, 9],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.2,
           "addingCardIds": [9, 9, 9],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -99,22 +92,19 @@
           "odds": 0.75,
           "addingCardIds": [6],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.2,
           "addingCardIds": [6, 6],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.05,
           "addingCardIds": [8],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -133,96 +123,83 @@
           "odds": 0.075,
           "addingCardIds": [12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [5],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [4],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [5, 12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [4, 12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [12, 10200],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.075,
           "addingCardIds": [4, 2],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "id": 7236586,
           "odds": 0.4,
           "addingCardIds": [2002, 9, 9, 10200, 10200],
           "extraUnlockCardIds": [],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "id": 1689686,
           "odds": 0.4,
           "addingCardIds": [2006, 11, 11, 4],
           "extraUnlockCardIds": [2002],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "id": 2338809,
           "odds": 0.4,
           "addingCardIds": [2016, 12, 10200, 10200, 10200],
           "extraUnlockCardIds": [2006],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "id": 7236556,
           "odds": 0.4,
           "addingCardIds": [2004, 10201, 12],
           "extraUnlockCardIds": [2016],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "odds": 0.01,
           "addingCardIds": [10201, 10001, 4, 4],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.01,
           "addingCardIds": [6, 12, 6, 6],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -241,7 +218,6 @@
           "addingCardIds": [10200],
           "extraUnlockCardIds": [],
           "isOneTime": false,
-          "updateCurrentNode": 0,
           "id": 5176
         }
       ]
@@ -262,7 +238,6 @@
           "addingCardIds": [10100],
           "extraUnlockCardIds": [],
           "isOneTime": false,
-          "updateCurrentNode": 0,
           "id": 632030
         }
       ]
@@ -281,36 +256,31 @@
           "odds": 0.2,
           "addingCardIds": [2, 2, 2, 16],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.4,
           "addingCardIds": [2, 2, 16],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.3,
           "addingCardIds": [2, 16],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.09,
           "addingCardIds": [2, 3],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.01,
           "addingCardIds": [6, 6, 2],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -328,8 +298,7 @@
           "odds": 1,
           "addingCardIds": [10],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -347,8 +316,7 @@
           "odds": 1,
           "addingCardIds": [1001],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -366,8 +334,7 @@
           "odds": 1,
           "addingCardIds": [1002],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -445,8 +412,7 @@
           "odds": 1,
           "addingCardIds": [1004, 2010, 20000, 20000, 20000, 10001, 10001],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -465,45 +431,39 @@
           "odds": 0.2,
           "addingCardIds": [5, 5, 5, 12, 12, 12, 12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.2,
           "addingCardIds": [4, 4, 4, 4, 4, 4, 4, 12, 12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.1,
           "addingCardIds": [5, 5, 5, 9, 12, 12],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.1,
           "addingCardIds": [28],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "id": 33130941,
           "odds": 0.5,
           "addingCardIds": [2005, 4, 4, 5],
           "extraUnlockCardIds": [],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "id": 44247922,
           "odds": 0.5,
           "addingCardIds": [2017, 5, 5],
           "extraUnlockCardIds": [2005],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         }
       ]
     },
@@ -521,8 +481,7 @@
           "odds": 1,
           "addingCardIds": [1005, 2007],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -540,8 +499,7 @@
           "odds": 1,
           "addingCardIds": [11],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -559,8 +517,7 @@
           "odds": 1,
           "addingCardIds": [1100],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -579,15 +536,13 @@
           "odds": 100000,
           "addingCardIds": [3000, 10201],
           "extraUnlockCardIds": [],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "odds": 1,
           "addingCardIds": [3000],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -605,8 +560,7 @@
           "odds": 1,
           "addingCardIds": [20000],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -643,15 +597,13 @@
           "odds": 0.6,
           "addingCardIds": [14],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         },
         {
           "odds": 0.4,
           "addingCardIds": [14, 14],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -670,15 +622,13 @@
           "odds": 100000,
           "addingCardIds": [1003],
           "extraUnlockCardIds": [],
-          "isOneTime": true,
-          "updateCurrentNode": 0
+          "isOneTime": true
         },
         {
           "odds": 1,
           "addingCardIds": [1003],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -696,8 +646,7 @@
           "odds": 1,
           "addingCardIds": [15],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -715,8 +664,7 @@
           "odds": 1,
           "addingCardIds": [17],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -734,8 +682,7 @@
           "odds": 1,
           "addingCardIds": [18],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -756,8 +703,7 @@
           "odds": 1,
           "addingCardIds": [19],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -775,8 +721,7 @@
           "odds": 1,
           "addingCardIds": [21],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -794,8 +739,7 @@
           "odds": 1,
           "addingCardIds": [6],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -813,8 +757,7 @@
           "odds": 1,
           "addingCardIds": [1001],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -832,8 +775,7 @@
           "odds": 1,
           "addingCardIds": [1002],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -851,8 +793,7 @@
           "odds": 1,
           "addingCardIds": [1101],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -873,8 +814,7 @@
           "odds": 1,
           "addingCardIds": [25],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -895,8 +835,7 @@
           "odds": 1,
           "addingCardIds": [26],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -914,8 +853,7 @@
           "odds": 1,
           "addingCardIds": [10],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -935,8 +873,7 @@
           "odds": 1,
           "addingCardIds": [1101],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -953,8 +890,7 @@
           "odds": 1,
           "addingCardIds": [1104],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -971,8 +907,7 @@
           "odds": 1,
           "addingCardIds": [1105],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -989,8 +924,7 @@
           "odds": 1,
           "addingCardIds": [1106],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -1007,8 +941,7 @@
           "odds": 1,
           "addingCardIds": [1109],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -1025,8 +958,7 @@
           "odds": 1,
           "addingCardIds": [1109],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -1043,8 +975,7 @@
           "odds": 1,
           "addingCardIds": [1109],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -1061,8 +992,7 @@
           "odds": 1,
           "addingCardIds": [1110],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     },
@@ -1079,8 +1009,7 @@
           "odds": 1,
           "addingCardIds": [29],
           "extraUnlockCardIds": [],
-          "isOneTime": false,
-          "updateCurrentNode": 0
+          "isOneTime": false
         }
       ]
     }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 	private GameObject[] enemyNodes;
 
 	public GameObject floatingTextPrefab;
+	public GameFoodManager gameFoodManager;
 
 	void Start()
 	{
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 		gameSettings();
 		findTempLogic();
 		AwakeGameLogic();
+		gameFoodManager = new GameFoodManager { food = 0 };
 	}
 
 	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)

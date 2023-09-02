@@ -84,12 +84,13 @@ namespace Core
 	[System.Serializable]
 	public class AddingCardsObject
 	{
+		public int id;
 		public float odds;
 		public int[] addingCardIds;
 		public int updateCurrentNode;
+		public int addingFood;
 		public int[] extraUnlockCardIds;
 		public bool isOneTime;
-		public int id;
 	}
 
 	[System.Serializable]

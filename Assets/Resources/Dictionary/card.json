@@ -834,7 +834,7 @@
 
     {
       "id": 10200,
-      "name": "1 Food",
+      "name": "1 Food (Deprecated)",
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -845,7 +845,7 @@
     },
     {
       "id": 10201,
-      "name": "5 Food",
+      "name": "5 Food (Deprecated)",
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -856,7 +856,7 @@
     },
     {
       "id": 10202,
-      "name": "25 Food",
+      "name": "25 Food (Deprecated)",
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -867,7 +867,7 @@
     },
     {
       "id": 10203,
-      "name": "100 Food",
+      "name": "100 Food (Deprecated)",
       "type": "Food",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
