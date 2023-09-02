@@ -56,35 +56,13 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void handleHunger(int foodValue)
 	{
-		List<Card> foodCards = new List<Card>();
-		List<Card> allFoodCards = connectedNode.interactableManagerScriptableObject.cards
-			.Where(
-				(card) =>
-				{
-					return connectedNode.staticVariables.foodCardIds.Exists((foodCardId) => card.id == foodCardId);
-				}
-			)
-			.ToList();
-
-		int allFoodValue = allFoodCards.Aggregate(0, (total, card) => total + CardDictionary.globalCardDictionary[card.id].typeValue);
-		if (allFoodValue < foodValue)
+		int currentFoodValue = GameManager.current.gameFoodManager.food;
+		if (currentFoodValue < foodValue)
 		{
 			connectedNode.isActive = false;
 			return;
 		}
 
-		List<Card> removingCards = new List<Card>();
-		List<Card> creatingCards = new List<Card>();
-
-		TypeAdjustingData foodAdjData = CardHelpers.handleTypeAdjusting(allFoodCards, CardsTypes.Food, foodValue);
-
-		foreach (Card card in foodAdjData.removingCards)
-		{
-			card.destroyCard();
-		}
-		List<Card> addingCards = connectedNode.processCardStack.handleCreatingCards(foodAdjData.addingCardIds);
-		connectedNode.ejectCards(addingCards);
-
-		return;
+		GameManager.current.gameFoodManager.decreaseFood(foodValue);
 	}
 }

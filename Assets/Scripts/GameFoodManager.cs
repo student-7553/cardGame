@@ -7,6 +7,10 @@ public class GameFoodManager
 
 	public void addFood(int foodValue)
 	{
+		if (foodValue <= 0)
+		{
+			return;
+		}
 		food = food + foodValue;
 	}
 

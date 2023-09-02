@@ -308,10 +308,15 @@ public class NodeProcess : MonoBehaviour
 			}
 		}
 
+		// Fillers start
 		if (pickedAddingCardObject.updateCurrentNode != 0 && node.id < pickedAddingCardObject.updateCurrentNode)
 		{
 			node.id = pickedAddingCardObject.updateCurrentNode;
 		}
+
+		GameManager.current.gameFoodManager.addFood(pickedAddingCardObject.addingFood);
+
+		// Fillers end
 
 		List<Card> ejectingCards = new List<Card>();
 		if (node.isActive)
