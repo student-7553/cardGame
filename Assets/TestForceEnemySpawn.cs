@@ -9,6 +9,6 @@ public class TestForceEnemySpawn : MonoBehaviour
 
 	void Start()
 	{
-		enemySpawner.Run(minEnemySpawnInterval, maxEnemySpawnInterval);
+		enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_1);
 	}
 }

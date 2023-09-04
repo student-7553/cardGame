@@ -1,10 +1,18 @@
 // using System.Collections;
 // using System.Collections.Generic;
 using Helpers;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class EnemySpawer : MonoBehaviour
 {
+	public enum EnemySpawner_Tier
+	{
+		tier_1,
+		tier_2,
+	}
+
+	private EnemySpawner_Tier current_tier;
 	public GameObject boardPlaneGameObject;
 	private Vector2 boardSize;
 
@@ -15,6 +23,8 @@ public class EnemySpawer : MonoBehaviour
 
 	private float minSecTillSpawn;
 	private float maxSecTillSpawn;
+
+	public StaticVariables staticVariables;
 
 	private readonly int edgeSpawnPadding = 10;
 
@@ -31,10 +41,24 @@ public class EnemySpawer : MonoBehaviour
 		}
 	}
 
-	public void Run(float _minSecTillSpawn, float _maxSecTillSpawn)
+	public void Run(EnemySpawner_Tier tier)
 	{
-		minSecTillSpawn = _minSecTillSpawn;
-		maxSecTillSpawn = _maxSecTillSpawn;
+		current_tier = tier;
+		switch (tier)
+		{
+			case EnemySpawner_Tier.tier_1:
+				minSecTillSpawn = staticVariables.enemySpawnIntervals[0].x;
+				maxSecTillSpawn = staticVariables.enemySpawnIntervals[0].y;
+				break;
+			case EnemySpawner_Tier.tier_2:
+				minSecTillSpawn = staticVariables.enemySpawnIntervals[1].x;
+				maxSecTillSpawn = staticVariables.enemySpawnIntervals[1].y;
+				break;
+		}
+
+		// staticVariables.enemySpawnIntervals[1].x,
+		// staticVariables.enemySpawnIntervals[1].y,
+
 		isEnabled = true;
 		enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 	}

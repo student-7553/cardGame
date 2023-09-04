@@ -174,13 +174,13 @@ public class CardHandler : MonoBehaviour
 		// Global expidition
 		if (cardId == 1004 && disableEnemySpawner == false)
 		{
-			enemySpawner.Run(staticVariables.enemySpawnIntervals[0].x, staticVariables.enemySpawnIntervals[0].y);
+			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_1);
 		}
 
 		// Zenith idea
 		if (cardId == 2017 && disableEnemySpawner == false)
 		{
-			enemySpawner.Run(staticVariables.enemySpawnIntervals[1].x, staticVariables.enemySpawnIntervals[1].y);
+			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_2);
 		}
 
 		if (cardId == staticVariables.endingCardId)

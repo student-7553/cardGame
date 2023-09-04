@@ -888,13 +888,35 @@
     },
     {
       "id": 21000,
-      "name": "Space Pirate",
+      "name": "Space Pirate [1]",
       "type": "Enemy",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
       "isSellable": false,
       "sellingPrice": 0,
       "typeValue": 1,
+      "nodeTransferTimeCost": 45
+    },
+    {
+      "id": 21001,
+      "name": "Space Pirate2 [2]",
+      "type": "Enemy",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 2,
+      "nodeTransferTimeCost": 45
+    },
+    {
+      "id": 21002,
+      "name": "Space Pirate3 [4]",
+      "type": "Enemy",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": false,
+      "sellingPrice": 0,
+      "typeValue": 4,
       "nodeTransferTimeCost": 45
     }
   ]
