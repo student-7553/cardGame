@@ -27,4 +27,6 @@ public class StaticVariables : ScriptableObject
 	public Vector2 defaultNodePlanePositon = new Vector2(-75, 0);
 
 	public int endingCardId;
+
+	public List<Vector2Int> enemySpawnIntervals;
 }
