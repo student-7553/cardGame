@@ -2,7 +2,7 @@ using UnityEngine;
 using Core;
 using Helpers;
 
-[DefaultExecutionOrder(-100)]
+// [DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
 	public PlayerCardTrackerObject playerCardTracker;
@@ -31,7 +31,7 @@ public class CardHandler : MonoBehaviour
 
 	public bool disableEnemySpawner = false;
 
-	void Start()
+	void Awake()
 	{
 		if (current != null)
 		{

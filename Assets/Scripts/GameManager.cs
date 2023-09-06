@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
 
-	void Start()
+	void Awake()
 	{
 		if (current != null)
 		{
