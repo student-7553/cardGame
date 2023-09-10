@@ -29,4 +29,6 @@ public class StaticVariables : ScriptableObject
 	public int endingCardId;
 
 	public List<Vector2Int> enemySpawnIntervals;
+
+	public float magnetizeMaxRange = 10;
 }

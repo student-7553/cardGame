@@ -29,19 +29,17 @@ public class MagneticModuleManager : MonoBehaviour
 			{
 				continue;
 			}
-			List<Card> availableCards = getAvailableCards();
 			List<int> magnetizedCards = getMagnetizedCards(node.processCardStack.cards);
 			if (magnetizedCards.Count == 0)
 			{
 				continue;
 			}
 
-			Card targetMagnetCard = getTargetMagnetCard(magnetizedCards, availableCards);
+			Card targetMagnetCard = getTargetMagnetCard(node.transform.position, magnetizedCards, staticVariables.magnetizeMaxRange);
 			if (targetMagnetCard == null)
 			{
 				continue;
 			}
-
 			handleMagnetizeCard(node, targetMagnetCard);
 		}
 	}
@@ -59,14 +57,19 @@ public class MagneticModuleManager : MonoBehaviour
 			});
 	}
 
-	private Card getTargetMagnetCard(List<int> magnetizedCards, List<Card> availableCards)
+	private Card getTargetMagnetCard(Vector3 nodePosition, List<int> magnetizedCards, float maxRange)
 	{
+		List<Card> availableCards = getAvailableCards();
 		List<Card> possibleMagnetizingCards = new List<Card>();
 
 		foreach (int magnetizedCard in magnetizedCards)
 		{
 			Card targetCard = availableCards.Find(card => card.id == magnetizedCard);
 			if (targetCard == null)
+			{
+				continue;
+			}
+			if (!isCardInRange(nodePosition, targetCard.transform.position, maxRange))
 			{
 				continue;
 			}
@@ -79,6 +82,11 @@ public class MagneticModuleManager : MonoBehaviour
 		}
 
 		return possibleMagnetizingCards[Random.Range(0, possibleMagnetizingCards.Count - 1)];
+	}
+
+	private bool isCardInRange(Vector2 nodePosition, Vector2 cardPosition, float maxRange)
+	{
+		return Vector2.Distance(nodePosition, cardPosition) <= maxRange;
 	}
 
 	private List<Card> getAvailableCards()

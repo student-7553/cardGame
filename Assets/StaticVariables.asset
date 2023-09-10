@@ -21,9 +21,10 @@ MonoBehaviour:
   bufferProcessingTime: 1
   processingTimeMin: 1
   floatingTextDurationSec: 1.5
-  magnetizedIntervel: 11
+  magnetizedIntervel: 6
   defaultNodePlanePositon: {x: -120, y: 0}
   endingCardId: 0
   enemySpawnIntervals:
   - {x: 200, y: 300}
   - {x: 120, y: 220}
+  magnetizeMaxRange: 10
