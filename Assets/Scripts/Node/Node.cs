@@ -34,6 +34,8 @@ public class Node : MonoBehaviour, BaseNode
 
 	public NodePlaneHandler nodePlaneManager { get; set; }
 
+	public NodeMagnetizeCircle nodeMagnetizeCircle;
+
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
 	public StaticVariables staticVariables;
@@ -80,9 +82,11 @@ public class Node : MonoBehaviour, BaseNode
 		nodeTextHandler.reflectToScreen();
 	}
 
-	public void init(NodePlaneHandler nodePlane)
+	public void init(NodePlaneHandler nodePlane, NodeMagnetizeCircle _nodeMagnetizeCircle)
 	{
 		nodePlaneManager = nodePlane;
+
+		nodeMagnetizeCircle = _nodeMagnetizeCircle;
 
 		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
 

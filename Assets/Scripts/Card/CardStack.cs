@@ -327,6 +327,22 @@ public class CardStack
 		return ids;
 	}
 
+	public List<int> getMagnetizedCards()
+	{
+		List<int> magnetizedCards = new List<int>();
+		foreach (Card card in cards)
+		{
+			if (
+				CardDictionary.globalCardDictionary[card.id].module != null
+				&& CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds != null
+			)
+			{
+				magnetizedCards.AddRange(CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds);
+			}
+		}
+		return magnetizedCards;
+	}
+
 	private float getPositionZ()
 	{
 		if (cardStackType == CardStackType.Cards)

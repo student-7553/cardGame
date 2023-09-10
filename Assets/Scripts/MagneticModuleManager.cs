@@ -29,7 +29,7 @@ public class MagneticModuleManager : MonoBehaviour
 			{
 				continue;
 			}
-			List<int> magnetizedCards = getMagnetizedCards(node.processCardStack.cards);
+			List<int> magnetizedCards = node.processCardStack.getMagnetizedCards();
 			if (magnetizedCards.Count == 0)
 			{
 				continue;
@@ -105,21 +105,5 @@ public class MagneticModuleManager : MonoBehaviour
 			availableCards.Add(globalCard);
 		}
 		return availableCards;
-	}
-
-	private List<int> getMagnetizedCards(List<Card> cards)
-	{
-		List<int> magnetizedCards = new List<int>();
-		foreach (Card card in cards)
-		{
-			if (
-				CardDictionary.globalCardDictionary[card.id].module != null
-				&& CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds != null
-			)
-			{
-				magnetizedCards.AddRange(CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds);
-			}
-		}
-		return magnetizedCards;
 	}
 }

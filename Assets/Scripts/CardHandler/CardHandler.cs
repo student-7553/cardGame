@@ -13,6 +13,7 @@ public class CardHandler : MonoBehaviour
 	public GameObject nodePrefab;
 	public GameObject enemyNodePrefab;
 	public GameObject nodePlanePrefab;
+	public GameObject nodeMagnetizeCirclePrefab;
 
 	public Sprite[] cardSprites;
 	public Sprite[] nodeSprites;
@@ -103,7 +104,11 @@ public class CardHandler : MonoBehaviour
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
 
-		newNode.init(nodePlane);
+		GameObject nodeMagnetizeCircleGameObject = Instantiate(nodeMagnetizeCirclePrefab, nodeGameObject.transform);
+		NodeMagnetizeCircle nodeMagnetizeCircle = nodeMagnetizeCircleGameObject.GetComponent<NodeMagnetizeCircle>();
+		nodeMagnetizeCircle.init(newNode);
+
+		newNode.init(nodePlane, nodeMagnetizeCircle);
 
 		interactableManagerScriptableObject.registerNode(newNode);
 
