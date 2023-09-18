@@ -79,7 +79,7 @@ public class CardStack
 					connectedNode.nodePlaneManager.gameObject.transform.position.y,
 					getPositionZ()
 				)
-				: getRootCard().transform.position;
+				: getRootPosition();
 
 		originPoint = originPoint + originPointAdjustment;
 
@@ -106,83 +106,13 @@ public class CardStack
 		}
 	}
 
-	public List<Card> handleCreatingCards(List<int> cardIds)
-	{
-		if (cardIds.Count == 0)
-		{
-			return new List<Card>();
-		}
-
-		List<Card> addingCards = new List<Card>();
-		foreach (int singleAddingCardId in cardIds)
-		{
-			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
-			{
-				CardHandler.current.createNode(singleAddingCardId);
-			}
-			else
-			{
-				Card createdCard = CardHandler.current.createCard(singleAddingCardId);
-				addingCards.Add(createdCard);
-			}
-		}
-		addCardToStack(addingCards);
-		return addingCards;
-	}
-
-	public void consolidateTypeCards()
-	{
-		foreach (CardsTypes cardType in CardHelpers.valueCardTypes)
-		{
-			List<int> cardIds = getTypeActiveCards(cardType);
-
-			int value = CardHelpers.getTypeValueFromCardIds(cardType, cardIds);
-
-			List<int> generatingCardIds = CardHelpers.generateTypeValueCards(cardType, value);
-
-			List<int> newCardIds = getListEdge(generatingCardIds, cardIds);
-
-			List<int> removingCardIds = getListEdge(cardIds, generatingCardIds);
-
-			List<Card> removingCards = getCards(removingCardIds);
-
-			if (removingCards.Count > 0)
-			{
-				foreach (Card singleRemovingCard in removingCards)
-				{
-					singleRemovingCard.destroyCard();
-				}
-			}
-
-			if (newCardIds.Count > 0)
-			{
-				handleCreatingCards(newCardIds);
-			}
-		}
-	}
-
-	private List<int> getListEdge(List<int> mainlist, List<int> excludeList)
-	{
-		List<int> newCardIds = new List<int>(mainlist);
-
-		foreach (int removingCardId in excludeList)
-		{
-			int foundIndex = newCardIds.FindIndex((newCardId) => newCardId == removingCardId);
-			if (foundIndex != -1)
-			{
-				newCardIds.RemoveAt(foundIndex);
-			}
-		}
-		return newCardIds;
-	}
-
 	public void addCardToStack(List<Card> addingCards)
 	{
 		cards.AddRange(addingCards);
 		// alignCards();
 		foreach (Card singleCard in addingCards)
 		{
-			singleCard.addToCardStack(this);
+			singleCard.attachToCardStack(this);
 
 			if (cardStackType == CardStackType.Nodes)
 			{
@@ -198,7 +128,9 @@ public class CardStack
 	{
 		cards.Add(addingCard);
 
-		addingCard.addToCardStack(this);
+		addingCard.attachToCardStack(this);
+
+		// To do Implement the CardCollapsed logic
 		if (cardStackType == CardStackType.Nodes)
 		{
 			addingCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
@@ -352,12 +284,12 @@ public class CardStack
 		return HelperData.nodeBoardZ - 1;
 	}
 
-	private Card getRootCard()
+	private Vector3 getRootPosition()
 	{
 		if (cards.Count > 0)
 		{
-			return cards[0];
+			return cards[0].transform.position;
 		}
-		return null;
+		return Vector3.zero;
 	}
 }

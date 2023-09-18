@@ -4,70 +4,15 @@ using Core;
 using TMPro;
 using Helpers;
 
-public class CardCorners
+public class Card : BaseCard, IStackable
 {
-	public Vector3 leftTopCorner;
-	public Vector3 rightTopCorner;
-	public Vector3 leftBottomCorner;
-	public Vector3 rightBottomCorner;
-
-	public CardCorners(Vector3 leftTopCorner_, Vector3 rightTopCorner_, Vector3 leftBottomCorner_, Vector3 rightBottomCorner_)
+	public new Card getCard()
 	{
-		leftTopCorner = leftTopCorner_;
-		rightTopCorner = rightTopCorner_;
-		leftBottomCorner = leftBottomCorner_;
-		rightBottomCorner = rightBottomCorner_;
-	}
-}
-
-public enum CardDisableType
-{
-	Que,
-	Process,
-	Dead,
-	AutoMoving
-}
-
-public class CardDisable
-{
-	public CardDisableType? disableType;
-
-	public CardDisable()
-	{
-		disableType = null;
-	}
-}
-
-public class Card : MonoBehaviour, IStackable, Interactable
-{
-	// -------------------- Interactable Members -------------------------
-	private bool _isInteractiveDisabled = false;
-	public bool isInteractiveDisabled
-	{
-		get { return _isInteractiveDisabled; }
-		set { _isInteractiveDisabled = value; }
+		return null;
 	}
 
-	public SpriteRenderer spriteRenderer { get; set; }
-	public CoreInteractableType interactableType
-	{
-		get { return CoreInteractableType.Cards; }
-	}
-
-	public Card getCard()
-	{
-		return this;
-	}
-
-	public CardCorners corners;
-
-	public int id;
-
-	public CardStack joinedStack;
-
-	private bool _isStacked = false;
-
-	public bool isStacked
+	// -------------------- CardInterface Members -------------------------
+	public new bool isStacked
 	{
 		get { return _isStacked; }
 		set
@@ -88,15 +33,11 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 	}
 
-	public CardDisable cardDisable;
+	// -------------------- CardInterface Members end -------------------------
 
 	private TextMeshPro titleTextMesh;
-
+	private SpriteRenderer spriteRenderer;
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
-
-	// --------------------Readonly Stats-------------------------
-	public static float baseCardX = 5;
-	public static float baseCardY = 8;
 
 	private void Awake()
 	{
@@ -106,22 +47,13 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			titleTextMesh = textMeshes[0] as TextMeshPro;
 		}
-
 		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
-
 		computeCorners();
-		cardDisable = new CardDisable();
 	}
 
 	private void FixedUpdate()
 	{
 		reflectScreen();
-	}
-
-	public void moveCard(Vector3 newPosition)
-	{
-		gameObject.transform.position = newPosition;
-		computeCorners();
 	}
 
 	public void destroyCard()
@@ -136,21 +68,6 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		}
 		interactableManagerScriptableObject.removeCard(this);
 		Destroy(gameObject);
-	}
-
-	public void computeCorners()
-	{
-		if (this == null)
-		{
-			return;
-		}
-		corners = generateTheCorners();
-	}
-
-	public void addToCardStack(CardStack newCardStack)
-	{
-		isStacked = true;
-		joinedStack = newCardStack;
 	}
 
 	public void stackOnThis(Card draggingCard, Node _prevNode)
@@ -188,10 +105,10 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			string disabledTitle = "[DISABLED] ";
 
-			if (cardDisable.disableType != null)
+			if (cardDisable != null)
 			{
-				disabledTitle = disabledTitle + $"[{cardDisable.disableType}]";
-				if (cardDisable.disableType == CardDisableType.AutoMoving)
+				disabledTitle = disabledTitle + $"[{cardDisable}]";
+				if (cardDisable == CardDisableType.AutoMoving)
 				{
 					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
 				}
@@ -203,45 +120,5 @@ public class Card : MonoBehaviour, IStackable, Interactable
 		{
 			titleTextMesh.text = cardTitle;
 		}
-	}
-
-	public void disableInteractiveForATime(float timer, CardDisableType disableType)
-	{
-		cardDisable.disableType = disableType;
-		isInteractiveDisabled = true;
-	}
-
-	private CardCorners generateTheCorners()
-	{
-		if (gameObject == null)
-		{
-			return null;
-		}
-		Vector3 leftTopCornerPoint = new Vector3(
-			gameObject.transform.position.x - (baseCardX / 2),
-			gameObject.transform.position.y + (baseCardY / 2),
-			gameObject.transform.position.z
-		);
-
-		Vector3 rightTopCornerPoint = new Vector3(
-			gameObject.transform.position.x + (baseCardX / 2),
-			gameObject.transform.position.y + (baseCardY / 2),
-			gameObject.transform.position.z
-		);
-
-		Vector3 leftBottomCornerPoint = new Vector3(
-			gameObject.transform.position.x - (baseCardX / 2),
-			gameObject.transform.position.y - (baseCardY / 2),
-			gameObject.transform.position.z
-		);
-
-		Vector3 rightBottomCornerPoint = new Vector3(
-			gameObject.transform.position.x + (baseCardX / 2),
-			gameObject.transform.position.y - (baseCardY / 2),
-			gameObject.transform.position.z
-		);
-
-		CardCorners newCorners = new CardCorners(leftTopCornerPoint, rightTopCornerPoint, leftBottomCornerPoint, rightBottomCornerPoint);
-		return newCorners;
 	}
 }

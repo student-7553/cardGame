@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core;
+using System.Collections.Generic;
 using Helpers;
 
 // [DefaultExecutionOrder(-100)]
@@ -113,6 +114,30 @@ public class CardHandler : MonoBehaviour
 		interactableManagerScriptableObject.registerNode(newNode);
 
 		return newNode;
+	}
+
+	public List<Card> handleCreatingCards(List<int> cardIds)
+	{
+		if (cardIds.Count == 0)
+		{
+			return new List<Card>();
+		}
+
+		List<Card> addingCards = new List<Card>();
+		foreach (int singleAddingCardId in cardIds)
+		{
+			if (CardDictionary.globalCardDictionary[singleAddingCardId].type == CardsTypes.Node)
+			{
+				createNode(singleAddingCardId);
+			}
+			else
+			{
+				Card createdCard = createCard(singleAddingCardId);
+				addingCards.Add(createdCard);
+			}
+		}
+		// addCardToStack(addingCards);
+		return addingCards;
 	}
 
 	public EnemyNode createEnemyNode(int cardId, GameObject nodeGameObject)
