@@ -25,6 +25,11 @@ public abstract class BaseCard : MonoBehaviour, Interactable
 		return null;
 	}
 
+	public CardCollapsed getCardCollapsed()
+	{
+		return null;
+	}
+
 	// -------------------- Interactable Members End -------------------------
 
 
@@ -101,6 +106,12 @@ public abstract class BaseCard : MonoBehaviour, Interactable
 		CardCorners newCorners = new CardCorners(leftTopCornerPoint, rightTopCornerPoint, leftBottomCornerPoint, rightBottomCornerPoint);
 		return newCorners;
 	}
+}
+
+public interface SelfBaseCardInterface
+{
+	public void reflectScreen() { }
+	public void destroyCard() { }
 }
 
 public class CardCorners

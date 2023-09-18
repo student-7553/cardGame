@@ -4,11 +4,11 @@ using Core;
 using TMPro;
 using Helpers;
 
-public class Card : BaseCard, IStackable
+public class Card : BaseCard, IStackable, SelfBaseCardInterface
 {
 	public new Card getCard()
 	{
-		return null;
+		return this;
 	}
 
 	// -------------------- CardInterface Members -------------------------
