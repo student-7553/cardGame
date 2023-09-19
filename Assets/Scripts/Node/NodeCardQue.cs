@@ -5,7 +5,7 @@ using Core;
 
 public class NodeCardQue : MonoBehaviour
 {
-	public List<Card> queCards = new List<Card>();
+	public List<BaseCard> queCards = new List<BaseCard>();
 	private bool isProccessing = false;
 
 	private int overrideTimeCost = 0;
@@ -18,7 +18,7 @@ public class NodeCardQue : MonoBehaviour
 		}
 	}
 
-	public void addCard(Card card)
+	public void addCard(BaseCard card)
 	{
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
 		card.disableInteractiveForATime(cardObject.nodeTransferTimeCost, CardDisableType.Que);
@@ -27,7 +27,7 @@ public class NodeCardQue : MonoBehaviour
 
 	private IEnumerator singleCardQue()
 	{
-		Card card = queCards[0];
+		BaseCard card = queCards[0];
 		isProccessing = true;
 		CardObject cardObject = CardDictionary.globalCardDictionary[card.id];
 		if (overrideTimeCost > 0)

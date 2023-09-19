@@ -29,7 +29,7 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 		interactableManagerScriptableObject.setActiveNodePlane(this);
 	}
 
-	public void stackOnThis(Card draggingCard, Node prevNode)
+	public void stackOnThis(BaseCard draggingCard, Node prevNode)
 	{
 		connectedNode.stackOnThis(draggingCard, prevNode);
 	}

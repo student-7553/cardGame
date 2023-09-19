@@ -4,7 +4,7 @@ namespace Core
 {
 	public interface IStackable
 	{
-		void stackOnThis(Card draggingCard, Node prevNode);
+		void stackOnThis(BaseCard draggingCard, Node prevNode);
 		GameObject gameObject { get; }
 	}
 

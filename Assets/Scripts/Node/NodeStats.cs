@@ -139,19 +139,19 @@ public class NodeStats
 		if (currentNodeStats.infraInventoryUsed > currentNodeStats.infraInventoryLimit)
 		{
 			int ejectingResourceValue = currentNodeStats.infraInventoryUsed - currentNodeStats.infraInventoryLimit;
-			List<Card> ejectedCards = getEjectedCards(connectedNode.processCardStack.cards, ejectingResourceValue, false);
+			List<BaseCard> ejectedCards = getEjectedCards(connectedNode.processCardStack.cards, ejectingResourceValue, false);
 			connectedNode.ejectCards(ejectedCards);
 		}
 		if (currentNodeStats.resourceInventoryUsed > currentNodeStats.resourceInventoryLimit)
 		{
 			int ejectingResourceValue = currentNodeStats.resourceInventoryUsed - currentNodeStats.resourceInventoryLimit;
-			List<Card> ejectedCards = getEjectedCards(connectedNode.processCardStack.cards, ejectingResourceValue, true);
+			List<BaseCard> ejectedCards = getEjectedCards(connectedNode.processCardStack.cards, ejectingResourceValue, true);
 			connectedNode.ejectCards(ejectedCards);
 		}
 
-		List<Card> getEjectedCards(List<Card> cards, int ejectingResourceValue, bool isResource)
+		List<BaseCard> getEjectedCards(List<BaseCard> cards, int ejectingResourceValue, bool isResource)
 		{
-			List<Card> ejectedCards = new List<Card>();
+			List<BaseCard> ejectedCards = new List<BaseCard>();
 			for (int index = cards.Count - 1; index >= 0; index--)
 			{
 				if (ejectingResourceValue > 0)

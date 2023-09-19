@@ -90,8 +90,8 @@ public class LeftClickHandler : MonoBehaviour
 		);
 
 		Node previousStackedNode =
-			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getCard().isStacked
-				? (Node)interactableObject.getCard().joinedStack.connectedNode
+			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getBaseCard().isStacked
+				? (Node)interactableObject.getBaseCard().joinedStack.connectedNode
 				: null;
 
 		List<Interactable> draggingObjects = new List<Interactable>();
@@ -129,12 +129,12 @@ public class LeftClickHandler : MonoBehaviour
 		}
 		if (isMiddleLogicEnabled)
 		{
-			List<Card> draggingCards = draggingObjects
+			List<BaseCard> draggingCards = draggingObjects
 				.Where((draggingObject) => draggingObject.interactableType == CoreInteractableType.Cards)
-				.Select((draggingObject) => draggingObject.getCard())
+				.Select((draggingObject) => draggingObject.getBaseCard())
 				.ToList();
 
-			draggingObjects[0].getCard().joinedStack.removeCardsFromStack(draggingCards);
+			draggingObjects[0].getBaseCard().joinedStack.removeCardsFromStack(draggingCards);
 		}
 
 		this.dragFinishHandler(draggingObjects, previousStackedNode);
@@ -146,23 +146,23 @@ public class LeftClickHandler : MonoBehaviour
 		bool isEnded = DragAndDropHelper.getDraggingCardsAngle(initialPostionOfStack, currentPositionOfCard);
 		if (isEnded)
 		{
-			this.applyDownDragLogic(rootInteractable.getCard(), initialPostionOfStack, draggingObjects);
+			this.applyDownDragLogic(rootInteractable.getBaseCard(), initialPostionOfStack, draggingObjects);
 			return true;
 		}
 		else
 		{
-			List<Card> draggingCards = draggingObjects
+			List<BaseCard> draggingCards = draggingObjects
 				.Where((draggingObject) => draggingObject.interactableType == CoreInteractableType.Cards)
-				.Select((draggingObject) => draggingObject.getCard())
+				.Select((draggingObject) => draggingObject.getBaseCard())
 				.ToList();
-			rootInteractable.getCard().joinedStack.removeCardsFromStack(draggingCards);
+			rootInteractable.getBaseCard().joinedStack.removeCardsFromStack(draggingCards);
 			return false;
 		}
 	}
 
-	private void applyDownDragLogic(Card hitCard, Vector3 initialPostionOfCard, List<Interactable> draggingObjects)
+	private void applyDownDragLogic(BaseCard hitCard, Vector3 initialPostionOfCard, List<Interactable> draggingObjects)
 	{
-		List<Card> qualifiedCards = new List<Card>(
+		List<BaseCard> qualifiedCards = new List<BaseCard>(
 			hitCard.joinedStack.cards.Where(stacksSingleCard =>
 			{
 				return !draggingObjects.Any(
@@ -194,7 +194,7 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			return false;
 		}
-		Card rootCard = rootInteractable.getCard();
+		BaseCard rootCard = rootInteractable.getBaseCard();
 		return rootCard.isStacked;
 	}
 
@@ -202,13 +202,13 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		if (draggingObjects[0].interactableType == CoreInteractableType.Cards)
 		{
-			IStackable stackableObject = this.findTargetToStack(draggingObjects[0].getCard());
+			IStackable stackableObject = this.findTargetToStack(draggingObjects[0].getBaseCard());
 
 			if (stackableObject != null)
 			{
 				for (int i = 0; i < draggingObjects.Count; i++)
 				{
-					stackableObject.stackOnThis(draggingObjects[i].getCard(), previousStackedNode);
+					stackableObject.stackOnThis(draggingObjects[i].getBaseCard(), previousStackedNode);
 				}
 				return;
 			}
@@ -218,7 +218,7 @@ public class LeftClickHandler : MonoBehaviour
 				// stacking on the top card of dragging
 				for (int i = 1; i < draggingObjects.Count; i++)
 				{
-					draggingObjects[0].getCard().stackOnThis(draggingObjects[i].getCard(), previousStackedNode);
+					draggingObjects[0].getBaseCard().stackOnThis(draggingObjects[i].getBaseCard(), previousStackedNode);
 				}
 				return;
 			}
@@ -240,7 +240,7 @@ public class LeftClickHandler : MonoBehaviour
 		);
 	}
 
-	private IStackable findTargetToStack(Card hitCard)
+	private IStackable findTargetToStack(BaseCard hitCard)
 	{
 		hitCard.computeCorners();
 		Vector3[] corners =

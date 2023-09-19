@@ -14,30 +14,32 @@ public class CardStack
 
 	public Vector3 originPointAdjustment;
 
-	private List<Card> _cards;
+	// private List<Card> _cards;
+	private List<BaseCard> _cards;
 
-	public List<Card> cards
+	// public List<Card> cards
+	public List<BaseCard> cards
 	{
 		get { return _cards; }
 		set
 		{
 			_cards = value;
-			alignCards();
+			// alignCards();
 		}
 	}
 
-	public CardStack(BaseNode spawningNode)
+	public CardStack(BaseNode _connectedNode)
 	{
 		originPointAdjustment = new Vector3();
-		cards = new List<Card>();
-		if (spawningNode == null)
+		cards = new List<BaseCard>();
+		if (_connectedNode == null)
 		{
 			cardStackType = CardStackType.Cards;
 		}
 		else
 		{
 			cardStackType = CardStackType.Nodes;
-			connectedNode = spawningNode;
+			connectedNode = _connectedNode;
 		}
 	}
 
@@ -86,7 +88,7 @@ public class CardStack
 		alignCards(originPoint);
 	}
 
-	public void removeCardsFromStack(List<Card> removingCards)
+	public void removeCardsFromStack(List<BaseCard> removingCards)
 	{
 		bool changed = false;
 
@@ -106,11 +108,11 @@ public class CardStack
 		}
 	}
 
-	public void addCardToStack(List<Card> addingCards)
+	public void addCardToStack(List<BaseCard> addingCards)
 	{
 		cards.AddRange(addingCards);
 		// alignCards();
-		foreach (Card singleCard in addingCards)
+		foreach (BaseCard singleCard in addingCards)
 		{
 			singleCard.attachToCardStack(this);
 
@@ -124,7 +126,7 @@ public class CardStack
 		alignCards();
 	}
 
-	public void addCardToStack(Card addingCard)
+	public void addCardToStack(BaseCard addingCard)
 	{
 		cards.Add(addingCard);
 

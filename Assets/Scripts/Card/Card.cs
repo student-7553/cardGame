@@ -4,9 +4,9 @@ using Core;
 using TMPro;
 using Helpers;
 
-public class Card : BaseCard, IStackable, SelfBaseCardInterface
+public class Card : BaseCard, SelfBaseCardInterface
 {
-	public new Card getCard()
+	public override Card getCard()
 	{
 		return this;
 	}
@@ -24,7 +24,7 @@ public class Card : BaseCard, IStackable, SelfBaseCardInterface
 			{
 				if (joinedStack != null)
 				{
-					joinedStack.removeCardsFromStack(new List<Card>() { this });
+					joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
 					joinedStack = null;
 				}
 				gameObject.SetActive(true);
@@ -56,7 +56,7 @@ public class Card : BaseCard, IStackable, SelfBaseCardInterface
 		reflectScreen();
 	}
 
-	public void destroyCard()
+	public override void destroyCard()
 	{
 		if (!gameObject)
 		{
@@ -70,7 +70,7 @@ public class Card : BaseCard, IStackable, SelfBaseCardInterface
 		Destroy(gameObject);
 	}
 
-	public void stackOnThis(Card draggingCard, Node _prevNode)
+	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
 		if (isStacked)
 		{
@@ -79,7 +79,7 @@ public class Card : BaseCard, IStackable, SelfBaseCardInterface
 		}
 		else
 		{
-			List<Card> newCardStackCards = new List<Card> { this, draggingCard };
+			List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
 			CardStack newStack = new CardStack(null);
 			newStack.addCardToStack(newCardStackCards);
 		}

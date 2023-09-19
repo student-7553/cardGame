@@ -5,7 +5,6 @@ using Core;
 using System.Linq;
 using Helpers;
 
-// public class Node : MonoBehaviour, BaseNode, Interactable
 public class Node : MonoBehaviour, BaseNode
 {
 	// -------------------- Interactable Members -------------------------
@@ -113,7 +112,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	public void killNode()
 	{
-		List<Card> allCards = new List<Card>(processCardStack.cards);
+		List<BaseCard> allCards = new List<BaseCard>(processCardStack.cards);
 		ejectCards(allCards);
 
 		interactableManagerScriptableObject.removeNode(this);
@@ -122,7 +121,12 @@ public class Node : MonoBehaviour, BaseNode
 		Destroy(gameObject);
 	}
 
-	public void stackOnThis(Card newCard, Node prevNode)
+	public BaseCard getBaseCard()
+	{
+		return null;
+	}
+
+	public void stackOnThis(BaseCard newCard, Node prevNode)
 	{
 		if (isMarket())
 		{
@@ -161,7 +165,7 @@ public class Node : MonoBehaviour, BaseNode
 		processCardStack.addCardToStack(newCard);
 	}
 
-	public void ejectCards(List<Card> cards)
+	public void ejectCards(List<BaseCard> cards)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
 
@@ -176,7 +180,7 @@ public class Node : MonoBehaviour, BaseNode
 		StartCoroutine(delayedDragFinish(cards));
 	}
 
-	public IEnumerator delayedDragFinish(List<Card> cards)
+	public IEnumerator delayedDragFinish(List<BaseCard> cards)
 	{
 		if (LeftClickHandler.current != null)
 		{

@@ -2,7 +2,7 @@ using UnityEngine;
 using Core;
 using Helpers;
 
-public abstract class BaseCard : MonoBehaviour, Interactable
+public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 {
 	public static float baseCardX = 5;
 	public static float baseCardY = 8;
@@ -15,20 +15,27 @@ public abstract class BaseCard : MonoBehaviour, Interactable
 		set { _isInteractiveDisabled = value; }
 	}
 
-	public CoreInteractableType interactableType
+	public virtual CoreInteractableType interactableType
 	{
 		get { return CoreInteractableType.Cards; }
 	}
 
-	public Card getCard()
+	public virtual Card getCard()
 	{
 		return null;
 	}
 
-	public CardCollapsed getCardCollapsed()
+	public virtual CardCollapsed getCardCollapsed()
 	{
 		return null;
 	}
+
+	public BaseCard getBaseCard()
+	{
+		return this;
+	}
+
+	public virtual void destroyCard() { }
 
 	// -------------------- Interactable Members End -------------------------
 
@@ -106,12 +113,33 @@ public abstract class BaseCard : MonoBehaviour, Interactable
 		CardCorners newCorners = new CardCorners(leftTopCornerPoint, rightTopCornerPoint, leftBottomCornerPoint, rightBottomCornerPoint);
 		return newCorners;
 	}
+
+	public abstract void stackOnThis(BaseCard draggingCard, Node _prevNode);
+	// {
+	// 	// Check if same card
+	// 	if (collpasedCards.Count != 0 && draggingCard.id == collpasedCards[0].id)
+	// 	{
+	// 		addCardToCollapsed(draggingCard);
+	// 		return;
+	// 	}
+
+	// 	if (isStacked)
+	// 	{
+	// 		CardStack existingstack = joinedStack;
+	// 		existingstack.addCardToStack(draggingCard);
+	// 		return;
+	// 	}
+
+	// 	// Todo
+	// 	// List<Card> newCardStackCards = new List<Card> { this, draggingCard };
+	// 	// CardStack newStack = new CardStack(null);
+	// 	// newStack.addCardToStack(newCardStackCards);
+	// }
 }
 
 public interface SelfBaseCardInterface
 {
 	public void reflectScreen() { }
-	public void destroyCard() { }
 }
 
 public class CardCorners

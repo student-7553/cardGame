@@ -250,7 +250,9 @@ namespace Helpers
 	{
 		public bool isInteractiveDisabled { get; set; }
 		public CoreInteractableType interactableType { get; }
-		public Card getCard();
+
+		// public Card getCard();
+		public BaseCard getBaseCard();
 		GameObject gameObject { get; }
 	}
 

@@ -32,6 +32,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	public CardStack processCardStack { get; set; }
 
+	public BaseCard getBaseCard()
+	{
+		return null;
+	}
+
 	private void Awake()
 	{
 		processCardStack = new CardStack(this);
@@ -64,7 +69,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		}
 	}
 
-	public void stackOnThis(Card newCard, Node prevNode)
+	public void stackOnThis(BaseCard newCard, Node prevNode)
 	{
 		processCardStack.addCardToStack(newCard);
 		checkIfDead();

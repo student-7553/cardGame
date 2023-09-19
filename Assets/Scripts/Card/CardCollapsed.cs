@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using Core;
 using TMPro;
 
-public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
+// public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
+public class CardCollapsed : BaseCard, SelfBaseCardInterface
 {
-	List<Card> collpasedCards = new List<Card>();
+	List<BaseCard> collpasedCards = new List<BaseCard>();
 
 	private SpriteRenderer spriteRenderer;
 
 	private TextMeshPro titleTextMesh;
 
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+
+	public override CardCollapsed getCardCollapsed()
+	{
+		return this;
+	}
 
 	// -------------------- CardInterface Members -------------------------
 	public new bool isStacked
@@ -55,12 +61,7 @@ public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
 		reflectScreen();
 	}
 
-	public new CardCollapsed getCardCollapsed()
-	{
-		return this;
-	}
-
-	public void stackOnThis(Card draggingCard, Node _prevNode)
+	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
 		// Check if same card
 		if (collpasedCards.Count != 0 && draggingCard.id == collpasedCards[0].id)
@@ -82,7 +83,7 @@ public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
 		// newStack.addCardToStack(newCardStackCards);
 	}
 
-	public void destroyCard()
+	public override void destroyCard()
 	{
 		if (!gameObject)
 		{
@@ -100,7 +101,7 @@ public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
 		Destroy(gameObject);
 	}
 
-	private void addCardToCollapsed(Card newCard)
+	private void addCardToCollapsed(BaseCard newCard)
 	{
 		collpasedCards.Add(newCard);
 		newCard.gameObject.SetActive(false);

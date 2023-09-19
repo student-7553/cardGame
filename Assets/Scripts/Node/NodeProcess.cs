@@ -5,6 +5,7 @@ using System;
 using Core;
 using System.Linq;
 using Helpers;
+using Unity.VisualScripting;
 
 public class NodeProcess : MonoBehaviour
 {
@@ -78,11 +79,13 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		List<Card> addingCards = CardHandler.current.handleCreatingCards(data.addingCardIds);
-		node.processCardStack.addCardToStack(addingCards);
+		List<BaseCard> baseCards = new List<BaseCard>(addingCards);
+
+		node.processCardStack.addCardToStack(baseCards);
 
 		if (addingCards != null && addingCards.Count > 0)
 		{
-			List<Card> ejectingCards = addingCards
+			List<BaseCard> ejectingBaseCards = baseCards
 				.Where(
 					(card) =>
 					{
@@ -90,9 +93,9 @@ public class NodeProcess : MonoBehaviour
 					}
 				)
 				.ToList();
-			if (ejectingCards.Count > 0)
+			if (ejectingBaseCards.Count > 0)
 			{
-				node.ejectCards(ejectingCards);
+				node.ejectCards(ejectingBaseCards);
 			}
 		}
 
@@ -104,13 +107,15 @@ public class NodeProcess : MonoBehaviour
 
 	private void handleMarketProcess()
 	{
-		Card sellingCard = node.processCardStack.cards.Find((card) => CardDictionary.globalCardDictionary[card.id].type != CardsTypes.Gold);
+		BaseCard sellingBaseCard = node.processCardStack.cards.Find(
+			(card) => CardDictionary.globalCardDictionary[card.id].type != CardsTypes.Gold
+		);
 
-		if (sellingCard == null)
+		if (sellingBaseCard == null)
 		{
 			return;
 		}
-		StartCoroutine(sellCard(sellingCard));
+		StartCoroutine(sellCard(sellingBaseCard));
 	}
 
 	private void handleNodeProcess()
@@ -336,7 +341,7 @@ public class NodeProcess : MonoBehaviour
 
 		// Fillers end
 
-		List<Card> ejectingCards = new List<Card>();
+		List<BaseCard> ejectingBaseCards = new List<BaseCard>();
 		if (node.isActive)
 		{
 			// node.hadleRemovingCards(removingCards);
@@ -345,17 +350,18 @@ public class NodeProcess : MonoBehaviour
 				singleRemovingCard.destroyCard();
 			}
 
-			List<Card> addingCards = CardHandler.current.handleCreatingCards(addingCardIds);
-			node.processCardStack.addCardToStack(addingCards);
+			List<BaseCard> addingBaseCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingCardIds));
+
+			node.processCardStack.addCardToStack(addingBaseCards);
 
 			if (pickedProcess.id == 34 || pickedProcess.id == 35 || pickedProcess.id == 28)
 			{
-				ejectingCards.AddRange(addingCards);
+				ejectingBaseCards.AddRange(addingBaseCards);
 			}
 			else
 			{
-				ejectingCards.AddRange(
-					addingCards.Where(
+				ejectingBaseCards.AddRange(
+					addingBaseCards.Where(
 						(card) =>
 						{
 							return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[card.id].type)
@@ -384,7 +390,7 @@ public class NodeProcess : MonoBehaviour
 			GameManager.current.SpawnFloatingText("[" + CardDictionary.globalCardDictionary[newCardId].name + "]", transform.position);
 		}
 
-		ejectingCards.AddRange(
+		ejectingBaseCards.AddRange(
 			restNonInteractiveCards.Where(
 				(card) =>
 				{
@@ -397,7 +403,7 @@ public class NodeProcess : MonoBehaviour
 			)
 		);
 
-		node.ejectCards(ejectingCards);
+		node.ejectCards(ejectingBaseCards);
 
 		// node.processCardStack.consolidateTypeCards();
 
@@ -617,7 +623,7 @@ public class NodeProcess : MonoBehaviour
 		return data;
 	}
 
-	private IEnumerator sellCard(Card card)
+	private IEnumerator sellCard(BaseCard card)
 	{
 		isProccessing = true;
 		if (card == null)
@@ -632,14 +638,14 @@ public class NodeProcess : MonoBehaviour
 
 		yield return new WaitForSeconds(node.staticVariables.sellTimer);
 
-		List<Card> removingCards = new List<Card> { card };
+		List<BaseCard> removingCards = new List<BaseCard> { card };
 
-		foreach (Card singleRemovingCard in removingCards)
+		foreach (BaseCard singleRemovingCard in removingCards)
 		{
 			singleRemovingCard.destroyCard();
 		}
 
-		List<Card> addingCards = CardHandler.current.handleCreatingCards(addingGoldCardIds);
+		List<BaseCard> addingCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingGoldCardIds));
 		node.processCardStack.addCardToStack(addingCards);
 		// node.processCardStack.consolidateTypeCards();
 
