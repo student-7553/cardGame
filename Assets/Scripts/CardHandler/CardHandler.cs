@@ -84,6 +84,30 @@ public class CardHandler : MonoBehaviour
 		return newCard;
 	}
 
+	public CardCollapsed createCardCollapsed(int cardId)
+	{
+		if (!CardDictionary.globalCardDictionary.ContainsKey(cardId))
+		{
+			return null;
+		}
+
+		GameObject cardCollapsedGameObject = Instantiate(cardPrefab);
+
+		cardCollapsedGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
+		cardCollapsedGameObject.tag = "Cards";
+		cardCollapsedGameObject.layer = 6;
+
+		CardCollapsed newCardCollapsed = ensureComponent<CardCollapsed>(cardCollapsedGameObject);
+
+		newCardCollapsed.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newCardCollapsed.id = cardId;
+
+		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardCollapsedGameObject);
+		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
+
+		return newCardCollapsed;
+	}
+
 	public Node createNode(int cardId, GameObject nodeGameObject)
 	{
 		nodeGameObject.name = CardDictionary.globalCardDictionary[cardId].name;

@@ -9,6 +9,21 @@ public class EnemyNode : MonoBehaviour, BaseNode
 {
 	// -------------------- Custom Class ------------------------
 
+	public Card getCard()
+	{
+		return null;
+	}
+
+	public BaseCard getBaseCard()
+	{
+		return null;
+	}
+
+	public CardCollapsed getCollapsedCard()
+	{
+		return null;
+	}
+
 	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }
 	public CoreInteractableType interactableType
@@ -31,11 +46,6 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 
 	public CardStack processCardStack { get; set; }
-
-	public BaseCard getBaseCard()
-	{
-		return null;
-	}
 
 	private void Awake()
 	{
@@ -179,11 +189,6 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	{
 		Destroy(nodePlaneManager.gameObject);
 		Destroy(gameObject);
-	}
-
-	public Card getCard()
-	{
-		return null;
 	}
 
 	// ---------------------------------------------------------

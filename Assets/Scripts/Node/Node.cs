@@ -15,6 +15,21 @@ public class Node : MonoBehaviour, BaseNode
 		get { return CoreInteractableType.Nodes; }
 	}
 
+	public Card getCard()
+	{
+		return null;
+	}
+
+	public BaseCard getBaseCard()
+	{
+		return null;
+	}
+
+	public CardCollapsed getCollapsedCard()
+	{
+		return null;
+	}
+
 	// -------------------- Custom Class -------------------------
 	[System.NonSerialized]
 	public NodeCardQue nodeCardQue;
@@ -121,11 +136,6 @@ public class Node : MonoBehaviour, BaseNode
 		Destroy(gameObject);
 	}
 
-	public BaseCard getBaseCard()
-	{
-		return null;
-	}
-
 	public void stackOnThis(BaseCard newCard, Node prevNode)
 	{
 		if (isMarket())
@@ -202,10 +212,5 @@ public class Node : MonoBehaviour, BaseNode
 			return true;
 		}
 		return false;
-	}
-
-	public Card getCard()
-	{
-		return null;
 	}
 }

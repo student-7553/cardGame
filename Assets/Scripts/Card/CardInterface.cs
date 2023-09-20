@@ -25,7 +25,7 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 		return null;
 	}
 
-	public virtual CardCollapsed getCardCollapsed()
+	public virtual CardCollapsed getCollapsedCard()
 	{
 		return null;
 	}

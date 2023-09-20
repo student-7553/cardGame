@@ -16,6 +16,7 @@ namespace Core
 	public enum CoreInteractableType
 	{
 		Cards,
+		CollapsedCards,
 		Nodes
 	}
 

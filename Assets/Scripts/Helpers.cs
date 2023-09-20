@@ -251,8 +251,9 @@ namespace Helpers
 		public bool isInteractiveDisabled { get; set; }
 		public CoreInteractableType interactableType { get; }
 
-		// public Card getCard();
 		public BaseCard getBaseCard();
+		public Card getCard();
+		public CardCollapsed getCollapsedCard();
 		GameObject gameObject { get; }
 	}
 

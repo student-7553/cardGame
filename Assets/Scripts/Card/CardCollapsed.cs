@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Core;
 using TMPro;
 
 // public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
@@ -14,7 +13,7 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
-	public override CardCollapsed getCardCollapsed()
+	public override CardCollapsed getCollapsedCard()
 	{
 		return this;
 	}
@@ -60,12 +59,26 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 		reflectScreen();
 	}
 
+	public void addToCollapsedCards(List<BaseCard> baseCards)
+	{
+		foreach (BaseCard baseCard in baseCards)
+		{
+			addToCollapsedCards(baseCard);
+		}
+	}
+
+	public void addToCollapsedCards(BaseCard newCard)
+	{
+		collpasedCards.Add(newCard);
+		newCard.gameObject.SetActive(false);
+	}
+
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
 		// Check if same card
 		if (collpasedCards.Count != 0 && draggingCard.id == collpasedCards[0].id)
 		{
-			addCardToCollapsed(draggingCard);
+			addToCollapsedCards(draggingCard);
 			return;
 		}
 
@@ -97,12 +110,6 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 			interactableManagerScriptableObject.removeCard(singleCard);
 		}
 		Destroy(gameObject);
-	}
-
-	private void addCardToCollapsed(BaseCard newCard)
-	{
-		collpasedCards.Add(newCard);
-		newCard.gameObject.SetActive(false);
 	}
 
 	public void reflectScreen()
