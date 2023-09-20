@@ -32,8 +32,7 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 			{
 				if (joinedStack != null)
 				{
-					// Todo
-					// joinedStack.removeCardsFromStack(new List<Card>() { this });
+					joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
 					joinedStack = null;
 				}
 				gameObject.SetActive(true);
@@ -77,10 +76,9 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 			return;
 		}
 
-		// Todo
-		// List<Card> newCardStackCards = new List<Card> { this, draggingCard };
-		// CardStack newStack = new CardStack(null);
-		// newStack.addCardToStack(newCardStackCards);
+		List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
+		CardStack newStack = new CardStack(null);
+		newStack.addCardToStack(newCardStackCards);
 	}
 
 	public override void destroyCard()
