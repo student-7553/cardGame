@@ -170,7 +170,7 @@ public class LeftClickHandler : MonoBehaviour
 				);
 			})
 		);
-		foreach (Card singleCard in qualifiedCards)
+		foreach (BaseCard singleCard in qualifiedCards)
 		{
 			if (
 				hitCard.gameObject.transform.position.y < singleCard.gameObject.transform.position.y

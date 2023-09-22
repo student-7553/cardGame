@@ -160,7 +160,6 @@ public class CardHandler : MonoBehaviour
 				addingCards.Add(createdCard);
 			}
 		}
-		// addCardToStack(addingCards);
 		return addingCards;
 	}
 

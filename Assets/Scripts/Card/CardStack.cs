@@ -3,6 +3,8 @@ using UnityEngine;
 using Core;
 using Helpers;
 using System.Linq;
+using UnityEditor.PackageManager;
+using System;
 
 public class CardStack
 {
@@ -20,23 +22,7 @@ public class CardStack
 	public List<BaseCard> cards
 	{
 		get { return _cards; }
-		set
-		{
-			_cards = value;
-			foreach (BaseCard singleCard in _cards)
-			{
-				if (singleCard.isStacked)
-				{
-					continue;
-				}
-
-				singleCard.attachToCardStack(this);
-				if (cardStackType == CardStackType.Nodes)
-				{
-					singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
-				}
-			}
-		}
+		set { _cards = value; }
 	}
 
 	public CardStack(BaseNode _connectedNode)
@@ -62,7 +48,7 @@ public class CardStack
 		}
 
 		float paddingCounter = 0;
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (singleCard == null)
 			{
@@ -103,7 +89,7 @@ public class CardStack
 	{
 		bool changed = false;
 
-		foreach (Card singleCard in removingCards)
+		foreach (BaseCard singleCard in removingCards)
 		{
 			if (!cards.Contains(singleCard))
 			{
@@ -123,12 +109,74 @@ public class CardStack
 
 	public void addCardToStack(List<BaseCard> addingCards)
 	{
-		cards.AddRange(addingCards);
+		addCardsToStack(addingCards);
 		collapseCardStack();
+	}
+
+	private void addCardsToStack(List<BaseCard> addingCards)
+	{
+		cards.AddRange(addingCards);
+		foreach (BaseCard singleCard in cards)
+		{
+			if (singleCard.isStacked)
+			{
+				continue;
+			}
+
+			singleCard.attachToCardStack(this);
+			if (cardStackType == CardStackType.Nodes)
+			{
+				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
+			}
+		}
 		alignCards();
 	}
 
 	private void collapseCardStack()
+	{
+		BaseCard targetBaseCard = findCollapsableCard();
+
+		while (targetBaseCard != null)
+		{
+			if (targetBaseCard.interactableType == CoreInteractableType.CollapsedCards)
+			{
+				List<BaseCard> subjectCards = cards
+					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
+					.ToList();
+				CardCollapsed cardCollapsed = targetBaseCard.getCollapsedCard();
+				cardCollapsed.addToCollapsedCards(subjectCards);
+				removeCardsFromStack(subjectCards);
+			}
+			else if (targetBaseCard.interactableType == CoreInteractableType.Cards)
+			{
+				Debug.Log("cardsCount /" + cards.Count);
+
+				List<BaseCard> subjectCards = cards
+					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
+					.ToList();
+
+				Debug.Log("subjectCards count /" + subjectCards.Count);
+
+				CardCollapsed cardCollapsed = CardHandler.current.createCardCollapsed(targetBaseCard.id);
+
+				Debug.Log("Adding to collapsed/" + subjectCards.Count);
+
+				cardCollapsed.addToCollapsedCards(subjectCards);
+
+				addCardsToStack(new List<BaseCard>() { cardCollapsed });
+				removeCardsFromStack(subjectCards);
+			}
+			else
+			{
+				Debug.LogError("collapseCardStack should not happen here");
+				break;
+			}
+			break;
+			// targetBaseCard = findCollapsableCard();
+		}
+	}
+
+	private BaseCard findCollapsableCard()
 	{
 		foreach (BaseCard singleCard in cards)
 		{
@@ -139,39 +187,33 @@ public class CardStack
 			if (singleCard.interactableType == CoreInteractableType.CollapsedCards)
 			{
 				List<BaseCard> subjectCards = cards
-					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == singleCard.id)
+					.Where((card) => card.interactableType == CoreInteractableType.Cards && singleCard != card && card.id == singleCard.id)
 					.ToList();
 
 				if (subjectCards.Count == 0)
 				{
 					continue;
 				}
-				CardCollapsed cardCollapsed = singleCard.getCollapsedCard();
-				cardCollapsed.addToCollapsedCards(subjectCards);
-				removeCardsFromStack(subjectCards);
+				return singleCard;
 			}
 			else if (singleCard.interactableType == CoreInteractableType.Cards)
 			{
 				List<BaseCard> subjectCards = cards
-					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == singleCard.id)
+					.Where((card) => card.interactableType == CoreInteractableType.Cards && singleCard != card && card.id == singleCard.id)
 					.ToList();
 				if (subjectCards.Count == 0)
 				{
 					continue;
 				}
-
-				CardCollapsed cardCollapsed = CardHandler.current.createCardCollapsed(singleCard.id);
-				subjectCards.Add(singleCard);
-				removeCardsFromStack(subjectCards);
-				addCardToStack(cardCollapsed);
+				return singleCard;
 			}
 		}
+		return null;
 	}
 
 	public void addCardToStack(BaseCard addingCard)
 	{
-		cards.Add(addingCard);
-		alignCards();
+		addCardToStack(new List<BaseCard>() { addingCard });
 	}
 
 	public List<int> getAllCardIds()

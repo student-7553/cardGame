@@ -115,26 +115,6 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	}
 
 	public abstract void stackOnThis(BaseCard draggingCard, Node _prevNode);
-	// {
-	// 	// Check if same card
-	// 	if (collpasedCards.Count != 0 && draggingCard.id == collpasedCards[0].id)
-	// 	{
-	// 		addCardToCollapsed(draggingCard);
-	// 		return;
-	// 	}
-
-	// 	if (isStacked)
-	// 	{
-	// 		CardStack existingstack = joinedStack;
-	// 		existingstack.addCardToStack(draggingCard);
-	// 		return;
-	// 	}
-
-	// 	// Todo
-	// 	// List<Card> newCardStackCards = new List<Card> { this, draggingCard };
-	// 	// CardStack newStack = new CardStack(null);
-	// 	// newStack.addCardToStack(newCardStackCards);
-	// }
 }
 
 public interface SelfBaseCardInterface

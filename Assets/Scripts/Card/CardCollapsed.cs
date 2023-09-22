@@ -114,13 +114,15 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 
 	public void reflectScreen()
 	{
+		if (titleTextMesh == null)
+		{
+			return;
+		}
+
 		string cardTitle = "";
 		if (CardDictionary.globalCardDictionary.ContainsKey(id))
 		{
-			if (titleTextMesh != null)
-			{
-				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
-			}
+			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name + $"[Collapsed {collpasedCards.Count}]";
 		}
 
 		if (spriteRenderer.color.a != 1f)
@@ -143,9 +145,6 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 			cardTitle = disabledTitle + cardTitle;
 		}
 
-		if (titleTextMesh != null)
-		{
-			titleTextMesh.text = cardTitle;
-		}
+		titleTextMesh.text = cardTitle;
 	}
 }
