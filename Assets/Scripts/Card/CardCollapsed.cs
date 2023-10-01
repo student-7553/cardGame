@@ -99,10 +99,6 @@ public class CardCollapsed : BaseCard, CardHolder
 
 		joinedStack = null;
 
-		foreach (Card singleCard in cards)
-		{
-			interactableManagerScriptableObject.removeCard(singleCard);
-		}
 		Destroy(gameObject);
 	}
 
@@ -168,24 +164,29 @@ public class CardCollapsed : BaseCard, CardHolder
 
 	public void addCardsToStack(List<BaseCard> addingCards)
 	{
-		cards.AddRange(addingCards);
+		// Todo handle adding collapseCard
+		foreach (BaseCard baseCard in addingCards)
+		{
+			if (baseCard.interactableType == CoreInteractableType.Cards)
+			{
+				cards.Add(baseCard);
+			}
+			else
+			{
+				// delete it
+				CardCollapsed cardCollapsed = baseCard.getCollapsedCard();
+				cards.AddRange(cardCollapsed.getCards());
+
+				cardCollapsed.destroyCard();
+			}
+		}
+
 		foreach (BaseCard singleCard in cards)
 		{
-			// if (singleCard.isStacked())
-			// {
-			// 	continue;
-			// }
 			singleCard.gameObject.SetActive(false);
 			singleCard.attachToCardHolder(this);
 		}
 	}
-
-	// public void addToCollapsedCards(BaseCard newCard)
-	// {
-	// 	newCard.gameObject.SetActive(false);
-	// 	cards.Add(newCard);
-	// 	// singleCard.attachToCardHolder(this);
-	// }
 
 	public CardStackType getCardHolderType()
 	{

@@ -92,7 +92,7 @@ public class CardStack : CardHolder
 			if (targetBaseCard.interactableType == CoreInteractableType.CollapsedCards)
 			{
 				List<BaseCard> subjectCards = cards
-					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
+					.Where((card) => card.isCardType() && card.id == targetBaseCard.id && card != targetBaseCard)
 					.ToList();
 
 				string.Join(",", subjectCards.Select((card) => card.id));
@@ -292,8 +292,17 @@ public class CardStack : CardHolder
 			}
 			if (singleCard.interactableType == CoreInteractableType.CollapsedCards)
 			{
+				// List<BaseCard> subjectCards = cards
+				// 	.Where((card) => card.interactableType == CoreInteractableType.Cards && singleCard != card && card.id == singleCard.id)
+				// 	.ToList();
+
+				// if (subjectCards.Count == 0)
+				// {
+				// 	continue;
+				// }
+				// return singleCard;
 				List<BaseCard> subjectCards = cards
-					.Where((card) => card.interactableType == CoreInteractableType.Cards && singleCard != card && card.id == singleCard.id)
+					.Where((card) => card.isCardType() && singleCard != card && card.id == singleCard.id)
 					.ToList();
 
 				if (subjectCards.Count == 0)
