@@ -21,6 +21,11 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 		get { return CoreInteractableType.Cards; }
 	}
 
+	public bool isCardType()
+	{
+		return true;
+	}
+
 	public virtual Card getCard()
 	{
 		return null;

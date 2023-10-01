@@ -4,7 +4,7 @@ using Core;
 using TMPro;
 using Helpers;
 
-public class Card : BaseCard, SelfBaseCardInterface
+public class Card : BaseCard
 {
 	public override Card getCard()
 	{

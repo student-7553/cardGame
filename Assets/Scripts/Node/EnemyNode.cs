@@ -24,6 +24,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		return null;
 	}
 
+	public bool isCardType()
+	{
+		return false;
+	}
+
 	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }
 	public CoreInteractableType interactableType

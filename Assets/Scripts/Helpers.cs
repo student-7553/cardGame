@@ -289,6 +289,8 @@ namespace Helpers
 		public bool isInteractiveDisabled { get; set; }
 		public CoreInteractableType interactableType { get; }
 
+		public bool isCardType();
+
 		public BaseCard getBaseCard();
 		public Card getCard();
 		public CardCollapsed getCollapsedCard();

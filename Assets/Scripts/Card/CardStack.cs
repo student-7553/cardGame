@@ -94,6 +94,9 @@ public class CardStack : CardHolder
 				List<BaseCard> subjectCards = cards
 					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
 					.ToList();
+
+				string.Join(",", subjectCards.Select((card) => card.id));
+
 				CardCollapsed cardCollapsed = targetBaseCard.getCollapsedCard();
 				cardCollapsed.addCardsToStack(subjectCards);
 
@@ -101,17 +104,11 @@ public class CardStack : CardHolder
 			}
 			else if (targetBaseCard.interactableType == CoreInteractableType.Cards)
 			{
-				Debug.Log("cardsCount /" + cards.Count);
-
 				List<BaseCard> subjectCards = cards
 					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
 					.ToList();
 
-				Debug.Log("subjectCards count /" + subjectCards.Count);
-
 				CardCollapsed cardCollapsed = CardHandler.current.createCardCollapsed(targetBaseCard.id);
-
-				Debug.Log("Adding to collapsed/" + subjectCards.Count);
 
 				cardCollapsed.addCardsToStack(subjectCards);
 

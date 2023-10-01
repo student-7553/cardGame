@@ -4,7 +4,7 @@ using TMPro;
 using Core;
 
 // public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
-public class CardCollapsed : BaseCard, SelfBaseCardInterface, CardHolder
+public class CardCollapsed : BaseCard, CardHolder
 {
 	List<BaseCard> cards = new List<BaseCard>();
 
@@ -17,6 +17,11 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface, CardHolder
 	public override CardCollapsed getCollapsedCard()
 	{
 		return this;
+	}
+
+	public override CoreInteractableType interactableType
+	{
+		get { return CoreInteractableType.CollapsedCards; }
 	}
 
 	// -------------------- CardInterface Members -------------------------
@@ -68,11 +73,11 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface, CardHolder
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
 		// Check if same card
-		if (cards.Count != 0 && draggingCard.id == cards[0].id)
-		{
-			addCardsToStack(new List<BaseCard>() { draggingCard });
-			return;
-		}
+		// if (cards.Count != 0 && draggingCard.id == cards[0].id)
+		// {
+		// 	addCardsToStack(new List<BaseCard>() { draggingCard });
+		// 	return;
+		// }
 
 		if (isStacked())
 		{
@@ -144,7 +149,6 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface, CardHolder
 		// Good to have some checks here tho
 		// Will always be Cards
 
-		Debug.Log("CardCollapsed removeCardsFromStack is called");
 
 		foreach (BaseCard singleCard in removingCards)
 		{

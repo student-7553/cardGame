@@ -7,6 +7,11 @@ using Helpers;
 
 public class Node : MonoBehaviour, BaseNode
 {
+	public bool isCardType()
+	{
+		return false;
+	}
+
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }

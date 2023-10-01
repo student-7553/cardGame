@@ -90,7 +90,7 @@ public class LeftClickHandler : MonoBehaviour
 		);
 
 		Node previousStackedNode =
-			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getBaseCard().isStacked()
+			interactableObject.isCardType() && interactableObject.getBaseCard().isStacked()
 				? (Node)interactableObject.getBaseCard().joinedStack.getNode()
 				: null;
 
@@ -130,14 +130,14 @@ public class LeftClickHandler : MonoBehaviour
 		if (isMiddleLogicEnabled)
 		{
 			List<BaseCard> draggingCards = draggingObjects
-				.Where((draggingObject) => draggingObject.interactableType == CoreInteractableType.Cards)
+				.Where((draggingObject) => draggingObject.isCardType())
 				.Select((draggingObject) => draggingObject.getBaseCard())
 				.ToList();
 
 			draggingObjects[0].getBaseCard().joinedStack.removeCardsFromStack(draggingCards);
 		}
 
-		this.dragFinishHandler(draggingObjects, previousStackedNode);
+		dragFinishHandler(draggingObjects, previousStackedNode);
 	}
 
 	private bool handleMiddleLogic(Interactable rootInteractable, Vector3 initialPostionOfStack, List<Interactable> draggingObjects)
@@ -152,7 +152,7 @@ public class LeftClickHandler : MonoBehaviour
 		else
 		{
 			List<BaseCard> draggingCards = draggingObjects
-				.Where((draggingObject) => draggingObject.interactableType == CoreInteractableType.Cards)
+				.Where((draggingObject) => draggingObject.isCardType())
 				.Select((draggingObject) => draggingObject.getBaseCard())
 				.ToList();
 			rootInteractable.getBaseCard().joinedStack.removeCardsFromStack(draggingCards);
@@ -193,7 +193,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	private bool isMiddleLogicEnabled(Interactable rootInteractable)
 	{
-		if (rootInteractable.interactableType != CoreInteractableType.Cards)
+		if (!rootInteractable.isCardType())
 		{
 			return false;
 		}
@@ -203,9 +203,9 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
-		if (draggingObjects[0].interactableType == CoreInteractableType.Cards)
+		if (draggingObjects[0].isCardType())
 		{
-			IStackable stackableObject = this.findTargetToStack(draggingObjects[0].getBaseCard());
+			IStackable stackableObject = findTargetToStack(draggingObjects[0].getBaseCard());
 
 			if (stackableObject != null)
 			{
