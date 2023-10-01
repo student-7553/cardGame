@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core;
 using Helpers;
+using System.Collections.Generic;
 
 public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 {
@@ -45,21 +46,18 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 
 	public CardCorners corners;
 
-	public CardStack joinedStack;
-
-	public bool _isStacked = false;
+	public virtual CardHolder joinedStack { get; set; }
 
 	public CardDisableType? cardDisable;
-
-	public bool isStacked
-	{
-		get { return _isStacked; }
-		set { _isStacked = value; }
-	}
 
 	public void computeCorners()
 	{
 		corners = generateTheCorners();
+	}
+
+	public bool isStacked()
+	{
+		return joinedStack != null;
 	}
 
 	public void disableInteractiveForATime(float timer, CardDisableType disableType)
@@ -74,10 +72,9 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 		computeCorners();
 	}
 
-	public void attachToCardStack(CardStack newCardStack)
+	public void attachToCardHolder(CardHolder newCardHolder)
 	{
-		isStacked = true;
-		joinedStack = newCardStack;
+		joinedStack = newCardHolder;
 	}
 
 	private CardCorners generateTheCorners()
@@ -120,6 +117,15 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 public interface SelfBaseCardInterface
 {
 	public void reflectScreen() { }
+}
+
+public interface CardHolder
+{
+	public void removeCardsFromStack(List<BaseCard> removingCards);
+	public void addCardsToStack(List<BaseCard> addingCard);
+	public CardStackType getCardHolderType();
+	public List<BaseCard> getCards();
+	public BaseNode getNode();
 }
 
 public class CardCorners

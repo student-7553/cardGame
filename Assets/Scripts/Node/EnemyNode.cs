@@ -81,7 +81,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	public void stackOnThis(BaseCard newCard, Node prevNode)
 	{
-		processCardStack.addCardToStack(newCard);
+		processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 		checkIfDead();
 	}
 

@@ -56,7 +56,7 @@ public class NodeProcess : MonoBehaviour
 
 	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
-		List<Card> cards = node.processCardStack.getActiveCards();
+		List<BaseCard> cards = node.processCardStack.getActiveCards();
 
 		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(cards, cardType, typeValue);
 
@@ -81,7 +81,7 @@ public class NodeProcess : MonoBehaviour
 		List<Card> addingCards = CardHandler.current.handleCreatingCards(data.addingCardIds);
 		List<BaseCard> baseCards = new List<BaseCard>(addingCards);
 
-		node.processCardStack.addCardToStack(baseCards);
+		node.processCardStack.addCardsToStack(baseCards);
 
 		if (addingCards != null && addingCards.Count > 0)
 		{
@@ -266,7 +266,7 @@ public class NodeProcess : MonoBehaviour
 
 		addingCardIds.AddRange(addingCardsFromProcess);
 
-		List<Card> activeCards = node.processCardStack.getActiveCards();
+		List<BaseCard> activeCards = node.processCardStack.getActiveCards();
 
 		TypeAdjustingData adjData = handleProcessAdjustingCardIds(activeCards, pickedProcess);
 
@@ -276,9 +276,9 @@ public class NodeProcess : MonoBehaviour
 
 		List<int> restNonInteractiveCardIds = getRestNonInteractiveCardIds();
 
-		List<Card> restNonInteractiveCards = node.processCardStack.getCards(restNonInteractiveCardIds);
+		List<BaseCard> restNonInteractiveCards = node.processCardStack.getBaseCardsFromIds(restNonInteractiveCardIds);
 
-		foreach (Card card in restNonInteractiveCards)
+		foreach (BaseCard card in restNonInteractiveCards)
 		{
 			card.disableInteractiveForATime(pickedProcess.time, CardDisableType.Process);
 		}
@@ -352,7 +352,7 @@ public class NodeProcess : MonoBehaviour
 
 			List<BaseCard> addingBaseCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingCardIds));
 
-			node.processCardStack.addCardToStack(addingBaseCards);
+			node.processCardStack.addCardsToStack(addingBaseCards);
 
 			if (pickedProcess.id == 34 || pickedProcess.id == 35 || pickedProcess.id == 28)
 			{
@@ -374,13 +374,13 @@ public class NodeProcess : MonoBehaviour
 		else
 		{
 			// Todo: handle failed process
-			foreach (Card card in removingCards)
+			foreach (BaseCard card in removingCards)
 			{
 				card.isInteractiveDisabled = false;
 			}
 		}
 
-		foreach (Card card in restNonInteractiveCards)
+		foreach (BaseCard card in restNonInteractiveCards)
 		{
 			card.isInteractiveDisabled = false;
 		}
@@ -461,6 +461,7 @@ public class NodeProcess : MonoBehaviour
 			List<int> restNonInteractiveCardIds = pickedProcess.requiredIds.ToList();
 			restNonInteractiveCardIds.Add(pickedProcess.baseRequiredId);
 
+			// CardCollapsed card will be uninetactive
 			foreach (Card removingCard in removingCards)
 			{
 				int foundId = restNonInteractiveCardIds.FindIndex((cardId) => cardId == removingCard.id);
@@ -588,12 +589,12 @@ public class NodeProcess : MonoBehaviour
 		return processEnumerable.First();
 	}
 
-	private TypeAdjustingData handleProcessAdjustingCardIds(List<Card> activeCards, RawProcessObject pickedProcess)
+	private TypeAdjustingData handleProcessAdjustingCardIds(List<BaseCard> activeCards, RawProcessObject pickedProcess)
 	{
 		TypeAdjustingData data = new TypeAdjustingData();
 		data.init();
 
-		List<Card> processRemovingCard = node.processCardStack.getCards(pickedProcess.removingIds.ToList());
+		List<BaseCard> processRemovingCard = node.processCardStack.getBaseCardsFromIds(pickedProcess.removingIds.ToList());
 		data.removingCards.AddRange(processRemovingCard);
 
 		if (pickedProcess.requiredGold > 0)
@@ -646,7 +647,7 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		List<BaseCard> addingCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingGoldCardIds));
-		node.processCardStack.addCardToStack(addingCards);
+		node.processCardStack.addCardsToStack(addingCards);
 		// node.processCardStack.consolidateTypeCards();
 
 		isProccessing = false;

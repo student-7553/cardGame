@@ -12,24 +12,23 @@ public class Card : BaseCard, SelfBaseCardInterface
 	}
 
 	// -------------------- CardInterface Members -------------------------
-	public new bool isStacked
+
+
+	private CardHolder _joinedStack;
+
+	public override CardHolder joinedStack
 	{
-		get { return _isStacked; }
+		get { return _joinedStack; }
 		set
 		{
-			bool preValue = _isStacked;
-			_isStacked = value;
-
-			if (value == false && preValue == true)
+			if (value == null && _joinedStack != null)
 			{
-				if (joinedStack != null)
-				{
-					joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
-					joinedStack = null;
-				}
+				_joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
+
 				gameObject.SetActive(true);
 				gameObject.transform.SetParent(null);
 			}
+			_joinedStack = value;
 		}
 	}
 
@@ -62,26 +61,22 @@ public class Card : BaseCard, SelfBaseCardInterface
 		{
 			return;
 		}
-		if (isStacked)
-		{
-			isStacked = false;
-		}
+		joinedStack = null;
 		interactableManagerScriptableObject.removeCard(this);
 		Destroy(gameObject);
 	}
 
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
-		if (isStacked)
+		if (isStacked())
 		{
-			CardStack existingstack = joinedStack;
-			existingstack.addCardToStack(draggingCard);
+			joinedStack.addCardsToStack(new List<BaseCard>() { draggingCard });
 		}
 		else
 		{
 			List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
 			CardStack newStack = new CardStack(null);
-			newStack.addCardToStack(newCardStackCards);
+			newStack.addCardsToStack(newCardStackCards);
 		}
 	}
 

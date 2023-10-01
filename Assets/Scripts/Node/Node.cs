@@ -149,7 +149,7 @@ public class Node : MonoBehaviour, BaseNode
 			{
 				nodeCardQue.addCard(newCard);
 			}
-			processCardStack.addCardToStack(newCard);
+			processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 			return;
 		}
 		if (
@@ -172,7 +172,7 @@ public class Node : MonoBehaviour, BaseNode
 		{
 			nodeCardQue.addCard(newCard);
 		}
-		processCardStack.addCardToStack(newCard);
+		processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 	}
 
 	public void ejectCards(List<BaseCard> cards)

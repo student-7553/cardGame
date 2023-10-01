@@ -90,8 +90,8 @@ public class LeftClickHandler : MonoBehaviour
 		);
 
 		Node previousStackedNode =
-			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getBaseCard().isStacked
-				? (Node)interactableObject.getBaseCard().joinedStack.connectedNode
+			interactableObject.interactableType == CoreInteractableType.Cards && interactableObject.getBaseCard().isStacked()
+				? (Node)interactableObject.getBaseCard().joinedStack.getNode()
 				: null;
 
 		List<Interactable> draggingObjects = new List<Interactable>();
@@ -163,12 +163,15 @@ public class LeftClickHandler : MonoBehaviour
 	private void applyDownDragLogic(BaseCard hitCard, Vector3 initialPostionOfCard, List<Interactable> draggingObjects)
 	{
 		List<BaseCard> qualifiedCards = new List<BaseCard>(
-			hitCard.joinedStack.cards.Where(stacksSingleCard =>
-			{
-				return !draggingObjects.Any(
-					singleDraggingObject => singleDraggingObject.gameObject.GetInstanceID() == stacksSingleCard.gameObject.GetInstanceID()
-				);
-			})
+			hitCard.joinedStack
+				.getCards()
+				.Where(stacksSingleCard =>
+				{
+					return !draggingObjects.Any(
+						singleDraggingObject =>
+							singleDraggingObject.gameObject.GetInstanceID() == stacksSingleCard.gameObject.GetInstanceID()
+					);
+				})
 		);
 		foreach (BaseCard singleCard in qualifiedCards)
 		{
@@ -195,7 +198,7 @@ public class LeftClickHandler : MonoBehaviour
 			return false;
 		}
 		BaseCard rootCard = rootInteractable.getBaseCard();
-		return rootCard.isStacked;
+		return rootCard.isStacked();
 	}
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)

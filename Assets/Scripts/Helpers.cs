@@ -113,14 +113,40 @@ namespace Helpers
 			return ascTypeCardIds;
 		}
 
-		public static List<Card> getAscTypeValueCards(CardsTypes cardType, List<Card> cards)
+		public static List<Card> baseCardsToCards(List<BaseCard> baseCards)
 		{
-			List<Card> ascTypeCards = new List<Card>();
+			List<Card> cards = baseCards.Aggregate(
+				new List<Card>(),
+				(total, next) =>
+				{
+					List<Card> clonedTotal = new List<Card>(total);
+					if (next.interactableType == CoreInteractableType.Cards)
+					{
+						clonedTotal.Add(next.getCard());
+					}
+					else if (next.interactableType == CoreInteractableType.CollapsedCards)
+					{
+						List<Card> cards = next.getCollapsedCard().getCards().Select((baseCard) => baseCard.getCard()).ToList();
+						clonedTotal.AddRange(cards);
+					}
+
+					return clonedTotal;
+				}
+			);
+
+			return cards;
+		}
+
+		public static List<Card> getAscTypeValueCards(CardsTypes cardType, List<BaseCard> baseCards)
+		{
 			if (isNonValueTypeCard(cardType))
 			{
-				return ascTypeCards;
+				return new List<Card>();
 			}
 
+			List<Card> cards = baseCardsToCards(baseCards);
+
+			// Todo error hre when two collapsed  gets processed
 			var populatedCards = cards
 				.Where(
 					(card) =>
@@ -204,14 +230,26 @@ namespace Helpers
 			return false;
 		}
 
-		public static TypeAdjustingData handleTypeAdjusting(List<Card> availableCards, CardsTypes cardType, int requiredTypeValue)
+		public static TypeAdjustingData handleTypeAdjusting(List<BaseCard> availableCards, CardsTypes cardType, int requiredTypeValue)
 		{
 			TypeAdjustingData returnData = new TypeAdjustingData { addingCardIds = new List<int>(), removingCards = new List<Card>() };
 			int totalSum = 0;
-			List<Card> ascTypeCards = CardHelpers.getAscTypeValueCards(cardType, availableCards);
-			foreach (Card singleCard in ascTypeCards)
+
+			List<Card> ascTypeBaseCards = getAscTypeValueCards(cardType, availableCards);
+
+			foreach (Card singleCard in ascTypeBaseCards)
 			{
-				returnData.removingCards.Add(singleCard);
+				// todo need to handle card and cardCollapsed here...
+				// if (singleCard.interactableType == CoreInteractableType.Cards)
+				// {
+				returnData.removingCards.Add(singleCard.getCard());
+				// }
+				// else if (singleCard.interactableType == CoreInteractableType.CollapsedCards)
+				// {
+				// 	List<Card> cards = singleCard.getCollapsedCard().getCards().Select((baseCard) => baseCard.getCard()).ToList();
+				// 	returnData.removingCards.AddRange(cards);
+				// }
+
 				totalSum = totalSum + CardDictionary.globalCardDictionary[singleCard.id].typeValue;
 				if (totalSum == requiredTypeValue)
 				{

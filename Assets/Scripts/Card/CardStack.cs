@@ -3,17 +3,15 @@ using UnityEngine;
 using Core;
 using Helpers;
 using System.Linq;
-using UnityEditor.PackageManager;
-using System;
 
-public class CardStack
+public class CardStack : CardHolder
 {
 	private static float stackDistance = 5;
 	private static float zDistancePerCards = 0.01f;
 
-	public BaseNode connectedNode;
+	private BaseNode connectedNode;
 
-	public CardStackType cardStackType;
+	private CardStackType cardStackType;
 
 	public Vector3 originPointAdjustment;
 
@@ -85,53 +83,6 @@ public class CardStack
 		alignCards(originPoint);
 	}
 
-	public void removeCardsFromStack(List<BaseCard> removingCards)
-	{
-		bool changed = false;
-
-		foreach (BaseCard singleCard in removingCards)
-		{
-			if (!cards.Contains(singleCard))
-			{
-				continue;
-			}
-			changed = true;
-			singleCard.joinedStack = null;
-			singleCard.isStacked = false;
-
-			cards.Remove(singleCard);
-		}
-		if (changed)
-		{
-			alignCards();
-		}
-	}
-
-	public void addCardToStack(List<BaseCard> addingCards)
-	{
-		addCardsToStack(addingCards);
-		collapseCardStack();
-	}
-
-	private void addCardsToStack(List<BaseCard> addingCards)
-	{
-		cards.AddRange(addingCards);
-		foreach (BaseCard singleCard in cards)
-		{
-			if (singleCard.isStacked)
-			{
-				continue;
-			}
-
-			singleCard.attachToCardStack(this);
-			if (cardStackType == CardStackType.Nodes)
-			{
-				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
-			}
-		}
-		alignCards();
-	}
-
 	private void collapseCardStack()
 	{
 		BaseCard targetBaseCard = findCollapsableCard();
@@ -144,7 +95,8 @@ public class CardStack
 					.Where((card) => card.interactableType == CoreInteractableType.Cards && card.id == targetBaseCard.id)
 					.ToList();
 				CardCollapsed cardCollapsed = targetBaseCard.getCollapsedCard();
-				cardCollapsed.addToCollapsedCards(subjectCards);
+				cardCollapsed.addCardsToStack(subjectCards);
+
 				removeCardsFromStack(subjectCards);
 			}
 			else if (targetBaseCard.interactableType == CoreInteractableType.Cards)
@@ -161,9 +113,10 @@ public class CardStack
 
 				Debug.Log("Adding to collapsed/" + subjectCards.Count);
 
-				cardCollapsed.addToCollapsedCards(subjectCards);
+				cardCollapsed.addCardsToStack(subjectCards);
 
-				addCardsToStack(new List<BaseCard>() { cardCollapsed });
+				handleAddCardsToStack(new List<BaseCard>() { cardCollapsed });
+
 				removeCardsFromStack(subjectCards);
 			}
 			else
@@ -211,27 +164,22 @@ public class CardStack
 		return null;
 	}
 
-	public void addCardToStack(BaseCard addingCard)
-	{
-		addCardToStack(new List<BaseCard>() { addingCard });
-	}
-
 	public List<int> getAllCardIds()
 	{
 		List<int> ids = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			ids.Add(singleCard.id);
 		}
 		return ids;
 	}
 
-	public List<Card> getCards(List<int> cardIds)
+	public List<BaseCard> getBaseCardsFromIds(List<int> cardIds)
 	{
 		Dictionary<int, int> indexedCardIds = CardHelpers.indexCardIds(cardIds);
-		List<Card> returnCards = new List<Card>();
+		List<BaseCard> returnCards = new List<BaseCard>();
 
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (indexedCardIds.ContainsKey(singleCard.id))
 			{
@@ -250,7 +198,7 @@ public class CardStack
 	public List<int> getAllCardIdsOfMinusIntervalModules()
 	{
 		List<int> modules = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (
 				CardDictionary.globalCardDictionary[singleCard.id].module != null
@@ -267,7 +215,7 @@ public class CardStack
 	public List<int> getAllCardIdsOfUnityModules()
 	{
 		List<int> modules = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (
 				CardDictionary.globalCardDictionary[singleCard.id].module != null
@@ -283,7 +231,7 @@ public class CardStack
 	public List<int> getActiveCardIds()
 	{
 		List<int> ids = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (!singleCard.isInteractiveDisabled)
 			{
@@ -293,10 +241,10 @@ public class CardStack
 		return ids;
 	}
 
-	public List<Card> getActiveCards()
+	public List<BaseCard> getActiveCards()
 	{
-		List<Card> returnCards = new List<Card>();
-		foreach (Card singleCard in cards)
+		List<BaseCard> returnCards = new List<BaseCard>();
+		foreach (BaseCard singleCard in cards)
 		{
 			if (!singleCard.isInteractiveDisabled)
 			{
@@ -309,7 +257,7 @@ public class CardStack
 	public List<int> getNonTypeActiveCardIds()
 	{
 		List<int> ids = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (
 				CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleCard.id].type)
@@ -325,7 +273,7 @@ public class CardStack
 	public List<int> getTypeActiveCards(CardsTypes cardType)
 	{
 		List<int> ids = new List<int>();
-		foreach (Card singleCard in cards)
+		foreach (BaseCard singleCard in cards)
 		{
 			if (CardDictionary.globalCardDictionary[singleCard.id].type == cardType && singleCard.isInteractiveDisabled == false)
 			{
@@ -338,7 +286,7 @@ public class CardStack
 	public List<int> getMagnetizedCards()
 	{
 		List<int> magnetizedCards = new List<int>();
-		foreach (Card card in cards)
+		foreach (BaseCard card in cards)
 		{
 			if (
 				CardDictionary.globalCardDictionary[card.id].module != null
@@ -368,4 +316,72 @@ public class CardStack
 		}
 		return Vector3.zero;
 	}
+
+	//---------------- START CardHolder------------
+
+	public CardStackType getCardHolderType()
+	{
+		return cardStackType;
+	}
+
+	public BaseNode getNode()
+	{
+		return connectedNode;
+	}
+
+	public List<BaseCard> getCards()
+	{
+		return cards;
+	}
+
+	public void removeCardsFromStack(List<BaseCard> removingCards)
+	{
+		bool changed = false;
+
+		foreach (BaseCard singleCard in removingCards)
+		{
+			if (!cards.Contains(singleCard))
+			{
+				continue;
+			}
+			changed = true;
+			cards.Remove(singleCard);
+
+			if (singleCard.joinedStack == this)
+			{
+				singleCard.joinedStack = null;
+			}
+		}
+		if (changed)
+		{
+			alignCards();
+		}
+	}
+
+	public void addCardsToStack(List<BaseCard> addingCards)
+	{
+		handleAddCardsToStack(addingCards);
+		collapseCardStack();
+	}
+
+	private void handleAddCardsToStack(List<BaseCard> addingCards)
+	{
+		cards.AddRange(addingCards);
+		foreach (BaseCard singleCard in cards)
+		{
+			if (singleCard.isStacked())
+			{
+				continue;
+			}
+
+			singleCard.attachToCardHolder(this);
+			if (cardStackType == CardStackType.Nodes)
+			{
+				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
+			}
+		}
+		alignCards();
+	}
+
+	//---------------- END CardHolder------------
 }

@@ -46,7 +46,7 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void handleMagnetizeCard(Node node, Card targetMagnetCard)
 	{
-		targetMagnetCard.isStacked = false;
+		targetMagnetCard.joinedStack = null;
 		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
 		Vector3 targetNodePosition = node.transform.position;
 		targetMagnetCard.gameObject.transform
@@ -98,7 +98,7 @@ public class MagneticModuleManager : MonoBehaviour
 			{
 				continue;
 			}
-			if (globalCard.isStacked && globalCard.joinedStack.cardStackType != CardStackType.Cards)
+			if (globalCard.isStacked() && globalCard.joinedStack.getCardHolderType() != CardStackType.Cards)
 			{
 				continue;
 			}

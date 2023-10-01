@@ -23,6 +23,7 @@ namespace Core
 	public enum CardStackType
 	{
 		Cards,
+		CollapsedCards,
 		Nodes
 	}
 

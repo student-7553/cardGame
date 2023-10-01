@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using Core;
 
 // public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
-public class CardCollapsed : BaseCard, SelfBaseCardInterface
+public class CardCollapsed : BaseCard, SelfBaseCardInterface, CardHolder
 {
-	List<BaseCard> collpasedCards = new List<BaseCard>();
+	List<BaseCard> cards = new List<BaseCard>();
 
 	private SpriteRenderer spriteRenderer;
 
@@ -19,24 +20,19 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 	}
 
 	// -------------------- CardInterface Members -------------------------
-	public new bool isStacked
+	private CardHolder _joinedStack;
+	public override CardHolder joinedStack
 	{
-		get { return _isStacked; }
+		get { return _joinedStack; }
 		set
 		{
-			bool preValue = _isStacked;
-			_isStacked = value;
-
-			if (value == false && preValue == true)
+			if (value == null && _joinedStack != null)
 			{
-				if (joinedStack != null)
-				{
-					joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
-					joinedStack = null;
-				}
+				_joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
 				gameObject.SetActive(true);
 				gameObject.transform.SetParent(null);
 			}
+			_joinedStack = value;
 		}
 	}
 
@@ -59,39 +55,34 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 		reflectScreen();
 	}
 
-	public void addToCollapsedCards(List<BaseCard> baseCards)
-	{
-		foreach (BaseCard baseCard in baseCards)
-		{
-			addToCollapsedCards(baseCard);
-		}
-	}
+	// private void addToCollapsedCards(List<BaseCard> baseCards)
+	// {
+	// 	foreach (BaseCard baseCard in baseCards)
+	// 	{
+	// 		addToCollapsedCards(baseCard);
+	// 	}
+	// }
 
-	public void addToCollapsedCards(BaseCard newCard)
-	{
-		collpasedCards.Add(newCard);
-		newCard.gameObject.SetActive(false);
-	}
+
 
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
 		// Check if same card
-		if (collpasedCards.Count != 0 && draggingCard.id == collpasedCards[0].id)
+		if (cards.Count != 0 && draggingCard.id == cards[0].id)
 		{
-			addToCollapsedCards(draggingCard);
+			addCardsToStack(new List<BaseCard>() { draggingCard });
 			return;
 		}
 
-		if (isStacked)
+		if (isStacked())
 		{
-			CardStack existingstack = joinedStack;
-			existingstack.addCardToStack(draggingCard);
+			joinedStack.addCardsToStack(new List<BaseCard>() { draggingCard });
 			return;
 		}
 
 		List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
 		CardStack newStack = new CardStack(null);
-		newStack.addCardToStack(newCardStackCards);
+		newStack.addCardsToStack(newCardStackCards);
 	}
 
 	public override void destroyCard()
@@ -100,12 +91,10 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 		{
 			return;
 		}
-		if (isStacked)
-		{
-			isStacked = false;
-		}
 
-		foreach (Card singleCard in collpasedCards)
+		joinedStack = null;
+
+		foreach (Card singleCard in cards)
 		{
 			interactableManagerScriptableObject.removeCard(singleCard);
 		}
@@ -122,7 +111,7 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 		string cardTitle = "";
 		if (CardDictionary.globalCardDictionary.ContainsKey(id))
 		{
-			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name + $"[Collapsed {collpasedCards.Count}]";
+			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name + $"[Collapsed {cards.Count}]";
 		}
 
 		if (spriteRenderer.color.a != 1f)
@@ -147,4 +136,68 @@ public class CardCollapsed : BaseCard, SelfBaseCardInterface
 
 		titleTextMesh.text = cardTitle;
 	}
+
+	//---------------- START CardHolder ------------
+
+	public void removeCardsFromStack(List<BaseCard> removingCards)
+	{
+		// Good to have some checks here tho
+		// Will always be Cards
+
+		Debug.Log("CardCollapsed removeCardsFromStack is called");
+
+		foreach (BaseCard singleCard in removingCards)
+		{
+			if (!cards.Contains(singleCard))
+			{
+				continue;
+			}
+			// singleCard.joinedStack = null;
+			cards.Remove(singleCard);
+
+			if ((Object)singleCard.joinedStack == this)
+			{
+				singleCard.joinedStack = null;
+			}
+		}
+	}
+
+	public void addCardsToStack(List<BaseCard> addingCards)
+	{
+		cards.AddRange(addingCards);
+		foreach (BaseCard singleCard in cards)
+		{
+			// if (singleCard.isStacked())
+			// {
+			// 	continue;
+			// }
+			singleCard.gameObject.SetActive(false);
+			singleCard.attachToCardHolder(this);
+		}
+	}
+
+	// public void addToCollapsedCards(BaseCard newCard)
+	// {
+	// 	newCard.gameObject.SetActive(false);
+	// 	cards.Add(newCard);
+	// 	// singleCard.attachToCardHolder(this);
+	// }
+
+	public CardStackType getCardHolderType()
+	{
+		return CardStackType.CollapsedCards;
+	}
+
+	public BaseNode getNode()
+	{
+		// uuhhh
+		return joinedStack?.getNode();
+	}
+
+	public List<BaseCard> getCards()
+	{
+		return cards;
+	}
+
+	//---------------- END CardHolder ------------
 }
