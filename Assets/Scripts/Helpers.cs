@@ -146,13 +146,14 @@ namespace Helpers
 
 			List<Card> cards = baseCardsToCards(baseCards);
 
-			// Todo error hre when two collapsed  gets processed
+			// Todo error here when two collapsed gets processed
+
 			var populatedCards = cards
 				.Where(
 					(card) =>
 					{
-						return CardDictionary.globalCardDictionary.ContainsKey(card.id)
-							&& CardDictionary.globalCardDictionary[card.id].type == cardType;
+						// return CardDictionary.globalCardDictionary.ContainsKey(card.id)
+						return CardDictionary.globalCardDictionary[card.id].type == cardType;
 					}
 				)
 				.Select((card) => new { cardObject = CardDictionary.globalCardDictionary[card.id], card = card })
@@ -239,16 +240,7 @@ namespace Helpers
 
 			foreach (Card singleCard in ascTypeBaseCards)
 			{
-				// todo need to handle card and cardCollapsed here...
-				// if (singleCard.interactableType == CoreInteractableType.Cards)
-				// {
 				returnData.removingCards.Add(singleCard.getCard());
-				// }
-				// else if (singleCard.interactableType == CoreInteractableType.CollapsedCards)
-				// {
-				// 	List<Card> cards = singleCard.getCollapsedCard().getCards().Select((baseCard) => baseCard.getCard()).ToList();
-				// 	returnData.removingCards.AddRange(cards);
-				// }
 
 				totalSum = totalSum + CardDictionary.globalCardDictionary[singleCard.id].typeValue;
 				if (totalSum == requiredTypeValue)

@@ -56,9 +56,7 @@ public class NodeProcess : MonoBehaviour
 
 	public IEnumerator queUpTypeDeletion(CardsTypes cardType, int typeValue, float timer, Action callback)
 	{
-		List<BaseCard> cards = node.processCardStack.getActiveCards();
-
-		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(cards, cardType, typeValue);
+		TypeAdjustingData data = CardHelpers.handleTypeAdjusting(node.processCardStack.getActiveBaseCards(), cardType, typeValue);
 
 		if (timer > 0)
 		{
@@ -79,13 +77,14 @@ public class NodeProcess : MonoBehaviour
 		}
 
 		List<Card> addingCards = CardHandler.current.handleCreatingCards(data.addingCardIds);
-		List<BaseCard> baseCards = new List<BaseCard>(addingCards);
 
-		node.processCardStack.addCardsToStack(baseCards);
+		List<BaseCard> addingBaseCards = new List<BaseCard>(addingCards);
+
+		node.processCardStack.addCardsToStack(addingBaseCards);
 
 		if (addingCards != null && addingCards.Count > 0)
 		{
-			List<BaseCard> ejectingBaseCards = baseCards
+			List<BaseCard> ejectingBaseCards = addingBaseCards
 				.Where(
 					(card) =>
 					{
@@ -266,9 +265,9 @@ public class NodeProcess : MonoBehaviour
 
 		addingCardIds.AddRange(addingCardsFromProcess);
 
-		List<BaseCard> activeCards = node.processCardStack.getActiveCards();
+		List<BaseCard> activeBaseCards = node.processCardStack.getActiveBaseCards();
 
-		TypeAdjustingData adjData = handleProcessAdjustingCardIds(activeCards, pickedProcess);
+		TypeAdjustingData adjData = handleProcessAdjustingCardIds(activeBaseCards, pickedProcess);
 
 		addingCardIds.AddRange(adjData.addingCardIds);
 
@@ -326,8 +325,9 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedAddingCardObject.id == 5176)
 		{
+			List<int> cardIds = node.processCardStack.getAllActiveCardIds();
 			int foodInfraId = 1001;
-			int infraCount = activeCards.Where((card) => card.id == foodInfraId).Count();
+			int infraCount = cardIds.Where((cardId) => cardId == foodInfraId).Count();
 			int totalUnityValue = getUnityValue();
 
 			int plusFoodCount = infraCount;
@@ -352,8 +352,6 @@ public class NodeProcess : MonoBehaviour
 
 			List<BaseCard> addingBaseCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingCardIds));
 
-			node.processCardStack.addCardsToStack(addingBaseCards);
-
 			if (pickedProcess.id == 34 || pickedProcess.id == 35 || pickedProcess.id == 28)
 			{
 				ejectingBaseCards.AddRange(addingBaseCards);
@@ -370,6 +368,17 @@ public class NodeProcess : MonoBehaviour
 					)
 				);
 			}
+
+			addingBaseCards = addingBaseCards
+				.Where(
+					(baseCard) =>
+					{
+						return !ejectingBaseCards.Contains(baseCard);
+					}
+				)
+				.ToList();
+
+			node.processCardStack.addCardsToStack(addingBaseCards);
 		}
 		else
 		{
@@ -489,19 +498,7 @@ public class NodeProcess : MonoBehaviour
 
 	private int getProcessTime(RawProcessObject pickedProcess, bool isCombo)
 	{
-		List<int> minusIntervalModuleIds = node.processCardStack.getAllCardIdsOfMinusIntervalModules();
 		int processTime = pickedProcess.time;
-		foreach (int cardId in minusIntervalModuleIds)
-		{
-			if (CardDictionary.globalCardDictionary[cardId].module.minusInterval.processIds.Contains(pickedProcess.id))
-			{
-				processTime = Math.Max(
-					processTime - CardDictionary.globalCardDictionary[cardId].module.minusInterval.time,
-					// bufferProcessingTime
-					node.staticVariables.bufferProcessingTime
-				);
-			}
-		}
 
 		if (isCombo)
 		{
@@ -525,7 +522,7 @@ public class NodeProcess : MonoBehaviour
 	private List<int> GetAddingCards(AddingCardsObject pickedAddingCardObject)
 	{
 		List<int> addingCardIds = pickedAddingCardObject.addingCardIds.ToList();
-		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		List<int> cardIds = node.processCardStack.getAllActiveCardIds();
 
 		int totalUnityValue = getUnityValue();
 
@@ -579,7 +576,8 @@ public class NodeProcess : MonoBehaviour
 
 	private RawProcessObject getNextAvailableProcess()
 	{
-		List<int> cardIds = node.processCardStack.getActiveCardIds();
+		List<int> cardIds = node.processCardStack.getAllActiveCardIds();
+
 		List<RawProcessObject> possibleProcess = getAvailableProcesses(cardIds, node.id);
 		if (possibleProcess.Count == 0)
 		{
@@ -589,7 +587,7 @@ public class NodeProcess : MonoBehaviour
 		return processEnumerable.First();
 	}
 
-	private TypeAdjustingData handleProcessAdjustingCardIds(List<BaseCard> activeCards, RawProcessObject pickedProcess)
+	private TypeAdjustingData handleProcessAdjustingCardIds(List<BaseCard> baseCards, RawProcessObject pickedProcess)
 	{
 		TypeAdjustingData data = new TypeAdjustingData();
 		data.init();
@@ -599,7 +597,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedProcess.requiredGold > 0)
 		{
-			TypeAdjustingData goldData = CardHelpers.handleTypeAdjusting(activeCards, CardsTypes.Gold, pickedProcess.requiredGold);
+			TypeAdjustingData goldData = CardHelpers.handleTypeAdjusting(baseCards, CardsTypes.Gold, pickedProcess.requiredGold);
 			data.addingCardIds.AddRange(goldData.addingCardIds);
 			data.removingCards.AddRange(goldData.removingCards);
 		}
@@ -607,7 +605,7 @@ public class NodeProcess : MonoBehaviour
 		if (pickedProcess.requiredElectricity > 0)
 		{
 			TypeAdjustingData elcData = CardHelpers.handleTypeAdjusting(
-				activeCards,
+				baseCards,
 				CardsTypes.Electricity,
 				pickedProcess.requiredElectricity
 			);
@@ -617,7 +615,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedProcess.requiredWill > 0)
 		{
-			TypeAdjustingData valueData = CardHelpers.handleTypeAdjusting(activeCards, CardsTypes.Will, pickedProcess.requiredWill);
+			TypeAdjustingData valueData = CardHelpers.handleTypeAdjusting(baseCards, CardsTypes.Will, pickedProcess.requiredWill);
 			data.addingCardIds.AddRange(valueData.addingCardIds);
 			data.removingCards.AddRange(valueData.removingCards);
 		}
@@ -632,7 +630,21 @@ public class NodeProcess : MonoBehaviour
 			yield break;
 		}
 
-		int goldAmount = getGoldAmount(card.id);
+		int goldAmount = 0;
+		if (card.interactableType == CoreInteractableType.CollapsedCards)
+		{
+			List<int> cardIds = card.getCollapsedCard().getCards().Select((card) => card.id).ToList();
+			foreach (int cardId in cardIds)
+			{
+				goldAmount = getGoldAmount(cardId);
+			}
+		}
+		else
+		{
+			// Card
+			goldAmount = getGoldAmount(card.id);
+		}
+
 		List<int> addingGoldCardIds = CardHelpers.generateTypeValueCards(CardsTypes.Gold, goldAmount);
 
 		card.disableInteractiveForATime(node.staticVariables.sellTimer, CardDisableType.Process);

@@ -157,18 +157,9 @@ public class Node : MonoBehaviour, BaseNode
 			processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 			return;
 		}
-		if (
-			CardDictionary.globalCardDictionary[newCard.id].resourceInventoryCount + nodeStats.currentNodeStats.resourceInventoryUsed
-			> nodeStats.currentNodeStats.resourceInventoryLimit
-		)
-		{
-			return;
-		}
 
-		if (
-			CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount + nodeStats.currentNodeStats.infraInventoryUsed
-			> nodeStats.currentNodeStats.infraInventoryLimit
-		)
+		bool isAllowed = isAllowedToStack(newCard);
+		if (!isAllowed)
 		{
 			return;
 		}
@@ -217,5 +208,37 @@ public class Node : MonoBehaviour, BaseNode
 			return true;
 		}
 		return false;
+	}
+
+	private bool isAllowedToStack(BaseCard newCard)
+	{
+		int resourceInventoryCount = 0;
+		int infraInventoryCount = 0;
+		if (newCard.interactableType == CoreInteractableType.CollapsedCards)
+		{
+			List<int> cardIds = newCard.getCollapsedCard().getCards().Select((card) => card.id).ToList();
+			foreach (int cardId in cardIds)
+			{
+				resourceInventoryCount = resourceInventoryCount + CardDictionary.globalCardDictionary[newCard.id].resourceInventoryCount;
+				infraInventoryCount = infraInventoryCount + CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount;
+			}
+		}
+		else
+		{
+			resourceInventoryCount = CardDictionary.globalCardDictionary[newCard.id].resourceInventoryCount;
+			infraInventoryCount = CardDictionary.globalCardDictionary[newCard.id].infraInventoryCount;
+		}
+
+		if (resourceInventoryCount + nodeStats.currentNodeStats.resourceInventoryUsed > nodeStats.currentNodeStats.resourceInventoryLimit)
+		{
+			return false;
+		}
+
+		if (infraInventoryCount + nodeStats.currentNodeStats.infraInventoryUsed > nodeStats.currentNodeStats.infraInventoryLimit)
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

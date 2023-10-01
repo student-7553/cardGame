@@ -148,29 +148,29 @@ public class NodeStats
 			List<BaseCard> ejectedCards = getEjectedCards(connectedNode.processCardStack.cards, ejectingResourceValue, true);
 			connectedNode.ejectCards(ejectedCards);
 		}
+	}
 
-		List<BaseCard> getEjectedCards(List<BaseCard> cards, int ejectingResourceValue, bool isResource)
+	private List<BaseCard> getEjectedCards(List<BaseCard> cards, int ejectingResourceValue, bool isResource)
+	{
+		List<BaseCard> ejectedCards = new List<BaseCard>();
+		for (int index = cards.Count - 1; index >= 0; index--)
 		{
-			List<BaseCard> ejectedCards = new List<BaseCard>();
-			for (int index = cards.Count - 1; index >= 0; index--)
+			if (ejectingResourceValue > 0)
 			{
-				if (ejectingResourceValue > 0)
-				{
-					ejectingResourceValue =
-						ejectingResourceValue
-						- (
-							isResource
-								? CardDictionary.globalCardDictionary[cards[index].id].resourceInventoryCount
-								: CardDictionary.globalCardDictionary[cards[index].id].infraInventoryCount
-						);
-					ejectedCards.Add(cards[index]);
-				}
-				else
-				{
-					break;
-				}
+				ejectingResourceValue =
+					ejectingResourceValue
+					- (
+						isResource
+							? CardDictionary.globalCardDictionary[cards[index].id].resourceInventoryCount
+							: CardDictionary.globalCardDictionary[cards[index].id].infraInventoryCount
+					);
+				ejectedCards.Add(cards[index]);
 			}
-			return ejectedCards;
+			else
+			{
+				break;
+			}
 		}
+		return ejectedCards;
 	}
 }

@@ -102,13 +102,15 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	private float getCurrentFigherValue()
 	{
-		float totalFighterValue = processCardStack.cards.Aggregate(
-			0,
-			(totalFighterValue, next) =>
-			{
-				return totalFighterValue + CardDictionary.globalCardDictionary[next.id].typeValue;
-			}
-		);
+		float totalFighterValue = processCardStack
+			.getAllCardIds()
+			.Aggregate(
+				0,
+				(totalFighterValue, next) =>
+				{
+					return totalFighterValue + CardDictionary.globalCardDictionary[next].typeValue;
+				}
+			);
 		return totalFighterValue;
 	}
 

@@ -14,7 +14,7 @@ public class EnemyNodeProcess : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		List<int> cardIds = connectedNode.processCardStack.getActiveCardIds();
+		List<int> cardIds = connectedNode.processCardStack.getAllActiveCardIds();
 		int currentCardValue = CardHelpers.getTypeValueFromCardIds(CardsTypes.CombatUnit, cardIds);
 		if (connectedNode.powerValue <= currentCardValue)
 		{

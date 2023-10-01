@@ -85,7 +85,7 @@ public class CardStack : CardHolder
 
 	private void collapseCardStack()
 	{
-		BaseCard targetBaseCard = findCollapsableCard();
+		BaseCard targetBaseCard = findCollapsableBaseCard();
 
 		while (targetBaseCard != null)
 		{
@@ -122,11 +122,167 @@ public class CardStack : CardHolder
 				break;
 			}
 			break;
-			// targetBaseCard = findCollapsableCard();
+			// targetBaseCard = findCollapsableBaseCard();
 		}
 	}
 
-	private BaseCard findCollapsableCard()
+	public List<int> getAllCardIds()
+	{
+		return getIdsOfBaseCards(cards);
+	}
+
+	public List<BaseCard> getBaseCardsFromIds(List<int> cardIds)
+	{
+		Dictionary<int, int> indexedCardIds = CardHelpers.indexCardIds(cardIds);
+		List<BaseCard> returnCards = new List<BaseCard>();
+
+		foreach (BaseCard singleCard in cards)
+		{
+			if (indexedCardIds.ContainsKey(singleCard.id))
+			{
+				indexedCardIds[singleCard.id]--;
+				if (indexedCardIds[singleCard.id] == 0)
+				{
+					indexedCardIds.Remove(singleCard.id);
+				}
+				returnCards.Add(singleCard);
+			}
+		}
+
+		return returnCards;
+	}
+
+	public List<int> getAllCardIdsOfUnityModules()
+	{
+		List<BaseCard> unityBaseCards = cards
+			.Where(
+				(singleCard) =>
+					CardDictionary.globalCardDictionary[singleCard.id].module != null
+					&& CardDictionary.globalCardDictionary[singleCard.id].module.unityCount != 0
+			)
+			.ToList();
+
+		List<int> modules = getIdsOfBaseCards(unityBaseCards);
+
+		return modules;
+	}
+
+	public List<int> getAllActiveCardIds()
+	{
+		List<BaseCard> activeBaseCards = cards
+			.Where(
+				(card) =>
+				{
+					return !card.isInteractiveDisabled;
+				}
+			)
+			.ToList();
+
+		return getIdsOfBaseCards(activeBaseCards);
+	}
+
+	public List<BaseCard> getActiveBaseCards()
+	{
+		List<BaseCard> returnCards = new List<BaseCard>();
+		foreach (BaseCard singleCard in cards)
+		{
+			if (!singleCard.isInteractiveDisabled)
+			{
+				returnCards.Add(singleCard);
+			}
+		}
+		return returnCards;
+	}
+
+	public List<int> getNonTypeActiveCardIds()
+	{
+		List<BaseCard> activeBaseCards = cards
+			.Where(
+				(singleCard) =>
+				{
+					return CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleCard.id].type)
+						&& singleCard.isInteractiveDisabled == false;
+				}
+			)
+			.ToList();
+
+		return getIdsOfBaseCards(activeBaseCards);
+	}
+
+	public List<int> getTypeActiveCards(CardsTypes cardType)
+	{
+		List<BaseCard> activeBaseCards = cards
+			.Where(
+				(singleCard) =>
+				{
+					return CardDictionary.globalCardDictionary[singleCard.id].type == cardType && singleCard.isInteractiveDisabled == false;
+				}
+			)
+			.ToList();
+		return getIdsOfBaseCards(activeBaseCards);
+	}
+
+	public List<int> getMagnetizedCards()
+	{
+		List<BaseCard> activeBaseCards = cards
+			.Where(
+				(singleCard) =>
+				{
+					return CardDictionary.globalCardDictionary[singleCard.id].module != null
+						&& CardDictionary.globalCardDictionary[singleCard.id].module.isMagnetizedCardIds != null;
+				}
+			)
+			.ToList();
+		List<int> magnetizeCardIds = getIdsOfBaseCards(activeBaseCards);
+
+		List<int> returnVar = magnetizeCardIds.Aggregate(
+			new List<int>(),
+			(total, next) =>
+			{
+				// maybe wrong :p
+				total.AddRange(CardDictionary.globalCardDictionary[next].module.isMagnetizedCardIds);
+				return total;
+			}
+		);
+
+		return returnVar;
+	}
+
+	private float getPositionZ()
+	{
+		if (cardStackType == CardStackType.Cards)
+		{
+			return HelperData.baseZ;
+		}
+		return HelperData.nodeBoardZ - 1;
+	}
+
+	private Vector3 getRootPosition()
+	{
+		if (cards.Count > 0)
+		{
+			return cards[0].transform.position;
+		}
+		return Vector3.zero;
+	}
+
+	private List<int> getIdsOfBaseCards(List<BaseCard> baseCards)
+	{
+		List<int> ids = new List<int>();
+		foreach (BaseCard singleCard in baseCards)
+		{
+			if (singleCard.interactableType == CoreInteractableType.CollapsedCards)
+			{
+				CardCollapsed cardCollapsed = singleCard.getCollapsedCard();
+				ids.AddRange(cardCollapsed.getCards().Select((card) => card.id));
+				continue;
+			}
+			ids.Add(singleCard.id);
+		}
+		return ids;
+	}
+
+	private BaseCard findCollapsableBaseCard()
 	{
 		foreach (BaseCard singleCard in cards)
 		{
@@ -159,159 +315,6 @@ public class CardStack : CardHolder
 			}
 		}
 		return null;
-	}
-
-	public List<int> getAllCardIds()
-	{
-		List<int> ids = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			ids.Add(singleCard.id);
-		}
-		return ids;
-	}
-
-	public List<BaseCard> getBaseCardsFromIds(List<int> cardIds)
-	{
-		Dictionary<int, int> indexedCardIds = CardHelpers.indexCardIds(cardIds);
-		List<BaseCard> returnCards = new List<BaseCard>();
-
-		foreach (BaseCard singleCard in cards)
-		{
-			if (indexedCardIds.ContainsKey(singleCard.id))
-			{
-				indexedCardIds[singleCard.id]--;
-				if (indexedCardIds[singleCard.id] == 0)
-				{
-					indexedCardIds.Remove(singleCard.id);
-				}
-				returnCards.Add(singleCard);
-			}
-		}
-
-		return returnCards;
-	}
-
-	public List<int> getAllCardIdsOfMinusIntervalModules()
-	{
-		List<int> modules = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (
-				CardDictionary.globalCardDictionary[singleCard.id].module != null
-				&& CardDictionary.globalCardDictionary[singleCard.id].module.minusInterval != null
-				&& CardDictionary.globalCardDictionary[singleCard.id].module.minusInterval.time != 0
-			)
-			{
-				modules.Add(singleCard.id);
-			}
-		}
-		return modules;
-	}
-
-	public List<int> getAllCardIdsOfUnityModules()
-	{
-		List<int> modules = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (
-				CardDictionary.globalCardDictionary[singleCard.id].module != null
-				&& CardDictionary.globalCardDictionary[singleCard.id].module.unityCount != 0
-			)
-			{
-				modules.Add(singleCard.id);
-			}
-		}
-		return modules;
-	}
-
-	public List<int> getActiveCardIds()
-	{
-		List<int> ids = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (!singleCard.isInteractiveDisabled)
-			{
-				ids.Add(singleCard.id);
-			}
-		}
-		return ids;
-	}
-
-	public List<BaseCard> getActiveCards()
-	{
-		List<BaseCard> returnCards = new List<BaseCard>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (!singleCard.isInteractiveDisabled)
-			{
-				returnCards.Add(singleCard);
-			}
-		}
-		return returnCards;
-	}
-
-	public List<int> getNonTypeActiveCardIds()
-	{
-		List<int> ids = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (
-				CardHelpers.isNonValueTypeCard(CardDictionary.globalCardDictionary[singleCard.id].type)
-				&& singleCard.isInteractiveDisabled == false
-			)
-			{
-				ids.Add(singleCard.id);
-			}
-		}
-		return ids;
-	}
-
-	public List<int> getTypeActiveCards(CardsTypes cardType)
-	{
-		List<int> ids = new List<int>();
-		foreach (BaseCard singleCard in cards)
-		{
-			if (CardDictionary.globalCardDictionary[singleCard.id].type == cardType && singleCard.isInteractiveDisabled == false)
-			{
-				ids.Add(singleCard.id);
-			}
-		}
-		return ids;
-	}
-
-	public List<int> getMagnetizedCards()
-	{
-		List<int> magnetizedCards = new List<int>();
-		foreach (BaseCard card in cards)
-		{
-			if (
-				CardDictionary.globalCardDictionary[card.id].module != null
-				&& CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds != null
-			)
-			{
-				magnetizedCards.AddRange(CardDictionary.globalCardDictionary[card.id].module.isMagnetizedCardIds);
-			}
-		}
-		return magnetizedCards;
-	}
-
-	private float getPositionZ()
-	{
-		if (cardStackType == CardStackType.Cards)
-		{
-			return HelperData.baseZ;
-		}
-		return HelperData.nodeBoardZ - 1;
-	}
-
-	private Vector3 getRootPosition()
-	{
-		if (cards.Count > 0)
-		{
-			return cards[0].transform.position;
-		}
-		return Vector3.zero;
 	}
 
 	//---------------- START CardHolder------------
