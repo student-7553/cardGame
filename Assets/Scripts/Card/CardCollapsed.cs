@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using Core;
 
-// public class CardCollapsed : BaseCard, IStackable, SelfBaseCardInterface
 public class CardCollapsed : BaseCard, CardHolder
 {
 	List<BaseCard> cards = new List<BaseCard>();
@@ -13,6 +12,8 @@ public class CardCollapsed : BaseCard, CardHolder
 	private TextMeshPro titleTextMesh;
 
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+
+	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
 	public override CardCollapsed getCollapsedCard()
 	{
@@ -60,25 +61,8 @@ public class CardCollapsed : BaseCard, CardHolder
 		reflectScreen();
 	}
 
-	// private void addToCollapsedCards(List<BaseCard> baseCards)
-	// {
-	// 	foreach (BaseCard baseCard in baseCards)
-	// 	{
-	// 		addToCollapsedCards(baseCard);
-	// 	}
-	// }
-
-
-
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
-		// Check if same card
-		// if (cards.Count != 0 && draggingCard.id == cards[0].id)
-		// {
-		// 	addCardsToStack(new List<BaseCard>() { draggingCard });
-		// 	return;
-		// }
-
 		if (isStacked())
 		{
 			joinedStack.addCardsToStack(new List<BaseCard>() { draggingCard });

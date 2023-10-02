@@ -14,6 +14,9 @@ public class CardHandler : MonoBehaviour
 	public GameObject nodePrefab;
 	public GameObject enemyNodePrefab;
 	public GameObject nodePlanePrefab;
+
+	public GameObject collapsedCardPrefab;
+
 	public GameObject nodeMagnetizeCirclePrefab;
 
 	public Sprite[] cardSprites;
@@ -102,6 +105,14 @@ public class CardHandler : MonoBehaviour
 		newCardCollapsed.interactableManagerScriptableObject = interactableManagerScriptableObject;
 		newCardCollapsed.id = cardId;
 
+		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);
+		newCollapsedCardPlane.SetActive(false);
+
+		CardCollapsedPlaneHandler cardCollapsedPlane = ensureComponent<CardCollapsedPlaneHandler>(newCollapsedCardPlane);
+		cardCollapsedPlane.init(newCardCollapsed);
+
+		newCardCollapsed.cardCollapsedPlaneHandler = cardCollapsedPlane;
+
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardCollapsedGameObject);
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
@@ -121,12 +132,13 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		ensureComponent<NodeProcess>(nodeGameObject);
-		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
+		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
 		newNodePlane.SetActive(false);
 
-		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
+		NodePlaneHandler nodePlane = ensureComponent<NodePlaneHandler>(newNodePlane);
+		// newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
 
 		GameObject nodeMagnetizeCircleGameObject = Instantiate(nodeMagnetizeCirclePrefab, nodeGameObject.transform);
