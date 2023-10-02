@@ -64,7 +64,8 @@ public class LeftClickHandler : MonoBehaviour
 	public void handleClick()
 	{
 		Vector3 mousePosition = Mouse.current.position.ReadValue();
-		GameObject hitGameObject = this.getMouseCloseGameObject(mousePosition);
+		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
+		Debug.Log(hitGameObject);
 		if (hitGameObject == null)
 		{
 			return;

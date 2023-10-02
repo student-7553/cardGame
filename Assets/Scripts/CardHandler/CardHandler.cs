@@ -107,6 +107,7 @@ public class CardHandler : MonoBehaviour
 
 		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);
 		newCollapsedCardPlane.SetActive(false);
+		newCollapsedCardPlane.layer = 6;
 
 		CardCollapsedPlaneHandler cardCollapsedPlane = ensureComponent<CardCollapsedPlaneHandler>(newCollapsedCardPlane);
 		cardCollapsedPlane.init(newCardCollapsed);
@@ -135,6 +136,7 @@ public class CardHandler : MonoBehaviour
 		ensureComponent<NodeHungerHandler>(nodeGameObject);
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
+		newNodePlane.layer = 6;
 		newNodePlane.SetActive(false);
 
 		NodePlaneHandler nodePlane = ensureComponent<NodePlaneHandler>(newNodePlane);

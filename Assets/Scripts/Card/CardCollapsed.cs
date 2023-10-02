@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Core;
 
-public class CardCollapsed : BaseCard, CardHolder
+public class CardCollapsed : BaseCard, CardHolder, IClickable
 {
 	List<BaseCard> cards = new List<BaseCard>();
 
@@ -24,6 +24,14 @@ public class CardCollapsed : BaseCard, CardHolder
 	{
 		get { return CoreInteractableType.CollapsedCards; }
 	}
+
+	// -------------------- START Clickable Members -------------------------
+	public void OnClick()
+	{
+		cardCollapsedPlaneHandler.gameObject.SetActive(true);
+	}
+
+	// -------------------- END Clickable Members -------------------------
 
 	// -------------------- CardInterface Members -------------------------
 	private CardHolder _joinedStack;

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
-public class CardCollapsedPlaneHandler : MonoBehaviour
+public class CardCollapsedPlaneHandler : MonoBehaviour, IClickable
 {
 	private CardCollapsed cardCollapsed;
 
@@ -15,5 +16,10 @@ public class CardCollapsedPlaneHandler : MonoBehaviour
 	public void init(CardCollapsed cardCollapsed)
 	{
 		this.cardCollapsed = cardCollapsed;
+	}
+
+	public void OnClick()
+	{
+		gameObject.SetActive(false);
 	}
 }
