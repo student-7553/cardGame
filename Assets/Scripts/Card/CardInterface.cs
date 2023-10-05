@@ -43,6 +43,12 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 
 	public virtual void destroyCard() { }
 
+	public virtual Interactable[] getMouseHoldInteractables()
+	{
+		Interactable[] interactables = { this };
+		return interactables;
+	}
+
 	// -------------------- Interactable Members End -------------------------
 
 

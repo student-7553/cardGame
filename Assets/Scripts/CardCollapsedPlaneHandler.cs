@@ -7,15 +7,14 @@ public class CardCollapsedPlaneHandler : MonoBehaviour, IClickable
 {
 	private CardCollapsed cardCollapsed;
 
-	// Start is called before the first frame update
-	void Start() { }
-
-	// Update is called once per frame
-	void Update() { }
-
 	public void init(CardCollapsed cardCollapsed)
 	{
 		this.cardCollapsed = cardCollapsed;
+	}
+
+	public CardCollapsed getCardCollapsed()
+	{
+		return cardCollapsed;
 	}
 
 	public void OnClick()

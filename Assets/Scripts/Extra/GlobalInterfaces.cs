@@ -1,3 +1,4 @@
+using Helpers;
 using UnityEngine;
 
 namespace Core
@@ -11,6 +12,22 @@ namespace Core
 	public interface IClickable
 	{
 		void OnClick();
+	}
+
+	public interface IMouseHoldable
+	{
+		public Interactable[] getMouseHoldInteractables();
+	}
+
+	public interface Interactable : IMouseHoldable
+	{
+		public bool isInteractiveDisabled { get; set; }
+		public CoreInteractableType interactableType { get; }
+		public bool isCardType();
+		public BaseCard getBaseCard();
+		public Card getCard();
+		public CardCollapsed getCollapsedCard();
+		GameObject gameObject { get; }
 	}
 
 	public enum CoreInteractableType

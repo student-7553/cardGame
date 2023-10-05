@@ -4,10 +4,18 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Core;
+using Helpers;
 
 public class EnemyNode : MonoBehaviour, BaseNode
 {
 	// -------------------- Custom Class ------------------------
+
+
+	public virtual Interactable[] getMouseHoldInteractables()
+	{
+		Interactable[] interactables = { this };
+		return interactables;
+	}
 
 	public Card getCard()
 	{

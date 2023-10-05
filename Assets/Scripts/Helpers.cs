@@ -276,19 +276,6 @@ namespace Helpers
 		}
 	}
 
-	public interface Interactable
-	{
-		public bool isInteractiveDisabled { get; set; }
-		public CoreInteractableType interactableType { get; }
-
-		public bool isCardType();
-
-		public BaseCard getBaseCard();
-		public Card getCard();
-		public CardCollapsed getCollapsedCard();
-		GameObject gameObject { get; }
-	}
-
 	public static class HelperData
 	{
 		public static readonly float baseZ = 0f;

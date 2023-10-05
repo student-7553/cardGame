@@ -1,7 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using Core;
+using System.Linq;
+using Helpers;
+using Unity.VisualScripting;
 
 public class CardCollapsed : BaseCard, CardHolder, IClickable
 {
@@ -136,8 +140,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	{
 		// Good to have some checks here tho
 		// Will always be Cards
-
-
 		foreach (BaseCard singleCard in removingCards)
 		{
 			if (!cards.Contains(singleCard))
@@ -150,6 +152,50 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			if ((Object)singleCard.joinedStack == this)
 			{
 				singleCard.joinedStack = null;
+			}
+		}
+		deadCheck();
+	}
+
+	private void deadCheck()
+	{
+		if (cards.Count > 1)
+		{
+			return;
+		}
+
+		for (int index = 0; index < cards.Count; index++)
+		{
+			if ((Object)cards[index].joinedStack == this)
+			{
+				cards[index].joinedStack = null;
+			}
+		}
+
+		if (LeftClickHandler.current == null)
+		{
+			return;
+		}
+
+		StartCoroutine(delayedDragFinish(cards));
+		Destroy(gameObject);
+	}
+
+	public IEnumerator delayedDragFinish(List<BaseCard> cards)
+	{
+		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, HelperData.draggingBaseZ);
+		for (int index = 0; index < cards.Count; index++)
+		{
+			cards[index].moveCard(basePosition);
+			cards[index].isInteractiveDisabled = false;
+		}
+
+		for (int index = 0; index < cards.Count; index++)
+		{
+			yield return null;
+			if (cards[index] != null)
+			{
+				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, null);
 			}
 		}
 	}

@@ -48,12 +48,19 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			return;
 		}
-		Interactable interactableObject = hitGameObject.GetComponent(typeof(Interactable)) as Interactable;
+		IMouseHoldable interactableObject = hitGameObject.GetComponent<IMouseHoldable>();
 		if (interactableObject == null)
 		{
 			return;
 		}
-		handleHoldingInteractable(interactableObject);
+
+		Interactable[] holdInteractables = interactableObject.getMouseHoldInteractables();
+		if (holdInteractables == null || holdInteractables.Length == 0 || holdInteractables[0].isInteractiveDisabled)
+		{
+			return;
+		}
+
+		handleHoldingInteractable(holdInteractables);
 	}
 
 	public void handleClickHoldEnd()
@@ -65,7 +72,6 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		Vector3 mousePosition = Mouse.current.position.ReadValue();
 		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
-		Debug.Log(hitGameObject);
 		if (hitGameObject == null)
 		{
 			return;
@@ -75,28 +81,25 @@ public class LeftClickHandler : MonoBehaviour
 
 	// ################ CUSTOM FUNCTION ################
 
-	public void handleHoldingInteractable(Interactable interactableObject)
+	public void handleHoldingInteractable(Interactable[] interactableObjects)
 	{
-		if (interactableObject.isInteractiveDisabled)
+		foreach (Interactable interactableObject in interactableObjects)
 		{
-			return;
+			GameObject interactableGameObject = interactableObject.gameObject;
+
+			interactableGameObject.transform.position = new Vector3(
+				interactableGameObject.transform.position.x,
+				interactableGameObject.transform.position.y,
+				HelperData.draggingBaseZ
+			);
 		}
 
-		GameObject interactableGameObject = interactableObject.gameObject;
-
-		interactableGameObject.transform.position = new Vector3(
-			interactableGameObject.transform.position.x,
-			interactableGameObject.transform.position.y,
-			HelperData.draggingBaseZ
-		);
-
 		Node previousStackedNode =
-			interactableObject.isCardType() && interactableObject.getBaseCard().isStacked()
-				? (Node)interactableObject.getBaseCard().joinedStack.getNode()
+			interactableObjects[0].isCardType() && interactableObjects[0].getBaseCard().isStacked()
+				? (Node)interactableObjects[0].getBaseCard().joinedStack.getNode()
 				: null;
 
-		List<Interactable> draggingObjects = new List<Interactable>();
-		draggingObjects.Add(interactableObject);
+		List<Interactable> draggingObjects = new List<Interactable>(interactableObjects);
 
 		StartCoroutine(dragUpdate(draggingObjects, previousStackedNode));
 	}
@@ -200,6 +203,24 @@ public class LeftClickHandler : MonoBehaviour
 		}
 		BaseCard rootCard = rootInteractable.getBaseCard();
 		return rootCard.isStacked();
+	}
+
+	public IEnumerator delayedDragFinish(List<BaseCard> cards, Node node)
+	{
+		for (int index = 0; index < cards.Count; index++)
+		{
+			cards[index].isInteractiveDisabled = false;
+		}
+
+		for (int index = 0; index < cards.Count; index++)
+		{
+			yield return null;
+			if (cards[index] != null)
+			{
+				dragFinishHandler(new List<Interactable>() { cards[index] }, node);
+			}
+		}
+		// }
 	}
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)

@@ -12,6 +12,12 @@ public class Node : MonoBehaviour, BaseNode
 		return false;
 	}
 
+	public virtual Interactable[] getMouseHoldInteractables()
+	{
+		Interactable[] interactables = { this };
+		return interactables;
+	}
+
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
 	public SpriteRenderer spriteRenderer { get; set; }
@@ -173,30 +179,29 @@ public class Node : MonoBehaviour, BaseNode
 
 	public void ejectCards(List<BaseCard> cards)
 	{
-		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
-
 		processCardStack.removeCardsFromStack(cards);
+		if (LeftClickHandler.current == null)
+		{
+			return;
+		}
+		StartCoroutine(delayedDragFinish(cards));
+	}
 
+	public IEnumerator delayedDragFinish(List<BaseCard> cards)
+	{
+		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
 		for (int index = 0; index < cards.Count; index++)
 		{
 			cards[index].moveCard(basePosition);
 			cards[index].isInteractiveDisabled = false;
 		}
 
-		StartCoroutine(delayedDragFinish(cards));
-	}
-
-	public IEnumerator delayedDragFinish(List<BaseCard> cards)
-	{
-		if (LeftClickHandler.current != null)
+		for (int index = 0; index < cards.Count; index++)
 		{
-			for (int index = 0; index < cards.Count; index++)
+			yield return null;
+			if (cards[index] != null)
 			{
-				yield return null;
-				if (cards[index] != null)
-				{
-					LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
-				}
+				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
 			}
 		}
 	}
