@@ -76,6 +76,7 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			return;
 		}
+		// hitGameObject.GetComponent
 		hitGameObject.GetComponent<IClickable>()?.OnClick();
 	}
 

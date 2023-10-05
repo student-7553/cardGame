@@ -193,6 +193,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		for (int index = 0; index < cards.Count; index++)
 		{
 			yield return null;
+
 			if (cards[index] != null)
 			{
 				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, null);
