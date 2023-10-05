@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -44,7 +42,7 @@ public class PlayerInput : MonoBehaviour
 
 	public void leftMousePress(InputAction.CallbackContext context)
 	{
-		this.cachedMousePosition = Mouse.current.position.ReadValue();
+		cachedMousePosition = Mouse.current.position.ReadValue();
 	}
 
 	public void leftMouseButtonCanceled(InputAction.CallbackContext context)
@@ -65,6 +63,7 @@ public class PlayerInput : MonoBehaviour
 		if (context.interaction is HoldInteraction)
 		{
 			LeftClickHandler.current.handleClickHold(this.cachedMousePosition);
+			return;
 		}
 
 		LeftClickHandler.current.handleClick();
@@ -78,7 +77,6 @@ public class PlayerInput : MonoBehaviour
 	public void zoomHandler(InputAction.CallbackContext context)
 	{
 		float zoomvalue = context.ReadValue<float>();
-		Debug.Log(context.ReadValue<float>());
 		this.cameraController.setZoom(zoomvalue);
 	}
 
