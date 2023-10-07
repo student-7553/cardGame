@@ -592,7 +592,8 @@ public class NodeProcess : MonoBehaviour
 		TypeAdjustingData data = new TypeAdjustingData();
 		data.init();
 
-		List<BaseCard> processRemovingCard = node.processCardStack.getBaseCardsFromIds(pickedProcess.removingIds.ToList());
+		List<Card> processRemovingCard = node.processCardStack.getCardsFromIds(pickedProcess.removingIds.ToList());
+
 		data.removingCards.AddRange(processRemovingCard);
 
 		if (pickedProcess.requiredGold > 0)

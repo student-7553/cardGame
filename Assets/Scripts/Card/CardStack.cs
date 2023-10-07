@@ -149,6 +149,28 @@ public class CardStack : CardHolder
 		return returnCards;
 	}
 
+	public List<Card> getCardsFromIds(List<int> cardIds)
+	{
+		Dictionary<int, int> indexedCardIds = CardHelpers.indexCardIds(cardIds);
+		List<Card> returnCards = new List<Card>();
+		List<Card> realCards = CardHelpers.baseCardsToCards(cards);
+
+		foreach (Card singleCard in realCards)
+		{
+			if (indexedCardIds.ContainsKey(singleCard.id))
+			{
+				indexedCardIds[singleCard.id]--;
+				if (indexedCardIds[singleCard.id] == 0)
+				{
+					indexedCardIds.Remove(singleCard.id);
+				}
+				returnCards.Add(singleCard);
+			}
+		}
+
+		return returnCards;
+	}
+
 	public List<int> getAllCardIdsOfUnityModules()
 	{
 		List<BaseCard> unityBaseCards = cards
@@ -365,16 +387,18 @@ public class CardStack : CardHolder
 	private void handleAddCardsToStack(List<BaseCard> addingCards)
 	{
 		cards.AddRange(addingCards);
-		foreach (BaseCard singleCard in cards)
+		foreach (BaseCard singleCard in addingCards)
 		{
-			if (singleCard.isStacked())
-			{
-				continue;
-			}
+			// if (singleCard.isStacked())
+			// {
+			// 	continue;
+			// }
+			// Debug.Log();
 
 			singleCard.attachToCardHolder(this);
 			if (cardStackType == CardStackType.Nodes)
 			{
+				Debug.Log("Are we called??");
 				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 			}
 		}

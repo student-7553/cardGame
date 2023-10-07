@@ -26,7 +26,7 @@ public class CollapsedHoldable : MonoBehaviour, IMouseHoldable
 			return true;
 		}
 
-		if (cardCollapsed.getCards().Count < stackCount)
+		if (cardCollapsed.getActiveCards().Count < stackCount)
 		{
 			spriteRenderer.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0.25f);
 			return true;
@@ -44,7 +44,8 @@ public class CollapsedHoldable : MonoBehaviour, IMouseHoldable
 
 		CardCollapsed cardCollapsed = cardCollapsedPlaneHandler.getCardCollapsed();
 
-		List<BaseCard> cards = new List<BaseCard>(cardCollapsed.getCards().GetRange(0, stackCount));
+		List<BaseCard> cards = new List<BaseCard>(cardCollapsed.getActiveCards().GetRange(0, stackCount));
+
 		cardCollapsed.removeCardsFromStack(cards);
 
 		Interactable[] interactables = cards.ToArray();

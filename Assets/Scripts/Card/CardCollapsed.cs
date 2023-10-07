@@ -140,13 +140,14 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	{
 		// Good to have some checks here tho
 		// Will always be Cards
+		bool changed = false;
 		foreach (BaseCard singleCard in removingCards)
 		{
 			if (!cards.Contains(singleCard))
 			{
 				continue;
 			}
-			// singleCard.joinedStack = null;
+			changed = true;
 			cards.Remove(singleCard);
 
 			if ((Object)singleCard.joinedStack == this)
@@ -154,7 +155,10 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 				singleCard.joinedStack = null;
 			}
 		}
-		deadCheck();
+		if (changed)
+		{
+			deadCheck();
+		}
 	}
 
 	private void deadCheck()
@@ -164,37 +168,54 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			return;
 		}
 
-		for (int index = 0; index < cards.Count; index++)
+		bool isStackedCurrently = isStacked();
+		CardHolder preJoinedStack = joinedStack;
+		if (isStackedCurrently)
 		{
-			if ((Object)cards[index].joinedStack == this)
+			preJoinedStack.removeCardsFromStack(new List<BaseCard>() { this });
+		}
+
+		if (cards.Count == 1)
+		{
+			BaseCard lastCard = cards[0];
+			cards.Clear();
+			Debug.Log("are we called/" + lastCard + "/" + isStackedCurrently);
+
+			if (isStackedCurrently)
 			{
-				cards[index].joinedStack = null;
+				lastCard.gameObject.SetActive(true);
+				preJoinedStack.addCardsToStack(new List<BaseCard>() { lastCard });
+				// Debug.Log(;
+			}
+			else
+			{
+				lastCard.joinedStack = null;
+			}
+
+			if (!isStackedCurrently)
+			{
+				Debug.Log("Are we called???");
+				if (LeftClickHandler.current != null)
+				{
+					StartCoroutine(delayedDragFinish(lastCard));
+				}
 			}
 		}
 
-		if (LeftClickHandler.current == null)
-		{
-			return;
-		}
-
-		StartCoroutine(delayedDragFinish(cards));
 		Destroy(gameObject);
 	}
 
-	public IEnumerator delayedDragFinish(List<BaseCard> cards)
+	public IEnumerator delayedDragFinish(BaseCard card)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, HelperData.draggingBaseZ);
-		for (int index = 0; index < cards.Count; index++)
-		{
-			cards[index].moveCard(basePosition);
-			cards[index].isInteractiveDisabled = false;
-		}
+		card.moveCard(basePosition);
+		card.isInteractiveDisabled = false;
 
 		for (int index = 0; index < cards.Count; index++)
 		{
 			yield return null;
 
-			if (cards[index] != null)
+			if (card != null)
 			{
 				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, null);
 			}
@@ -234,7 +255,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public BaseNode getNode()
 	{
-		// uuhhh
 		return joinedStack?.getNode();
 	}
 
@@ -243,5 +263,10 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		return cards;
 	}
 
+	public List<BaseCard> getActiveCards()
+	{
+		List<BaseCard> activeCards = cards.Where((card) => !card.isInteractiveDisabled).ToList();
+		return activeCards;
+	}
 	//---------------- END CardHolder ------------
 }
