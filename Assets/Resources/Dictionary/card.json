@@ -258,7 +258,7 @@
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 30,
+      "sellingPrice": 1,
       "typeValue": 0
     },
     {
@@ -314,6 +314,36 @@
       "isSellable": true,
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10
+    },
+    {
+      "id": 30,
+      "name": "[Dormant] Hydroponic 2",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 31,
+      "name": "[Dormant] Hydroponic 3",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 32,
+      "name": "[Dormant] Hydroponic 4",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
     },
     {
       "id": 999,
