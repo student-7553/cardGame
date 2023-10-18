@@ -179,13 +179,11 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		{
 			BaseCard lastCard = cards[0];
 			cards.Clear();
-			Debug.Log("are we called/" + lastCard + "/" + isStackedCurrently);
 
 			if (isStackedCurrently)
 			{
 				lastCard.gameObject.SetActive(true);
 				preJoinedStack.addCardsToStack(new List<BaseCard>() { lastCard });
-				// Debug.Log(;
 			}
 			else
 			{
@@ -194,7 +192,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 			if (!isStackedCurrently)
 			{
-				Debug.Log("Are we called???");
 				if (LeftClickHandler.current != null)
 				{
 					StartCoroutine(delayedDragFinish(lastCard));

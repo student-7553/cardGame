@@ -389,16 +389,9 @@ public class CardStack : CardHolder
 		cards.AddRange(addingCards);
 		foreach (BaseCard singleCard in addingCards)
 		{
-			// if (singleCard.isStacked())
-			// {
-			// 	continue;
-			// }
-			// Debug.Log();
-
 			singleCard.attachToCardHolder(this);
 			if (cardStackType == CardStackType.Nodes)
 			{
-				Debug.Log("Are we called??");
 				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 			}
 		}
