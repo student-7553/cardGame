@@ -772,13 +772,13 @@
       "unlockCardIds": [],
       "requiredIds": [],
       "removingIds": [22],
-      "requiredGold": 5,
+      "requiredWill": 4,
       "requiredElectricity": 0,
-      "time": 20,
+      "time": 30,
       "addingCardObjects": [
         {
           "odds": 1,
-          "addingCardIds": [1002],
+          "addingCardIds": [33],
           "extraUnlockCardIds": [],
           "isOneTime": false
         }
@@ -1067,6 +1067,93 @@
         {
           "odds": 1,
           "addingCardIds": [1001, 2004],
+          "extraUnlockCardIds": [],
+          "isOneTime": false
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "baseRequiredId": 33,
+      "unlockCardIds": [],
+      "requiredIds": [],
+      "removingIds": [33],
+      "requiredWill": 4,
+      "time": 30,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [34],
+          "extraUnlockCardIds": [],
+          "isOneTime": false
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "baseRequiredId": 34,
+      "unlockCardIds": [],
+      "requiredIds": [],
+      "removingIds": [34],
+      "requiredWill": 4,
+      "requiredElectricity": 0,
+      "time": 30,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [35],
+          "extraUnlockCardIds": [],
+          "isOneTime": false
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "baseRequiredId": 35,
+      "unlockCardIds": [],
+      "requiredIds": [],
+      "removingIds": [35],
+      "requiredWill": 4,
+      "requiredElectricity": 0,
+      "time": 30,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [36],
+          "extraUnlockCardIds": [],
+          "isOneTime": false
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "baseRequiredId": 36,
+      "unlockCardIds": [],
+      "requiredIds": [],
+      "removingIds": [36],
+      "requiredWill": 4,
+      "time": 30,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [37],
+          "extraUnlockCardIds": [],
+          "isOneTime": false
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "baseRequiredId": 37,
+      "unlockCardIds": [],
+      "requiredIds": [],
+      "removingIds": [37],
+      "requiredWill": 4,
+      "time": 30,
+      "addingCardObjects": [
+        {
+          "odds": 1,
+          "addingCardIds": [1002, 2005, 10101, 10101, 10101],
           "extraUnlockCardIds": [],
           "isOneTime": false
         }

@@ -233,12 +233,12 @@
     },
     {
       "id": 22,
-      "name": "[Dormant] Solar",
+      "name": "[Dormant] Solar 1",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
-      "sellingPrice": 15,
+      "sellingPrice": 1,
       "typeValue": 0
     },
     {
@@ -253,7 +253,7 @@
     },
     {
       "id": 24,
-      "name": "[Dormant] Hydroponic",
+      "name": "[Dormant] Hydroponic 1",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -338,6 +338,56 @@
     {
       "id": 32,
       "name": "[Dormant] Hydroponic 4",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 33,
+      "name": "[Dormant] Solar 2",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 34,
+      "name": "[Dormant] Solar 3",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 35,
+      "name": "[Dormant] Solar 4",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 36,
+      "name": "[Dormant] Solar 5",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 37,
+      "name": "[Dormant] Solar 6",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
