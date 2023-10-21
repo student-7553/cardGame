@@ -365,7 +365,8 @@
       "isSellable": true,
       "sellingPrice": 1,
       "typeValue": 0,
-      "nodeTransferTimeCost": 7
+      "nodeTransferTimeCost": 7,
+      "foodCost": 1
     },
     {
       "id": 1002,

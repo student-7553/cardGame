@@ -46,5 +46,7 @@ public class NodeTextHandler
 			// Active Node
 			processTimerTextMesh.text = processTimerTextMesh.text + $"[{connectedNode.nodeHungerHandler.getHungerCountdown()}]";
 		}
+
+		processTimerTextMesh.text = $"(Tax:{connectedNode.nodeStats.currentNodeStats.currentFoodCheck}) " + processTimerTextMesh.text;
 	}
 }
