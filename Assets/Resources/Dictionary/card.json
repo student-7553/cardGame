@@ -416,7 +416,7 @@
       "sellingPrice": 1,
       "typeValue": 0,
       "nodeTransferTimeCost": 7,
-      "foodCost": 1
+      "foodCost": 0
     },
     {
       "id": 1002,

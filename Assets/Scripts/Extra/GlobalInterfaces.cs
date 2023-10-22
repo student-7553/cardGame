@@ -47,8 +47,8 @@ namespace Core
 	public static class NodeBaseStats
 	{
 		public static BaseNodeStats base1Stats = new(0, 10, 1, 1, 150);
-		public static BaseNodeStats base2Stats = new(2, 15, 1, 1, 130);
-		public static BaseNodeStats base3Stats = new(4, 20, 1, 1, 130);
+		public static BaseNodeStats base2Stats = new(2, 15, 1, 1, 150);
+		public static BaseNodeStats base3Stats = new(4, 20, 1, 1, 150);
 
 		public static BaseNodeStats getBaseStats(int nodeId)
 		{

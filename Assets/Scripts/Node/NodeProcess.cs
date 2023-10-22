@@ -637,7 +637,7 @@ public class NodeProcess : MonoBehaviour
 			List<int> cardIds = card.getCollapsedCard().getCards().Select((card) => card.id).ToList();
 			foreach (int cardId in cardIds)
 			{
-				goldAmount = getGoldAmount(cardId);
+				goldAmount = goldAmount + getGoldAmount(cardId);
 			}
 		}
 		else
