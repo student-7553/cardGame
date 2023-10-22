@@ -9,6 +9,8 @@ public class CardHandler : MonoBehaviour
 	public PlayerCardTrackerObject playerCardTracker;
 	public static CardHandler current;
 
+	private int customUnityCardCounterHook = 0;
+
 	// -----------------------PREFAB--------------------------
 	public GameObject cardPrefab;
 	public GameObject nodePrefab;
@@ -82,7 +84,7 @@ public class CardHandler : MonoBehaviour
 		playerCardTracker.ensureCardIdTracked(cardId);
 		interactableManagerScriptableObject.registerCard(newCard);
 
-		tempCardHooks(cardId);
+		roughCardHooks(cardId);
 
 		return newCard;
 	}
@@ -236,16 +238,21 @@ public class CardHandler : MonoBehaviour
 		return cardSpriteRenderer;
 	}
 
-	private void tempCardHooks(int cardId)
+	private void roughCardHooks(int cardId)
 	{
-		// Global expidition
+		if (cardId == 1101)
+		{
+			customUnityCardCounterHook++;
+		}
+
+		// 1004 - Global expidition
 		if (cardId == 1004 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_1);
 		}
 
-		// Zenith idea
-		if (cardId == 2017 && disableEnemySpawner == false)
+		// 1101 - Zenith idea
+		if (cardId == 1101 && customUnityCardCounterHook >= 2 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_2);
 		}
