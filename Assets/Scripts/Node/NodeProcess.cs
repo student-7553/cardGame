@@ -325,7 +325,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (pickedAddingCardObject.id == 5176)
 		{
-			List<int> cardIds = node.processCardStack.getAllActiveCardIds();
+			List<int> cardIds = node.processCardStack.getAllCardIds();
 			int foodInfraId = 1001;
 			int infraCount = cardIds.Where((cardId) => cardId == foodInfraId).Count();
 			int totalUnityValue = getUnityValue();
