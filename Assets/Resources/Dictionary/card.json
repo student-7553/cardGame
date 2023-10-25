@@ -285,7 +285,7 @@
     },
     {
       "id": 27,
-      "name": "Zenith",
+      "name": "Core Pillar",
       "type": "Resource",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -388,6 +388,16 @@
     {
       "id": 37,
       "name": "[Dormant] Solar 6",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 38,
+      "name": "Zenith",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -695,7 +705,7 @@
     },
     {
       "id": 2007,
-      "name": "[Idea][Forge] Steel",
+      "name": "[Idea][Forge] Steel (Deprecated)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -795,7 +805,7 @@
     },
     {
       "id": 2017,
-      "name": "[Idea] Zenith",
+      "name": "[Idea] Core Pillar",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -806,6 +816,16 @@
     {
       "id": 2018,
       "name": "[Idea] Infinite Iron Deprecated",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+     {
+      "id": 2019,
+      "name": "[Idea] Zenith",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,

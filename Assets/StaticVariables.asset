@@ -23,7 +23,7 @@ MonoBehaviour:
   floatingTextDurationSec: 1.5
   magnetizedIntervel: 6
   defaultNodePlanePositon: {x: -120, y: 0}
-  endingCardId: 0
+  endingCardId: 38
   enemySpawnIntervals:
   - {x: 200, y: 300}
   - {x: 120, y: 220}
