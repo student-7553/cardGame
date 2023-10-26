@@ -591,7 +591,7 @@
         {
           "id": 46456453,
           "odds": 1,
-          "addingCardIds": [27],
+          "addingCardIds": [27, 29, 29, 1109, 1109],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 3004

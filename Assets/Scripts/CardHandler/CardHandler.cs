@@ -9,7 +9,6 @@ public class CardHandler : MonoBehaviour
 	public PlayerCardTrackerObject playerCardTracker;
 	public static CardHandler current;
 
-	private int customUnityCardCounterHook = 0;
 
 	// -----------------------PREFAB--------------------------
 	public GameObject cardPrefab;
@@ -240,19 +239,14 @@ public class CardHandler : MonoBehaviour
 
 	private void roughCardHooks(int cardId)
 	{
-		if (cardId == 1101)
-		{
-			customUnityCardCounterHook++;
-		}
-
 		// 1004 - Global expidition
 		if (cardId == 1004 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_1);
 		}
 
-		// 1101 - Zenith idea
-		if (cardId == 1101 && customUnityCardCounterHook >= 2 && disableEnemySpawner == false)
+		// 27 - Core pillar
+		if (cardId == 27 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_2);
 		}
