@@ -460,7 +460,7 @@
           "isOneTime": false
         },
         {
-          "odds": 0.1,
+          "odds": 0.02,
           "addingCardIds": [28],
           "extraUnlockCardIds": [],
           "isOneTime": false

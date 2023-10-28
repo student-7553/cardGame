@@ -25,6 +25,6 @@ MonoBehaviour:
   defaultNodePlanePositon: {x: -120, y: 0}
   endingCardId: 38
   enemySpawnIntervals:
-  - {x: 200, y: 300}
+  - {x: 280, y: 380}
   - {x: 120, y: 220}
-  magnetizeMaxRange: 10
+  magnetizeMaxRange: 35

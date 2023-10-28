@@ -9,6 +9,7 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	public static float baseCardY = 8;
 
 	// -------------------- Interactable Members -------------------------
+	[SerializeField]
 	private bool _isInteractiveDisabled = false;
 	public bool isInteractiveDisabled
 	{
