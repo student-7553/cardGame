@@ -23,7 +23,6 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void run()
 	{
-		Debug.Log("....Are we getting called....");
 
 		foreach (Node node in interactableManagerScriptableObject.nodes)
 		{
@@ -36,9 +35,7 @@ public class MagneticModuleManager : MonoBehaviour
 			{
 				continue;
 			}
-			Debug.Log($"Checking[{string.Join(",", magnetizedCards)}]");
 			Card targetMagnetCard = getTargetMagnetCard(node.transform.position, magnetizedCards, staticVariables.magnetizeMaxRange);
-			Debug.Log("....got card..../" + targetMagnetCard);
 			if (targetMagnetCard == null)
 			{
 				continue;
@@ -68,16 +65,11 @@ public class MagneticModuleManager : MonoBehaviour
 		foreach (int magnetizedCard in magnetizedCards)
 		{
 			Card targetCard = availableCards.Find(
-				card => card.id == magnetizedCard && isCardInRange(nodePosition, card.transform.position, maxRange)
+				card => card != null && card.id == magnetizedCard && isCardInRange(nodePosition, card.transform.position, maxRange)
 			);
 
 			Card preTargetCard = availableCards.Find(card => card.id == magnetizedCard);
 
-			Debug.Log("targetCard/" + targetCard);
-			Debug.Log("preTargetCard/ " + preTargetCard);
-			Debug.Log("position/" + preTargetCard?.transform.position);
-
-			// Debug.Log($"[{string.Join(",", availableCards)}]");
 			if (targetCard == null)
 			{
 				continue;

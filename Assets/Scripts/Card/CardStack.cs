@@ -108,10 +108,10 @@ public class CardStack : CardHolder
 					.ToList();
 
 				CardCollapsed cardCollapsed = CardHandler.current.createCardCollapsed(targetBaseCard.id);
-				cardCollapsed.addCardsToStack(subjectCards);
-				handleAddCardsToStack(new List<BaseCard>() { cardCollapsed });
-				removeCardsFromStack(subjectCards);
 				cardCollapsed.transform.position = targetBaseCard.transform.position;
+				cardCollapsed.addCardsToStack(subjectCards);
+				removeCardsFromStack(subjectCards);
+				handleAddCardsToStack(new List<BaseCard>() { cardCollapsed });
 			}
 			else
 			{
@@ -119,7 +119,6 @@ public class CardStack : CardHolder
 				break;
 			}
 			break;
-			// targetBaseCard = findCollapsableBaseCard();
 		}
 	}
 
@@ -390,7 +389,7 @@ public class CardStack : CardHolder
 		foreach (BaseCard singleCard in addingCards)
 		{
 			singleCard.attachToCardHolder(this);
-			if (cardStackType == CardStackType.Nodes)
+			if (cardStackType == CardStackType.Nodes || cardStackType == CardStackType.CollapsedCards)
 			{
 				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 			}

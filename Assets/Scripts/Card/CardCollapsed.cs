@@ -187,6 +187,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			}
 			else
 			{
+				lastCard.transform.SetParent(null);
 				lastCard.joinedStack = null;
 			}
 
@@ -207,39 +208,32 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, HelperData.draggingBaseZ);
 		card.moveCard(basePosition);
 		card.isInteractiveDisabled = false;
-
-		for (int index = 0; index < cards.Count; index++)
+		yield return null;
+		if (card != null)
 		{
-			yield return null;
-
-			if (card != null)
-			{
-				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, null);
-			}
+			LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { card }, null);
 		}
 	}
 
 	public void addCardsToStack(List<BaseCard> addingCards)
 	{
-		// Todo handle adding collapseCard
 		foreach (BaseCard baseCard in addingCards)
 		{
 			if (baseCard.interactableType == CoreInteractableType.Cards)
 			{
 				cards.Add(baseCard);
 			}
-			else
+			else if (baseCard.interactableType == CoreInteractableType.CollapsedCards)
 			{
-				// delete it
 				CardCollapsed cardCollapsed = baseCard.getCollapsedCard();
 				cards.AddRange(cardCollapsed.getCards());
-
 				cardCollapsed.destroyCard();
 			}
 		}
 
 		foreach (BaseCard singleCard in cards)
 		{
+			singleCard.gameObject.transform.SetParent(gameObject.transform);
 			singleCard.gameObject.SetActive(false);
 			singleCard.attachToCardHolder(this);
 		}
