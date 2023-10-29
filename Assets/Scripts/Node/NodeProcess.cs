@@ -425,8 +425,6 @@ public class NodeProcess : MonoBehaviour
 
 		node.ejectCards(ejectingBaseCards);
 
-		// node.processCardStack.consolidateTypeCards();
-
 		isProccessing = false;
 
 		StartCoroutine(handleProcessCooldown());

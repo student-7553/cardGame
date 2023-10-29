@@ -51,7 +51,12 @@ public class Card : BaseCard
 		{
 			return;
 		}
-		joinedStack = null;
+		if (joinedStack != null)
+		{
+			joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
+			joinedStack = null;
+		}
+
 		interactableManagerScriptableObject.removeCard(this);
 		Destroy(gameObject);
 	}
