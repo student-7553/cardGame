@@ -156,10 +156,10 @@ public class Node : MonoBehaviour, BaseNode
 				return;
 			}
 
-			if (prevNode != this)
-			{
-				nodeCardQue.addCard(newCard);
-			}
+			// if (prevNode != this)
+			// {
+			// 	nodeCardQue.addCard(newCard);
+			// }
 			processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 			return;
 		}
@@ -170,10 +170,10 @@ public class Node : MonoBehaviour, BaseNode
 			return;
 		}
 
-		if (prevNode != this)
-		{
-			nodeCardQue.addCard(newCard);
-		}
+		// if (prevNode != this)
+		// {
+		// 	nodeCardQue.addCard(newCard);
+		// }
 		processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 	}
 
