@@ -50,21 +50,19 @@ public class MagneticModuleManager : MonoBehaviour
 			targetMagnetCard.joinedStack.removeCardsFromStack(new List<BaseCard>() { targetMagnetCard });
 		}
 
-		// targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
-
 		//
-		// Vector3 targetNodePosition = node.transform.position;
-		// targetMagnetCard.gameObject.transform.position = targetNodePosition;
-
-		node.stackOnThis(targetMagnetCard, null);
+		// targetMagnetCard.gameObject.transform.position = node.transform.position;
+		// node.stackOnThis(targetMagnetCard, null);
 		//
 
-		// targetMagnetCard.gameObject.transform
-		// 	.DOMove(targetNodePosition, magnetizeMoveTime)
-		// 	.OnComplete(() =>
-		// 	{
-		// 		node.stackOnThis(targetMagnetCard, null);
-		// 	});
+		Vector3 targetNodePosition = node.transform.position;
+		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
+		targetMagnetCard.gameObject.transform
+			.DOMove(targetNodePosition, magnetizeMoveTime)
+			.OnComplete(() =>
+			{
+				node.stackOnThis(targetMagnetCard, null);
+			});
 	}
 
 	private Card getTargetMagnetCard(Vector3 nodePosition, List<int> magnetizedCards, float maxRange)
