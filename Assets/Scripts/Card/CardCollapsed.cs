@@ -133,10 +133,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		bool changed = false;
 		foreach (BaseCard singleCard in removingCards)
 		{
-			// if (!cards.Contains(singleCard))
-			// {
-			// 	continue;
-			// }
 
 			changed = true;
 			cards.Remove(singleCard);
@@ -170,20 +166,15 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			BaseCard lastCard = cards[0];
 			cards.Clear();
 
+			lastCard.joinedStack = null;
+			lastCard.gameObject.SetActive(true);
+			lastCard.transform.SetParent(null);
+
 			if (isStackedCurrently)
 			{
-				lastCard.gameObject.SetActive(true);
 				preJoinedStack.addCardsToStack(new List<BaseCard>() { lastCard });
 			}
 			else
-			{
-				lastCard.transform.SetParent(null);
-				lastCard.joinedStack = null;
-				lastCard.gameObject.SetActive(true);
-				lastCard.transform.SetParent(null);
-			}
-
-			if (!isStackedCurrently)
 			{
 				if (LeftClickHandler.current != null)
 				{
