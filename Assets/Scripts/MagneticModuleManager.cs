@@ -23,7 +23,6 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void run()
 	{
-
 		foreach (Node node in interactableManagerScriptableObject.nodes)
 		{
 			if (node.nodeStats.currentNodeStats.resourceInventoryLimit - node.nodeStats.currentNodeStats.resourceInventoryUsed < 4)
@@ -46,15 +45,26 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void handleMagnetizeCard(Node node, Card targetMagnetCard)
 	{
-		targetMagnetCard.joinedStack = null;
-		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
-		Vector3 targetNodePosition = node.transform.position;
-		targetMagnetCard.gameObject.transform
-			.DOMove(targetNodePosition, magnetizeMoveTime)
-			.OnComplete(() =>
-			{
-				node.stackOnThis(targetMagnetCard, null);
-			});
+		if (targetMagnetCard.joinedStack != null)
+		{
+			targetMagnetCard.joinedStack.removeCardsFromStack(new List<BaseCard>() { targetMagnetCard });
+		}
+
+		// targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
+
+		//
+		// Vector3 targetNodePosition = node.transform.position;
+		// targetMagnetCard.gameObject.transform.position = targetNodePosition;
+
+		node.stackOnThis(targetMagnetCard, null);
+		//
+
+		// targetMagnetCard.gameObject.transform
+		// 	.DOMove(targetNodePosition, magnetizeMoveTime)
+		// 	.OnComplete(() =>
+		// 	{
+		// 		node.stackOnThis(targetMagnetCard, null);
+		// 	});
 	}
 
 	private Card getTargetMagnetCard(Vector3 nodePosition, List<int> magnetizedCards, float maxRange)

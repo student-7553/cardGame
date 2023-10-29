@@ -19,17 +19,7 @@ public class Card : BaseCard
 	public override CardHolder joinedStack
 	{
 		get { return _joinedStack; }
-		set
-		{
-			if (value == null && _joinedStack != null)
-			{
-				_joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
-
-				gameObject.SetActive(true);
-				gameObject.transform.SetParent(null);
-			}
-			_joinedStack = value;
-		}
+		set { _joinedStack = value; }
 	}
 
 	// -------------------- CardInterface Members end -------------------------
@@ -57,7 +47,7 @@ public class Card : BaseCard
 
 	public override void destroyCard()
 	{
-		if (!gameObject)
+		if (gameObject == null)
 		{
 			return;
 		}

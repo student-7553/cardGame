@@ -45,6 +45,17 @@ public class CardStack : CardHolder
 			return;
 		}
 
+		Vector3 adjustedOriginPoint =
+			cardStackType == CardStackType.Nodes
+				? new Vector3(
+					connectedNode.nodePlaneManager.gameObject.transform.position.x,
+					connectedNode.nodePlaneManager.gameObject.transform.position.y,
+					getPositionZ()
+				)
+				: originPoint;
+
+		adjustedOriginPoint = adjustedOriginPoint + originPointAdjustment;
+
 		float paddingCounter = 0;
 		foreach (BaseCard singleCard in cards)
 		{
@@ -53,7 +64,7 @@ public class CardStack : CardHolder
 				continue;
 			}
 
-			Vector3 newPostionForCardInSubject = new Vector3(originPoint.x, originPoint.y, getPositionZ());
+			Vector3 newPostionForCardInSubject = new Vector3(adjustedOriginPoint.x, adjustedOriginPoint.y, getPositionZ());
 			newPostionForCardInSubject.y = newPostionForCardInSubject.y - (paddingCounter * stackDistance);
 			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
 
@@ -61,26 +72,6 @@ public class CardStack : CardHolder
 			singleCard.transform.position = newPostionForCardInSubject;
 			singleCard.computeCorners();
 		}
-	}
-
-	public void alignCards()
-	{
-		if (cards.Count == 0)
-		{
-			return;
-		}
-		Vector3 originPoint =
-			cardStackType == CardStackType.Nodes
-				? new Vector3(
-					connectedNode.nodePlaneManager.gameObject.transform.position.x,
-					connectedNode.nodePlaneManager.gameObject.transform.position.y,
-					getPositionZ()
-				)
-				: getRootPosition();
-
-		originPoint = originPoint + originPointAdjustment;
-
-		alignCards(originPoint);
 	}
 
 	private void collapseCardStack()
@@ -98,8 +89,8 @@ public class CardStack : CardHolder
 				string.Join(",", subjectCards.Select((card) => card.id));
 
 				CardCollapsed cardCollapsed = targetBaseCard.getCollapsedCard();
-				cardCollapsed.addCardsToStack(subjectCards);
 				removeCardsFromStack(subjectCards);
+				cardCollapsed.addCardsToStack(subjectCards);
 			}
 			else if (targetBaseCard.interactableType == CoreInteractableType.Cards)
 			{
@@ -109,8 +100,8 @@ public class CardStack : CardHolder
 
 				CardCollapsed cardCollapsed = CardHandler.current.createCardCollapsed(targetBaseCard.id);
 				cardCollapsed.transform.position = targetBaseCard.transform.position;
-				cardCollapsed.addCardsToStack(subjectCards);
 				removeCardsFromStack(subjectCards);
+				cardCollapsed.addCardsToStack(subjectCards);
 				handleAddCardsToStack(new List<BaseCard>() { cardCollapsed });
 			}
 			else
@@ -277,7 +268,7 @@ public class CardStack : CardHolder
 
 	private Vector3 getRootPosition()
 	{
-		if (cards.Count > 0)
+		if (cards.Count > 0 && cards[0] != null)
 		{
 			return cards[0].transform.position;
 		}
@@ -356,24 +347,26 @@ public class CardStack : CardHolder
 	public void removeCardsFromStack(List<BaseCard> removingCards)
 	{
 		bool changed = false;
+		bool isRootCardRemoved = false;
 
 		foreach (BaseCard singleCard in removingCards)
 		{
-			if (!cards.Contains(singleCard))
+			if (cards.Count > 0 && singleCard.GetInstanceID() == cards[0].GetInstanceID())
 			{
-				continue;
+				isRootCardRemoved = true;
 			}
+
 			changed = true;
 			cards.Remove(singleCard);
 
-			if (singleCard.joinedStack == this)
-			{
-				singleCard.joinedStack = null;
-			}
+			singleCard.joinedStack = null;
+			singleCard.gameObject.SetActive(true);
+			singleCard.transform.SetParent(null);
 		}
 		if (changed)
 		{
-			alignCards();
+			Vector3 rootPosition = getRootPosition() + (isRootCardRemoved ? new Vector3(0, 5, 0) : Vector3.zero);
+			alignCards(rootPosition);
 		}
 	}
 
@@ -394,7 +387,7 @@ public class CardStack : CardHolder
 				singleCard.gameObject.transform.SetParent(connectedNode.nodePlaneManager.gameObject.transform);
 			}
 		}
-		alignCards();
+		alignCards(getRootPosition());
 	}
 
 	//---------------- END CardHolder------------

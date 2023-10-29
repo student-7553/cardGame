@@ -344,10 +344,13 @@ public class NodeProcess : MonoBehaviour
 		List<BaseCard> ejectingBaseCards = new List<BaseCard>();
 		if (node.isActive)
 		{
-			// node.hadleRemovingCards(removingCards);
 			foreach (Card singleRemovingCard in removingCards)
 			{
-				singleRemovingCard.destroyCard();
+				if (singleRemovingCard == null)
+				{
+					continue;
+				}
+				singleRemovingCard?.destroyCard();
 			}
 
 			List<BaseCard> addingBaseCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingCardIds));
@@ -385,12 +388,20 @@ public class NodeProcess : MonoBehaviour
 			// Todo: handle failed process
 			foreach (BaseCard card in removingCards)
 			{
+				if (card == null)
+				{
+					continue;
+				}
 				card.isInteractiveDisabled = false;
 			}
 		}
 
 		foreach (BaseCard card in restNonInteractiveCards)
 		{
+			if (card == null)
+			{
+				continue;
+			}
 			card.isInteractiveDisabled = false;
 		}
 

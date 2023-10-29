@@ -93,6 +93,7 @@ public class LeftClickHandler : MonoBehaviour
 				interactableGameObject.transform.position.y,
 				HelperData.draggingBaseZ
 			);
+			// interactableObject.isInteractiveDisabled = true;
 		}
 
 		Node previousStackedNode =
@@ -127,7 +128,7 @@ public class LeftClickHandler : MonoBehaviour
 			if (isMiddleLogicEnabled == true && dragTimer > this.checkIntervel)
 			{
 				dragTimer = 0;
-				isMiddleLogicEnabled = this.handleMiddleLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
+				isMiddleLogicEnabled = handleMiddleLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
 			}
 
 			yield return null;
@@ -151,7 +152,7 @@ public class LeftClickHandler : MonoBehaviour
 		bool isEnded = DragAndDropHelper.getDraggingCardsAngle(initialPostionOfStack, currentPositionOfCard);
 		if (isEnded)
 		{
-			this.applyDownDragLogic(rootInteractable.getBaseCard(), initialPostionOfStack, draggingObjects);
+			applyDownDragLogic(rootInteractable.getBaseCard(), initialPostionOfStack, draggingObjects);
 			return true;
 		}
 		else
@@ -174,7 +175,7 @@ public class LeftClickHandler : MonoBehaviour
 				{
 					return !draggingObjects.Any(
 						singleDraggingObject =>
-							singleDraggingObject.gameObject.GetInstanceID() == stacksSingleCard.gameObject.GetInstanceID()
+							singleDraggingObject.gameObject?.GetInstanceID() == stacksSingleCard.gameObject?.GetInstanceID()
 					);
 				})
 		);
@@ -226,6 +227,11 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
+		// foreach (Interactable draggingObject in draggingObjects)
+		// {
+		// 	draggingObject.isInteractiveDisabled = false;
+		// }
+
 		if (draggingObjects[0].isCardType())
 		{
 			IStackable stackableObject = findTargetToStack(draggingObjects[0].getBaseCard());

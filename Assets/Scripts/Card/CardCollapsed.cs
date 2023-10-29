@@ -42,16 +42,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	public override CardHolder joinedStack
 	{
 		get { return _joinedStack; }
-		set
-		{
-			if (value == null && _joinedStack != null)
-			{
-				_joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
-				gameObject.SetActive(true);
-				gameObject.transform.SetParent(null);
-			}
-			_joinedStack = value;
-		}
+		set { _joinedStack = value; }
 	}
 
 	// -------------------- CardInterface Members end -------------------------
@@ -94,7 +85,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		}
 
 		joinedStack = null;
-
 		Destroy(gameObject);
 	}
 
@@ -143,17 +133,17 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		bool changed = false;
 		foreach (BaseCard singleCard in removingCards)
 		{
-			if (!cards.Contains(singleCard))
-			{
-				continue;
-			}
+			// if (!cards.Contains(singleCard))
+			// {
+			// 	continue;
+			// }
+
 			changed = true;
 			cards.Remove(singleCard);
 
-			if ((Object)singleCard.joinedStack == this)
-			{
-				singleCard.joinedStack = null;
-			}
+			singleCard.joinedStack = null;
+			singleCard.gameObject.SetActive(true);
+			singleCard.transform.SetParent(null);
 		}
 		if (changed)
 		{
@@ -189,6 +179,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			{
 				lastCard.transform.SetParent(null);
 				lastCard.joinedStack = null;
+				lastCard.gameObject.SetActive(true);
+				lastCard.transform.SetParent(null);
 			}
 
 			if (!isStackedCurrently)

@@ -198,7 +198,8 @@ public class Node : MonoBehaviour, BaseNode
 
 		for (int index = 0; index < cards.Count; index++)
 		{
-			yield return null;
+			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame();
 			if (cards[index] != null)
 			{
 				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
