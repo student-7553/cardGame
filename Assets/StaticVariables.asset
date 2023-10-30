@@ -27,4 +27,4 @@ MonoBehaviour:
   enemySpawnIntervals:
   - {x: 280, y: 380}
   - {x: 120, y: 220}
-  magnetizeMaxRange: 70
+  magnetizeMaxRange: 85

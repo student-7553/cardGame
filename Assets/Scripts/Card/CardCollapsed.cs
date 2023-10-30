@@ -84,7 +84,12 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			return;
 		}
 
-		joinedStack = null;
+		if (joinedStack != null)
+		{
+			joinedStack.removeCardsFromStack(new List<BaseCard>() { this });
+			joinedStack = null;
+		}
+
 		Destroy(gameObject);
 	}
 

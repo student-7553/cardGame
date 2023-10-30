@@ -81,8 +81,6 @@ public class MagneticModuleManager : MonoBehaviour
 				card => card != null && card.id == magnetizedCard && isCardInRange(nodePosition, card.transform.position, maxRange)
 			);
 
-			Card preTargetCard = availableCards.Find(card => card.id == magnetizedCard);
-
 			if (targetCard == null)
 			{
 				continue;
