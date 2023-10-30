@@ -156,24 +156,19 @@ public class Node : MonoBehaviour, BaseNode
 				return;
 			}
 
-			// if (prevNode != this)
-			// {
-			// 	nodeCardQue.addCard(newCard);
-			// }
 			processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 			return;
 		}
 
 		bool isAllowed = isAllowedToStack(newCard);
+
+		Debug.Log("Are we called....../" + isAllowed + "/" + newCard);
+
 		if (!isAllowed)
 		{
 			return;
 		}
 
-		// if (prevNode != this)
-		// {
-		// 	nodeCardQue.addCard(newCard);
-		// }
 		processCardStack.addCardsToStack(new List<BaseCard>() { newCard });
 	}
 
