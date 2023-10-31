@@ -138,13 +138,18 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		bool changed = false;
 		foreach (BaseCard singleCard in removingCards)
 		{
+			bool isIncluded = cards.Any((card) => singleCard.GetInstanceID() == card.GetInstanceID());
+			if (!isIncluded)
+			{
+				continue;
+			}
 
 			changed = true;
 			cards.Remove(singleCard);
 
-			singleCard.joinedStack = null;
-			singleCard.gameObject.SetActive(true);
 			singleCard.transform.SetParent(null);
+			singleCard.gameObject.SetActive(true);
+			singleCard.joinedStack = null;
 		}
 		if (changed)
 		{
@@ -166,14 +171,16 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			preJoinedStack.removeCardsFromStack(new List<BaseCard>() { this });
 		}
 
+		Debug.Log("CardCollapsed is dieing");
 		if (cards.Count == 1)
 		{
 			BaseCard lastCard = cards[0];
-			cards.Clear();
 
-			lastCard.joinedStack = null;
 			lastCard.gameObject.SetActive(true);
 			lastCard.transform.SetParent(null);
+			lastCard.joinedStack = null;
+
+			// cards.Clear();
 
 			if (isStackedCurrently)
 			{

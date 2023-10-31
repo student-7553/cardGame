@@ -93,7 +93,6 @@ public class LeftClickHandler : MonoBehaviour
 				interactableGameObject.transform.position.y,
 				HelperData.draggingBaseZ
 			);
-			// interactableObject.isInteractiveDisabled = true;
 		}
 
 		Node previousStackedNode =
@@ -122,7 +121,7 @@ public class LeftClickHandler : MonoBehaviour
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera);
 
-			this.moveInteractableObjects(movingToPoint, draggingObjects);
+			moveInteractableObjects(movingToPoint, draggingObjects);
 
 			dragTimer += Time.deltaTime;
 			if (isMiddleLogicEnabled == true && dragTimer > this.checkIntervel)
@@ -131,7 +130,7 @@ public class LeftClickHandler : MonoBehaviour
 				isMiddleLogicEnabled = handleMiddleLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
 			}
 
-			yield return null;
+			yield return new WaitForEndOfFrame();
 		}
 		if (isMiddleLogicEnabled)
 		{
