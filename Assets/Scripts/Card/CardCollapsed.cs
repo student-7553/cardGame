@@ -66,6 +66,12 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public override void stackOnThis(BaseCard draggingCard, Node _prevNode)
 	{
+		if (draggingCard.id == id)
+		{
+			addCardsToStack(new List<BaseCard>() { draggingCard });
+			return;
+		}
+
 		if (isStacked())
 		{
 			joinedStack.addCardsToStack(new List<BaseCard>() { draggingCard });
@@ -147,7 +153,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			changed = true;
 			cards.Remove(singleCard);
 
-			singleCard.transform.SetParent(null);
+			singleCard.gameObject.transform.SetParent(null);
 			singleCard.gameObject.SetActive(true);
 			singleCard.joinedStack = null;
 		}
@@ -176,8 +182,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		{
 			BaseCard lastCard = cards[0];
 
+			lastCard.gameObject.transform.SetParent(null);
 			lastCard.gameObject.SetActive(true);
-			lastCard.transform.SetParent(null);
 			lastCard.joinedStack = null;
 
 			// cards.Clear();
@@ -221,7 +227,9 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			else if (baseCard.interactableType == CoreInteractableType.CollapsedCards)
 			{
 				CardCollapsed cardCollapsed = baseCard.getCollapsedCard();
-				cards.AddRange(cardCollapsed.getCards());
+				List<BaseCard> cardCollapsedCards = new List<BaseCard>(cardCollapsed.getCards());
+				cardCollapsed.removeCardsFromStack(cardCollapsedCards);
+				cards.AddRange(cardCollapsedCards);
 				cardCollapsed.destroyCard();
 			}
 		}

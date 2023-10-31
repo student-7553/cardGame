@@ -359,9 +359,9 @@ public class CardStack : CardHolder
 			changed = true;
 			cards.Remove(singleCard);
 
-			singleCard.joinedStack = null;
+			singleCard.gameObject.transform.SetParent(null);
 			singleCard.gameObject.SetActive(true);
-			singleCard.transform.SetParent(null);
+			singleCard.joinedStack = null;
 		}
 		if (changed)
 		{
