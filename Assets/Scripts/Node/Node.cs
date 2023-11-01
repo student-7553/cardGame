@@ -162,7 +162,6 @@ public class Node : MonoBehaviour, BaseNode
 
 		bool isAllowed = isAllowedToStack(newCard);
 
-		Debug.Log("Are we called....../" + isAllowed + "/" + newCard);
 
 		if (!isAllowed)
 		{

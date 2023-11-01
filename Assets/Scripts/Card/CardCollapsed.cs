@@ -177,7 +177,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			preJoinedStack.removeCardsFromStack(new List<BaseCard>() { this });
 		}
 
-		Debug.Log("CardCollapsed is dieing");
 		if (cards.Count == 1)
 		{
 			BaseCard lastCard = cards[0];

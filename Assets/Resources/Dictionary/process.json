@@ -1171,8 +1171,8 @@
       "id": 40,
       "baseRequiredId": 27,
       "unlockCardIds": [],
-      "requiredIds": [27, 27, 27, 27],
-      "removingIds": [27, 27, 27, 27, 27],
+      "requiredIds": [27, 27, 27],
+      "removingIds": [27, 27, 27, 27],
       "requiredWill": 0,
       "time": 15,
       "addingCardObjects": [
