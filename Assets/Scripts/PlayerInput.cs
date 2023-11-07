@@ -10,9 +10,12 @@ public class PlayerInput : MonoBehaviour
 	public InputActionReference leftMouseClickButton;
 	public InputActionReference leftMousePressButton;
 
-	private Vector3 cachedMousePosition;
+	public InputActionReference increaseTimeScale;
+	public InputActionReference decreaseTimeScale;
 
 	public CameraController cameraController;
+
+	private Vector3 cachedMousePosition;
 
 	private void OnEnable()
 	{
@@ -23,8 +26,10 @@ public class PlayerInput : MonoBehaviour
 		pauseButton.action.performed += pauseButtonHandler;
 		leftMouseClickButton.action.performed += leftMouseButtonHandler;
 		leftMouseClickButton.action.canceled += leftMouseButtonCanceled;
-
 		leftMousePressButton.action.performed += leftMousePress;
+
+		increaseTimeScale.action.performed += handleIncreaseTimeScaleButtonPress;
+		decreaseTimeScale.action.performed += handleDecreaseTimeScaleButtonPress;
 	}
 
 	private void OnDisable()
@@ -38,6 +43,19 @@ public class PlayerInput : MonoBehaviour
 		leftMouseClickButton.action.canceled -= leftMouseButtonCanceled;
 
 		leftMousePressButton.action.performed -= leftMousePress;
+
+		increaseTimeScale.action.performed -= handleIncreaseTimeScaleButtonPress;
+		decreaseTimeScale.action.performed -= handleDecreaseTimeScaleButtonPress;
+	}
+
+	public void handleIncreaseTimeScaleButtonPress(InputAction.CallbackContext context)
+	{
+		GameManager.current.handleGameTimeScaleIncease();
+	}
+
+	public void handleDecreaseTimeScaleButtonPress(InputAction.CallbackContext context)
+	{
+		GameManager.current.handleGameTimeScaleDecrease();
 	}
 
 	public void leftMousePress(InputAction.CallbackContext context)
@@ -62,7 +80,7 @@ public class PlayerInput : MonoBehaviour
 
 		if (context.interaction is HoldInteraction)
 		{
-			LeftClickHandler.current.handleClickHold(this.cachedMousePosition);
+			LeftClickHandler.current.handleClickHold(cachedMousePosition);
 			return;
 		}
 
@@ -77,7 +95,7 @@ public class PlayerInput : MonoBehaviour
 	public void zoomHandler(InputAction.CallbackContext context)
 	{
 		float zoomvalue = context.ReadValue<float>();
-		this.cameraController.setZoom(zoomvalue);
+		cameraController.setZoom(zoomvalue);
 	}
 
 	public void OnCameraMovement(InputAction.CallbackContext context)

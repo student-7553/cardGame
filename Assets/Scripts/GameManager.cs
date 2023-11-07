@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
 
+	public PlayerRuntime_Object playerRuntime;
+
 	void Awake()
 	{
 		if (current != null)
@@ -95,15 +97,50 @@ public class GameManager : MonoBehaviour
 
 	public void handleGamePauseAction()
 	{
-		if (Time.timeScale == 0)
+		if (playerRuntime.timeScale > 0)
 		{
-			Time.timeScale = 1;
+			playerRuntime.timeScale = 0;
 			Debug.Log("We are Resumed");
 		}
 		else
 		{
-			Time.timeScale = 0;
+			playerRuntime.timeScale = 1;
 			Debug.Log("We are Paused");
+		}
+	}
+
+	public void handleGameTimeScaleIncease()
+	{
+		if (playerRuntime.timeScale >= 2f)
+		{
+			return;
+		}
+
+		if (playerRuntime.timeScale >= 1f)
+		{
+			playerRuntime.timeScale = 2f;
+			return;
+		}
+
+		if (playerRuntime.timeScale >= 0.5f)
+		{
+			playerRuntime.timeScale = 1f;
+			return;
+		}
+	}
+
+	public void handleGameTimeScaleDecrease()
+	{
+		if (playerRuntime.timeScale >= 2f)
+		{
+			playerRuntime.timeScale = 1f;
+			return;
+		}
+
+		if (playerRuntime.timeScale >= 1f)
+		{
+			playerRuntime.timeScale = 0.5f;
+			return;
 		}
 	}
 
