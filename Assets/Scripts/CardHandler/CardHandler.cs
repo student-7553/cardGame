@@ -9,7 +9,6 @@ public class CardHandler : MonoBehaviour
 	public PlayerCardTrackerObject playerCardTracker;
 	public static CardHandler current;
 
-
 	// -----------------------PREFAB--------------------------
 	public GameObject cardPrefab;
 	public GameObject nodePrefab;
@@ -34,6 +33,7 @@ public class CardHandler : MonoBehaviour
 
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 	public StaticVariables staticVariables;
+	public PlayerRuntime_Object playerRuntime;
 
 	public bool disableEnemySpawner = false;
 
@@ -133,8 +133,11 @@ public class CardHandler : MonoBehaviour
 		newNode.staticVariables = staticVariables;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
-		ensureComponent<NodeProcess>(nodeGameObject);
-		ensureComponent<NodeHungerHandler>(nodeGameObject);
+		NodeProcess nodeProcess = ensureComponent<NodeProcess>(nodeGameObject);
+		nodeProcess.playerRuntime = playerRuntime;
+
+		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
+		nodeHungerHandler.playerRuntime = playerRuntime;
 
 		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
 		newNodePlane.layer = 6;

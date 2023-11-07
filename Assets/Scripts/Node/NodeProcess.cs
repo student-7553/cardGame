@@ -5,7 +5,6 @@ using System;
 using Core;
 using System.Linq;
 using Helpers;
-using Unity.VisualScripting;
 
 public class NodeProcess : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class NodeProcess : MonoBehaviour
 	public float proccessingLeft; // ********* sec, how many seconds are left for process to finish  *********
 
 	private bool isInit = false;
+
+	public PlayerRuntime_Object playerRuntime;
 
 	public void Awake()
 	{
@@ -296,7 +297,8 @@ public class NodeProcess : MonoBehaviour
 		while (proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
-			proccessingLeft = proccessingLeft - 1;
+			// proccessingLeft = proccessingLeft - 1;
+			proccessingLeft = proccessingLeft - playerRuntime.timeScale;
 
 			if (proccessingLeft > node.staticVariables.bufferProcessingTime)
 			{

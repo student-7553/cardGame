@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class CollapsedHoldable : MonoBehaviour, IMouseHoldable
 {
@@ -46,9 +47,17 @@ public class CollapsedHoldable : MonoBehaviour, IMouseHoldable
 
 		List<BaseCard> cards = new List<BaseCard>(cardCollapsed.getActiveCards().GetRange(0, stackCount));
 
-		cardCollapsed.removeCardsFromStack(cards);
+		handleCardLeaving(cards);
 
 		Interactable[] interactables = cards.ToArray();
 		return interactables;
+	}
+
+	private void handleCardLeaving(List<BaseCard> cards)
+	{
+		CardCollapsed cardCollapsed = cardCollapsedPlaneHandler.getCardCollapsed();
+		cardCollapsed.removeCardsFromStack(cards);
+
+		cardCollapsedPlaneHandler.OnClick();
 	}
 }

@@ -185,8 +185,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			lastCard.gameObject.SetActive(true);
 			lastCard.joinedStack = null;
 
-			// cards.Clear();
-
 			if (isStackedCurrently)
 			{
 				preJoinedStack.addCardsToStack(new List<BaseCard>() { lastCard });

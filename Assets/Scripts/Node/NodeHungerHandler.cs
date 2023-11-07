@@ -13,6 +13,11 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private bool isInit = false;
 
+	private float internalTimer = 0f;
+
+	[System.NonSerialized]
+	public PlayerRuntime_Object playerRuntime;
+
 	public void Awake()
 	{
 		intervalTimer = 0;
@@ -36,12 +41,22 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		internalTimer = internalTimer + Time.fixedDeltaTime;
+		if (internalTimer >= 1f)
+		{
+			handleSecondTick();
+			internalTimer = 0;
+		}
+	}
+
+	private void handleSecondTick()
+	{
 		if (!isInit || !connectedNode.isActive)
 		{
 			return;
 		}
 
-		intervalTimer = intervalTimer + Time.deltaTime;
+		intervalTimer = intervalTimer + playerRuntime.timeScale;
 		if (intervalTimer > connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer)
 		{
 			intervalTimer = 0;

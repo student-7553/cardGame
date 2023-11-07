@@ -406,6 +406,16 @@
       "typeValue": 0
     },
     {
+      "id": 39,
+      "name": "Hope",
+      "type": "Resource",
+      "resourceInventoryCount": 1,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
       "id": 999,
       "name": "Mining contract",
       "type": "Resource",
@@ -478,7 +488,7 @@
     },
     {
       "id": 1100,
-      "name": "Warehouse",
+      "name": "Warehouse (Deprecated)",
       "type": "Module",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -633,6 +643,77 @@
         "isMagnetizedCardIds": [9]
       }
     },
+
+    {
+      "id": 1993,
+      "name": "[Idea] Global Expedition Process",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1994,
+      "name": "[Idea] Local Expedition Process",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1995,
+      "name": "[Idea] Food",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1996,
+      "name": "[Idea] Electricity",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1997,
+      "name": "[Idea] Sparce brick",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1998,
+      "name": "[Idea] Water",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 1999,
+      "name": "[Idea] Will",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
     {
       "id": 2000,
       "name": "[Idea][Node] Founding ship (Small base)",
@@ -705,7 +786,7 @@
     },
     {
       "id": 2007,
-      "name": "[Idea][Forge] Steel (Deprecated)",
+      "name": "[Idea][Forge] Steel",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -715,7 +796,7 @@
     },
     {
       "id": 2008,
-      "name": "[Idea] Mining contract",
+      "name": "[Idea] Mining contract (Deprecated)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -725,7 +806,7 @@
     },
     {
       "id": 2009,
-      "name": "[Idea] Warehouse",
+      "name": "[Idea] Warehouse (Deprecated)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -823,9 +904,80 @@
       "sellingPrice": 1,
       "typeValue": 0
     },
-     {
+    {
       "id": 2019,
       "name": "[Idea] Zenith",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+
+    {
+      "id": 2020,
+      "name": "[Idea] Magnetize",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2021,
+      "name": "[Idea] Magnetize Processed (Iron)",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2022,
+      "name": "[Idea] Magnetize Processed (Water)",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2023,
+      "name": "[Idea] Magnetize Processed (Stone)",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2024,
+      "name": "[Idea] Magnetize Processed (Deposit & Vein)",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2025,
+      "name": "[Idea] Magnetize Processed (Ice)",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2026,
+      "name": "[Idea] Unity",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,

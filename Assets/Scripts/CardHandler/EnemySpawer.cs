@@ -1,7 +1,4 @@
-// using System.Collections;
-// using System.Collections.Generic;
 using Helpers;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class EnemySpawer : MonoBehaviour
@@ -12,7 +9,6 @@ public class EnemySpawer : MonoBehaviour
 		tier_2,
 	}
 
-	private EnemySpawner_Tier current_tier;
 	public GameObject boardPlaneGameObject;
 	private Vector2 boardSize;
 
@@ -26,7 +22,11 @@ public class EnemySpawer : MonoBehaviour
 
 	public StaticVariables staticVariables;
 
+	public PlayerRuntime_Object playerRuntime;
+
 	private readonly int edgeSpawnPadding = 10;
+
+	private float internalTimer = 0f;
 
 	void Start()
 	{
@@ -43,7 +43,6 @@ public class EnemySpawer : MonoBehaviour
 
 	public void Run(EnemySpawner_Tier tier)
 	{
-		current_tier = tier;
 		switch (tier)
 		{
 			case EnemySpawner_Tier.tier_1:
@@ -56,9 +55,6 @@ public class EnemySpawer : MonoBehaviour
 				break;
 		}
 
-		// staticVariables.enemySpawnIntervals[1].x,
-		// staticVariables.enemySpawnIntervals[1].y,
-
 		isEnabled = true;
 		enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 	}
@@ -70,39 +66,49 @@ public class EnemySpawer : MonoBehaviour
 
 	private float GetSpawnIntervel()
 	{
-		return Random.Range(this.minSecTillSpawn, this.maxSecTillSpawn);
+		return UnityEngine.Random.Range(minSecTillSpawn, maxSecTillSpawn);
 	}
 
 	private void FixedUpdate()
+	{
+		internalTimer = internalTimer + Time.fixedDeltaTime;
+		if (internalTimer >= 1f)
+		{
+			handleSecondTick();
+			internalTimer = 0;
+		}
+	}
+
+	private void handleSecondTick()
 	{
 		if (!isEnabled)
 		{
 			return;
 		}
 
-		this.enemySpawnerScriptableObject.timer = this.enemySpawnerScriptableObject.timer - Time.fixedDeltaTime;
-		// Debug.Log("[EnemySpawn] " + this.enemySpawnerScriptableObject.timer);
+		enemySpawnerScriptableObject.timer = enemySpawnerScriptableObject.timer - playerRuntime.timeScale;
+
 		if (enemySpawnerScriptableObject.timer <= 0)
 		{
 			SpawnTrigger();
-			this.enemySpawnerScriptableObject.timer = this.GetSpawnIntervel();
+			enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 		}
 	}
 
 	private void SpawnTrigger()
 	{
 		EnemyNode createdEnemyNode = CardHandler.current.createEnemyNode(spawnCardId);
-		createdEnemyNode.gameObject.transform.position = this.getEnemyNodeSpawnPoint();
+		createdEnemyNode.gameObject.transform.position = getEnemyNodeSpawnPoint();
 	}
 
 	private Vector3 getEnemyNodeSpawnPoint()
 	{
 		Vector3 spawnPosition = new Vector3(0, 0, HelperData.enemyNodeBaseZ);
-		if (Random.Range(-1f, 1f) > 0)
+		if (UnityEngine.Random.Range(-1f, 1f) > 0)
 		{
-			spawnPosition.y = Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);
-			float widthMinus = Random.Range(0f, edgeSpawnPadding);
-			if (Random.Range(-1f, 1f) > 0)
+			spawnPosition.y = UnityEngine.Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);
+			float widthMinus = UnityEngine.Random.Range(0f, edgeSpawnPadding);
+			if (UnityEngine.Random.Range(-1f, 1f) > 0)
 			{
 				spawnPosition.x = (boardSize.x / 2) - widthMinus;
 			}
@@ -113,9 +119,9 @@ public class EnemySpawer : MonoBehaviour
 		}
 		else
 		{
-			spawnPosition.x = Random.Range(-(boardSize.x / 2) + edgeSpawnPadding, (boardSize.x / 2) - edgeSpawnPadding);
-			float heightMinus = Random.Range(0f, edgeSpawnPadding);
-			if (Random.Range(-1f, 1f) > 0)
+			spawnPosition.x = UnityEngine.Random.Range(-(boardSize.x / 2) + edgeSpawnPadding, (boardSize.x / 2) - edgeSpawnPadding);
+			float heightMinus = UnityEngine.Random.Range(0f, edgeSpawnPadding);
+			if (UnityEngine.Random.Range(-1f, 1f) > 0)
 			{
 				spawnPosition.y = (boardSize.y / 2) - heightMinus;
 			}
