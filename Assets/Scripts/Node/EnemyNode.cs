@@ -10,6 +10,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 {
 	// -------------------- Custom Class ------------------------
 
+	public Vector3 currentVelocity;
 
 	public virtual Interactable[] getMouseHoldInteractables()
 	{
@@ -30,6 +31,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	public CardCollapsed getCollapsedCard()
 	{
 		return null;
+	}
+
+	public ref Vector3 getCurrentVelocity()
+	{
+		return ref currentVelocity;
 	}
 
 	public bool isCardType()

@@ -28,3 +28,4 @@ MonoBehaviour:
   - {x: 280, y: 380}
   - {x: 120, y: 220}
   magnetizeMaxRange: 85
+  cardReachSmoothTime: 0.075

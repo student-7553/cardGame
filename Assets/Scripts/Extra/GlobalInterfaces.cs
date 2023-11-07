@@ -27,6 +27,7 @@ namespace Core
 		public BaseCard getBaseCard();
 		public Card getCard();
 		public CardCollapsed getCollapsedCard();
+		public ref Vector3 getCurrentVelocity();
 		GameObject gameObject { get; }
 	}
 

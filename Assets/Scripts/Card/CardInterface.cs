@@ -7,6 +7,7 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 {
 	public static float baseCardX = 5;
 	public static float baseCardY = 8;
+	public Vector3 currentVelocity;
 
 	// -------------------- Interactable Members -------------------------
 	[SerializeField]
@@ -35,6 +36,11 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	public virtual CardCollapsed getCollapsedCard()
 	{
 		return null;
+	}
+
+	public ref Vector3 getCurrentVelocity()
+	{
+		return ref currentVelocity;
 	}
 
 	public BaseCard getBaseCard()

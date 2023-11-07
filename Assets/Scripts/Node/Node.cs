@@ -7,6 +7,8 @@ using Helpers;
 
 public class Node : MonoBehaviour, BaseNode
 {
+	public Vector3 currentVelocity;
+
 	public bool isCardType()
 	{
 		return false;
@@ -39,6 +41,11 @@ public class Node : MonoBehaviour, BaseNode
 	public CardCollapsed getCollapsedCard()
 	{
 		return null;
+	}
+
+	public ref Vector3 getCurrentVelocity()
+	{
+		return ref currentVelocity;
 	}
 
 	// -------------------- Custom Class -------------------------
@@ -161,7 +168,6 @@ public class Node : MonoBehaviour, BaseNode
 		}
 
 		bool isAllowed = isAllowedToStack(newCard);
-
 
 		if (!isAllowed)
 		{

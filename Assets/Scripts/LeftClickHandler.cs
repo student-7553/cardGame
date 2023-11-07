@@ -11,6 +11,7 @@ public class LeftClickHandler : MonoBehaviour
 	private Camera mainCamera;
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
+	public StaticVariables staticVariables;
 	private bool isHolding;
 
 	private float checkIntervel = 0.01f;
@@ -86,11 +87,9 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		foreach (Interactable interactableObject in interactableObjects)
 		{
-			GameObject interactableGameObject = interactableObject.gameObject;
-
-			interactableGameObject.transform.position = new Vector3(
-				interactableGameObject.transform.position.x,
-				interactableGameObject.transform.position.y,
+			interactableObject.gameObject.transform.position = new Vector3(
+				interactableObject.gameObject.transform.position.x,
+				interactableObject.gameObject.transform.position.y,
 				HelperData.draggingBaseZ
 			);
 		}
@@ -124,7 +123,7 @@ public class LeftClickHandler : MonoBehaviour
 			moveInteractableObjects(movingToPoint, draggingObjects);
 
 			dragTimer += Time.deltaTime;
-			if (isMiddleLogicEnabled == true && dragTimer > this.checkIntervel)
+			if (isMiddleLogicEnabled == true && dragTimer > checkIntervel)
 			{
 				dragTimer = 0;
 				isMiddleLogicEnabled = handleMiddleLogic(draggingObjects[0], initialPostionOfStack, draggingObjects);
@@ -226,11 +225,6 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
-		// foreach (Interactable draggingObject in draggingObjects)
-		// {
-		// 	draggingObject.isInteractiveDisabled = false;
-		// }
-
 		if (draggingObjects[0].isCardType())
 		{
 			IStackable stackableObject = findTargetToStack(draggingObjects[0].getBaseCard());
@@ -303,15 +297,16 @@ public class LeftClickHandler : MonoBehaviour
 	{
 		foreach (Interactable singleInteractable in interactableObjects)
 		{
-			this.moveInteractableObjects(movingToPoint, singleInteractable);
-		}
-	}
+			GameObject interactableGameObject = singleInteractable.gameObject;
 
-	private void moveInteractableObjects(Vector3 movingToPoint, Interactable interactableObject)
-	{
-		GameObject interactableGameObject = interactableObject.gameObject;
-		Vector3 finalMovingPoint = movingToPoint;
-		finalMovingPoint.z = interactableGameObject.transform.position.z;
-		interactableGameObject.transform.position = finalMovingPoint;
+			Vector3 finalMovingPoint = new Vector3(movingToPoint.x, movingToPoint.y, interactableGameObject.transform.position.z);
+
+			interactableGameObject.transform.position = Vector3.SmoothDamp(
+				interactableGameObject.transform.position,
+				finalMovingPoint,
+				ref singleInteractable.getCurrentVelocity(),
+				staticVariables.cardReachSmoothTime
+			);
+		}
 	}
 }
