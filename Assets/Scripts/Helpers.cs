@@ -285,5 +285,7 @@ namespace Helpers
 		public static readonly float draggingBaseZ = -4f;
 
 		public static readonly float enemyNodeBaseZ = -3f;
+
+		public static readonly float cardReachSmoothTime = 0.05f;
 	}
 }

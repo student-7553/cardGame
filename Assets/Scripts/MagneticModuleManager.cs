@@ -59,10 +59,6 @@ public class MagneticModuleManager : MonoBehaviour
 		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
 		targetMagnetCard.gameObject.transform
 			.DOMove(targetNodePosition, magnetizeMoveTime)
-			// .OnComplete(() =>
-			// {
-			// 	node.stackOnThis(targetMagnetCard, null);
-			// })
 			.OnKill(() =>
 			{
 				targetMagnetCard.isInteractiveDisabled = false;

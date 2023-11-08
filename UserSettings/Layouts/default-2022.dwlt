@@ -21,8 +21,8 @@ MonoBehaviour:
   m_ShowMode: 0
   m_Title: ' Hot Reload'
   m_RootView: {fileID: 4}
-  m_MinSize: {x: 301, y: 173}
-  m_MaxSize: {x: 4001, y: 4023}
+  m_MinSize: {x: 300, y: 171}
+  m_MaxSize: {x: 4000, y: 4021}
   m_Maximized: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -67,8 +67,8 @@ MonoBehaviour:
     y: 0
     width: 536.6667
     height: 578.6667
-  m_MinSize: {x: 301, y: 173}
-  m_MaxSize: {x: 4001, y: 4023}
+  m_MinSize: {x: 300, y: 171}
+  m_MaxSize: {x: 4000, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -94,10 +94,10 @@ MonoBehaviour:
     y: 0
     width: 536.6667
     height: 578.6667
-  m_MinSize: {x: 301, y: 173}
-  m_MaxSize: {x: 4001, y: 4023}
+  m_MinSize: {x: 300, y: 171}
+  m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 102
+  controlID: 17
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 17
+  controlID: 41
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 62
+  controlID: 65
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -381,8 +381,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -21333.334
-    y: -21303.334
+    x: 7.3333335
+    y: 80
     width: 968.3333
     height: 783.6667
   m_SerializedDataModeController:
@@ -1053,7 +1053,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 8ab10000
     m_LastClickedID: 45450
-    m_ExpandedIDs: 000000009ab100009cb100009eb10000
+    m_ExpandedIDs: 00000000a2b10000a4b10000a6b10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1081,7 +1081,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009ab100009cb100009eb10000
+    m_ExpandedIDs: 00000000a2b10000a4b10000a6b10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

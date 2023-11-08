@@ -11,7 +11,8 @@ public class LeftClickHandler : MonoBehaviour
 	private Camera mainCamera;
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
-	public StaticVariables staticVariables;
+
+	// public StaticVariables staticVariables;
 	private bool isHolding;
 
 	private float checkIntervel = 0.01f;
@@ -77,7 +78,6 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			return;
 		}
-		// hitGameObject.GetComponent
 		hitGameObject.GetComponent<IClickable>()?.OnClick();
 	}
 
@@ -117,6 +117,14 @@ public class LeftClickHandler : MonoBehaviour
 		isHolding = true;
 		while (isHolding)
 		{
+			foreach (Interactable singleDraggingObject in draggingObjects)
+			{
+				if (singleDraggingObject.isCardType())
+				{
+					singleDraggingObject.isInteractiveDisabled = true;
+				}
+			}
+
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera);
 
@@ -139,6 +147,14 @@ public class LeftClickHandler : MonoBehaviour
 				.ToList();
 
 			draggingObjects[0].getBaseCard().joinedStack.removeCardsFromStack(draggingCards);
+		}
+
+		foreach (Interactable singleDraggingObject in draggingObjects)
+		{
+			if (singleDraggingObject.isCardType())
+			{
+				singleDraggingObject.isInteractiveDisabled = false;
+			}
 		}
 
 		dragFinishHandler(draggingObjects, previousStackedNode);
@@ -214,7 +230,7 @@ public class LeftClickHandler : MonoBehaviour
 
 		for (int index = 0; index < cards.Count; index++)
 		{
-			yield return null;
+			yield return new WaitForEndOfFrame();
 			if (cards[index] != null)
 			{
 				dragFinishHandler(new List<Interactable>() { cards[index] }, node);
@@ -305,7 +321,7 @@ public class LeftClickHandler : MonoBehaviour
 				interactableGameObject.transform.position,
 				finalMovingPoint,
 				ref singleInteractable.getCurrentVelocity(),
-				staticVariables.cardReachSmoothTime
+				HelperData.cardReachSmoothTime
 			);
 		}
 	}

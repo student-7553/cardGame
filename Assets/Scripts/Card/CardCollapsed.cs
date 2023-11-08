@@ -117,17 +117,13 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
 		}
 
-		if (isInteractiveDisabled)
+		if (isInteractiveDisabled && cardDisable != null)
 		{
 			string disabledTitle = "[DISABLED] ";
-
-			if (cardDisable != null)
+			disabledTitle = disabledTitle + $"[{cardDisable}]";
+			if (cardDisable == CardDisableType.AutoMoving)
 			{
-				disabledTitle = disabledTitle + $"[{cardDisable}]";
-				if (cardDisable == CardDisableType.AutoMoving)
-				{
-					spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
-				}
+				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
 			}
 			cardTitle = disabledTitle + cardTitle;
 		}

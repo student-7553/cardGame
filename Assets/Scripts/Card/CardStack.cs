@@ -3,6 +3,7 @@ using UnityEngine;
 using Core;
 using Helpers;
 using System.Linq;
+using DG.Tweening;
 
 public class CardStack : CardHolder
 {
@@ -69,9 +70,16 @@ public class CardStack : CardHolder
 			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
 
 			paddingCounter++;
-			singleCard.transform.position = newPostionForCardInSubject;
+
+			moveBaseCard(singleCard, newPostionForCardInSubject);
+
 			singleCard.computeCorners();
 		}
+	}
+
+	private void moveBaseCard(BaseCard card, Vector3 newPosition)
+	{
+		card.gameObject.transform.DOMove(newPosition, HelperData.cardReachSmoothTime).SetId(card.id);
 	}
 
 	private void collapseCardStack()
@@ -358,6 +366,7 @@ public class CardStack : CardHolder
 
 			changed = true;
 			cards.Remove(singleCard);
+			DOTween.Kill(singleCard.id);
 
 			singleCard.gameObject.transform.SetParent(null);
 			singleCard.gameObject.SetActive(true);

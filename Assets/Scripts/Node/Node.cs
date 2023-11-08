@@ -198,7 +198,7 @@ public class Node : MonoBehaviour, BaseNode
 
 		for (int index = 0; index < cards.Count; index++)
 		{
-			yield return new WaitForEndOfFrame();
+			// yield return new WaitForEndOfFrame();
 			yield return new WaitForEndOfFrame();
 			if (cards[index] != null)
 			{
