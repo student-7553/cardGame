@@ -10,12 +10,22 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	public Vector3 currentVelocity;
 
 	// -------------------- Interactable Members -------------------------
+
+	public CardDisableType? cardDisable;
+
 	[SerializeField]
 	private bool _isInteractiveDisabled = false;
 	public bool isInteractiveDisabled
 	{
 		get { return _isInteractiveDisabled; }
-		set { _isInteractiveDisabled = value; }
+		set
+		{
+			if (value == false)
+			{
+				cardDisable = null;
+			}
+			_isInteractiveDisabled = value;
+		}
 	}
 
 	public virtual CoreInteractableType interactableType
@@ -65,8 +75,6 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	public CardCorners corners;
 
 	public virtual CardHolder joinedStack { get; set; }
-
-	public CardDisableType? cardDisable;
 
 	public void computeCorners()
 	{
