@@ -45,15 +45,6 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 
 	private void reflectToScreen()
 	{
-		// if (connectedNode.nodeProcess.isProccessing)
-		// {
-		// 	//
-		// 	titleTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
-		// }
-		// else
-		// {
-		// 	titleTextMesh.text = "";
-		// }
 		titleTextMesh.text = "";
 		if (!connectedNode.isActive)
 		{

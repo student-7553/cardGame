@@ -50,11 +50,6 @@ public class MagneticModuleManager : MonoBehaviour
 			targetMagnetCard.joinedStack.removeCardsFromStack(new List<BaseCard>() { targetMagnetCard });
 		}
 
-		//
-		// targetMagnetCard.gameObject.transform.position = node.transform.position;
-		// node.stackOnThis(targetMagnetCard, null);
-		//
-
 		Vector3 targetNodePosition = node.transform.position;
 		targetMagnetCard.disableInteractiveForATime(magnetizeMoveTime, CardDisableType.AutoMoving);
 		targetMagnetCard.gameObject.transform
