@@ -36,5 +36,8 @@ public class StaticVariables : ScriptableObject
 
 	public float nodeEjectDistance = 10;
 	public float nodeEjectSlideDistance = 6;
+
 	public float nodeEjectSlideTime = 0.5f;
+
+	public float zoomAccelerationMultiplier = 0.3f;
 }

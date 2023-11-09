@@ -32,3 +32,4 @@ MonoBehaviour:
   nodeEjectDistance: 5
   nodeEjectSlideDistance: 7.5
   nodeEjectSlideTime: 0.25
+  zoomAccelerationMultiplier: 0.3

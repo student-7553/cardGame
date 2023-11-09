@@ -18,16 +18,19 @@ public class CameraController : MonoBehaviour
 
 	private Camera mainCamera;
 	private Vector2 currentAcceleration;
+	public StaticVariables staticVariables;
+
+	private float currentZoomAcc;
+
 	private float currentZoom;
 	private float initialZoom;
 
 	public void setZoom(float zoomValue)
 	{
-		float newZoomvalue = this.currentZoom + zoomValue;
-		newZoomvalue = Mathf.Clamp(newZoomvalue, this.initialZoom - maxZoom, this.initialZoom + maxZoom);
-		this.currentZoom = newZoomvalue;
+		float newZoomvalue = currentZoom + zoomValue;
+		currentZoom = Mathf.Clamp(newZoomvalue, initialZoom - maxZoom, initialZoom + maxZoom);
 
-		mainCamera.orthographicSize = this.currentZoom;
+		mainCamera.orthographicSize = currentZoom;
 	}
 
 	private void Start()
@@ -35,30 +38,49 @@ public class CameraController : MonoBehaviour
 		mainCamera = Camera.main;
 		mainCamera.enabled = true;
 
-		this.initialZoom = mainCamera.orthographicSize;
-		this.currentZoom = this.initialZoom;
+		initialZoom = mainCamera.orthographicSize;
+		currentZoom = initialZoom;
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		if (this.currentAcceleration == Vector2.zero)
+		handleFixedCameraAcceleration();
+		handleFixedZoomAcceleration();
+	}
+
+	private void handleFixedZoomAcceleration()
+	{
+		float newZoomvalue = currentZoom + (currentZoomAcc * staticVariables.zoomAccelerationMultiplier);
+		currentZoom = Mathf.Clamp(newZoomvalue, initialZoom - maxZoom, initialZoom + maxZoom);
+
+		mainCamera.orthographicSize = currentZoom;
+	}
+
+	private void handleFixedCameraAcceleration()
+	{
+		if (currentAcceleration == Vector2.zero)
 		{
 			return;
 		}
 
-		float movementX = Mathf.Clamp(this.currentAcceleration.x * speed, -this.maxAcceleration, this.maxAcceleration);
-		float movementY = Mathf.Clamp(this.currentAcceleration.y * speed, -this.maxAcceleration, this.maxAcceleration);
+		float movementX = Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration);
+		float movementY = Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration);
 
 		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(movementX, movementY);
 
-		newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, this.cornerPoints.left, this.cornerPoints.right);
-		newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, this.cornerPoints.down, this.cornerPoints.up);
+		newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, cornerPoints.left, cornerPoints.right);
+		newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, cornerPoints.down, cornerPoints.up);
 
 		mainCamera.gameObject.transform.position = newCameraPosition;
 	}
 
 	public void moveAcceleration(Vector2 movementVector)
 	{
-		this.currentAcceleration = movementVector;
+		currentAcceleration = movementVector;
+	}
+
+	public void zoomAcceleration(float zoomAccDirection)
+	{
+		currentZoomAcc = zoomAccDirection;
 	}
 }

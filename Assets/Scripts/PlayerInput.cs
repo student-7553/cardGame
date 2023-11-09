@@ -22,7 +22,9 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.performed += OnCameraMovement;
 		cameraMovement.action.canceled += OnCameraMovementCancel;
 
-		zoomInAndOut.action.performed += zoomHandler;
+		zoomInAndOut.action.performed += zoomActionPerformed;
+		zoomInAndOut.action.canceled += zoomActionCancelled;
+
 		pauseButton.action.performed += pauseButtonHandler;
 		leftMouseClickButton.action.performed += leftMouseButtonHandler;
 		leftMouseClickButton.action.canceled += leftMouseButtonCanceled;
@@ -37,7 +39,9 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.performed -= OnCameraMovement;
 		cameraMovement.action.canceled -= OnCameraMovementCancel;
 
-		zoomInAndOut.action.performed -= zoomHandler;
+		zoomInAndOut.action.performed -= zoomActionPerformed;
+		zoomInAndOut.action.canceled -= zoomActionCancelled;
+
 		pauseButton.action.performed -= pauseButtonHandler;
 		leftMouseClickButton.action.performed -= leftMouseButtonHandler;
 		leftMouseClickButton.action.canceled -= leftMouseButtonCanceled;
@@ -92,10 +96,23 @@ public class PlayerInput : MonoBehaviour
 		GameManager.current.handleGamePauseAction();
 	}
 
-	public void zoomHandler(InputAction.CallbackContext context)
+	public void zoomActionPerformed(InputAction.CallbackContext context)
 	{
 		float zoomvalue = context.ReadValue<float>();
+		Debug.Log("tempo" + zoomvalue);
+		if (context.interaction is HoldInteraction)
+		{
+			cameraController.zoomAcceleration(zoomvalue);
+			return;
+		}
+
 		cameraController.setZoom(zoomvalue);
+	}
+
+	public void zoomActionCancelled(InputAction.CallbackContext context)
+	{
+		Debug.Log("Cancelled called");
+		cameraController.zoomAcceleration(0);
 	}
 
 	public void OnCameraMovement(InputAction.CallbackContext context)
