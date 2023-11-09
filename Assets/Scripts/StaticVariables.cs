@@ -33,4 +33,8 @@ public class StaticVariables : ScriptableObject
 	public float magnetizeMaxRange = 10;
 
 	public float cardReachSmoothTime = 0.15f;
+
+	public float nodeEjectDistance = 10;
+	public float nodeEjectSlideDistance = 6;
+	public float nodeEjectSlideTime = 0.5f;
 }

@@ -29,3 +29,6 @@ MonoBehaviour:
   - {x: 120, y: 220}
   magnetizeMaxRange: 85
   cardReachSmoothTime: 0.05
+  nodeEjectDistance: 5
+  nodeEjectSlideDistance: 7.5
+  nodeEjectSlideTime: 0.25

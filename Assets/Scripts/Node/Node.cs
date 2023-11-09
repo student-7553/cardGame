@@ -4,6 +4,7 @@ using System.Collections;
 using Core;
 using System.Linq;
 using Helpers;
+using DG.Tweening;
 
 public class Node : MonoBehaviour, BaseNode
 {
@@ -185,25 +186,41 @@ public class Node : MonoBehaviour, BaseNode
 			return;
 		}
 		StartCoroutine(delayedDragFinish(cards));
+		// delayedDragFinish(cards);
 	}
 
+	// public void delayedDragFinish(List<BaseCard> cards)
 	public IEnumerator delayedDragFinish(List<BaseCard> cards)
 	{
-		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 15, HelperData.draggingBaseZ);
-		for (int index = 0; index < cards.Count; index++)
+		Vector3 basePosition = new Vector3(
+			gameObject.transform.position.x,
+			gameObject.transform.position.y - staticVariables.nodeEjectDistance,
+			HelperData.draggingBaseZ
+		);
+		List<BaseCard> clonedCards = new List<BaseCard>(cards);
+		// for (int index = 0; index < clonedCards.Count; index++)
+		foreach (Card card in clonedCards)
 		{
-			cards[index].moveCard(basePosition);
-			cards[index].isInteractiveDisabled = false;
-		}
+			card.cardDisable = null;
+			card.moveCard(basePosition);
 
-		for (int index = 0; index < cards.Count; index++)
-		{
-			// yield return new WaitForEndOfFrame();
+			Vector3 smoothBasePsosition = new Vector3(
+				basePosition.x,
+				basePosition.y - staticVariables.nodeEjectSlideDistance,
+				basePosition.z
+			);
+
+			card.gameObject.transform
+				.DOMove(smoothBasePsosition, staticVariables.nodeEjectSlideTime)
+				.OnComplete(() =>
+				{
+					if (card != null)
+					{
+						card.isInteractiveDisabled = false;
+						LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { card }, null);
+					}
+				});
 			yield return new WaitForEndOfFrame();
-			if (cards[index] != null)
-			{
-				LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { cards[index] }, this);
-			}
 		}
 	}
 
