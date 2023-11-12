@@ -213,6 +213,12 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	{
 		foreach (BaseCard baseCard in addingCards)
 		{
+			if (baseCard.id != id)
+			{
+				stackOnThis(baseCard, null);
+				continue;
+			}
+
 			if (baseCard.interactableType == CoreInteractableType.Cards)
 			{
 				cards.Add(baseCard);
