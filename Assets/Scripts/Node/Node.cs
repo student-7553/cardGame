@@ -5,6 +5,7 @@ using Core;
 using System.Linq;
 using Helpers;
 using DG.Tweening;
+using System;
 
 public class Node : MonoBehaviour, BaseNode
 {
@@ -185,12 +186,12 @@ public class Node : MonoBehaviour, BaseNode
 		{
 			return;
 		}
-		StartCoroutine(delayedDragFinish(cards));
-		// delayedDragFinish(cards);
+		// StartCoroutine(delayedDragFinish(cards));
+		delayedDragFinish(cards);
 	}
 
-	// public void delayedDragFinish(List<BaseCard> cards)
-	public IEnumerator delayedDragFinish(List<BaseCard> cards)
+	// public IEnumerator delayedDragFinish(List<BaseCard> cards)
+	public void delayedDragFinish(List<BaseCard> cards)
 	{
 		Vector3 basePosition = new Vector3(
 			gameObject.transform.position.x,
@@ -198,30 +199,27 @@ public class Node : MonoBehaviour, BaseNode
 			HelperData.draggingBaseZ
 		);
 		List<BaseCard> clonedCards = new List<BaseCard>(cards);
-		// for (int index = 0; index < clonedCards.Count; index++)
-		foreach (Card card in clonedCards)
-		{
-			card.cardDisable = null;
-			card.moveCard(basePosition);
+		BaseCard subjectCard = clonedCards[0];
+		subjectCard.cardDisable = null;
+		subjectCard.moveCard(basePosition);
 
-			Vector3 smoothBasePsosition = new Vector3(
-				basePosition.x,
-				basePosition.y - staticVariables.nodeEjectSlideDistance,
-				basePosition.z
-			);
+		Vector3 smoothBasePsosition = new Vector3(basePosition.x, basePosition.y - staticVariables.nodeEjectSlideDistance, basePosition.z);
 
-			card.gameObject.transform
-				.DOMove(smoothBasePsosition, staticVariables.nodeEjectSlideTime)
-				.OnComplete(() =>
+		subjectCard.gameObject.transform
+			.DOMove(smoothBasePsosition, staticVariables.nodeEjectSlideTime)
+			.OnComplete(() =>
+			{
+				if (subjectCard != null)
 				{
-					if (card != null)
+					foreach (Interactable interactable in clonedCards)
 					{
-						card.isInteractiveDisabled = false;
-						LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { card }, null);
+						interactable.gameObject.transform.position = subjectCard.transform.position;
+						interactable.isInteractiveDisabled = false;
 					}
-				});
-			yield return new WaitForEndOfFrame();
-		}
+
+					LeftClickHandler.current.dragFinishHandler(new List<Interactable>(clonedCards), null);
+				}
+			});
 	}
 
 	public bool isMarket()
