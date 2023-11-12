@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
 public struct CornerPoints
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour
 	private Camera mainCamera;
 	private Vector2 currentAcceleration;
 	public StaticVariables staticVariables;
+	public bool isMouseAccelerationLocked;
 
 	private float currentZoomAcc;
 
@@ -46,6 +48,47 @@ public class CameraController : MonoBehaviour
 	{
 		handleFixedCameraAcceleration();
 		handleFixedZoomAcceleration();
+		handleMouseScreenEdge();
+	}
+
+	private void handleMouseScreenEdge()
+	{
+		if (isMouseAccelerationLocked)
+		{
+			return;
+		}
+		Vector2 mousePosition = Mouse.current.position.ReadValue();
+		bool isRightScreenEdgeReached = mousePosition.x >= Screen.width * (1 - staticVariables.screenMouseEdgeThreshhold);
+		bool isLeftScreenEdgeReached = mousePosition.x <= Screen.width * staticVariables.screenMouseEdgeThreshhold;
+		bool isTopScreenEdgeReached = mousePosition.y >= Screen.height * (1 - staticVariables.screenMouseEdgeThreshhold);
+		bool isBottomScreenEdgeReached = mousePosition.y <= Screen.height * staticVariables.screenMouseEdgeThreshhold;
+		float moveCameraX = 0;
+		float moveCameraY = 0;
+		if (isRightScreenEdgeReached)
+		{
+			moveCameraX = 1;
+		}
+		else if (isLeftScreenEdgeReached)
+		{
+			moveCameraX = -1;
+		}
+
+		if (isTopScreenEdgeReached)
+		{
+			moveCameraY = 1;
+		}
+		else if (isBottomScreenEdgeReached)
+		{
+			moveCameraY = -1;
+		}
+
+		if (moveCameraX == 0 && moveCameraY == 0)
+		{
+			moveAcceleration(Vector2.zero);
+			return;
+		}
+
+		moveAcceleration(new Vector2(moveCameraX, moveCameraY));
 	}
 
 	private void handleFixedZoomAcceleration()

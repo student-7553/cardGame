@@ -31,7 +31,7 @@ public class LeftClickHandler : MonoBehaviour
 		mainCamera = Camera.main;
 	}
 
-	private GameObject getMouseCloseGameObject(Vector3 mousePosition)
+	private GameObject getMouseCloseGameObject(Vector2 mousePosition)
 	{
 		Ray ray = mainCamera.ScreenPointToRay(mousePosition);
 		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, baseInteractableLayerMask);
@@ -43,7 +43,7 @@ public class LeftClickHandler : MonoBehaviour
 		return hit.collider.gameObject;
 	}
 
-	public void handleClickHold(Vector3 pressMousePosition)
+	public void handleClickHold(Vector2 pressMousePosition)
 	{
 		GameObject hitGameObject = getMouseCloseGameObject(pressMousePosition);
 		if (hitGameObject == null)
@@ -72,7 +72,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void handleClick()
 	{
-		Vector3 mousePosition = Mouse.current.position.ReadValue();
+		Vector2 mousePosition = Mouse.current.position.ReadValue();
 		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
 		if (hitGameObject == null)
 		{

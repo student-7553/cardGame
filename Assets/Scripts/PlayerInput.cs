@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
 
 	public CameraController cameraController;
 
-	private Vector3 cachedMousePosition;
+	private Vector2 cachedMousePosition;
 
 	private void OnEnable()
 	{
@@ -135,11 +135,13 @@ public class PlayerInput : MonoBehaviour
 	public void OnCameraMovement(InputAction.CallbackContext context)
 	{
 		Vector2 tempo = context.ReadValue<Vector2>();
+		cameraController.isMouseAccelerationLocked = true;
 		cameraController.moveAcceleration(tempo);
 	}
 
 	public void OnCameraMovementCancel(InputAction.CallbackContext context)
 	{
+		cameraController.isMouseAccelerationLocked = false;
 		cameraController.moveAcceleration(Vector2.zero);
 	}
 }
