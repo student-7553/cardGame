@@ -108,11 +108,13 @@ public class PlayerInput : MonoBehaviour
 	{
 		float zoomvalue = context.ReadValue<float>();
 
-		if (!(context.interaction is HoldInteraction))
+		float adjustedZoomValue = zoomvalue >= 0 ? 1 : -1;
+		if (context.interaction is HoldInteraction)
 		{
+			cameraController.zoomAcceleration(adjustedZoomValue);
 			return;
 		}
-		cameraController.zoomAcceleration(zoomvalue);
+		cameraController.adjustZoom(adjustedZoomValue);
 	}
 
 	public void zoomAxisHoldCancelledHandler(InputAction.CallbackContext context)

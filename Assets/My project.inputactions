@@ -20,7 +20,7 @@
                     "id": "217b6d89-f7b9-4a06-b206-ee0d0191866a",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": "Hold(duration=0.15)",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -145,9 +145,42 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "b1b2a503-b008-4a25-b05f-e6ca9b3b2f82",
+                    "id": "a0c18063-59f8-4c6b-bc44-afce7357101b",
                     "path": "1DAxis",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "a71834c5-445c-4072-8cb7-09dc2493e284",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "434512c5-56c2-4e7c-8e88-6f193a0424cd",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "b1b2a503-b008-4a25-b05f-e6ca9b3b2f82",
+                    "path": "1DAxis",
+                    "interactions": "Hold(duration=0.15)",
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
