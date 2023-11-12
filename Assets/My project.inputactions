@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Zoom",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "217b6d89-f7b9-4a06-b206-ee0d0191866a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "interactions": "Hold(duration=0.15)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Pause",
@@ -67,6 +67,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ZoomIncreaseClick",
+                    "type": "Button",
+                    "id": "c32e71e2-7721-4060-b72a-18738ac86633",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ZoomDecreaseClick",
+                    "type": "Button",
+                    "id": "1ae7932a-bb10-4518-8e97-f92b380667a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -127,9 +145,9 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "a465618e-54f9-4546-ae46-35102e78cdcf",
+                    "id": "b1b2a503-b008-4a25-b05f-e6ca9b3b2f82",
                     "path": "1DAxis",
-                    "interactions": "Hold(duration=0.15,pressPoint=0.5)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
@@ -137,8 +155,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Negative",
-                    "id": "bfc6a0d6-44eb-4289-b44c-14c3e48ec954",
+                    "name": "negative",
+                    "id": "0d4467cf-daa2-4183-871c-2338aeb1eb61",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
@@ -148,8 +166,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Positive",
-                    "id": "55ae856d-bc75-4c5a-80ad-135ad609eb8f",
+                    "name": "positive",
+                    "id": "d7ff72a2-c689-4aa5-bb99-b56294f09ede",
                     "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
@@ -210,6 +228,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "TimeScaleDecrease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "218fe5fa-ecf6-46b5-955d-f6ab0e812d7b",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ZoomIncreaseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de477c60-a8c6-4b5f-bc15-c84dd7a3f429",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ZoomDecreaseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -5,7 +5,11 @@ using UnityEngine.InputSystem.Interactions;
 public class PlayerInput : MonoBehaviour
 {
 	public InputActionReference cameraMovement;
-	public InputActionReference zoomInAndOut;
+
+	public InputActionReference zoomAxis;
+	public InputActionReference zoomIncreaseClick;
+	public InputActionReference zoomDecreaseClick;
+
 	public InputActionReference pauseButton;
 	public InputActionReference leftMouseClickButton;
 	public InputActionReference leftMousePressButton;
@@ -22,8 +26,10 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.performed += OnCameraMovement;
 		cameraMovement.action.canceled += OnCameraMovementCancel;
 
-		zoomInAndOut.action.performed += zoomActionPerformed;
-		zoomInAndOut.action.canceled += zoomActionCancelled;
+		zoomAxis.action.performed += zoomAxisHoldHandler;
+		zoomAxis.action.canceled += zoomAxisHoldCancelledHandler;
+		zoomIncreaseClick.action.performed += zoomIncreaseClickHandler;
+		zoomDecreaseClick.action.performed += zoomDecreaseClickHandler;
 
 		pauseButton.action.performed += pauseButtonHandler;
 		leftMouseClickButton.action.performed += leftMouseButtonHandler;
@@ -39,8 +45,10 @@ public class PlayerInput : MonoBehaviour
 		cameraMovement.action.performed -= OnCameraMovement;
 		cameraMovement.action.canceled -= OnCameraMovementCancel;
 
-		zoomInAndOut.action.performed -= zoomActionPerformed;
-		zoomInAndOut.action.canceled -= zoomActionCancelled;
+		zoomAxis.action.performed -= zoomAxisHoldHandler;
+		zoomAxis.action.canceled -= zoomAxisHoldCancelledHandler;
+		zoomIncreaseClick.action.performed -= zoomIncreaseClickHandler;
+		zoomDecreaseClick.action.performed -= zoomDecreaseClickHandler;
 
 		pauseButton.action.performed -= pauseButtonHandler;
 		leftMouseClickButton.action.performed -= leftMouseButtonHandler;
@@ -96,23 +104,30 @@ public class PlayerInput : MonoBehaviour
 		GameManager.current.handleGamePauseAction();
 	}
 
-	public void zoomActionPerformed(InputAction.CallbackContext context)
+	public void zoomAxisHoldHandler(InputAction.CallbackContext context)
 	{
 		float zoomvalue = context.ReadValue<float>();
-		Debug.Log("tempo" + zoomvalue);
-		if (context.interaction is HoldInteraction)
+
+		if (!(context.interaction is HoldInteraction))
 		{
-			cameraController.zoomAcceleration(zoomvalue);
 			return;
 		}
-
-		cameraController.setZoom(zoomvalue);
+		cameraController.zoomAcceleration(zoomvalue);
 	}
 
-	public void zoomActionCancelled(InputAction.CallbackContext context)
+	public void zoomAxisHoldCancelledHandler(InputAction.CallbackContext context)
 	{
-		Debug.Log("Cancelled called");
 		cameraController.zoomAcceleration(0);
+	}
+
+	public void zoomIncreaseClickHandler(InputAction.CallbackContext context)
+	{
+		cameraController.adjustZoom(1);
+	}
+
+	public void zoomDecreaseClickHandler(InputAction.CallbackContext context)
+	{
+		cameraController.adjustZoom(-1);
 	}
 
 	public void OnCameraMovement(InputAction.CallbackContext context)

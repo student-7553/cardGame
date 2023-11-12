@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 	private float currentZoom;
 	private float initialZoom;
 
-	public void setZoom(float zoomValue)
+	public void adjustZoom(float zoomValue)
 	{
 		float newZoomvalue = currentZoom + zoomValue;
 		currentZoom = Mathf.Clamp(newZoomvalue, initialZoom - maxZoom, initialZoom + maxZoom);
