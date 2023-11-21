@@ -5,8 +5,9 @@ public class NodeTextHandler
 {
 	// -------------------- Unity Component -------------------------
 	private TextMeshPro titleTextMesh;
-	private TextMeshPro availableInventoryTextMesh;
-	private TextMeshPro availableInfraTextMesh;
+
+	// private TextMeshPro availableInventoryTextMesh;
+	// private TextMeshPro availableInfraTextMesh;
 	private TextMeshPro nodeProcessCountdown;
 	private TextMeshPro hungerCountPerIntervel;
 	private TextMeshPro hungerCountdown;
@@ -18,11 +19,11 @@ public class NodeTextHandler
 		connectedNode = _node;
 		Component[] textMeshes = _node.gameObject.GetComponentsInChildren(typeof(TextMeshPro));
 		titleTextMesh = textMeshes[0] as TextMeshPro;
-		availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
-		availableInfraTextMesh = textMeshes[2] as TextMeshPro;
-		nodeProcessCountdown = textMeshes[3] as TextMeshPro;
-		hungerCountPerIntervel = textMeshes[4] as TextMeshPro;
-		hungerCountdown = textMeshes[5] as TextMeshPro;
+		// availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
+		// availableInfraTextMesh = textMeshes[2] as TextMeshPro;
+		nodeProcessCountdown = textMeshes[1] as TextMeshPro;
+		hungerCountPerIntervel = textMeshes[2] as TextMeshPro;
+		hungerCountdown = textMeshes[3] as TextMeshPro;
 	}
 
 	public void reflectToScreen()
@@ -34,11 +35,11 @@ public class NodeTextHandler
 
 		titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
 
-		availableInventoryTextMesh.text =
-			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
+		// availableInventoryTextMesh.text =
+		// 	$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
 
-		availableInfraTextMesh.text =
-			$"{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
+		// availableInfraTextMesh.text =
+		// 	$"{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
 
 		nodeProcessCountdown.text = connectedNode.nodeProcess.isProccessing
 			? $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}"

@@ -94,8 +94,6 @@ public class CardStack : CardHolder
 					.Where((card) => card.isCardType() && card.id == targetBaseCard.id && card != targetBaseCard)
 					.ToList();
 
-				string.Join(",", subjectCards.Select((card) => card.id));
-
 				CardCollapsed cardCollapsed = targetBaseCard.getCollapsedCard();
 				removeCardsFromStack(subjectCards);
 				cardCollapsed.addCardsToStack(subjectCards);
@@ -356,12 +354,14 @@ public class CardStack : CardHolder
 	{
 		bool changed = false;
 		bool isRootCardRemoved = false;
+		Vector3 rootCardPosition = Vector3.zero;
 
 		foreach (BaseCard singleCard in removingCards)
 		{
 			if (cards.Count > 0 && singleCard.GetInstanceID() == cards[0].GetInstanceID())
 			{
 				isRootCardRemoved = true;
+				rootCardPosition = singleCard.transform.position;
 			}
 
 			changed = true;
@@ -374,7 +374,7 @@ public class CardStack : CardHolder
 		}
 		if (changed)
 		{
-			Vector3 rootPosition = getRootPosition() + (isRootCardRemoved ? new Vector3(0, 5, 0) : Vector3.zero);
+			Vector3 rootPosition = isRootCardRemoved ? rootCardPosition : getRootPosition();
 			alignCards(rootPosition);
 		}
 	}
