@@ -25,18 +25,18 @@ public class Card : BaseCard
 	// -------------------- CardInterface Members end -------------------------
 
 	private TextMeshPro titleTextMesh;
+	private TextMeshPro typeTextMesh;
 	private SpriteRenderer spriteRenderer;
 	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
 	private void Awake()
 	{
-		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
+		TextMeshPro[] textMeshes = gameObject.GetComponentsInChildren<TextMeshPro>();
 
-		if (textMeshes.Length > 0)
-		{
-			titleTextMesh = textMeshes[0] as TextMeshPro;
-		}
-		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+		titleTextMesh = textMeshes[0];
+		typeTextMesh = textMeshes[1];
+
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 		computeCorners();
 	}
 
@@ -77,13 +77,15 @@ public class Card : BaseCard
 
 	public void reflectScreen()
 	{
+		if (titleTextMesh == null)
+		{
+			return;
+		}
+
 		string cardTitle = "";
 		if (CardDictionary.globalCardDictionary.ContainsKey(id))
 		{
-			if (titleTextMesh != null)
-			{
-				cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
-			}
+			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 		}
 
 		if (spriteRenderer.color.a != 1f)
@@ -103,9 +105,8 @@ public class Card : BaseCard
 			cardTitle = disabledTitle + cardTitle;
 		}
 
-		if (titleTextMesh != null)
-		{
-			titleTextMesh.text = cardTitle;
-		}
+		titleTextMesh.text = cardTitle;
+
+		typeTextMesh.text = CardDictionary.globalCardDictionary[id].type.ToString();
 	}
 }

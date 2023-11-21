@@ -52,10 +52,12 @@ public class GameManager : MonoBehaviour
 		foreach (GameObject singleCard in cards)
 		{
 			StaticData cardData = singleCard.GetComponent(typeof(StaticData)) as StaticData;
+
 			if (cardData != null)
 			{
-				CardHandler.current.createCard(cardData.id, singleCard, singleCard.transform.position);
+				CardHandler.current.createCard(cardData.id, singleCard.transform.position);
 			}
+			Destroy(singleCard);
 		}
 
 		foreach (GameObject singleNode in nodes)
