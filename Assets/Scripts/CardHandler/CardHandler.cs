@@ -217,6 +217,13 @@ public class CardHandler : MonoBehaviour
 		return createCard(cardId, defaultCardPoint);
 	}
 
+	public Node createNode(int cardId, Vector3 spawnPosition)
+	{
+		GameObject newNodeGameObject = Instantiate(nodePrefab);
+		newNodeGameObject.transform.position = spawnPosition;
+		return createNode(cardId, newNodeGameObject);
+	}
+
 	public Node createNode(int cardId)
 	{
 		GameObject newNodeGameObject = Instantiate(nodePrefab, defaultNodePoint, Quaternion.identity);

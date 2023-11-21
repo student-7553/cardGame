@@ -6,7 +6,11 @@ public class NodeTextHandler
 	// -------------------- Unity Component -------------------------
 	private TextMeshPro titleTextMesh;
 	private TextMeshPro availableInventoryTextMesh;
-	private TextMeshPro processTimerTextMesh;
+	private TextMeshPro availableInfraTextMesh;
+	private TextMeshPro nodeProcessCountdown;
+	private TextMeshPro hungerCountPerIntervel;
+	private TextMeshPro hungerCountdown;
+
 	private Node connectedNode;
 
 	public NodeTextHandler(Node _node)
@@ -15,38 +19,41 @@ public class NodeTextHandler
 		Component[] textMeshes = _node.gameObject.GetComponentsInChildren(typeof(TextMeshPro));
 		titleTextMesh = textMeshes[0] as TextMeshPro;
 		availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
-		processTimerTextMesh = textMeshes[2] as TextMeshPro;
+		availableInfraTextMesh = textMeshes[2] as TextMeshPro;
+		nodeProcessCountdown = textMeshes[3] as TextMeshPro;
+		hungerCountPerIntervel = textMeshes[4] as TextMeshPro;
+		hungerCountdown = textMeshes[5] as TextMeshPro;
 	}
 
 	public void reflectToScreen()
 	{
-		if (CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))
+		if (!CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))
 		{
-			titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
+			return;
 		}
+
+		titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
 
 		availableInventoryTextMesh.text =
-			$"Inven:{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit} Infra:{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
+			$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
 
-		if (connectedNode.nodeProcess.isProccessing)
-		{
-			processTimerTextMesh.text = $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}";
-		}
-		else
-		{
-			processTimerTextMesh.text = "";
-		}
+		availableInfraTextMesh.text =
+			$"{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
+
+		nodeProcessCountdown.text = connectedNode.nodeProcess.isProccessing
+			? $"{Mathf.RoundToInt(connectedNode.nodeProcess.proccessingLeft)}"
+			: "";
+
+		hungerCountPerIntervel.text = $"{connectedNode.nodeStats.currentNodeStats.currentFoodCheck}";
 
 		if (!connectedNode.isActive)
 		{
-			processTimerTextMesh.text = "[No Food] " + processTimerTextMesh.text;
+			hungerCountdown.text = "[No food] ";
 		}
 		else
 		{
 			// Active Node
-			processTimerTextMesh.text = processTimerTextMesh.text + $"[{connectedNode.nodeHungerHandler.getHungerCountdown()}]";
+			hungerCountdown.text = $"{connectedNode.nodeHungerHandler.getHungerCountdown()}";
 		}
-
-		processTimerTextMesh.text = $"(Tax:{connectedNode.nodeStats.currentNodeStats.currentFoodCheck}) " + processTimerTextMesh.text;
 	}
 }

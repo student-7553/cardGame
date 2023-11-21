@@ -65,8 +65,9 @@ public class GameManager : MonoBehaviour
 			StaticData nodeData = singleNode.GetComponent(typeof(StaticData)) as StaticData;
 			if (nodeData != null)
 			{
-				CardHandler.current.createNode(nodeData.id, singleNode);
+				CardHandler.current.createNode(nodeData.id, singleNode.transform.position);
 			}
+			Destroy(singleNode);
 		}
 
 		foreach (GameObject singleEnemyNode in enemyNodes)
