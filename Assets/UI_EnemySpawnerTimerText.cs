@@ -15,6 +15,20 @@ public class UI_EnemySpawnerTimerText : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		if (!enemySpawnerScriptableObject.isEnabled)
+		{
+			if (textMeshProUGUI.enabled)
+			{
+				textMeshProUGUI.enabled = false;
+			}
+			return;
+		}
+
+		if (!textMeshProUGUI.enabled)
+		{
+			textMeshProUGUI.enabled = false;
+		}
+
 		textMeshProUGUI.SetText($"{(int)enemySpawnerScriptableObject.timer}");
 	}
 }

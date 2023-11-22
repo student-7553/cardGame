@@ -56,6 +56,7 @@ public class EnemySpawer : MonoBehaviour
 		}
 
 		isEnabled = true;
+		enemySpawnerScriptableObject.isEnabled = true;
 		enemySpawnerScriptableObject.timer = GetSpawnIntervel();
 	}
 
