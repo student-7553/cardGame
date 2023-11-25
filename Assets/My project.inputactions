@@ -157,7 +157,7 @@
                 {
                     "name": "Negative",
                     "id": "a71834c5-445c-4072-8cb7-09dc2493e284",
-                    "path": "<Mouse>/scroll/down",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -168,7 +168,7 @@
                 {
                     "name": "Positive",
                     "id": "434512c5-56c2-4e7c-8e88-6f193a0424cd",
-                    "path": "<Mouse>/scroll/up",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
