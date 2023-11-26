@@ -44,19 +44,19 @@ public class InteractableManagerScriptableObject : ScriptableObject
 		currentNodePlaneHandler = newNodePlaneHandler;
 	}
 
-	void OnDisable()
-	{
-		cards.Clear();
-		nodes.Clear();
-		cards = new List<Card>();
-		nodes = new List<Node>();
-	}
+	// void OnDisable()
+	// {
+	// 	cards.Clear();
+	// 	nodes.Clear();
+	// 	cards = new List<Card>();
+	// 	nodes = new List<Node>();
+	// }
 
-	void OnEnable()
-	{
-		cards.Clear();
-		nodes.Clear();
-		cards = new List<Card>();
-		nodes = new List<Node>();
-	}
+	// void OnEnable()
+	// {
+	// 	cards.Clear();
+	// 	nodes.Clear();
+	// 	cards = new List<Card>();
+	// 	nodes = new List<Node>();
+	// }
 }

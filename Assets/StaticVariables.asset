@@ -33,4 +33,4 @@ MonoBehaviour:
   nodeEjectSlideDistance: 7.5
   nodeEjectSlideTime: 0.25
   zoomAccelerationMultiplier: 1.5
-  screenMouseEdgeThreshhold: 0.01
+  screenMouseEdgeThreshhold: 0.001

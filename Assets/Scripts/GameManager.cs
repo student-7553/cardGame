@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	public GameFoodManager gameFoodManager;
 
 	public PlayerRuntime_Object playerRuntime;
+	public InteractableManagerScriptableObject interactableManagerScriptableObject;
 
 	void Awake()
 	{
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 
 		CardDictionary.init();
+		handleNewStart();
 
 		gameSettings();
 		findTempLogic();
@@ -150,5 +152,11 @@ public class GameManager : MonoBehaviour
 	private void gameSettings()
 	{
 		Application.targetFrameRate = 60;
+	}
+
+	private void handleNewStart()
+	{
+		interactableManagerScriptableObject.cards.Clear();
+		interactableManagerScriptableObject.nodes.Clear();
 	}
 }
