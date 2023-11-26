@@ -14,11 +14,17 @@ public class UI_TopRightHandler : MonoBehaviour
 
 	void Start()
 	{
-		// addSingleIdeaBar(1993);
-		// addSingleIdeaBar(1994);
+		handleStart();
+		interactableManagerScriptableObject.addActionToCardEvent(addSingleIdeaBar);
 	}
 
-	public void handleNewCardAdd(int newCardId) { }
+	public void handleStart()
+	{
+		foreach (Card card in interactableManagerScriptableObject.cards)
+		{
+			addSingleIdeaBar(card.id);
+		}
+	}
 
 	public void addSingleIdeaBar(int cardId)
 	{

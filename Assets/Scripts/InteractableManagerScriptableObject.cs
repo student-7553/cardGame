@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-using Core;
 
 [CreateAssetMenu(
 	fileName = "InteractableManagerScriptableObject",
@@ -10,9 +9,12 @@ using Core;
 )]
 public class InteractableManagerScriptableObject : ScriptableObject
 {
-	public List<Card> cards;
-	public List<Node> nodes;
+	public List<Card> cards = new List<Card>();
+	public List<Node> nodes = new List<Node>();
+
 	public NodePlaneHandler currentNodePlaneHandler;
+
+	public List<Action<int>> newCardAction = new List<Action<int>>();
 
 	public void registerCard(Card newCard)
 	{
@@ -34,6 +36,11 @@ public class InteractableManagerScriptableObject : ScriptableObject
 		nodes.Remove(nodeCard);
 	}
 
+	public void addActionToCardEvent(Action<int> newAction)
+	{
+		newCardAction.Add(newAction);
+	}
+
 	public void setActiveNodePlane(NodePlaneHandler newNodePlaneHandler)
 	{
 		if (currentNodePlaneHandler != null && currentNodePlaneHandler != newNodePlaneHandler)
@@ -43,20 +50,4 @@ public class InteractableManagerScriptableObject : ScriptableObject
 
 		currentNodePlaneHandler = newNodePlaneHandler;
 	}
-
-	// void OnDisable()
-	// {
-	// 	cards.Clear();
-	// 	nodes.Clear();
-	// 	cards = new List<Card>();
-	// 	nodes = new List<Node>();
-	// }
-
-	// void OnEnable()
-	// {
-	// 	cards.Clear();
-	// 	nodes.Clear();
-	// 	cards = new List<Card>();
-	// 	nodes = new List<Node>();
-	// }
 }
