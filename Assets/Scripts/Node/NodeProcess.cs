@@ -18,7 +18,7 @@ public class NodeProcess : MonoBehaviour
 
 	private bool isInit = false;
 
-	public PlayerRuntime_Object playerRuntime;
+	public SO_PlayerRuntime playerRuntime;
 
 	public void Awake()
 	{
@@ -298,7 +298,7 @@ public class NodeProcess : MonoBehaviour
 		{
 			yield return new WaitForSeconds(1);
 			// proccessingLeft = proccessingLeft - 1;
-			proccessingLeft = proccessingLeft - playerRuntime.timeScale;
+			proccessingLeft = proccessingLeft - playerRuntime.gameTimeScale;
 
 			if (proccessingLeft > node.staticVariables.bufferProcessingTime)
 			{

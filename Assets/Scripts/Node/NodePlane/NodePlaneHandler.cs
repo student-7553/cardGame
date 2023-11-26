@@ -6,7 +6,7 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 {
 	private BaseNode connectedNode;
 	public TextMeshPro titleTextMesh;
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	private void Awake()
 	{
@@ -26,7 +26,7 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 			return;
 		}
 
-		interactableManagerScriptableObject.setActiveNodePlane(this);
+		so_Interactable.setActiveNodePlane(this);
 	}
 
 	public void stackOnThis(BaseCard draggingCard, Node prevNode)

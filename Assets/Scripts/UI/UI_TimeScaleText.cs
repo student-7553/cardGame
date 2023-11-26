@@ -4,7 +4,7 @@ using System;
 
 public class UI_TimeScaleText : MonoBehaviour
 {
-	public PlayerRuntime_Object playerRuntime;
+	public SO_PlayerRuntime playerRuntime;
 	private TextMeshProUGUI textMeshProUGUI;
 
 	void Start()
@@ -14,6 +14,6 @@ public class UI_TimeScaleText : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		textMeshProUGUI.SetText($"{Math.Round(playerRuntime.timeScale, 1)}");
+		textMeshProUGUI.SetText($"{Math.Round(playerRuntime.gameTimeScale, 1)}");
 	}
 }

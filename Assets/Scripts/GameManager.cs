@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
 
-	public PlayerRuntime_Object playerRuntime;
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_PlayerRuntime playerRuntime;
+	public SO_Interactable so_Interactable;
 
 	void Awake()
 	{
@@ -102,49 +102,49 @@ public class GameManager : MonoBehaviour
 
 	public void handleGamePauseAction()
 	{
-		if (playerRuntime.timeScale > 0)
+		if (playerRuntime.gameTimeScale > 0)
 		{
-			playerRuntime.timeScale = 0;
+			playerRuntime.gameTimeScale = 0;
 			Debug.Log("We are Resumed");
 		}
 		else
 		{
-			playerRuntime.timeScale = 1;
+			playerRuntime.gameTimeScale = 1;
 			Debug.Log("We are Paused");
 		}
 	}
 
 	public void handleGameTimeScaleIncease()
 	{
-		if (playerRuntime.timeScale >= 2f)
+		if (playerRuntime.gameTimeScale >= 2f)
 		{
 			return;
 		}
 
-		if (playerRuntime.timeScale >= 1f)
+		if (playerRuntime.gameTimeScale >= 1f)
 		{
-			playerRuntime.timeScale = 2f;
+			playerRuntime.gameTimeScale = 2f;
 			return;
 		}
 
-		if (playerRuntime.timeScale >= 0.5f)
+		if (playerRuntime.gameTimeScale >= 0.5f)
 		{
-			playerRuntime.timeScale = 1f;
+			playerRuntime.gameTimeScale = 1f;
 			return;
 		}
 	}
 
 	public void handleGameTimeScaleDecrease()
 	{
-		if (playerRuntime.timeScale >= 2f)
+		if (playerRuntime.gameTimeScale >= 2f)
 		{
-			playerRuntime.timeScale = 1f;
+			playerRuntime.gameTimeScale = 1f;
 			return;
 		}
 
-		if (playerRuntime.timeScale >= 1f)
+		if (playerRuntime.gameTimeScale >= 1f)
 		{
-			playerRuntime.timeScale = 0.5f;
+			playerRuntime.gameTimeScale = 0.5f;
 			return;
 		}
 	}
@@ -156,7 +156,8 @@ public class GameManager : MonoBehaviour
 
 	private void handleNewStart()
 	{
-		interactableManagerScriptableObject.cards.Clear();
-		interactableManagerScriptableObject.nodes.Clear();
+		so_Interactable.cards.Clear();
+		so_Interactable.nodes.Clear();
+		playerRuntime.gameTimeScale = 1f;
 	}
 }

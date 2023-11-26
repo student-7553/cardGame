@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textContainer: {fileID: 2875069137348240631}
+  textObject: {fileID: 5358864971154585435}
+  playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
 --- !u!114 &8114686860921852762
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private TextMeshPro titleTextMesh;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 

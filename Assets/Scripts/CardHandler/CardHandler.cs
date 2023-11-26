@@ -31,9 +31,9 @@ public class CardHandler : MonoBehaviour
 
 	private EnemySpawer enemySpawner;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 	public StaticVariables staticVariables;
-	public PlayerRuntime_Object playerRuntime;
+	public SO_PlayerRuntime playerRuntime;
 
 	public bool disableEnemySpawner = false;
 
@@ -74,14 +74,14 @@ public class CardHandler : MonoBehaviour
 
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
-		newCard.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newCard.so_Interactable = so_Interactable;
 		newCard.id = cardId;
 
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
 		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		playerCardTracker.ensureCardIdTracked(cardId);
-		interactableManagerScriptableObject.registerCard(newCard);
+		so_Interactable.registerCard(newCard);
 
 		roughCardHooks(cardId);
 
@@ -103,7 +103,7 @@ public class CardHandler : MonoBehaviour
 
 		CardCollapsed newCardCollapsed = ensureComponent<CardCollapsed>(cardCollapsedGameObject);
 
-		newCardCollapsed.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newCardCollapsed.so_Interactable = so_Interactable;
 		newCardCollapsed.id = cardId;
 
 		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);
@@ -129,7 +129,7 @@ public class CardHandler : MonoBehaviour
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
-		newNode.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newNode.so_Interactable = so_Interactable;
 		newNode.staticVariables = staticVariables;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
@@ -153,7 +153,7 @@ public class CardHandler : MonoBehaviour
 
 		newNode.init(nodePlane, nodeMagnetizeCircle);
 
-		interactableManagerScriptableObject.registerNode(newNode);
+		so_Interactable.registerNode(newNode);
 
 		return newNode;
 	}
@@ -189,7 +189,7 @@ public class CardHandler : MonoBehaviour
 
 		EnemyNode newEnemyNode = ensureComponent<EnemyNode>(nodeGameObject);
 		newEnemyNode.id = cardId;
-		newEnemyNode.interactableManagerScriptableObject = interactableManagerScriptableObject;
+		newEnemyNode.so_Interactable = so_Interactable;
 
 		ensureComponent<EnemyNodeProcess>(nodeGameObject);
 

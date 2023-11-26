@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class MagneticModuleManager : MonoBehaviour
 {
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 	public StaticVariables staticVariables;
 	private float selfIntervelTimer = 0;
 	private float magnetizeMoveTime = 2;
@@ -23,7 +23,7 @@ public class MagneticModuleManager : MonoBehaviour
 
 	private void run()
 	{
-		foreach (Node node in interactableManagerScriptableObject.nodes)
+		foreach (Node node in so_Interactable.nodes)
 		{
 			if (node.nodeStats.currentNodeStats.resourceInventoryLimit - node.nodeStats.currentNodeStats.resourceInventoryUsed < 4)
 			{
@@ -95,7 +95,7 @@ public class MagneticModuleManager : MonoBehaviour
 	private List<Card> getAvailableCards()
 	{
 		List<Card> availableCards = new List<Card>();
-		foreach (Card globalCard in interactableManagerScriptableObject.cards)
+		foreach (Card globalCard in so_Interactable.cards)
 		{
 			if (globalCard.isInteractiveDisabled)
 			{

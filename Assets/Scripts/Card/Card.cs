@@ -27,7 +27,7 @@ public class Card : BaseCard
 	private TextMeshPro titleTextMesh;
 	private TextMeshPro typeTextMesh;
 	private SpriteRenderer spriteRenderer;
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	private void Awake()
 	{
@@ -57,7 +57,7 @@ public class Card : BaseCard
 			joinedStack = null;
 		}
 
-		interactableManagerScriptableObject.removeCard(this);
+		so_Interactable.removeCard(this);
 		Destroy(gameObject);
 	}
 

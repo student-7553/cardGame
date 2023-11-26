@@ -70,7 +70,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	public NodeMagnetizeCircle nodeMagnetizeCircle;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	public StaticVariables staticVariables;
 
@@ -150,7 +150,7 @@ public class Node : MonoBehaviour, BaseNode
 		List<BaseCard> allCards = new List<BaseCard>(processCardStack.cards);
 		ejectCards(allCards);
 
-		interactableManagerScriptableObject.removeNode(this);
+		so_Interactable.removeNode(this);
 
 		Destroy(nodePlaneManager.gameObject);
 		Destroy(gameObject);

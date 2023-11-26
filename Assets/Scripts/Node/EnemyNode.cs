@@ -59,7 +59,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	public int powerValue;
 
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	// -------------------- Node Stats -------------------------
 
@@ -161,7 +161,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		Node closestNode = null;
 		Vector2 currentNodePosition = gameObject.transform.position;
 		float currentNodeDistance = 0;
-		foreach (Node node in interactableManagerScriptableObject.nodes)
+		foreach (Node node in so_Interactable.nodes)
 		{
 			if (closestNode == null && !node.isMarket())
 			{

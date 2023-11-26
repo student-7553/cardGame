@@ -16,7 +16,7 @@ public class NodeHungerHandler : MonoBehaviour
 	private float internalTimer = 0f;
 
 	[System.NonSerialized]
-	public PlayerRuntime_Object playerRuntime;
+	public SO_PlayerRuntime playerRuntime;
 
 	public void Awake()
 	{
@@ -56,7 +56,7 @@ public class NodeHungerHandler : MonoBehaviour
 			return;
 		}
 
-		intervalTimer = intervalTimer + playerRuntime.timeScale;
+		intervalTimer = intervalTimer + playerRuntime.gameTimeScale;
 		if (intervalTimer > connectedNode.nodeStats.baseNodeStat.hungerSetIntervalTimer)
 		{
 			intervalTimer = 0;

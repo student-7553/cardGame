@@ -10,17 +10,17 @@ public class UI_TopRightHandler : MonoBehaviour
 	public GameObject contentContainer;
 	public static Dictionary<int, UI_IdeaSingleBarContainer> currentShowingIdeaTabs = new Dictionary<int, UI_IdeaSingleBarContainer>();
 	public GameObject prefabIdeaBar;
-	public InteractableManagerScriptableObject interactableManagerScriptableObject;
+	public SO_Interactable so_Interactable;
 
 	void Start()
 	{
 		handleStart();
-		interactableManagerScriptableObject.addActionToCardEvent(addSingleIdeaBar);
+		so_Interactable.addActionToCardEvent(addSingleIdeaBar);
 	}
 
 	public void handleStart()
 	{
-		foreach (Card card in interactableManagerScriptableObject.cards)
+		foreach (Card card in so_Interactable.cards)
 		{
 			addSingleIdeaBar(card.id);
 		}

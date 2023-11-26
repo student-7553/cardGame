@@ -22,7 +22,7 @@ public class EnemySpawer : MonoBehaviour
 
 	public StaticVariables staticVariables;
 
-	public PlayerRuntime_Object playerRuntime;
+	public SO_PlayerRuntime playerRuntime;
 
 	private readonly int edgeSpawnPadding = 10;
 
@@ -87,7 +87,7 @@ public class EnemySpawer : MonoBehaviour
 			return;
 		}
 
-		enemySpawnerScriptableObject.timer = enemySpawnerScriptableObject.timer - playerRuntime.timeScale;
+		enemySpawnerScriptableObject.timer = enemySpawnerScriptableObject.timer - playerRuntime.gameTimeScale;
 
 		if (enemySpawnerScriptableObject.timer <= 0)
 		{
