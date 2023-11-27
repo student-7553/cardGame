@@ -15,7 +15,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	private void Start()
 	{
-		if (playerRuntime.playerFocusingCardId != 0)
+		if (playerRuntime.getPlayerFocusingCardId() != 0)
 		{
 			focusCardIdChanged();
 		}
@@ -24,7 +24,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	public void focusCardIdChanged()
 	{
-		currentCardId = playerRuntime.playerFocusingCardId;
+		currentCardId = playerRuntime.getPlayerFocusingCardId();
 		handleTextChange();
 	}
 

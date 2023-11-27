@@ -10,7 +10,8 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 	public void buttonCallBack()
 	{
 		Debug.Log("UI_IdeaSingleBarContainer clicked");
-		Debug.Log(playerRuntime.playerFocusingCardId);
+		// Debug.Log(playerRuntime.playerFocusingCardId);
+		playerRuntime.changePlayerFocusingCardId(cardId);
 	}
 
 	public void setCardId(int cardId)

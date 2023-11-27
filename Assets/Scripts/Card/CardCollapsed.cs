@@ -19,6 +19,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
+	public SO_PlayerRuntime playerRuntime;
+
 	public override CardCollapsed getCollapsedCard()
 	{
 		return this;
@@ -33,6 +35,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	public void OnClick()
 	{
 		cardCollapsedPlaneHandler.gameObject.SetActive(true);
+		playerRuntime.changePlayerFocusingCardId(id);
 	}
 
 	// -------------------- END Clickable Members -------------------------

@@ -75,6 +75,7 @@ public class CardHandler : MonoBehaviour
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
 		newCard.so_Interactable = so_Interactable;
+		newCard.playerRuntime = playerRuntime;
 		newCard.id = cardId;
 
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
@@ -104,6 +105,7 @@ public class CardHandler : MonoBehaviour
 		CardCollapsed newCardCollapsed = ensureComponent<CardCollapsed>(cardCollapsedGameObject);
 
 		newCardCollapsed.so_Interactable = so_Interactable;
+		newCardCollapsed.playerRuntime = playerRuntime;
 		newCardCollapsed.id = cardId;
 
 		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);

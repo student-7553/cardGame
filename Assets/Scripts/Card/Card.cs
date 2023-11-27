@@ -4,12 +4,22 @@ using Core;
 using TMPro;
 using Helpers;
 
-public class Card : BaseCard
+public class Card : BaseCard, IClickable
 {
+	public SO_PlayerRuntime playerRuntime;
+
 	public override Card getCard()
 	{
 		return this;
 	}
+
+	// -------------------- START Clickable Members -------------------------
+	public void OnClick()
+	{
+		playerRuntime.changePlayerFocusingCardId(id);
+	}
+
+	// -------------------- END Clickable Members -------------------------
 
 	// -------------------- CardInterface Members -------------------------
 
