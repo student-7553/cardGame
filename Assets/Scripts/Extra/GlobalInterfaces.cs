@@ -164,6 +164,7 @@ namespace Core
 		public int requiredWill;
 		public int time;
 		public float priority;
+		public int ideaCard;
 		public AddingCardsObject[] addingCardObjects;
 	}
 }
