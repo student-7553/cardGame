@@ -9,8 +9,6 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 
 	public void buttonCallBack()
 	{
-		Debug.Log("UI_IdeaSingleBarContainer clicked");
-		// Debug.Log(playerRuntime.playerFocusingCardId);
 		playerRuntime.changePlayerFocusingCardId(cardId);
 	}
 
@@ -18,6 +16,6 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 	{
 		this.cardId = cardId;
 
-		textObject.text = $"{this.cardId}";
+		textObject.text = $"{CardDictionary.globalCardDictionary[this.cardId].name}";
 	}
 }

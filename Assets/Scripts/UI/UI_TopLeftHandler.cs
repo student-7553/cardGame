@@ -2,14 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core;
 using TMPro;
+using System.Linq;
 
 public class UI_TopLeftHandler : MonoBehaviour
 {
-	// Expect 4 Count
-	// title
-	// type
-	// cost
-	// 4rd
 	private int currentCardId;
 	public List<TextMeshProUGUI> textFields;
 	public SO_PlayerRuntime playerRuntime;
@@ -45,31 +41,54 @@ public class UI_TopLeftHandler : MonoBehaviour
 		return null;
 	}
 
+	private string getRequiredStringValueFromProcess(RawProcessObject process)
+	{
+		List<string> addingString = new List<string>();
+
+		if (process.requiredGold != 0)
+		{
+			addingString.Add($"{process.requiredGold} gold");
+		}
+		if (process.requiredWill != 0)
+		{
+			addingString.Add($"{process.requiredWill} will");
+		}
+		List<int> requiredIds = new List<int>(process.requiredIds) { process.baseRequiredId };
+
+		var groupedIds = requiredIds.GroupBy(id => id, (Key, ids) => new { Key, Count = ids.Count() });
+		foreach (var ids in groupedIds)
+		{
+			addingString.Add($"{ids.Count} {CardDictionary.globalCardDictionary[ids.Key].name}");
+		}
+		string text2 = "Required: " + string.Join(",", addingString);
+
+		return text2;
+	}
+
 	public void handleTextChange()
 	{
-		textFields[0].text = CardDictionary.globalCardDictionary[currentCardId].name;
-		textFields[1].text = $"{CardDictionary.globalCardDictionary[currentCardId].type}";
+		textFields[0].text = $"Name:{CardDictionary.globalCardDictionary[currentCardId].name}";
+		textFields[1].text = $"Type:{CardDictionary.globalCardDictionary[currentCardId].type}";
 
 		if (CardDictionary.globalCardDictionary[currentCardId].type == Core.CardsTypes.Idea)
 		{
 			RawProcessObject process = getTracedProcess();
 			if (process != null)
 			{
-				// Todo this field
-				// textFields[2].text =
-				// 	$"{CardDictionary.globalCardDictionary[currentCardId].resourceInventoryCount}/{CardDictionary.globalCardDictionary[currentCardId].infraInventoryCount}";
-
-				// textFields[3].text = $"{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}";
+				string text2 = getRequiredStringValueFromProcess(process);
+				textFields[2].text = text2;
+				textFields[3].text = $"Time: {process.time} sec";
 			}
 		}
 		else
 		{
+			// Todo add another textField here
 			textFields[2].text =
 				$"{CardDictionary.globalCardDictionary[currentCardId].resourceInventoryCount}/{CardDictionary.globalCardDictionary[currentCardId].infraInventoryCount}";
 
 			if (CardDictionary.globalCardDictionary[currentCardId].isSellable)
 			{
-				textFields[3].text = $"{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}";
+				textFields[3].text = $"Price:{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}";
 			}
 			else
 			{
