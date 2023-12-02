@@ -11,6 +11,7 @@ public class CardHandler : MonoBehaviour
 
 	// -----------------------PREFAB--------------------------
 	public GameObject cardPrefab;
+	public GameObject cardCollapsedPrefab;
 	public GameObject nodePrefab;
 	public GameObject enemyNodePrefab;
 	public GameObject nodePlanePrefab;
@@ -74,8 +75,8 @@ public class CardHandler : MonoBehaviour
 
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
-		newCard.so_Interactable = so_Interactable;
-		newCard.playerRuntime = playerRuntime;
+		// newCard.so_Interactable = so_Interactable;
+		// newCard.playerRuntime = playerRuntime;
 		newCard.id = cardId;
 
 		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
@@ -96,7 +97,7 @@ public class CardHandler : MonoBehaviour
 			return null;
 		}
 
-		GameObject cardCollapsedGameObject = Instantiate(cardPrefab);
+		GameObject cardCollapsedGameObject = Instantiate(cardCollapsedPrefab);
 
 		cardCollapsedGameObject.name = CardDictionary.globalCardDictionary[cardId].name;
 		cardCollapsedGameObject.tag = "Cards";
@@ -104,8 +105,8 @@ public class CardHandler : MonoBehaviour
 
 		CardCollapsed newCardCollapsed = ensureComponent<CardCollapsed>(cardCollapsedGameObject);
 
-		newCardCollapsed.so_Interactable = so_Interactable;
-		newCardCollapsed.playerRuntime = playerRuntime;
+		// newCardCollapsed.so_Interactable = so_Interactable;
+		// newCardCollapsed.playerRuntime = playerRuntime;
 		newCardCollapsed.id = cardId;
 
 		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);

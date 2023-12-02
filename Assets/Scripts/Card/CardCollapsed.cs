@@ -5,21 +5,23 @@ using TMPro;
 using Core;
 using System.Linq;
 using Helpers;
-using Unity.VisualScripting;
 
 public class CardCollapsed : BaseCard, CardHolder, IClickable
 {
+	public SO_Interactable so_Interactable;
+	public SO_PlayerRuntime playerRuntime;
+
 	List<BaseCard> cards = new List<BaseCard>();
 
-	private SpriteRenderer spriteRenderer;
+	public TextMeshPro titleTextMesh;
 
-	private TextMeshPro titleTextMesh;
+	// public TextMeshPro typeTextMesh;
+	public TextMeshPro collapsedCountTextMesh;
 
-	public SO_Interactable so_Interactable;
+	public SpriteRenderer mainBodySpriteRenderer;
+	public SpriteRenderer borderSpriteRenderer;
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
-
-	public SO_PlayerRuntime playerRuntime;
 
 	public override CardCollapsed getCollapsedCard()
 	{
@@ -52,13 +54,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private void Awake()
 	{
-		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
-		if (textMeshes.Length > 0)
-		{
-			titleTextMesh = textMeshes[0] as TextMeshPro;
-		}
-
-		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+		mainBodySpriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 		computeCorners();
 	}
 
@@ -109,15 +105,16 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			return;
 		}
 
-		string cardTitle = "";
-		if (CardDictionary.globalCardDictionary.ContainsKey(id))
-		{
-			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name + $"[Collapsed {cards.Count}]";
-		}
+		string cardTitle = CardDictionary.globalCardDictionary[id].name;
 
-		if (spriteRenderer.color.a != 1f)
+		if (mainBodySpriteRenderer.color.a != 1f)
 		{
-			spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+			mainBodySpriteRenderer.color = new Color(
+				mainBodySpriteRenderer.color.r,
+				mainBodySpriteRenderer.color.g,
+				mainBodySpriteRenderer.color.b,
+				1f
+			);
 		}
 
 		if (isInteractiveDisabled && cardDisable != null)
@@ -126,12 +123,18 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
 			if (cardDisable == CardDisableType.AutoMoving)
 			{
-				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
+				mainBodySpriteRenderer.color = new Color(
+					mainBodySpriteRenderer.color.r,
+					mainBodySpriteRenderer.color.g,
+					mainBodySpriteRenderer.color.b,
+					0.3f
+				);
 			}
 			cardTitle = disabledTitle + cardTitle;
 		}
 
 		titleTextMesh.text = cardTitle;
+		collapsedCountTextMesh.text = $"{cards.Count}";
 	}
 
 	//---------------- START CardHolder ------------

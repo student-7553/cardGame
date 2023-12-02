@@ -10,7 +10,8 @@ public class NodeTextHandler
 	// private TextMeshPro availableInfraTextMesh;
 	private TextMeshPro nodeProcessCountdown;
 	private TextMeshPro hungerCountPerIntervel;
-	private TextMeshPro hungerCountdown;
+
+	// private TextMeshPro hungerCountdown;
 
 	private Node connectedNode;
 
@@ -23,7 +24,7 @@ public class NodeTextHandler
 		// availableInfraTextMesh = textMeshes[2] as TextMeshPro;
 		nodeProcessCountdown = textMeshes[1] as TextMeshPro;
 		hungerCountPerIntervel = textMeshes[2] as TextMeshPro;
-		hungerCountdown = textMeshes[3] as TextMeshPro;
+		// hungerCountdown = textMeshes[3] as TextMeshPro;
 	}
 
 	public void reflectToScreen()
@@ -33,7 +34,8 @@ public class NodeTextHandler
 			return;
 		}
 
-		titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
+		// titleTextMesh.text = CardDictionary.globalCardDictionary[connectedNode.id].name;
+		titleTextMesh.text = "Node";
 
 		// availableInventoryTextMesh.text =
 		// 	$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
@@ -47,14 +49,14 @@ public class NodeTextHandler
 
 		hungerCountPerIntervel.text = $"{connectedNode.nodeStats.currentNodeStats.currentFoodCheck}";
 
-		if (!connectedNode.isActive)
-		{
-			hungerCountdown.text = "[No food] ";
-		}
-		else
-		{
-			// Active Node
-			hungerCountdown.text = $"{connectedNode.nodeHungerHandler.getHungerCountdown()}";
-		}
+		// if (!connectedNode.isActive)
+		// {
+		// 	hungerCountdown.text = "[No food] ";
+		// }
+		// else
+		// {
+		// 	// Active Node
+		// 	hungerCountdown.text = $"{connectedNode.nodeHungerHandler.getHungerCountdown()}";
+		// }
 	}
 }

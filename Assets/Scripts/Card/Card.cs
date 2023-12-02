@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using Core;
 using TMPro;
-using Helpers;
 
 public class Card : BaseCard, IClickable
 {
 	public SO_PlayerRuntime playerRuntime;
+	public SO_Interactable so_Interactable;
 
 	public override Card getCard()
 	{
@@ -34,19 +34,13 @@ public class Card : BaseCard, IClickable
 
 	// -------------------- CardInterface Members end -------------------------
 
-	private TextMeshPro titleTextMesh;
-	private TextMeshPro typeTextMesh;
-	private SpriteRenderer spriteRenderer;
-	public SO_Interactable so_Interactable;
+	public TextMeshPro titleTextMesh;
+
+	public SpriteRenderer mainBodySpriteRenderer;
+	public SpriteRenderer borderSpriteRender;
 
 	private void Awake()
 	{
-		TextMeshPro[] textMeshes = gameObject.GetComponentsInChildren<TextMeshPro>();
-
-		titleTextMesh = textMeshes[0];
-		typeTextMesh = textMeshes[1];
-
-		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 		computeCorners();
 	}
 
@@ -93,14 +87,16 @@ public class Card : BaseCard, IClickable
 		}
 
 		string cardTitle = "";
-		if (CardDictionary.globalCardDictionary.ContainsKey(id))
-		{
-			cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
-		}
+		cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 
-		if (spriteRenderer.color.a != 1f)
+		if (mainBodySpriteRenderer.color.a != 1f)
 		{
-			spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+			mainBodySpriteRenderer.color = new Color(
+				mainBodySpriteRenderer.color.r,
+				mainBodySpriteRenderer.color.g,
+				mainBodySpriteRenderer.color.b,
+				1f
+			);
 		}
 
 		if (isInteractiveDisabled && cardDisable != null)
@@ -110,13 +106,16 @@ public class Card : BaseCard, IClickable
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
 			if (cardDisable == CardDisableType.AutoMoving)
 			{
-				spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.3f);
+				mainBodySpriteRenderer.color = new Color(
+					mainBodySpriteRenderer.color.r,
+					mainBodySpriteRenderer.color.g,
+					mainBodySpriteRenderer.color.b,
+					0.3f
+				);
 			}
 			cardTitle = disabledTitle + cardTitle;
 		}
 
 		titleTextMesh.text = cardTitle;
-
-		typeTextMesh.text = CardDictionary.globalCardDictionary[id].type.ToString();
 	}
 }
