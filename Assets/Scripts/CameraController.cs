@@ -23,8 +23,8 @@ public class CameraController : MonoBehaviour
 	public bool isMouseAccelerationLocked;
 
 	private float currentZoomAcc;
-
 	private float currentZoom;
+
 	private float initialZoom;
 
 	public void adjustZoom(float zoomValue)
@@ -109,12 +109,53 @@ public class CameraController : MonoBehaviour
 		float movementX = Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration);
 		float movementY = Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration);
 
+		Vector2 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+		Vector2 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+
+		CornerPoints newCameraCornerPoints = new CornerPoints
+		{
+			down = bottomLeft.y + movementY,
+			up = topRight.y + movementY,
+			left = bottomLeft.x + movementX,
+			right = topRight.x + movementX
+		};
+
+		// Todo zoom can bring the camera out of bounds, so adjust the position instead of stoping exectution
+
+		if (newCameraCornerPoints.up > cornerPoints.up)
+		{
+			return;
+		}
+		if (newCameraCornerPoints.down < cornerPoints.down)
+		{
+			return;
+		}
+		if (newCameraCornerPoints.left < cornerPoints.left)
+		{
+			return;
+		}
+		if (newCameraCornerPoints.right > cornerPoints.right)
+		{
+			return;
+		}
+
 		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(movementX, movementY);
-
-		newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, cornerPoints.left, cornerPoints.right);
-		newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, cornerPoints.down, cornerPoints.up);
-
 		mainCamera.gameObject.transform.position = newCameraPosition;
+
+		// mainCamera.orthographicSize
+		// Vector3 p = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+		// Vector3 topRight = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+
+		// CornerPoints cameraCornerPoints = new CornerPoints
+		// {
+		// 	down = 0,
+		// 	up = 0,
+		// 	left = 0,
+		// 	right = 0
+		// };
+
+		// newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, cornerPoints.left, cornerPoints.right);
+		// newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, cornerPoints.down, cornerPoints.up);
 	}
 
 	public void moveAcceleration(Vector2 movementVector)
