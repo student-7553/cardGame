@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		handleFixedCameraAcceleration();
+		handleCameraMovement();
 		handleFixedZoomAcceleration();
 		handleMouseScreenEdge();
 	}
@@ -93,69 +93,57 @@ public class CameraController : MonoBehaviour
 
 	private void handleFixedZoomAcceleration()
 	{
-		float newZoomvalue = currentZoom + (currentZoomAcc * staticVariables.zoomAccelerationMultiplier);
-		currentZoom = Mathf.Clamp(newZoomvalue, initialZoom - maxZoom, initialZoom + maxZoom);
-
-		mainCamera.orthographicSize = currentZoom;
-	}
-
-	private void handleFixedCameraAcceleration()
-	{
-		if (currentAcceleration == Vector2.zero)
+		if (currentZoomAcc == 0)
 		{
 			return;
 		}
+		float newZoomvalue = currentZoom + (currentZoomAcc * staticVariables.zoomAccelerationMultiplier);
+		currentZoom = Mathf.Clamp(newZoomvalue, initialZoom - maxZoom, initialZoom + maxZoom);
+		mainCamera.orthographicSize = currentZoom;
+	}
 
-		float movementX = Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration);
-		float movementY = Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration);
+	private void handleCameraMovement()
+	{
+		Vector2 cameraMovement = new Vector2(
+			Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration),
+			Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration)
+		);
 
 		Vector2 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
 		Vector2 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
 
 		CornerPoints newCameraCornerPoints = new CornerPoints
 		{
-			down = bottomLeft.y + movementY,
-			up = topRight.y + movementY,
-			left = bottomLeft.x + movementX,
-			right = topRight.x + movementX
+			down = bottomLeft.y + cameraMovement.y,
+			up = topRight.y + cameraMovement.y,
+			left = bottomLeft.x + cameraMovement.x,
+			right = topRight.x + cameraMovement.x
 		};
-
-		// Todo zoom can bring the camera out of bounds, so adjust the position instead of stoping exectution
 
 		if (newCameraCornerPoints.up > cornerPoints.up)
 		{
-			return;
+			cameraMovement = cameraMovement + new Vector2(0, cornerPoints.up - newCameraCornerPoints.up);
 		}
 		if (newCameraCornerPoints.down < cornerPoints.down)
 		{
-			return;
+			cameraMovement = cameraMovement + new Vector2(0, cornerPoints.down - newCameraCornerPoints.down);
 		}
 		if (newCameraCornerPoints.left < cornerPoints.left)
 		{
-			return;
+			cameraMovement = cameraMovement + new Vector2(cornerPoints.left - newCameraCornerPoints.left, 0);
 		}
 		if (newCameraCornerPoints.right > cornerPoints.right)
 		{
-			return;
+			cameraMovement = cameraMovement + new Vector2(cornerPoints.right - newCameraCornerPoints.right, 0);
 		}
 
-		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(movementX, movementY);
-		mainCamera.gameObject.transform.position = newCameraPosition;
-
-		// mainCamera.orthographicSize
-		// Vector3 p = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
-		// Vector3 topRight = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
-
-		// CornerPoints cameraCornerPoints = new CornerPoints
+		// if (currentAcceleration == Vector2.zero)
 		// {
-		// 	down = 0,
-		// 	up = 0,
-		// 	left = 0,
-		// 	right = 0
-		// };
+		// 	return;
+		// }
 
-		// newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, cornerPoints.left, cornerPoints.right);
-		// newCameraPosition.y = Mathf.Clamp(newCameraPosition.y, cornerPoints.down, cornerPoints.up);
+		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(cameraMovement.x, cameraMovement.y);
+		mainCamera.gameObject.transform.position = newCameraPosition;
 	}
 
 	public void moveAcceleration(Vector2 movementVector)
