@@ -15,11 +15,10 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public TextMeshPro titleTextMesh;
 
-	// public TextMeshPro typeTextMesh;
 	public TextMeshPro collapsedCountTextMesh;
 
-	public SpriteRenderer mainBodySpriteRenderer;
-	public SpriteRenderer borderSpriteRenderer;
+	// public SpriteRenderer mainBodySpriteRenderer;
+	// public SpriteRenderer borderSpriteRenderer;
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
@@ -54,7 +53,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private void Awake()
 	{
-		mainBodySpriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+		// mainBodySpriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 		computeCorners();
 	}
 
@@ -107,15 +106,15 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		string cardTitle = CardDictionary.globalCardDictionary[id].name;
 
-		if (mainBodySpriteRenderer.color.a != 1f)
-		{
-			mainBodySpriteRenderer.color = new Color(
-				mainBodySpriteRenderer.color.r,
-				mainBodySpriteRenderer.color.g,
-				mainBodySpriteRenderer.color.b,
-				1f
-			);
-		}
+		// if (mainBodySpriteRenderer.color.a != 1f)
+		// {
+		// 	mainBodySpriteRenderer.color = new Color(
+		// 		mainBodySpriteRenderer.color.r,
+		// 		mainBodySpriteRenderer.color.g,
+		// 		mainBodySpriteRenderer.color.b,
+		// 		1f
+		// 	);
+		// }
 
 		if (isInteractiveDisabled && cardDisable != null)
 		{
@@ -123,12 +122,12 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
 			if (cardDisable == CardDisableType.AutoMoving)
 			{
-				mainBodySpriteRenderer.color = new Color(
-					mainBodySpriteRenderer.color.r,
-					mainBodySpriteRenderer.color.g,
-					mainBodySpriteRenderer.color.b,
-					0.3f
-				);
+				// mainBodySpriteRenderer.color = new Color(
+				// 	mainBodySpriteRenderer.color.r,
+				// 	mainBodySpriteRenderer.color.g,
+				// 	mainBodySpriteRenderer.color.b,
+				// 	0.3f
+				// );
 			}
 			cardTitle = disabledTitle + cardTitle;
 		}

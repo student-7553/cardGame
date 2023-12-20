@@ -24,7 +24,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
-	public SpriteRenderer spriteRenderer { get; set; }
+
 	public CoreInteractableType interactableType
 	{
 		get { return CoreInteractableType.Nodes; }
@@ -100,8 +100,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	private void Awake()
 	{
-		processCardStack = new CardStack(this);
-		processCardStack.originPointAdjustment = new Vector3(0f, 35f, 0);
+		processCardStack = new CardStack(this) { originPointAdjustment = new Vector3(0f, 35f, 0) };
 
 		nodeTextHandler = new NodeTextHandler(this);
 
@@ -123,8 +122,6 @@ public class Node : MonoBehaviour, BaseNode
 		nodeMagnetizeCircle = _nodeMagnetizeCircle;
 
 		nodeCardQue = gameObject.GetComponent(typeof(NodeCardQue)) as NodeCardQue;
-
-		spriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 
 		nodeProcess = gameObject.GetComponent(typeof(NodeProcess)) as NodeProcess;
 		nodeProcess.init(this);

@@ -79,8 +79,8 @@ public class CardHandler : MonoBehaviour
 		// newCard.playerRuntime = playerRuntime;
 		newCard.id = cardId;
 
-		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
-		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
+		// SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
+		// cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		playerCardTracker.ensureCardIdTracked(cardId);
 		so_Interactable.registerCard(newCard);
@@ -118,8 +118,8 @@ public class CardHandler : MonoBehaviour
 
 		newCardCollapsed.cardCollapsedPlaneHandler = cardCollapsedPlane;
 
-		SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardCollapsedGameObject);
-		cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
+		// SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardCollapsedGameObject);
+		// cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		return newCardCollapsed;
 	}
