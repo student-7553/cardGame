@@ -67,8 +67,8 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	public void handleTextChange()
 	{
-		textFields[0].text = $"Name:{CardDictionary.globalCardDictionary[currentCardId].name}";
-		textFields[1].text = $"Type:{CardDictionary.globalCardDictionary[currentCardId].type}";
+		textFields[0].text = $"{CardDictionary.globalCardDictionary[currentCardId].name}";
+		textFields[1].text = $"{CardDictionary.globalCardDictionary[currentCardId].type}";
 
 		if (CardDictionary.globalCardDictionary[currentCardId].type == Core.CardsTypes.Idea)
 		{
@@ -77,7 +77,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 			{
 				string text2 = getRequiredStringValueFromProcess(process);
 				textFields[2].text = text2;
-				textFields[3].text = $"Time: {process.time} sec";
+				textFields[3].text = $"{process.time} sec";
 			}
 		}
 		else
@@ -88,7 +88,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 			if (CardDictionary.globalCardDictionary[currentCardId].isSellable)
 			{
-				textFields[3].text = $"Price:{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}";
+				textFields[3].text = $"{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}$";
 			}
 			else
 			{
