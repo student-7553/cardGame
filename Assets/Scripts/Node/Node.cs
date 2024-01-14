@@ -51,19 +51,19 @@ public class Node : MonoBehaviour, BaseNode
 	}
 
 	// -------------------- Custom Class -------------------------
-	[System.NonSerialized]
+	[NonSerialized]
 	public NodeCardQue nodeCardQue;
 
-	[System.NonSerialized]
+	[NonSerialized]
 	public NodeTextHandler nodeTextHandler;
 
-	[System.NonSerialized]
+	[NonSerialized]
 	public NodeStats nodeStats;
 
-	[System.NonSerialized]
+	[NonSerialized]
 	public NodeProcess nodeProcess;
 
-	[System.NonSerialized]
+	[NonSerialized]
 	public NodeHungerHandler nodeHungerHandler;
 
 	public NodePlaneHandler nodePlaneManager { get; set; }
@@ -100,7 +100,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	private void Awake()
 	{
-		processCardStack = new CardStack(this) { originPointAdjustment = new Vector3(0f, 35f, 0) };
+		processCardStack = new CardStack(this) { originPointAdjustment = new Vector3(0f, 14.5f, 0) };
 
 		nodeTextHandler = new NodeTextHandler(this);
 

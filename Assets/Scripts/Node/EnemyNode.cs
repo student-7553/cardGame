@@ -68,8 +68,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 
 	private void Awake()
 	{
-		processCardStack = new CardStack(this);
-		processCardStack.originPointAdjustment = new Vector3(0f, 35f, 0);
+		processCardStack = new CardStack(this) { originPointAdjustment = new Vector3(0f, 14.5f, 0) };
 		isActive = true;
 
 		enemyNodeTextHandler = new EnemyNodeTextHandler(this);

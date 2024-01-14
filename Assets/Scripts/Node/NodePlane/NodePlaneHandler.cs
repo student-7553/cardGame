@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using Core;
+using Helpers;
 
 public class NodePlaneHandler : MonoBehaviour, IStackable
 {
@@ -40,7 +41,21 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 		{
 			return;
 		}
+		updatePosition();
 		reflectToScreen();
+	}
+
+	private void updatePosition()
+	{
+		Vector3 nodePlanePositon = new Vector3(
+			connectedNode.gameObject.transform.position.x,
+			connectedNode.gameObject.transform.position.y + 27,
+			HelperData.nodeBoardZ
+		);
+		if (transform.position != nodePlanePositon)
+		{
+			transform.position = nodePlanePositon;
+		}
 	}
 
 	private void reflectToScreen()

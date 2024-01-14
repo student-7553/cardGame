@@ -3,7 +3,6 @@ using Core;
 using System.Collections.Generic;
 using Helpers;
 
-// [DefaultExecutionOrder(-100)]
 public class CardHandler : MonoBehaviour
 {
 	public PlayerCardTrackerObject playerCardTracker;
@@ -26,10 +25,6 @@ public class CardHandler : MonoBehaviour
 	private Vector3 defaultCardPoint;
 	private Vector3 defaultNodePoint;
 
-	public Vector3 defaultNodePlanePositon;
-
-	// public Vector2Int enemySpawnInterval;
-
 	private EnemySpawer enemySpawner;
 
 	public SO_Interactable so_Interactable;
@@ -50,16 +45,8 @@ public class CardHandler : MonoBehaviour
 		defaultCardPoint = new Vector3(0, 0, HelperData.baseZ);
 		defaultNodePoint = new Vector3(0, 0, HelperData.baseZ);
 		playerCardTracker = new PlayerCardTrackerObject();
-		defaultNodePlanePositon = new Vector3(
-			staticVariables.defaultNodePlanePositon.x,
-			staticVariables.defaultNodePlanePositon.y,
-			HelperData.nodeBoardZ
-		);
 
 		enemySpawner = GetComponent(typeof(EnemySpawer)) as EnemySpawer;
-
-		// test enemySpawn  Comment out the bellow later
-		// enemySpawner.start(enemySpawnInterval.x, enemySpawnInterval.y);
 	}
 
 	public Card createCard(int cardId, GameObject cardGameObject, Vector3 cardOriginPoint)
@@ -75,12 +62,7 @@ public class CardHandler : MonoBehaviour
 
 		Card newCard = ensureComponent<Card>(cardGameObject);
 
-		// newCard.so_Interactable = so_Interactable;
-		// newCard.playerRuntime = playerRuntime;
 		newCard.id = cardId;
-
-		// SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardGameObject);
-		// cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		playerCardTracker.ensureCardIdTracked(cardId);
 		so_Interactable.registerCard(newCard);
@@ -105,8 +87,6 @@ public class CardHandler : MonoBehaviour
 
 		CardCollapsed newCardCollapsed = ensureComponent<CardCollapsed>(cardCollapsedGameObject);
 
-		// newCardCollapsed.so_Interactable = so_Interactable;
-		// newCardCollapsed.playerRuntime = playerRuntime;
 		newCardCollapsed.id = cardId;
 
 		GameObject newCollapsedCardPlane = Instantiate(collapsedCardPrefab, cardCollapsedGameObject.transform);
@@ -117,9 +97,6 @@ public class CardHandler : MonoBehaviour
 		cardCollapsedPlane.init(newCardCollapsed);
 
 		newCardCollapsed.cardCollapsedPlaneHandler = cardCollapsedPlane;
-
-		// SpriteRenderer cardSpriteRenderer = ensureComponent<SpriteRenderer>(cardCollapsedGameObject);
-		// cardSpriteRenderer.sprite = cardSprites[Random.Range(0, cardSprites.Length)];
 
 		return newCardCollapsed;
 	}
@@ -142,12 +119,12 @@ public class CardHandler : MonoBehaviour
 		NodeHungerHandler nodeHungerHandler = ensureComponent<NodeHungerHandler>(nodeGameObject);
 		nodeHungerHandler.playerRuntime = playerRuntime;
 
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
+		GameObject newNodePlane = Instantiate(nodePlanePrefab);
+
 		newNodePlane.layer = 6;
 		newNodePlane.SetActive(false);
 
 		NodePlaneHandler nodePlane = ensureComponent<NodePlaneHandler>(newNodePlane);
-		// newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newNode);
 
 		GameObject nodeMagnetizeCircleGameObject = Instantiate(nodeMagnetizeCirclePrefab, nodeGameObject.transform);
@@ -196,7 +173,12 @@ public class CardHandler : MonoBehaviour
 
 		ensureComponent<EnemyNodeProcess>(nodeGameObject);
 
-		GameObject newNodePlane = Instantiate(nodePlanePrefab, defaultNodePlanePositon, Quaternion.identity);
+		Vector3 nodePlanePositon = new Vector3(
+			newEnemyNode.transform.position.x,
+			newEnemyNode.transform.position.y + 15f,
+			HelperData.nodeBoardZ
+		);
+		GameObject newNodePlane = Instantiate(nodePlanePrefab, nodePlanePositon, Quaternion.identity);
 		NodePlaneHandler nodePlane = newNodePlane.GetComponent(typeof(NodePlaneHandler)) as NodePlaneHandler;
 		nodePlane.init(newEnemyNode);
 		newNodePlane.SetActive(false);

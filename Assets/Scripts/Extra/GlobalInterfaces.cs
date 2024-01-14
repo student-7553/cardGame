@@ -5,7 +5,6 @@ namespace Core
 	public interface IStackable
 	{
 		void stackOnThis(BaseCard draggingCard, Node prevNode);
-		GameObject gameObject { get; }
 	}
 
 	public interface IClickable
