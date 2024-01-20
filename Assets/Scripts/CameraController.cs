@@ -1,20 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[System.Serializable]
-public struct CornerPoints
-{
-	public float up;
-	public float down;
-	public float left;
-	public float right;
-}
-
 public class CameraController : MonoBehaviour
 {
 	public float maxAcceleration;
 	public float maxZoom;
-	public CornerPoints cornerPoints;
 	public float speed;
 
 	private Camera mainCamera;
@@ -120,21 +110,21 @@ public class CameraController : MonoBehaviour
 			right = topRight.x + cameraMovement.x
 		};
 
-		if (newCameraCornerPoints.up > cornerPoints.up)
+		if (newCameraCornerPoints.up > staticVariables.cornerPoints.up)
 		{
-			cameraMovement = cameraMovement + new Vector2(0, cornerPoints.up - newCameraCornerPoints.up);
+			cameraMovement = cameraMovement + new Vector2(0, staticVariables.cornerPoints.up - newCameraCornerPoints.up);
 		}
-		if (newCameraCornerPoints.down < cornerPoints.down)
+		if (newCameraCornerPoints.down < staticVariables.cornerPoints.down)
 		{
-			cameraMovement = cameraMovement + new Vector2(0, cornerPoints.down - newCameraCornerPoints.down);
+			cameraMovement = cameraMovement + new Vector2(0, staticVariables.cornerPoints.down - newCameraCornerPoints.down);
 		}
-		if (newCameraCornerPoints.left < cornerPoints.left)
+		if (newCameraCornerPoints.left < staticVariables.cornerPoints.left)
 		{
-			cameraMovement = cameraMovement + new Vector2(cornerPoints.left - newCameraCornerPoints.left, 0);
+			cameraMovement = cameraMovement + new Vector2(staticVariables.cornerPoints.left - newCameraCornerPoints.left, 0);
 		}
-		if (newCameraCornerPoints.right > cornerPoints.right)
+		if (newCameraCornerPoints.right > staticVariables.cornerPoints.right)
 		{
-			cameraMovement = cameraMovement + new Vector2(cornerPoints.right - newCameraCornerPoints.right, 0);
+			cameraMovement = cameraMovement + new Vector2(staticVariables.cornerPoints.right - newCameraCornerPoints.right, 0);
 		}
 
 		// if (currentAcceleration == Vector2.zero)

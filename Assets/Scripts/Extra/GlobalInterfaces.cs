@@ -7,6 +7,11 @@ namespace Core
 		void stackOnThis(BaseCard draggingCard, Node prevNode);
 	}
 
+	public interface PositionRestricted
+	{
+		public Vector3 getFinalPosition(Vector3 newPostion);
+	}
+
 	public interface IClickable
 	{
 		void OnClick();

@@ -22,7 +22,6 @@ MonoBehaviour:
   processingTimeMin: 1
   floatingTextDurationSec: 1.5
   magnetizedIntervel: 6
-  defaultNodePlanePositon: {x: -120, y: 0}
   endingCardId: 38
   enemySpawnIntervals:
   - {x: 280, y: 380}
@@ -34,3 +33,8 @@ MonoBehaviour:
   nodeEjectSlideTime: 0.25
   zoomAccelerationMultiplier: 1.5
   screenMouseEdgeThreshhold: 0.001
+  cornerPoints:
+    up: 140
+    down: -140
+    left: -200
+    right: 200

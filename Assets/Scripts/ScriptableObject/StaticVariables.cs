@@ -1,6 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct CornerPoints
+{
+	public float up;
+	public float down;
+	public float left;
+	public float right;
+}
+
 [CreateAssetMenu(fileName = "StaticVariables", menuName = "ScriptableObjects/StaticVariables", order = 1)]
 public class StaticVariables : ScriptableObject
 {
@@ -40,4 +49,6 @@ public class StaticVariables : ScriptableObject
 	public float zoomAccelerationMultiplier = 0.3f;
 
 	public float screenMouseEdgeThreshhold = 0.05f;
+
+	public CornerPoints cornerPoints;
 }

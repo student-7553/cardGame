@@ -1,11 +1,10 @@
 using UnityEngine;
 using Core;
-using Helpers;
 using System.Collections.Generic;
 
-public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
+public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, PositionRestricted
 {
-	public static float baseCardX = 5;
+	public static float baseCardX = 6;
 	public static float baseCardY = 8;
 	public Vector3 currentVelocity;
 
@@ -51,6 +50,46 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable
 	public ref Vector3 getCurrentVelocity()
 	{
 		return ref currentVelocity;
+	}
+
+	public Vector3 getFinalPosition(Vector3 newPostion)
+	{
+		float padding = 40;
+		CornerPoints cameraCornerPoints = new CornerPoints()
+		{
+			up = 140,
+			down = -140,
+			left = -200,
+			right = 200
+		};
+		CornerPoints restrictedCornerPoints = new CornerPoints()
+		{
+			up = cameraCornerPoints.up - padding,
+			down = cameraCornerPoints.down + padding,
+			left = cameraCornerPoints.left + padding,
+			right = cameraCornerPoints.right - padding
+		};
+
+		Vector3 adjustedNewPosition = newPostion;
+		if (newPostion.x > restrictedCornerPoints.right)
+		{
+			adjustedNewPosition.x = restrictedCornerPoints.right;
+		}
+		else if (newPostion.x < restrictedCornerPoints.left)
+		{
+			adjustedNewPosition.x = restrictedCornerPoints.left;
+		}
+
+		if (newPostion.y > restrictedCornerPoints.up)
+		{
+			adjustedNewPosition.y = restrictedCornerPoints.up;
+		}
+		else if (newPostion.y < restrictedCornerPoints.down)
+		{
+			adjustedNewPosition.y = restrictedCornerPoints.down;
+		}
+
+		return adjustedNewPosition;
 	}
 
 	public BaseCard getBaseCard()

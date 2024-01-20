@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Core;
 using Helpers;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class LeftClickHandler : MonoBehaviour
 {
@@ -316,6 +317,11 @@ public class LeftClickHandler : MonoBehaviour
 			GameObject interactableGameObject = singleInteractable.gameObject;
 
 			Vector3 finalMovingPoint = new Vector3(movingToPoint.x, movingToPoint.y, interactableGameObject.transform.position.z);
+			PositionRestricted positionRestricted = singleInteractable as PositionRestricted;
+			if (positionRestricted != null)
+			{
+				finalMovingPoint = positionRestricted.getFinalPosition(finalMovingPoint);
+			}
 
 			interactableGameObject.transform.position = Vector3.SmoothDamp(
 				interactableGameObject.transform.position,
