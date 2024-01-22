@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, PositionRestricted
 {
-	public static float baseCardX = 6;
+	public static float baseCardX = 5;
 	public static float baseCardY = 8;
 	public Vector3 currentVelocity;
 
