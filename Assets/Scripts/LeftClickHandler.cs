@@ -108,12 +108,15 @@ public class LeftClickHandler : MonoBehaviour
 	private IEnumerator dragUpdate(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
 		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
-
 		Vector3 initialPostionOfStack = draggingObjects[0].gameObject.transform.position;
 
 		float dragTimer = 0;
-
 		bool isMiddleLogicEnabled = this.isMiddleLogicEnabled(draggingObjects[0]);
+
+		foreach (Interactable singleDraggingObject in draggingObjects)
+		{
+			singleDraggingObject.setSpriteHovering(true, Interactable.SpriteInteractable.hover);
+		}
 
 		isHolding = true;
 		while (isHolding)
@@ -156,6 +159,7 @@ public class LeftClickHandler : MonoBehaviour
 			{
 				singleDraggingObject.isInteractiveDisabled = false;
 			}
+			singleDraggingObject.setSpriteHovering(false, Interactable.SpriteInteractable.hover);
 		}
 
 		dragFinishHandler(draggingObjects, previousStackedNode);
@@ -203,6 +207,7 @@ public class LeftClickHandler : MonoBehaviour
 			{
 				Interactable interactableGameObject = DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject);
 				draggingObjects.Add(interactableGameObject);
+				interactableGameObject.setSpriteHovering(true, Interactable.SpriteInteractable.hover);
 				singleCard.gameObject.transform.position = new Vector3(
 					singleCard.gameObject.transform.position.x,
 					singleCard.gameObject.transform.position.y,

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 using Core;
 using System.Linq;
 using Helpers;
@@ -24,6 +23,24 @@ public class Node : MonoBehaviour, BaseNode
 
 	// -------------------- Interactable Members -------------------------
 	public bool isInteractiveDisabled { get; set; }
+
+	[SerializeField]
+	private SpriteRenderer shadowSpriteRenderer;
+
+	public void setSpriteHovering(bool isHovering, Interactable.SpriteInteractable targetSprite)
+	{
+		if (targetSprite == Interactable.SpriteInteractable.hover)
+		{
+			if (shadowSpriteRenderer == null)
+			{
+				return;
+			}
+			Vector3 newScale = isHovering
+				? shadowSpriteRenderer.transform.localScale * 1.075f
+				: shadowSpriteRenderer.transform.localScale / 1.075f;
+			shadowSpriteRenderer.transform.localScale = newScale;
+		}
+	}
 
 	public CoreInteractableType interactableType
 	{

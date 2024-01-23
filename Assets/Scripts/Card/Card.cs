@@ -36,9 +36,6 @@ public class Card : BaseCard, IClickable
 
 	public TextMeshPro titleTextMesh;
 
-	// public SpriteRenderer mainBodySpriteRenderer;
-	public SpriteRenderer borderSpriteRender;
-
 	private void Awake()
 	{
 		computeCorners();
@@ -89,30 +86,12 @@ public class Card : BaseCard, IClickable
 		string cardTitle = "";
 		cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 
-		// if (mainBodySpriteRenderer.color.a != 1f)
-		// {
-		// 	mainBodySpriteRenderer.color = new Color(
-		// 		mainBodySpriteRenderer.color.r,
-		// 		mainBodySpriteRenderer.color.g,
-		// 		mainBodySpriteRenderer.color.b,
-		// 		1f
-		// 	);
-		// }
-
 		if (isInteractiveDisabled && cardDisable != null)
 		{
 			string disabledTitle = "[DISABLED] ";
 
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
-			if (cardDisable == CardDisableType.AutoMoving)
-			{
-				// mainBodySpriteRenderer.color = new Color(
-				// 	mainBodySpriteRenderer.color.r,
-				// 	mainBodySpriteRenderer.color.g,
-				// 	mainBodySpriteRenderer.color.b,
-				// 	0.3f
-				// );
-			}
+			if (cardDisable == CardDisableType.AutoMoving) { }
 			cardTitle = disabledTitle + cardTitle;
 		}
 

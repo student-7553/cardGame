@@ -32,6 +32,13 @@ namespace Core
 		public CardCollapsed getCollapsedCard();
 		public ref Vector3 getCurrentVelocity();
 		GameObject gameObject { get; }
+
+		public enum SpriteInteractable
+		{
+			hover
+		}
+
+		public void setSpriteHovering(bool isHovering, SpriteInteractable targetSprite);
 	}
 
 	public enum CoreInteractableType

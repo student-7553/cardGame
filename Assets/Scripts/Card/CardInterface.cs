@@ -27,6 +27,24 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 		}
 	}
 
+	[SerializeField]
+	private SpriteRenderer shadowSpriteRenderer;
+
+	public void setSpriteHovering(bool isHovering, Interactable.SpriteInteractable targetSprite)
+	{
+		if (targetSprite == Interactable.SpriteInteractable.hover)
+		{
+			if (shadowSpriteRenderer == null)
+			{
+				return;
+			}
+			Vector3 newScale = isHovering
+				? shadowSpriteRenderer.transform.localScale * 1.075f
+				: shadowSpriteRenderer.transform.localScale / 1.075f;
+			shadowSpriteRenderer.transform.localScale = newScale;
+		}
+	}
+
 	public virtual CoreInteractableType interactableType
 	{
 		get { return CoreInteractableType.Cards; }
