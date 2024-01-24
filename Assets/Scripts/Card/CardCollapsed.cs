@@ -5,9 +5,15 @@ using TMPro;
 using Core;
 using System.Linq;
 using Helpers;
+using DG.Tweening;
 
 public class CardCollapsed : BaseCard, CardHolder, IClickable
 {
+	private static float stackDistance = 5;
+	private static float zDistancePerCards = 0.01f;
+
+	private int topVisibleCards;
+
 	public SO_Interactable so_Interactable;
 	public SO_PlayerRuntime playerRuntime;
 
@@ -16,9 +22,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	public TextMeshPro titleTextMesh;
 
 	public TextMeshPro collapsedCountTextMesh;
-
-	// public SpriteRenderer mainBodySpriteRenderer;
-	// public SpriteRenderer borderSpriteRenderer;
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
@@ -35,7 +38,16 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	// -------------------- START Clickable Members -------------------------
 	public void OnClick()
 	{
-		cardCollapsedPlaneHandler.gameObject.SetActive(true);
+		if (cardCollapsedPlaneHandler.gameObject.activeSelf == true)
+		{
+			cardCollapsedPlaneHandler.gameObject.SetActive(false);
+		}
+		else
+		{
+			// cardCollapsedPlaneHandler.updatePosition();
+			cardCollapsedPlaneHandler.gameObject.SetActive(true);
+		}
+
 		playerRuntime.changePlayerFocusingCardId(id);
 	}
 
@@ -53,7 +65,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private void Awake()
 	{
-		// mainBodySpriteRenderer = gameObject.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
 		computeCorners();
 	}
 
@@ -77,7 +88,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		}
 
 		List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
-		CardStack newStack = new CardStack(null);
+		CardStack newStack = new CardStack(null, 0, new Vector3(0f, 14.5f, 0));
 		newStack.addCardsToStack(newCardStackCards);
 	}
 
@@ -106,29 +117,10 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		string cardTitle = CardDictionary.globalCardDictionary[id].name;
 
-		// if (mainBodySpriteRenderer.color.a != 1f)
-		// {
-		// 	mainBodySpriteRenderer.color = new Color(
-		// 		mainBodySpriteRenderer.color.r,
-		// 		mainBodySpriteRenderer.color.g,
-		// 		mainBodySpriteRenderer.color.b,
-		// 		1f
-		// 	);
-		// }
-
 		if (isInteractiveDisabled && cardDisable != null)
 		{
 			string disabledTitle = "[DISABLED] ";
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
-			if (cardDisable == CardDisableType.AutoMoving)
-			{
-				// mainBodySpriteRenderer.color = new Color(
-				// 	mainBodySpriteRenderer.color.r,
-				// 	mainBodySpriteRenderer.color.g,
-				// 	mainBodySpriteRenderer.color.b,
-				// 	0.3f
-				// );
-			}
 			cardTitle = disabledTitle + cardTitle;
 		}
 
@@ -158,6 +150,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			singleCard.gameObject.SetActive(true);
 			singleCard.joinedStack = null;
 		}
+		alignCards();
 		if (changed)
 		{
 			deadCheck();
@@ -240,10 +233,67 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		foreach (BaseCard singleCard in cards)
 		{
-			singleCard.gameObject.transform.SetParent(gameObject.transform);
-			singleCard.gameObject.SetActive(false);
+			// singleCard.gameObject.transform.SetParent(gameObject.transform);
+			// singleCard.gameObject.SetActive(false);
+			// singleCard.attachToCardHolder(this);
+
+			singleCard.gameObject.transform.SetParent(cardCollapsedPlaneHandler.gameObject.transform);
+			// singleCard.gameObject.SetActive(true);
 			singleCard.attachToCardHolder(this);
 		}
+		alignCards();
+	}
+
+	public void alignCards()
+	{
+		if (cards.Count == 0)
+		{
+			return;
+		}
+
+		Vector3 adjustedOriginPoint = new Vector3(
+			cardCollapsedPlaneHandler.gameObject.transform.position.x,
+			cardCollapsedPlaneHandler.gameObject.transform.position.y,
+			HelperData.nodeBoardZ - 1
+		);
+
+		adjustedOriginPoint = adjustedOriginPoint + new Vector3(0, 14.5f, 0);
+
+		float paddingCounter = 0;
+		for (int index = 0; index < cards.Count; index++)
+		{
+			BaseCard singleCard = cards[index];
+			if (singleCard == null)
+			{
+				continue;
+			}
+
+			Vector3 newPostionForCardInSubject = new Vector3(adjustedOriginPoint.x, adjustedOriginPoint.y, HelperData.nodeBoardZ - 1);
+			newPostionForCardInSubject.y = newPostionForCardInSubject.y - (paddingCounter * stackDistance);
+			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
+
+			paddingCounter++;
+
+			moveBaseCard(singleCard, newPostionForCardInSubject);
+			singleCard.computeCorners();
+
+			if (topVisibleCards != 0)
+			{
+				if (index >= topVisibleCards)
+				{
+					singleCard.gameObject.SetActive(false);
+				}
+				else
+				{
+					singleCard.gameObject.SetActive(true);
+				}
+			}
+		}
+	}
+
+	private void moveBaseCard(BaseCard card, Vector3 newPosition)
+	{
+		card.gameObject.transform.DOMove(newPosition, HelperData.cardReachSmoothTime).SetId(card.id);
 	}
 
 	public CardStackType getCardHolderType()

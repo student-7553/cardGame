@@ -71,7 +71,7 @@ public class Card : BaseCard, IClickable
 		else
 		{
 			List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
-			CardStack newStack = new CardStack(null);
+			CardStack newStack = new CardStack(null, 0, Vector3.zero);
 			newStack.addCardsToStack(newCardStackCards);
 		}
 	}

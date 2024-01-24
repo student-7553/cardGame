@@ -45,7 +45,7 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 		reflectToScreen();
 	}
 
-	private void updatePosition()
+	public void updatePosition()
 	{
 		Vector3 nodePlanePositon = new Vector3(
 			connectedNode.gameObject.transform.position.x,

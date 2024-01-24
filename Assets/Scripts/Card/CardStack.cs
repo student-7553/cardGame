@@ -14,8 +14,6 @@ public class CardStack : CardHolder
 
 	private CardStackType cardStackType;
 
-	public Vector3 originPointAdjustment;
-
 	private List<BaseCard> _cards;
 
 	public List<BaseCard> cards
@@ -24,9 +22,12 @@ public class CardStack : CardHolder
 		set { _cards = value; }
 	}
 
-	public CardStack(BaseNode _connectedNode)
+	private int topVisibleCards;
+	private Vector3 originPointAdjustment;
+
+	public CardStack(BaseNode _connectedNode, int topVisibleCards, Vector3 originPointAdjustment)
 	{
-		originPointAdjustment = new Vector3();
+		this.originPointAdjustment = originPointAdjustment;
 		cards = new List<BaseCard>();
 		if (_connectedNode == null)
 		{
@@ -37,6 +38,7 @@ public class CardStack : CardHolder
 			cardStackType = CardStackType.Nodes;
 			connectedNode = _connectedNode;
 		}
+		this.topVisibleCards = topVisibleCards;
 	}
 
 	public void alignCards(Vector3 originPoint)
@@ -58,8 +60,9 @@ public class CardStack : CardHolder
 		adjustedOriginPoint = adjustedOriginPoint + originPointAdjustment;
 
 		float paddingCounter = 0;
-		foreach (BaseCard singleCard in cards)
+		for (int index = 0; index < cards.Count; index++)
 		{
+			BaseCard singleCard = cards[index];
 			if (singleCard == null)
 			{
 				continue;
@@ -72,8 +75,19 @@ public class CardStack : CardHolder
 			paddingCounter++;
 
 			moveBaseCard(singleCard, newPostionForCardInSubject);
-
 			singleCard.computeCorners();
+
+			if (topVisibleCards != 0)
+			{
+				if (index >= topVisibleCards)
+				{
+					singleCard.gameObject.SetActive(false);
+				}
+				else
+				{
+					singleCard.gameObject.SetActive(true);
+				}
+			}
 		}
 	}
 

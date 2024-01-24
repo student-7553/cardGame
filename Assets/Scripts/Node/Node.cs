@@ -117,7 +117,7 @@ public class Node : MonoBehaviour, BaseNode
 
 	private void Awake()
 	{
-		processCardStack = new CardStack(this) { originPointAdjustment = new Vector3(0f, 14.5f, 0) };
+		processCardStack = new CardStack(this, 7, new Vector3(0f, 14.5f, 0));
 
 		nodeTextHandler = new NodeTextHandler(this);
 
@@ -155,6 +155,7 @@ public class Node : MonoBehaviour, BaseNode
 		}
 		else
 		{
+			nodePlaneManager.updatePosition();
 			nodePlaneManager.gameObject.SetActive(true);
 		}
 	}
@@ -200,11 +201,9 @@ public class Node : MonoBehaviour, BaseNode
 		{
 			return;
 		}
-		// StartCoroutine(delayedDragFinish(cards));
 		delayedDragFinish(cards);
 	}
 
-	// public IEnumerator delayedDragFinish(List<BaseCard> cards)
 	public void delayedDragFinish(List<BaseCard> cards)
 	{
 		Vector3 basePosition = new Vector3(
