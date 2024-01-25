@@ -60,7 +60,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 		{
 			addingString.Add($"{ids.Count} {CardDictionary.globalCardDictionary[ids.Key].name}");
 		}
-		string text2 = "Required: " + string.Join(",", addingString);
+		string text2 = string.Join("\n", addingString);
 
 		return text2;
 	}
@@ -84,7 +84,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 		{
 			// Todo add another textField here
 			textFields[2].text =
-				$"{CardDictionary.globalCardDictionary[currentCardId].resourceInventoryCount}/{CardDictionary.globalCardDictionary[currentCardId].infraInventoryCount}";
+				$"{CardDictionary.globalCardDictionary[currentCardId].resourceInventoryCount} \n{CardDictionary.globalCardDictionary[currentCardId].infraInventoryCount}";
 
 			if (CardDictionary.globalCardDictionary[currentCardId].isSellable)
 			{

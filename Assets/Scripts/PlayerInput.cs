@@ -36,8 +36,8 @@ public class PlayerInput : MonoBehaviour
 		leftMouseClickButton.action.canceled += leftMouseButtonCanceled;
 		leftMousePressButton.action.performed += leftMousePress;
 
-		increaseTimeScale.action.performed += handleIncreaseTimeScaleButtonPress;
-		decreaseTimeScale.action.performed += handleDecreaseTimeScaleButtonPress;
+		increaseTimeScale.action.performed += handleFastTimeButtonPress;
+		decreaseTimeScale.action.performed += handleNormalTimeButtonPress;
 	}
 
 	private void OnDisable()
@@ -56,18 +56,18 @@ public class PlayerInput : MonoBehaviour
 
 		leftMousePressButton.action.performed -= leftMousePress;
 
-		increaseTimeScale.action.performed -= handleIncreaseTimeScaleButtonPress;
-		decreaseTimeScale.action.performed -= handleDecreaseTimeScaleButtonPress;
+		increaseTimeScale.action.performed -= handleFastTimeButtonPress;
+		decreaseTimeScale.action.performed -= handleNormalTimeButtonPress;
 	}
 
-	public void handleIncreaseTimeScaleButtonPress(InputAction.CallbackContext context)
+	public void handleFastTimeButtonPress(InputAction.CallbackContext context)
 	{
-		GameManager.current.handleGameTimeScaleIncease();
+		GameManager.current.handleFastTime();
 	}
 
-	public void handleDecreaseTimeScaleButtonPress(InputAction.CallbackContext context)
+	public void handleNormalTimeButtonPress(InputAction.CallbackContext context)
 	{
-		GameManager.current.handleGameTimeScaleDecrease();
+		GameManager.current.handleNormalTime();
 	}
 
 	public void leftMousePress(InputAction.CallbackContext context)

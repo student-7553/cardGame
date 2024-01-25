@@ -105,48 +105,22 @@ public class GameManager : MonoBehaviour
 		if (playerRuntime.gameTimeScale > 0)
 		{
 			playerRuntime.gameTimeScale = 0;
-			Debug.Log("We are Resumed");
 		}
 		else
 		{
 			playerRuntime.gameTimeScale = 1;
-			Debug.Log("We are Paused");
 		}
 	}
 
-	public void handleGameTimeScaleIncease()
+	public void handleFastTime()
 	{
-		if (playerRuntime.gameTimeScale >= 2f)
-		{
-			return;
-		}
-
-		if (playerRuntime.gameTimeScale >= 1f)
-		{
-			playerRuntime.gameTimeScale = 2f;
-			return;
-		}
-
-		if (playerRuntime.gameTimeScale >= 0.5f)
-		{
-			playerRuntime.gameTimeScale = 1f;
-			return;
-		}
+		playerRuntime.gameTimeScale = 2f;
 	}
 
-	public void handleGameTimeScaleDecrease()
+	public void handleNormalTime()
 	{
-		if (playerRuntime.gameTimeScale >= 2f)
-		{
-			playerRuntime.gameTimeScale = 1f;
-			return;
-		}
-
-		if (playerRuntime.gameTimeScale >= 1f)
-		{
-			playerRuntime.gameTimeScale = 0.5f;
-			return;
-		}
+		playerRuntime.gameTimeScale = 1f;
+		return;
 	}
 
 	private void gameSettings()
