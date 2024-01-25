@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class CollapsedHoldable : MonoBehaviour, IMouseHoldable
 {

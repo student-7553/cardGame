@@ -95,7 +95,6 @@ public class CardHandler : MonoBehaviour
 			Quaternion.identity,
 			cardCollapsedGameObject.transform
 		);
-		// GameObject newNodePlane = Instantiate(nodePlanePrefab, nodePlanePositon, Quaternion.identity);
 
 		newCollapsedCardPlane.SetActive(false);
 		newCollapsedCardPlane.layer = 6;

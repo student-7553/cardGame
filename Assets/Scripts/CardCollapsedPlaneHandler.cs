@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Core;
 using UnityEngine;
 
-public class CardCollapsedPlaneHandler : MonoBehaviour, IClickable
+public class CardCollapsedPlaneHandler : MonoBehaviour, IClickable, IStackable
 {
 	private CardCollapsed cardCollapsed;
 
@@ -20,5 +18,10 @@ public class CardCollapsedPlaneHandler : MonoBehaviour, IClickable
 	public void OnClick()
 	{
 		gameObject.SetActive(false);
+	}
+
+	public void stackOnThis(BaseCard draggingCard, Node prevNode)
+	{
+		cardCollapsed.stackOnThis(draggingCard, prevNode);
 	}
 }
