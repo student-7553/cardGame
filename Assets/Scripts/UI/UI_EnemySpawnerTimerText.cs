@@ -17,16 +17,8 @@ public class UI_EnemySpawnerTimerText : MonoBehaviour
 	{
 		if (!enemySpawnerScriptableObject.isEnabled)
 		{
-			if (textMeshProUGUI.enabled)
-			{
-				textMeshProUGUI.enabled = false;
-			}
+			textMeshProUGUI.SetText("0");
 			return;
-		}
-
-		if (!textMeshProUGUI.enabled)
-		{
-			textMeshProUGUI.enabled = false;
 		}
 
 		textMeshProUGUI.SetText($"{(int)enemySpawnerScriptableObject.timer}");
