@@ -106,10 +106,6 @@ public class Card : BaseCard, IClickable
 		{
 			return 13;
 		}
-		// if (title.Length > 10)
-		// {
-		// 	return 16;
-		// }
 		return 18;
 	}
 }
