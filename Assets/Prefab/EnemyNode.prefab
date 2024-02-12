@@ -716,7 +716,8 @@ MonoBehaviour:
   so_Interactable: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
   staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
   borderSpriteRenderer: {fileID: 995993671911797436}
-  shadowSpriteRenderer: {fileID: 0}
+  backgroundSpriteRenderer: {fileID: 3109954551291527160}
+  shadowSpriteRenderer: {fileID: 6662144599098953804}
 --- !u!1 &4213455055539976204
 GameObject:
   m_ObjectHideFlags: 0

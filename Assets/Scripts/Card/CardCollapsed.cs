@@ -122,8 +122,21 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			cardTitle = disabledTitle + cardTitle;
 		}
 
+		int fontSize = getFontSize(cardTitle);
+
+		titleTextMesh.fontSize = fontSize;
 		titleTextMesh.text = cardTitle;
+
 		collapsedCountTextMesh.text = $"{cards.Count}";
+	}
+
+	private int getFontSize(string title)
+	{
+		if (title.Length > 12)
+		{
+			return 13;
+		}
+		return 18;
 	}
 
 	//---------------- START CardHolder ------------

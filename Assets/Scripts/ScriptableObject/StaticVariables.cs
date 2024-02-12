@@ -12,7 +12,7 @@ public struct CornerPoints
 }
 
 [System.Serializable]
-public struct CardTypeColorMap
+public struct TypeToColorMap
 {
 	public CardsTypes cardType;
 	public Color color;
@@ -61,5 +61,9 @@ public class StaticVariables : ScriptableObject
 
 	public CornerPoints cornerPoints;
 
-	public List<CardTypeColorMap> cardColors;
+	public List<TypeToColorMap> cardColors;
+
+	public List<TypeToColorMap> cardTextColors;
+
+	public List<TypeToColorMap> cardBackgroundColors;
 }

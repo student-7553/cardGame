@@ -608,6 +608,7 @@ MonoBehaviour:
   _isInteractiveDisabled: 0
   shadowSpriteRenderer: {fileID: 2391315461554613659}
   borderSpriteRenderer: {fileID: 8565221862253218052}
+  backgroundSpriteRenderer: {fileID: 7400581176032152306}
   titleTextMesh: {fileID: 4809273460834732648}
   _id: 0
   playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}

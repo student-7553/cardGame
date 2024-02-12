@@ -29,6 +29,11 @@ public class NodeTextHandler
 		return 18;
 	}
 
+	public void setTextColor(Color newTextColor)
+	{
+		titleTextMesh.color = newTextColor;
+	}
+
 	public void reflectToScreen()
 	{
 		if (!CardDictionary.globalCardDictionary.ContainsKey(connectedNode.id))

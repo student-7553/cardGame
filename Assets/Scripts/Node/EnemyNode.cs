@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Core;
-using Helpers;
 
 public class EnemyNode : MonoBehaviour, BaseNode
 {
@@ -79,6 +78,9 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	[SerializeField]
 	private SpriteRenderer borderSpriteRenderer;
 
+	[SerializeField]
+	private SpriteRenderer backgroundSpriteRenderer;
+
 	private int _id;
 	public int id
 	{
@@ -95,8 +97,32 @@ public class EnemyNode : MonoBehaviour, BaseNode
 					}
 				)
 				.color;
+
+			Color typeTextColor = staticVariables.cardTextColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+
+			Color typeBackgroundColor = staticVariables.cardBackgroundColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+
 			typeColor.a = 1;
+			typeBackgroundColor.a = 1;
+			typeTextColor.a = 1;
+
 			borderSpriteRenderer.color = typeColor;
+			enemyNodeTextHandler.setTextColor(typeTextColor);
+			backgroundSpriteRenderer.color = typeBackgroundColor;
 		}
 	}
 

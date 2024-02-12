@@ -18,6 +18,11 @@ public class EnemyNodeTextHandler
 		processTimerTextMesh = textMeshes[2] as TextMeshPro;
 	}
 
+	public void setTextColor(Color newTextColor)
+	{
+		titleTextMesh.color = newTextColor;
+	}
+
 	public void reflectToScreen()
 	{
 		if (titleTextMesh.text == "")

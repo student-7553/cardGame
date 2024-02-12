@@ -15,7 +15,7 @@ public class UI_TopLeftEntry_2 : TopLeftEntry
 
 		if (CardDictionary.globalCardDictionary[currentCardId].isSellable)
 		{
-			textField3.text = $"{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}$";
+			textField3.text = $"{CardDictionary.globalCardDictionary[currentCardId].sellingPrice}";
 		}
 		else
 		{

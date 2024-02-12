@@ -36,6 +36,9 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 	[SerializeField]
 	private SpriteRenderer borderSpriteRenderer;
 
+	[SerializeField]
+	private SpriteRenderer backgroundSpriteRenderer;
+
 	public TextMeshPro titleTextMesh;
 
 	public void setSpriteHovering(bool isHovering, Interactable.SpriteInteractable targetSprite)
@@ -150,9 +153,32 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 					}
 				)
 				.color;
+
+			Color typeTextColor = staticVariables.cardTextColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+
+			Color typeBackgroundColor = staticVariables.cardBackgroundColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+
 			typeColor.a = 1;
+			typeBackgroundColor.a = 1;
+			typeTextColor.a = 1;
 
 			borderSpriteRenderer.color = typeColor;
+			backgroundSpriteRenderer.color = typeBackgroundColor;
+			titleTextMesh.color = typeTextColor;
 		}
 	}
 
