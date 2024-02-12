@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,6 +9,13 @@ public struct CornerPoints
 	public float down;
 	public float left;
 	public float right;
+}
+
+[System.Serializable]
+public struct CardTypeColorMap
+{
+	public CardsTypes cardType;
+	public Color color;
 }
 
 [CreateAssetMenu(fileName = "StaticVariables", menuName = "ScriptableObjects/StaticVariables", order = 1)]
@@ -42,6 +50,7 @@ public class StaticVariables : ScriptableObject
 	public float cardReachSmoothTime = 0.15f;
 
 	public float nodeEjectDistance = 10;
+
 	public float nodeEjectSlideDistance = 6;
 
 	public float nodeEjectSlideTime = 0.5f;
@@ -51,4 +60,6 @@ public class StaticVariables : ScriptableObject
 	public float screenMouseEdgeThreshhold = 0.05f;
 
 	public CornerPoints cornerPoints;
+
+	public List<CardTypeColorMap> cardColors;
 }

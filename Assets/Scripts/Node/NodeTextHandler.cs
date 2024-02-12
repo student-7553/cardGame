@@ -9,10 +9,6 @@ public class NodeTextHandler
 	private TextMeshPro nodeProcessCountdown;
 	private TextMeshPro hungerCountPerIntervel;
 
-	// private TextMeshPro availableInventoryTextMesh;
-	// private TextMeshPro availableInfraTextMesh;
-	// private TextMeshPro hungerCountdown;
-
 	private Node connectedNode;
 
 	public NodeTextHandler(Node _node)
@@ -22,9 +18,6 @@ public class NodeTextHandler
 		titleTextMesh = textMeshes[0] as TextMeshPro;
 		nodeProcessCountdown = textMeshes[1] as TextMeshPro;
 		hungerCountPerIntervel = textMeshes[2] as TextMeshPro;
-		// availableInventoryTextMesh = textMeshes[1] as TextMeshPro;
-		// availableInfraTextMesh = textMeshes[2] as TextMeshPro;
-		// hungerCountdown = textMeshes[3] as TextMeshPro;
 	}
 
 	private int getFontSize(string title)
@@ -54,22 +47,5 @@ public class NodeTextHandler
 			: "";
 
 		hungerCountPerIntervel.text = $"{connectedNode.nodeStats.currentNodeStats.currentFoodCheck}";
-
-		// availableInventoryTextMesh.text =
-		// 	$"{connectedNode.nodeStats.currentNodeStats.resourceInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.resourceInventoryLimit}";
-
-		// availableInfraTextMesh.text =
-		// 	$"{connectedNode.nodeStats.currentNodeStats.infraInventoryUsed}/{connectedNode.nodeStats.currentNodeStats.infraInventoryLimit}";
-
-
-		// if (!connectedNode.isActive)
-		// {
-		// 	hungerCountdown.text = "[No food] ";
-		// }
-		// else
-		// {
-		// 	// Active Node
-		// 	hungerCountdown.text = $"{connectedNode.nodeHungerHandler.getHungerCountdown()}";
-		// }
 	}
 }

@@ -19,8 +19,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	List<BaseCard> cards = new List<BaseCard>();
 
-	public TextMeshPro titleTextMesh;
-
 	public TextMeshPro collapsedCountTextMesh;
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;

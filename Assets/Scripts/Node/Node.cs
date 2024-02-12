@@ -95,6 +95,9 @@ public class Node : MonoBehaviour, BaseNode
 
 	public CardStack processCardStack { get; set; }
 
+	[SerializeField]
+	private SpriteRenderer borderSpriteRenderer;
+
 	public int _id;
 
 	public int id
@@ -108,6 +111,18 @@ public class Node : MonoBehaviour, BaseNode
 				nodeHungerHandler.intervalTimer = 0;
 			}
 			nodeStats = new NodeStats(this);
+
+			Color typeColor = staticVariables.cardColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+			typeColor.a = 1;
+
+			borderSpriteRenderer.color = typeColor;
 		}
 	}
 

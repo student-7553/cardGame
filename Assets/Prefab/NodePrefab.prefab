@@ -421,8 +421,9 @@ MonoBehaviour:
   currentVelocity: {x: 0, y: 0, z: 0}
   shadowSpriteRenderer: {fileID: 4357375423791950718}
   nodeMagnetizeCircle: {fileID: 0}
-  so_Interactable: {fileID: 0}
-  staticVariables: {fileID: 0}
+  so_Interactable: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
+  staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
+  borderSpriteRenderer: {fileID: 4917147704502800152}
   _id: 0
 --- !u!114 &2509289101251820015
 MonoBehaviour:

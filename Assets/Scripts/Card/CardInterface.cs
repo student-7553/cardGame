@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core;
 using System.Collections.Generic;
+using TMPro;
 
 public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, PositionRestricted
 {
@@ -11,6 +12,8 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 	// -------------------- Interactable Members -------------------------
 
 	public CardDisableType? cardDisable;
+
+	public StaticVariables staticVariables;
 
 	[SerializeField]
 	private bool _isInteractiveDisabled = false;
@@ -29,6 +32,11 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 
 	[SerializeField]
 	private SpriteRenderer shadowSpriteRenderer;
+
+	[SerializeField]
+	private SpriteRenderer borderSpriteRenderer;
+
+	public TextMeshPro titleTextMesh;
 
 	public void setSpriteHovering(bool isHovering, Interactable.SpriteInteractable targetSprite)
 	{
@@ -126,8 +134,27 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 	// -------------------- Interactable Members End -------------------------
 
 
+	public int _id;
+	public int id
+	{
+		get => _id;
+		set
+		{
+			_id = value;
 
-	public int id;
+			Color typeColor = staticVariables.cardColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+			typeColor.a = 1;
+
+			borderSpriteRenderer.color = typeColor;
+		}
+	}
 
 	public CardCorners corners;
 
@@ -195,11 +222,6 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 	}
 
 	public abstract void stackOnThis(BaseCard draggingCard, Node _prevNode);
-}
-
-public interface SelfBaseCardInterface
-{
-	public void reflectScreen() { }
 }
 
 public interface CardHolder

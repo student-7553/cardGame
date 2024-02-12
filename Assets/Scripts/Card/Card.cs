@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Core;
-using TMPro;
 
 public class Card : BaseCard, IClickable
 {
@@ -34,7 +33,7 @@ public class Card : BaseCard, IClickable
 
 	// -------------------- CardInterface Members end -------------------------
 
-	public TextMeshPro titleTextMesh;
+	// public TextMeshPro titleTextMesh;
 
 	private void Awake()
 	{

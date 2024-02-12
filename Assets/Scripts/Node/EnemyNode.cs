@@ -74,11 +74,30 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		enemyNodeTextHandler = new EnemyNodeTextHandler(this);
 	}
 
+	public StaticVariables staticVariables;
+
+	[SerializeField]
+	private SpriteRenderer borderSpriteRenderer;
+
 	private int _id;
 	public int id
 	{
 		get { return _id; }
-		set { _id = value; }
+		set
+		{
+			_id = value;
+
+			Color typeColor = staticVariables.cardColors
+				.Find(
+					(cardColor) =>
+					{
+						return cardColor.cardType == CardDictionary.globalCardDictionary[_id].type;
+					}
+				)
+				.color;
+			typeColor.a = 1;
+			borderSpriteRenderer.color = typeColor;
+		}
 	}
 
 	[SerializeField]

@@ -115,8 +115,6 @@ public class CardHandler : MonoBehaviour
 
 		Node newNode = ensureComponent<Node>(nodeGameObject);
 		newNode.id = cardId;
-		newNode.so_Interactable = so_Interactable;
-		newNode.staticVariables = staticVariables;
 
 		ensureComponent<NodeCardQue>(nodeGameObject);
 		NodeProcess nodeProcess = ensureComponent<NodeProcess>(nodeGameObject);
