@@ -86,7 +86,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		}
 
 		List<BaseCard> newCardStackCards = new List<BaseCard> { this, draggingCard };
-		CardStack newStack = new CardStack(null, 0, new Vector3(0f, 14.5f, 0));
+		CardStack newStack = new CardStack(null, 0, Vector3.zero);
 		newStack.addCardsToStack(newCardStackCards);
 	}
 
