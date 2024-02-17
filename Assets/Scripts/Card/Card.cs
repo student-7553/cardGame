@@ -95,6 +95,7 @@ public class Card : BaseCard, IClickable
 		}
 
 		int fontSize = getFontSize(cardTitle);
+
 		titleTextMesh.fontSize = fontSize;
 		titleTextMesh.text = cardTitle;
 	}
