@@ -68,7 +68,7 @@
     },
     {
       "id": 7,
-      "name": "Titanium",
+      "name": "Titanium (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -134,7 +134,7 @@
     },
     {
       "id": 13,
-      "name": "Xenon fissure",
+      "name": "Xenon fissure (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
@@ -145,7 +145,7 @@
     },
     {
       "id": 14,
-      "name": "Xenon Gas",
+      "name": "Xenon Gas (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -178,7 +178,7 @@
     },
     {
       "id": 17,
-      "name": "Infinite water Deprecated",
+      "name": "Infinite water (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -189,7 +189,7 @@
     },
     {
       "id": 18,
-      "name": "Infinite stone Deprecated",
+      "name": "Infinite stone (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -222,7 +222,7 @@
     },
     {
       "id": 21,
-      "name": "Iron fabricator [Infinite Iron] deprecated",
+      "name": "Iron fabricator [Infinite Iron] (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -407,7 +407,7 @@
     },
     {
       "id": 39,
-      "name": "Hope",
+      "name": "Hope (Deprecated)",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -826,7 +826,7 @@
     },
     {
       "id": 2011,
-      "name": "[Idea][Node] Tychon oribtal space station",
+      "name": "[Idea][Node] Tychon oribtal space station (deprecated)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -1007,7 +1007,7 @@
     },
     {
       "id": 3004,
-      "name": "Tychon oribtal space station",
+      "name": "Tychon oribtal space station (Dperecated)",
       "type": "Node"
     },
     {

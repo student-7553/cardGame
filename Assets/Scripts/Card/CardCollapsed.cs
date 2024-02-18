@@ -206,7 +206,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		Destroy(gameObject);
 	}
 
-	public IEnumerator delayedDragFinish(BaseCard card)
+	private IEnumerator delayedDragFinish(BaseCard card)
 	{
 		Vector3 basePosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, HelperData.draggingBaseZ);
 		card.moveCard(basePosition);
@@ -214,7 +214,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		yield return null;
 		if (card != null)
 		{
-			LeftClickHandler.current.dragFinishHandler(new List<Interactable>() { card }, null);
+			LeftClickHandler.current.handleCardDrop(new List<Interactable>() { card }, null);
 		}
 	}
 

@@ -257,7 +257,7 @@ public class Node : MonoBehaviour, BaseNode
 		delayedDragFinish(cards);
 	}
 
-	public void delayedDragFinish(List<BaseCard> cards)
+	private void delayedDragFinish(List<BaseCard> cards)
 	{
 		Vector3 basePosition = new Vector3(
 			gameObject.transform.position.x,
@@ -283,7 +283,7 @@ public class Node : MonoBehaviour, BaseNode
 						interactable.isInteractiveDisabled = false;
 					}
 
-					LeftClickHandler.current.dragFinishHandler(new List<Interactable>(clonedCards), null);
+					LeftClickHandler.current.handleCardDrop(new List<Interactable>(clonedCards), null);
 				}
 			});
 	}

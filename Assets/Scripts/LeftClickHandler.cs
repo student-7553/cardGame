@@ -13,7 +13,6 @@ public class LeftClickHandler : MonoBehaviour
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
 
-	// public StaticVariables staticVariables;
 	private bool isHolding;
 
 	private float checkIntervel = 0.01f;
@@ -84,15 +83,27 @@ public class LeftClickHandler : MonoBehaviour
 
 	// ################ CUSTOM FUNCTION ################
 
+
+	private void handleInteractableHovering(Interactable interactableObject, int listCount)
+	{
+		interactableObject.gameObject.transform.position = new Vector3(
+			interactableObject.gameObject.transform.position.x,
+			interactableObject.gameObject.transform.position.y,
+			HelperData.draggingBaseZ - (listCount * 0.01f)
+		);
+
+		interactableObject.setSpriteHovering(true, Interactable.SpriteInteractable.hover);
+		if (interactableObject.isCardType())
+		{
+			interactableObject.isInteractiveDisabled = true;
+		}
+	}
+
 	private void handleHoldingInteractable(Interactable[] interactableObjects, Vector2 pressMousePosition)
 	{
-		foreach (Interactable interactableObject in interactableObjects)
+		for (int index = 0; index < interactableObjects.Length; index++)
 		{
-			interactableObject.gameObject.transform.position = new Vector3(
-				interactableObject.gameObject.transform.position.x,
-				interactableObject.gameObject.transform.position.y,
-				HelperData.draggingBaseZ
-			);
+			handleInteractableHovering(interactableObjects[index], index);
 		}
 
 		Node previousStackedNode =
@@ -105,8 +116,7 @@ public class LeftClickHandler : MonoBehaviour
 		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
 		Vector3 worldPoint = mainCamera.ScreenPointToRay(pressMousePosition).GetPoint(initialDistanceToCamera);
 
-		Vector2 bufferPoint = worldPoint - draggingObjects[0].gameObject.transform.position - new Vector3(0, 0.5f, 0);
-		Debug.Log(worldPoint);
+		Vector2 bufferPoint = draggingObjects[0].gameObject.transform.position - worldPoint + new Vector3(0, 0.5f, 0);
 
 		StartCoroutine(dragUpdate(draggingObjects, initialDistanceToCamera, bufferPoint, previousStackedNode));
 	}
@@ -122,24 +132,11 @@ public class LeftClickHandler : MonoBehaviour
 		float dragTimer = 0;
 		bool isMiddleLogicEnabled = this.isMiddleLogicEnabled(draggingObjects[0]);
 
-		foreach (Interactable singleDraggingObject in draggingObjects)
-		{
-			singleDraggingObject.setSpriteHovering(true, Interactable.SpriteInteractable.hover);
-		}
-
 		isHolding = true;
 		while (isHolding)
 		{
-			foreach (Interactable singleDraggingObject in draggingObjects)
-			{
-				if (singleDraggingObject.isCardType())
-				{
-					singleDraggingObject.isInteractiveDisabled = true;
-				}
-			}
-
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera) - new Vector3(bufferPoint.x, bufferPoint.y, 0);
+			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera) + new Vector3(bufferPoint.x, bufferPoint.y, 0);
 
 			moveInteractableObjects(movingToPoint, draggingObjects);
 
@@ -169,9 +166,16 @@ public class LeftClickHandler : MonoBehaviour
 				singleDraggingObject.isInteractiveDisabled = false;
 			}
 			singleDraggingObject.setSpriteHovering(false, Interactable.SpriteInteractable.hover);
+
+			singleDraggingObject.gameObject.transform.position =
+				new Vector3(
+					singleDraggingObject.gameObject.transform.position.x,
+					singleDraggingObject.gameObject.transform.position.y,
+					singleDraggingObject.gameObject.transform.position.z
+				) - new Vector3(0, 0.5f, 0);
 		}
 
-		dragFinishHandler(draggingObjects, previousStackedNode);
+		handleCardDrop(draggingObjects, previousStackedNode);
 	}
 
 	private bool handleMiddleLogic(Interactable rootInteractable, Vector3 initialPostionOfStack, List<Interactable> draggingObjects)
@@ -216,12 +220,8 @@ public class LeftClickHandler : MonoBehaviour
 			{
 				Interactable interactableGameObject = DragAndDropHelper.getInteractableFromGameObject(singleCard.gameObject);
 				draggingObjects.Add(interactableGameObject);
-				interactableGameObject.setSpriteHovering(true, Interactable.SpriteInteractable.hover);
-				singleCard.gameObject.transform.position = new Vector3(
-					singleCard.gameObject.transform.position.x,
-					singleCard.gameObject.transform.position.y,
-					HelperData.draggingBaseZ - ((draggingObjects.Count - 1) * 0.01f)
-				);
+
+				handleInteractableHovering(interactableGameObject, draggingObjects.Count - 1);
 			}
 		}
 	}
@@ -236,7 +236,7 @@ public class LeftClickHandler : MonoBehaviour
 		return rootCard.isStacked();
 	}
 
-	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
+	public void handleCardDrop(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
 		if (draggingObjects[0].isCardType())
 		{
