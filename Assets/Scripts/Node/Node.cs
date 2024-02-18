@@ -36,9 +36,19 @@ public class Node : MonoBehaviour, BaseNode
 				return;
 			}
 			Vector3 newScale = isHovering
-				? shadowSpriteRenderer.transform.localScale * 1.075f
-				: shadowSpriteRenderer.transform.localScale / 1.075f;
+				? shadowSpriteRenderer.transform.localScale + staticVariables.hoveringShadowAdjustment
+				: shadowSpriteRenderer.transform.localScale - staticVariables.hoveringShadowAdjustment;
+			;
 			shadowSpriteRenderer.transform.localScale = newScale;
+
+			Color adjustmentColor = new Color(
+				shadowSpriteRenderer.color.r,
+				shadowSpriteRenderer.color.b,
+				shadowSpriteRenderer.color.g,
+				isHovering ? shadowSpriteRenderer.color.a - 0.075f : shadowSpriteRenderer.color.a + 0.075f
+			);
+
+			shadowSpriteRenderer.color = adjustmentColor;
 		}
 	}
 

@@ -99,3 +99,4 @@ MonoBehaviour:
     color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
   - cardType: 6
     color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
+  hoveringShadowAdjustment: {x: -0.1, y: 0.1, z: 0}

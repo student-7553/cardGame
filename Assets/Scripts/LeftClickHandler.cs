@@ -63,7 +63,7 @@ public class LeftClickHandler : MonoBehaviour
 			return;
 		}
 
-		handleHoldingInteractable(holdInteractables);
+		handleHoldingInteractable(holdInteractables, pressMousePosition);
 	}
 
 	public void handleClickHoldEnd()
@@ -84,7 +84,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	// ################ CUSTOM FUNCTION ################
 
-	public void handleHoldingInteractable(Interactable[] interactableObjects)
+	private void handleHoldingInteractable(Interactable[] interactableObjects, Vector2 pressMousePosition)
 	{
 		foreach (Interactable interactableObject in interactableObjects)
 		{
@@ -102,14 +102,23 @@ public class LeftClickHandler : MonoBehaviour
 
 		List<Interactable> draggingObjects = new List<Interactable>(interactableObjects);
 
-		StartCoroutine(dragUpdate(draggingObjects, previousStackedNode));
+		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
+		Vector3 worldPoint = mainCamera.ScreenPointToRay(pressMousePosition).GetPoint(initialDistanceToCamera);
+
+		Vector2 bufferPoint = worldPoint - draggingObjects[0].gameObject.transform.position - new Vector3(0, 0.5f, 0);
+		Debug.Log(worldPoint);
+
+		StartCoroutine(dragUpdate(draggingObjects, initialDistanceToCamera, bufferPoint, previousStackedNode));
 	}
 
-	private IEnumerator dragUpdate(List<Interactable> draggingObjects, Node previousStackedNode)
+	private IEnumerator dragUpdate(
+		List<Interactable> draggingObjects,
+		float initialDistanceToCamera,
+		Vector2 bufferPoint,
+		Node previousStackedNode
+	)
 	{
-		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
 		Vector3 initialPostionOfStack = draggingObjects[0].gameObject.transform.position;
-
 		float dragTimer = 0;
 		bool isMiddleLogicEnabled = this.isMiddleLogicEnabled(draggingObjects[0]);
 
@@ -130,7 +139,7 @@ public class LeftClickHandler : MonoBehaviour
 			}
 
 			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera);
+			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera) - new Vector3(bufferPoint.x, bufferPoint.y, 0);
 
 			moveInteractableObjects(movingToPoint, draggingObjects);
 
@@ -227,24 +236,6 @@ public class LeftClickHandler : MonoBehaviour
 		return rootCard.isStacked();
 	}
 
-	public IEnumerator delayedDragFinish(List<BaseCard> cards, Node node)
-	{
-		for (int index = 0; index < cards.Count; index++)
-		{
-			cards[index].isInteractiveDisabled = false;
-		}
-
-		for (int index = 0; index < cards.Count; index++)
-		{
-			yield return new WaitForEndOfFrame();
-			if (cards[index] != null)
-			{
-				dragFinishHandler(new List<Interactable>() { cards[index] }, node);
-			}
-		}
-		// }
-	}
-
 	public void dragFinishHandler(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
 		if (draggingObjects[0].isCardType())
@@ -322,6 +313,7 @@ public class LeftClickHandler : MonoBehaviour
 			GameObject interactableGameObject = singleInteractable.gameObject;
 
 			Vector3 finalMovingPoint = new Vector3(movingToPoint.x, movingToPoint.y, interactableGameObject.transform.position.z);
+
 			PositionRestricted positionRestricted = singleInteractable as PositionRestricted;
 			if (positionRestricted != null)
 			{

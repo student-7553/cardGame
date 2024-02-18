@@ -66,4 +66,6 @@ public class StaticVariables : ScriptableObject
 	public List<TypeToColorMap> cardTextColors;
 
 	public List<TypeToColorMap> cardBackgroundColors;
+
+	public Vector3 hoveringShadowAdjustment;
 }
