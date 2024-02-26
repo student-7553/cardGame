@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cfac1112ddc624aa8de4705f0fd772, type: 3}
+  m_Name: Descriptions
+  m_EditorClassIdentifier: 
+  foodCardIds:
+  - cardIds: e9030000d4070000
+    description: 'Oasis in the Void: "In the depths of space, where resources are
+      scarce and life is a fragile thing, the hydroponic farm ring stands as a beacon
+      of hope. Its lush greenery and sparkling waters are a testament to human resilience,
+      a reminder that even in the vastness of the cosmos, life finds a way.'
+  - cardIds: 180000001e0000001f00000020000000
+    description: Within the desolate landscape of space, the Decrepit Module stands
+      as a forgotten oasis of life. Once a thriving center of hydroponic farming,
+      its broken infrastructure now barely clings to existence. Yet, amidst the cracked
+      concrete and crumbling metal, resilient plants continue to grow, their lush
+      greenery a stark contrast to the surrounding desolation. Though time has taken
+      its toll, the Decrepit Module remains a testament to the enduring spirit of
+      life, offering a glimmer of hope in a world consumed by darkness.
+  - cardIds: ea030000d5070000
+    description: Within the confines of the solar farm, the cycle of renewal unfolds
+      with each passing day. Sunlight is captured and transformed into energy, powering
+      the hopes and aspirations of generations to come. It's a beacon of human ingenuity
+      and our unwavering commitment to building a better world.
+  - cardIds: 160000002100000022000000230000002400000025000000
+    description: 'Faded Beacon of Promise: Once a beacon of promise amidst the cosmos,
+      the Desolate Solar Farm now stands as a haunting monument to humanity''s struggles.
+      Its once-gleaming panels lie shattered and dormant, casting long shadows across
+      the barren landscape.'
+  - cardIds: 02000000
+    description: 'Cosmic Relic of Ages Past: The Space Rock drifts silently through
+      the void, a relic of ages past. Its rugged surface bears the scars of countless
+      cosmic encounters, a testament to the resilience of celestial bodies against
+      the ravages of time. Though seemingly insignificant amidst the vastness of
+      space, the Space Rock serves as a reminder of the enduring nature of existence
+      and the potential for new beginnings.'
+  - cardIds: 03000000cd070000
+    description: 'Cosmic Foundation Bricks: Each brick a testament to our determination,
+      forged from the stardust of countless dreams. As they stack one upon the other,
+      they form the bedrock of our aspirations, defying the void with the promise
+      of a brighter tomorrow.'
+  - cardIds: 04000000
+    description: 'Frozen Reserve: Beneath the shimmering surface of ice, these deposits
+      conceal reservoirs of precious resources. Born from the cosmic dance of elements,
+      they offer sustenance to civilizations venturing into the frigid expanse of
+      space.'
+  - cardIds: 05000000
+    description: 'Stellar Lode: Deep within the celestial depths, these mineral deposits
+      gleam like distant stars, promising untold riches to those bold enough to harness
+      their potential. As miners delve into the cosmic abyss, they unearth treasures
+      forged in the crucible of creation itself.'
+  - cardIds: 0c000000
+    description: 'Asteroid Outcrop: Amidst the silent dance of celestial bodies,
+      these rocky deposits cling to the surface of asteroids like ancient sentinels.
+      Weathered by the cosmic winds, they bear witness to the ebb and flow of the
+      universe''s eternal dance.'
+  - cardIds: 08000000
+    description: 'Stellar Ember: Born from the heart of dying stars, these rubies
+      shimmer with the fiery remnants of cosmic cataclysms. Within their depths,
+      they hold the essence of celestial flames, offering a glimpse into the fiery
+      forge of creation.'
+  - cardIds: 09000000
+    description: 'Glacial Frost: Born from the depths of frozen realms, this ice
+      gleams like crystalline diamonds amidst the cosmic expanse. From the icy depths,
+      it whispers tales of ancient winters, offering a glimpse into the frozen heart
+      of the universe.'
+  - cardIds: 0a000000ce070000
+    description: 'Celestial Aquifer: Flowing through the cosmic veins of the universe,
+      this water shimmers with the brilliance of distant stars. From its crystalline
+      depths, it offers sustenance to civilizations traversing the vast expanse of
+      space.'
+  - cardIds: 0b000000d7070000
+    description: 'Galactic Iron: Scattered across the cosmos, this iron forms the
+      backbone of interstellar civilization. From its sturdy depths, it offers the
+      foundation upon which empires rise, forging pathways to greatness amidst the
+      cosmic chaos.'
+  - cardIds: 06000000
+    description: 'Astral Ferrite: Woven from the fabric of spacetime, this iron embodies
+      the resilience of the cosmos. From its sturdy depths, it offers civilizations
+      the strength to overcome adversity, forging a path towards a future bathed
+      in celestial glory.'
+  - cardIds: 0f000000e0070000
+    description: 'Cosmic Nano-Webs: Amidst the cosmic wilderness, these carbon nanotubes
+      serve as beacons of progress amidst the celestial chaos. From their flexible
+      depths, they offer civilizations the raw material needed to shape their destiny,
+      crafting a legacy that echoes throughout the infinite expanse of space.'
+  - cardIds: 10000000
+    description: 'Cosmic Sketching Material: Amidst the cosmic wilderness, this graphite
+      serves as the artist''s muse amidst the celestial chaos. From its versatile
+      depths, it offers civilizations the raw material needed to sketch their destiny,
+      crafting a masterpiece that echoes throughout the infinite expanse of space.'
+  - cardIds: 13000000190000001a000000cf070000
+    description: 'Resolve: "In the vast expanse of the cosmos, where challenges abound
+      and dangers lurk in every shadow, Resolve is the inner strength that propels
+      civilizations forward. It is the unwavering determination to persevere against
+      all odds, the courage to face the unknown, and the resilience to overcome adversity.
+      With Resolve at your command, you possess the willpower to shape the destiny
+      of your people and lead them towards a brighter future among the stars."'
+  - cardIds: 14000000
+    description: 'Cosmic Tenacity: Woven from the fabric of determination, this grit
+      embodies the unwavering resolve of civilizations reaching for the stars. From
+      its resilient depths, it offers the strength needed to overcome any obstacle,
+      guiding humanity towards a destiny illuminated by hope.'
+  - cardIds: 1b000000e1070000
+    description: '"The Terraforming Initiative is an ambitious endeavor aimed at
+      transforming a barren planet into a habitable world teeming with life. Through
+      the concerted efforts of scientists, engineers, and pioneers, this grand project
+      harnesses advanced technology and innovative methods to reshape the landscape,
+      regulate the atmosphere, and introduce sustainable ecosystems. Slowly but steadily,
+      the once desolate world begins to bloom with verdant forests, flowing rivers,
+      and thriving wildlife, offering new hope and opportunity for future generations
+      seeking to colonize the stars."'
+  - cardIds: 1c000000
+    description: '"The Singular Thought represents a profound moment of clarity and
+      insight amidst the vast expanse of the cosmos. It is the crystallization of
+      a singular idea or concept that has the power to shape the course of civilizations.
+      Whether it''s a groundbreaking scientific theory, a revolutionary philosophy,
+      or a visionary invention, the Singular Thought sparks innovation and progress,
+      guiding societies toward new frontiers of knowledge and understanding. With
+      its potential to inspire greatness and change the course of history, the Singular
+      Thought is a precious asset coveted by leaders and thinkers across the galaxy."'
+  - cardIds: 26000000e3070000
+    description: '"The Haven is the culmination of centuries of tireless effort and
+      ingenuity, transforming a once-barren world into a vibrant oasis of life and
+      opportunity. Through meticulous terraforming efforts and careful ecological
+      management, this planet now boasts lush forests, sparkling lakes, and bustling
+      cities. Its fertile soil yields abundant harvests, while its clear skies and
+      temperate climate provide a haven for settlers and pioneers seeking a new beginning
+      among the stars. The Haven stands as a testament to the resilience and determination
+      of humanity, offering a promising future for generations to come."'
+  - cardIds: eb030000ca070000
+    description: 'Cosmic Quest: Embark on a journey of discovery and possibility
+      as you lead a local expedition. With determination in your heart and hope in
+      your eyes, you navigate the planets wilderness, forging a path towards a brighter
+      tomorrow.'
+  - cardIds: ec030000c9070000dc070000
+    description: 'Stellar Exploration: Venture forth into the unknown cosmos, where
+      every star holds the promise of new beginnings and untold wonders. With courage
+      as your guide and resilience as your companion, you chart a course through
+      the cosmic expanse, seeking to unlock the secrets of the universe.'
+  - cardIds: ed030000d6070000
+    description: 'Cosmic Foundry: At the heart of our interstellar civilization lies
+      the cosmic foundry, where raw materials are shaped by the fires of ingenuity
+      and perseverance. Here, amidst the celestial glow, we forge the tools of progress
+      and build the foundations of a brighter tomorrow.'
+  - cardIds: 4d040000ea07000017000000
+    description: 'Unity Beacon: "In the vast expanse of space, our beacon of unity
+      shines brightest. Together, we stand as a testament to the strength found in
+      harmony and cooperation."'
+  - cardIds: b80b0000d0070000
+    description: 'Pioneer Outpost: "Nestled on the fringe of the unknown, our Pioneer
+      Outpost serves as a humble beacon of civilization amidst the vast expanse of
+      space."'
+  - cardIds: b90b0000d1070000
+    description: 'Cosmic Habitat: "In the vast expanse of space, our Cosmic Habitat
+      stands as a testament to human ingenuity. Within its transparent walls, a world
+      of possibility unfolds, offering shelter and sustenance to those who dare to
+      dream."'
+  - cardIds: ba0b0000d2070000
+    description: 'Stellar Bastion: "Our Stellar Bastion stands firm, a fortress of
+      resilience against the tides of fate. Within its clustered domes, we nurture
+      the flames of hope, forging a path towards a brighter future."'
+  - cardIds: bb0b0000d3070000
+    description: 'Galactic Exchange Hub: "Welcome to the heart of commerce in the
+      cosmos! This bustling marketplace thrives with traders from every corner of
+      the galaxy, offering exotic goods, advanced technologies, and lucrative deals
+      for those who dare to negotiate."'
+  - cardIds: 10270000
+    description: 'Cosmic Credit: "A shimmering token of economic prowess, this single
+      gold coin represents wealth and influence across the galaxy. Whether used for
+      trade, bribes, or investments, its value transcends planetary boundaries, making
+      it a coveted asset among spacefaring civilizations."'
+  - cardIds: 742700007527000076270000
+    description: 'Cosmic Currents: "Harness the raw power of the cosmos with Cosmic
+      Currents. This card represents the electrifying energy flowing through the
+      fabric of space itself, providing the lifeblood for advanced technologies,
+      interstellar travel, and the very sustenance of civilization."'
+  - cardIds: 204e0000
+    description: '"The Starfire Striker is a versatile combat craft, engineered for
+      effectiveness in space skirmishes. With reliable targeting systems and nimble
+      maneuvering, this fighter silently engages enemy vessels, delivering calculated
+      strikes before swiftly withdrawing from danger. Respected for its tactical
+      utility, the Starfire Striker contributes to the defense of allied fleets across
+      the cosmos."'
+  - cardIds: 08520000095200000a520000
+    description: '"The Enemy Skirmisher is a utilitarian craft, designed for stealthy
+      reconnaissance and hit-and-run tactics. Equipped with basic stealth systems
+      and agile maneuvering capabilities, this solitary vessel quietly probes the
+      void, striking opportunistically before retreating into the shadows, leaving
+      little evidence of its presence behind."'
+  - cardIds: cb070000
+    description: 'Celestial Grain: "Harvested from the fields of distant planets,
+      Celestial Grain is a staple food source for spacefarers. Its neutral taste
+      and high nutritional value make it a reliable choice for sustaining life during
+      long voyages through the cosmos."'
