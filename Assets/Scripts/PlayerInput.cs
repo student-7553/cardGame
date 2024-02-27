@@ -73,6 +73,7 @@ public class PlayerInput : MonoBehaviour
 	public void leftMousePress(InputAction.CallbackContext context)
 	{
 		cachedMousePosition = Mouse.current.position.ReadValue();
+		LeftClickHandler.current.handlePress();
 	}
 
 	public void leftMouseButtonCanceled(InputAction.CallbackContext context)

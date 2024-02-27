@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
+	public Descriptions descriptions;
 
 	public SO_PlayerRuntime playerRuntime;
 	public SO_Interactable so_Interactable;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 		current = this;
 		DontDestroyOnLoad(gameObject);
 
-		CardDictionary.init();
+		CardDictionary.init(descriptions);
 		handleNewStart();
 
 		gameSettings();

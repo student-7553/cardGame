@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using Core;
 using Helpers;
 using System.Linq;
-using UnityEngine.UIElements;
 
 public class LeftClickHandler : MonoBehaviour
 {
@@ -68,6 +67,18 @@ public class LeftClickHandler : MonoBehaviour
 	public void handleClickHoldEnd()
 	{
 		isHolding = false;
+	}
+
+	public void handlePress()
+	{
+		Vector2 mousePosition = Mouse.current.position.ReadValue();
+		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
+		if (hitGameObject == null)
+		{
+			return;
+		}
+
+		hitGameObject.GetComponent<IMousePress>()?.OnPress();
 	}
 
 	public void handleClick()

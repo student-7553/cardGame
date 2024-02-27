@@ -22,6 +22,11 @@ namespace Core
 		public Interactable[] getMouseHoldInteractables();
 	}
 
+	public interface IMousePress
+	{
+		void OnPress();
+	}
+
 	public interface Interactable : IMouseHoldable
 	{
 		public bool isInteractiveDisabled { get; set; }
@@ -152,6 +157,7 @@ namespace Core
 		public float nodeTransferTimeCost;
 		public int foodCost;
 		public CardModuleObject module;
+		public string description;
 	}
 
 	[System.Serializable]

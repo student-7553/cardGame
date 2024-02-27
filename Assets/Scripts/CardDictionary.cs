@@ -8,13 +8,13 @@ public static class CardDictionary
 	public static Dictionary<int, CardObject> globalCardDictionary = new Dictionary<int, CardObject>();
 	public static Dictionary<int, List<RawProcessObject>> globalProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
 
-	public static void init()
+	public static void init(Descriptions descriptions)
 	{
-		globalCardDictionary = getNewCardDictionary();
+		globalCardDictionary = getNewCardDictionary(descriptions);
 		globalProcessDictionary = getNewProcessDictionary();
 	}
 
-	private static Dictionary<int, CardObject> getNewCardDictionary()
+	private static Dictionary<int, CardObject> getNewCardDictionary(Descriptions descriptions)
 	{
 		Dictionary<int, CardObject> newCardDictionary = new Dictionary<int, CardObject>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/card");
@@ -24,7 +24,8 @@ public static class CardDictionary
 
 		foreach (RawCardObject singleCard in reversedListOfCards)
 		{
-			CardObject newObject = processRawCardObject(singleCard);
+			string cardDescription = descriptions.foodCardIds.Find((single) => single.cardIds.Contains(singleCard.id)).description;
+			CardObject newObject = processRawCardObject(singleCard, cardDescription);
 			newCardDictionary.Add(singleCard.id, newObject);
 		}
 		return newCardDictionary;
@@ -51,7 +52,7 @@ public static class CardDictionary
 		return newProcessDictionary;
 	}
 
-	private static CardObject processRawCardObject(RawCardObject rawCardObject)
+	private static CardObject processRawCardObject(RawCardObject rawCardObject, string description)
 	{
 		CardObject newEntry = new CardObject
 		{
@@ -63,7 +64,8 @@ public static class CardDictionary
 			sellingPrice = rawCardObject.sellingPrice,
 			typeValue = rawCardObject.typeValue,
 			nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost,
-			foodCost = rawCardObject.foodCost
+			foodCost = rawCardObject.foodCost,
+			description = description,
 		};
 
 		switch (rawCardObject.type)
