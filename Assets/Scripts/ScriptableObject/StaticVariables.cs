@@ -68,4 +68,6 @@ public class StaticVariables : ScriptableObject
 	public List<TypeToColorMap> cardBackgroundColors;
 
 	public Vector3 hoveringShadowAdjustment;
+
+	public float nodeProcessTimeDecreaseTick;
 }

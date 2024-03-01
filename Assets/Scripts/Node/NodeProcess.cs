@@ -20,6 +20,8 @@ public class NodeProcess : MonoBehaviour
 
 	public SO_PlayerRuntime playerRuntime;
 
+	public StaticVariables staticVariables;
+
 	public void Awake()
 	{
 		isProccessing = false;
@@ -184,6 +186,16 @@ public class NodeProcess : MonoBehaviour
 		return true;
 	}
 
+	public void handleProcessDecreaseTick()
+	{
+		if (!isProccessing || proccessingLeft <= 0f)
+		{
+			return;
+		}
+
+		proccessingLeft = proccessingLeft - staticVariables.nodeProcessTimeDecreaseTick;
+	}
+
 	private List<RawProcessObject> getAvailableProcesses(List<int> cardIds, int nodeId)
 	{
 		List<RawProcessObject> possibleProcesses = new List<RawProcessObject>();
@@ -297,23 +309,18 @@ public class NodeProcess : MonoBehaviour
 		while (proccessingLeft > 0)
 		{
 			yield return new WaitForSeconds(1);
-			// proccessingLeft = proccessingLeft - 1;
 			proccessingLeft = proccessingLeft - playerRuntime.gameTimeScale;
 
-			if (proccessingLeft > node.staticVariables.bufferProcessingTime)
+			if (proccessingLeft > node.staticVariables.bufferProcessingTime && node.nodeStats.currentNodeStats.currentElectricity > 0)
 			{
-				// Is not in the buffer zone
-				if (node.nodeStats.currentNodeStats.currentElectricity > 0)
-				{
-					// electricity got updated
-					int electricityRemove = getElectricityToRemoveFromProcessTime(
-						(int)proccessingLeft,
-						node.nodeStats.currentNodeStats.currentElectricity,
-						isCombo
-					);
-					StartCoroutine(queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
-					proccessingLeft = proccessingLeft - electricityToTime(electricityRemove);
-				}
+				// electricity got updated
+				int electricityRemove = getElectricityToRemoveFromProcessTime(
+					(int)proccessingLeft,
+					node.nodeStats.currentNodeStats.currentElectricity,
+					isCombo
+				);
+				StartCoroutine(queUpTypeDeletion(CardsTypes.Electricity, electricityRemove, 0, null));
+				proccessingLeft = proccessingLeft - electricityToTime(electricityRemove);
 			}
 		}
 

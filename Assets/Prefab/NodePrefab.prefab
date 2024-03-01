@@ -422,6 +422,7 @@ MonoBehaviour:
   shadowSpriteRenderer: {fileID: 4357375423791950718}
   nodeMagnetizeCircle: {fileID: 0}
   so_Interactable: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
+  playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
   staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
   borderSpriteRenderer: {fileID: 4917147704502800152}
   backgroundSpriteRenderer: {fileID: 456339983806786452}
@@ -454,6 +455,7 @@ MonoBehaviour:
   isProccessing: 0
   proccessingLeft: 0
   playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
+  staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
 --- !u!1 &5000079141935667772
 GameObject:
   m_ObjectHideFlags: 0

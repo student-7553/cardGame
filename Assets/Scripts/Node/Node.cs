@@ -104,6 +104,8 @@ public class Node : MonoBehaviour, BaseNode, IMousePress
 
 	public SO_Interactable so_Interactable;
 
+	public SO_PlayerRuntime playerRuntime;
+
 	public StaticVariables staticVariables;
 
 	// -------------------- Node Stats -------------------------
@@ -207,6 +209,7 @@ public class Node : MonoBehaviour, BaseNode, IMousePress
 
 	public void OnClick()
 	{
+		playerRuntime.changePlayerFocusingCardId(id);
 		if (nodePlaneManager.gameObject.activeSelf == true)
 		{
 			nodePlaneManager.gameObject.SetActive(false);
