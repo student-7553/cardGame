@@ -6,8 +6,10 @@ using System.Collections.Generic;
 public class SO_PlayerRuntime : ScriptableObject
 {
 	public float gameTimeScale;
-
 	private int playerFocusingCardId;
+
+	private bool isOptionMenuEnabled = false;
+
 	private List<Action> playerFocusAction = new List<Action>();
 
 	public void registerActionToPlayerFocus(Action newAction)
@@ -27,5 +29,23 @@ public class SO_PlayerRuntime : ScriptableObject
 	public int getPlayerFocusingCardId()
 	{
 		return playerFocusingCardId;
+	}
+
+	public void toggleOptionMenu()
+	{
+		isOptionMenuEnabled = !isOptionMenuEnabled;
+		if (isOptionMenuEnabled)
+		{
+			gameTimeScale = 0f;
+		}
+		else
+		{
+			gameTimeScale = 1f;
+		}
+	}
+
+	public bool getIsOptionMenuEnabled()
+	{
+		return isOptionMenuEnabled;
 	}
 }

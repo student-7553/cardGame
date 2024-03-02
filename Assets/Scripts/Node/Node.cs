@@ -6,14 +6,9 @@ using Helpers;
 using DG.Tweening;
 using System;
 
-public class Node : MonoBehaviour, BaseNode, IMousePress
+public class Node : MonoBehaviour, BaseNode
 {
 	public Vector3 currentVelocity;
-
-	public void OnPress()
-	{
-		Debug.Log("are we called..");
-	}
 
 	public bool isCardType()
 	{

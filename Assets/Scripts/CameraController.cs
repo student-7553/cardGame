@@ -17,6 +17,9 @@ public class CameraController : MonoBehaviour
 
 	private float initialZoom;
 
+	// public bool isCameraMovementDisabled;
+	public SO_PlayerRuntime playerRuntime;
+
 	public void adjustZoom(float zoomValue)
 	{
 		float newZoomvalue = currentZoom + zoomValue;
@@ -94,6 +97,10 @@ public class CameraController : MonoBehaviour
 
 	private void handleCameraMovement()
 	{
+		if (playerRuntime.getIsOptionMenuEnabled())
+		{
+			return;
+		}
 		Vector2 cameraMovement = new Vector2(
 			Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration),
 			Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration)
@@ -126,11 +133,6 @@ public class CameraController : MonoBehaviour
 		{
 			cameraMovement = cameraMovement + new Vector2(staticVariables.cornerPoints.right - newCameraCornerPoints.right, 0);
 		}
-
-		// if (currentAcceleration == Vector2.zero)
-		// {
-		// 	return;
-		// }
 
 		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(cameraMovement.x, cameraMovement.y);
 		mainCamera.gameObject.transform.position = newCameraPosition;

@@ -15,6 +15,7 @@ public class SO_Interactable : ScriptableObject
 	public void registerCard(Card newCard)
 	{
 		cards.Add(newCard);
+		//Todo call the newCardActionss
 	}
 
 	public void registerNode(Node nodeCard)
