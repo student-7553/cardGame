@@ -1,4 +1,3 @@
-using UnityEngine;
 using TMPro;
 
 public class UI_TopLeftEntry_2 : TopLeftEntry
@@ -7,7 +6,7 @@ public class UI_TopLeftEntry_2 : TopLeftEntry
 	public TextMeshProUGUI textField2;
 	public TextMeshProUGUI textField3;
 
-	public override void show(int currentCardId)
+	public override void Show(int currentCardId)
 	{
 		textField.text = $"{CardDictionary.globalCardDictionary[currentCardId].resourceInventoryCount}";
 
@@ -22,11 +21,11 @@ public class UI_TopLeftEntry_2 : TopLeftEntry
 			textField3.text = "";
 		}
 
-		gameObject.SetActive(true);
+		gameObject?.SetActive(true);
 	}
 
-	public override void hide()
+	public override void Hide()
 	{
-		gameObject.SetActive(false);
+		gameObject?.SetActive(false);
 	}
 }

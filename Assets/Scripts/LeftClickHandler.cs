@@ -8,7 +8,7 @@ using System.Linq;
 
 public class LeftClickHandler : MonoBehaviour
 {
-	private Camera mainCamera;
+	// private Camera Camera.main;
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
 
@@ -27,12 +27,17 @@ public class LeftClickHandler : MonoBehaviour
 
 		string[] layerNames = { "Interactable", "EnemyInteractable" };
 		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
-		mainCamera = Camera.main;
+		// Debug.Log("Start are we called..");
 	}
+
+	// private void OnEnable()
+	// {
+	// 	Debug.Log("Start are we called.. eanbled");
+	// }
 
 	private GameObject getMouseCloseGameObject(Vector2 mousePosition)
 	{
-		Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 		RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 40, baseInteractableLayerMask);
 		if (hit.collider == null)
 		{
@@ -124,8 +129,8 @@ public class LeftClickHandler : MonoBehaviour
 
 		List<Interactable> draggingObjects = new List<Interactable>(interactableObjects);
 
-		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, mainCamera.transform.position);
-		Vector3 worldPoint = mainCamera.ScreenPointToRay(pressMousePosition).GetPoint(initialDistanceToCamera);
+		float initialDistanceToCamera = Vector3.Distance(draggingObjects[0].gameObject.transform.position, Camera.main.transform.position);
+		Vector3 worldPoint = Camera.main.ScreenPointToRay(pressMousePosition).GetPoint(initialDistanceToCamera);
 
 		Vector2 bufferPoint = draggingObjects[0].gameObject.transform.position - worldPoint + new Vector3(0, 0.5f, 0);
 
@@ -146,7 +151,7 @@ public class LeftClickHandler : MonoBehaviour
 		isHolding = true;
 		while (isHolding)
 		{
-			Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+			Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 			Vector3 movingToPoint = ray.GetPoint(initialDistanceToCamera) + new Vector3(bufferPoint.x, bufferPoint.y, 0);
 
 			moveInteractableObjects(movingToPoint, draggingObjects);

@@ -15,6 +15,7 @@ public class SO_PlayerRuntime : ScriptableObject
 
 	public void registerActionToPlayerFocus(Action newAction)
 	{
+		playerFocusAction.Clear();
 		playerFocusAction.Add(newAction);
 	}
 

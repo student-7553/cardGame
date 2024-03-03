@@ -9,12 +9,12 @@ public class UI_TopLeftEntry_1 : TopLeftEntry
 	public TextMeshProUGUI textField;
 	public TextMeshProUGUI textField2;
 
-	public override void hide()
+	public override void Hide()
 	{
 		gameObject.SetActive(false);
 	}
 
-	public override void show(int currentCardId)
+	public override void Show(int currentCardId)
 	{
 		RawProcessObject process = getTracedProcess(currentCardId);
 		if (process == null)

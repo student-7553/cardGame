@@ -23,6 +23,14 @@ public class UI_OptionsMenu : MonoBehaviour
 		}
 	}
 
+	private void OnEnable()
+	{
+		if (playerRuntime.getIsOptionMenuEnabled())
+		{
+			playerRuntime.toggleOptionMenu();
+		}
+	}
+
 	private void handleEnable()
 	{
 		mainObject.SetActive(true);

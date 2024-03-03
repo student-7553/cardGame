@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public abstract class TopLeftEntry : MonoBehaviour
+public class TopLeftEntry : MonoBehaviour
 {
-	public abstract void show(int currentCardIdk);
+	public virtual void Show(int currentCardIdk) { }
 
-	public abstract void hide();
+	public virtual void Hide() { }
 }
 
 public class UI_TopLeftHandler : MonoBehaviour
@@ -16,7 +16,6 @@ public class UI_TopLeftHandler : MonoBehaviour
 	public List<TextMeshProUGUI> textFields;
 
 	public TopLeftEntry entry1;
-
 	public TopLeftEntry entry2;
 
 	public SO_PlayerRuntime playerRuntime;
@@ -44,13 +43,13 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 		if (CardDictionary.globalCardDictionary[currentCardId].type == Core.CardsTypes.Idea)
 		{
-			entry1.show(currentCardId);
-			entry2.hide();
+			entry1?.Show(currentCardId);
+			entry2?.Hide();
 		}
 		else
 		{
-			entry2.show(currentCardId);
-			entry1.hide();
+			entry2?.Show(currentCardId);
+			entry1?.Hide();
 		}
 	}
 }

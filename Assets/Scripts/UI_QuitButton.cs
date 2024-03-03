@@ -5,6 +5,6 @@ public class UI_QuitButton : MonoBehaviour
 {
 	public void Clicked()
 	{
-		SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
+		SceneManager.LoadScene(0, LoadSceneMode.Single);
 	}
 }

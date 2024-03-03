@@ -4,9 +4,9 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager current;
 
-	private GameObject[] cards;
-	private GameObject[] nodes;
-	private GameObject[] enemyNodes;
+	// private GameObject[] cards;
+	// private GameObject[] nodes;
+	// private GameObject[] enemyNodes;
 
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
@@ -26,10 +26,14 @@ public class GameManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 
 		CardDictionary.init(descriptions);
-		handleNewStart();
-
 		gameSettings();
-		findTempLogic();
+		// startGame();
+	}
+
+	public void startGame()
+	{
+		handleNewStart();
+		// findTempLogic();
 		AwakeGameLogic();
 		gameFoodManager = new GameFoodManager { food = 0 };
 	}
@@ -52,6 +56,12 @@ public class GameManager : MonoBehaviour
 
 	private void AwakeGameLogic()
 	{
+		GameObject[] cards = GameObject.FindGameObjectsWithTag("Cards");
+
+		GameObject[] nodes = GameObject.FindGameObjectsWithTag("Nodes");
+
+		GameObject[] enemyNodes = GameObject.FindGameObjectsWithTag("EnemyNodes");
+
 		foreach (GameObject singleCard in cards)
 		{
 			StaticData cardData = singleCard.GetComponent(typeof(StaticData)) as StaticData;
@@ -80,24 +90,6 @@ public class GameManager : MonoBehaviour
 			{
 				CardHandler.current.createEnemyNode(nodeData.id, singleEnemyNode);
 			}
-		}
-	}
-
-	public void findTempLogic()
-	{
-		if (cards == null)
-		{
-			cards = GameObject.FindGameObjectsWithTag("Cards");
-		}
-
-		if (nodes == null)
-		{
-			nodes = GameObject.FindGameObjectsWithTag("Nodes");
-		}
-
-		if (enemyNodes == null)
-		{
-			enemyNodes = GameObject.FindGameObjectsWithTag("EnemyNodes");
 		}
 	}
 

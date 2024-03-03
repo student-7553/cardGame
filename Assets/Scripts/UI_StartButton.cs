@@ -5,6 +5,6 @@ public class UI_StartButton : MonoBehaviour
 {
 	public void Clicked()
 	{
-		SceneManager.LoadScene("main", LoadSceneMode.Single);
+		SceneManager.LoadScene(1, LoadSceneMode.Single);
 	}
 }
