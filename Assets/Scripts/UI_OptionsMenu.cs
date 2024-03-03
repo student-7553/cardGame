@@ -3,7 +3,9 @@ using UnityEngine;
 public class UI_OptionsMenu : MonoBehaviour
 {
 	public SO_PlayerRuntime playerRuntime;
-	public GameObject mainObject;
+
+	[SerializeField]
+	private GameObject mainObject;
 
 	void FixedUpdate()
 	{

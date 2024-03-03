@@ -9,6 +9,7 @@ public class SO_PlayerRuntime : ScriptableObject
 	private int playerFocusingCardId;
 
 	private bool isOptionMenuEnabled = false;
+	private bool isMuted = false;
 
 	private List<Action> playerFocusAction = new List<Action>();
 
@@ -47,5 +48,15 @@ public class SO_PlayerRuntime : ScriptableObject
 	public bool getIsOptionMenuEnabled()
 	{
 		return isOptionMenuEnabled;
+	}
+
+	public void toggleIsMuted()
+	{
+		isMuted = !isMuted;
+	}
+
+	public bool getIsMuted()
+	{
+		return isMuted;
 	}
 }
