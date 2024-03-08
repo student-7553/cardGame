@@ -18,6 +18,11 @@ public class SO_Interactable : ScriptableObject
 		//Todo call the newCardActionss
 	}
 
+	public void clearCards()
+	{
+		cards.Clear();
+	}
+
 	public void registerNode(Node nodeCard)
 	{
 		nodes.Add(nodeCard);

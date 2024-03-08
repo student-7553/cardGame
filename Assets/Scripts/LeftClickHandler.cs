@@ -8,9 +8,9 @@ using System.Linq;
 
 public class LeftClickHandler : MonoBehaviour
 {
-	// private Camera Camera.main;
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
+	public SO_Audio soAudio;
 
 	private bool isHolding;
 
@@ -27,13 +27,7 @@ public class LeftClickHandler : MonoBehaviour
 
 		string[] layerNames = { "Interactable", "EnemyInteractable" };
 		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
-		// Debug.Log("Start are we called..");
 	}
-
-	// private void OnEnable()
-	// {
-	// 	Debug.Log("Start are we called.. eanbled");
-	// }
 
 	private GameObject getMouseCloseGameObject(Vector2 mousePosition)
 	{
@@ -92,6 +86,7 @@ public class LeftClickHandler : MonoBehaviour
 		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
 		if (hitGameObject == null)
 		{
+			soAudio.groundClickAudioAction?.Invoke();
 			return;
 		}
 		hitGameObject.GetComponent<IClickable>()?.OnClick();

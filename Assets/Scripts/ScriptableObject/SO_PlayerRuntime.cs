@@ -19,6 +19,11 @@ public class SO_PlayerRuntime : ScriptableObject
 		playerFocusAction.Add(newAction);
 	}
 
+	public void unRegisterAction(Action targetAction)
+	{
+		playerFocusAction.Remove(targetAction);
+	}
+
 	public void changePlayerFocusingCardId(int playerFocusingCardId)
 	{
 		this.playerFocusingCardId = playerFocusingCardId;

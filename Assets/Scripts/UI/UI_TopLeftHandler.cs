@@ -29,6 +29,11 @@ public class UI_TopLeftHandler : MonoBehaviour
 		playerRuntime.registerActionToPlayerFocus(focusCardIdChanged);
 	}
 
+	private void OnDestroy()
+	{
+		playerRuntime.unRegisterAction(focusCardIdChanged);
+	}
+
 	public void focusCardIdChanged()
 	{
 		currentCardId = playerRuntime.getPlayerFocusingCardId();

@@ -8,6 +8,6 @@ public class Test_FoodInjector : MonoBehaviour
 
 	void Start()
 	{
-		GameManager.current.gameFoodManager.addFood(injectFoodValue);
+		GameManager.current.gameFoodManager?.addFood(injectFoodValue);
 	}
 }
