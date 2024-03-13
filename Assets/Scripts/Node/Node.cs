@@ -113,6 +113,8 @@ public class Node : MonoBehaviour, BaseNode
 	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
 
+	public SO_Audio soAudio;
+
 	public int _id;
 
 	public int id
@@ -204,6 +206,8 @@ public class Node : MonoBehaviour, BaseNode
 
 	public void OnClick()
 	{
+		soAudio.cardClickAudioAction?.Invoke();
+
 		playerRuntime.changePlayerFocusingCardId(id);
 		if (nodePlaneManager.gameObject.activeSelf == true)
 		{

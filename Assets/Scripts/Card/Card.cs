@@ -6,6 +6,7 @@ public class Card : BaseCard, IClickable
 {
 	public SO_PlayerRuntime playerRuntime;
 	public SO_Interactable so_Interactable;
+	public SO_Audio soAudio;
 
 	public override Card getCard()
 	{
@@ -15,6 +16,7 @@ public class Card : BaseCard, IClickable
 	// -------------------- START Clickable Members -------------------------
 	public void OnClick()
 	{
+		soAudio.cardClickAudioAction?.Invoke();
 		playerRuntime.changePlayerFocusingCardId(id);
 	}
 

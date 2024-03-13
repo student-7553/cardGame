@@ -70,4 +70,6 @@ public class StaticVariables : ScriptableObject
 	public Vector3 hoveringShadowAdjustment;
 
 	public float nodeProcessTimeDecreaseTick;
+
+	public Vector2Int backgroundMusicPlayIntervals;
 }

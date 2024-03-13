@@ -53,6 +53,7 @@ public class LeftClickHandler : MonoBehaviour
 		{
 			return;
 		}
+		soAudio.cardHoldAudioAction?.Invoke();
 
 		Interactable[] holdInteractables = interactableObject.getMouseHoldInteractables();
 		if (holdInteractables == null || holdInteractables.Length == 0 || holdInteractables[0].isInteractiveDisabled)
@@ -89,6 +90,7 @@ public class LeftClickHandler : MonoBehaviour
 			soAudio.groundClickAudioAction?.Invoke();
 			return;
 		}
+
 		hitGameObject.GetComponent<IClickable>()?.OnClick();
 	}
 
@@ -186,6 +188,7 @@ public class LeftClickHandler : MonoBehaviour
 				) - new Vector3(0, 0.5f, 0);
 		}
 
+		soAudio.cardDropAudioAction?.Invoke();
 		handleCardDrop(draggingObjects, previousStackedNode);
 	}
 

@@ -21,6 +21,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public TextMeshPro collapsedCountTextMesh;
 
+	public SO_Audio soAudio;
+
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
 	public override CardCollapsed getCollapsedCard()
@@ -36,6 +38,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	// -------------------- START Clickable Members -------------------------
 	public void OnClick()
 	{
+		soAudio.cardClickAudioAction?.Invoke();
+
 		if (cardCollapsedPlaneHandler.gameObject.activeSelf == true)
 		{
 			cardCollapsedPlaneHandler.gameObject.SetActive(false);

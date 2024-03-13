@@ -426,6 +426,7 @@ MonoBehaviour:
   staticVariables: {fileID: 11400000, guid: 8531e2c1e295ba0418047f3d3d3d65d8, type: 2}
   borderSpriteRenderer: {fileID: 4917147704502800152}
   backgroundSpriteRenderer: {fileID: 456339983806786452}
+  soAudio: {fileID: 11400000, guid: 4a05702a3d66f1947bd5f42bf62ff451, type: 2}
   _id: 0
 --- !u!114 &2509289101251820015
 MonoBehaviour:

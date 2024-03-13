@@ -13,8 +13,11 @@ public enum SFX_types
 public class SO_Audio : ScriptableObject
 {
 	public Action groundClickAudioAction;
+
 	public Action cardClickAudioAction;
+
 	public Action cardHoldAudioAction;
+
 	public Action cardDropAudioAction;
 
 	public void registerToAction(SFX_types type, Action action)
