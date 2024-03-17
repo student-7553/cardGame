@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d78a7f15ead4544db2a3501cf0487bd, type: 3}
+  m_Name: SO_CardImage
+  m_EditorClassIdentifier: 
+  cardImageeEntries:
+  - cardIds: 10270000
+    sprite: {fileID: 21300000, guid: 01240f1dd9ab885459b1c50ec9aef0d7, type: 3}
+  - cardIds: 11270000
+    sprite: {fileID: 21300000, guid: 937e413c37fa7ee43a9eecc74854fb58, type: 3}
+  - cardIds: 1227000013270000
+    sprite: {fileID: 21300000, guid: bbe0574edead742469d2ea458fb44221, type: 3}
+  - cardIds: 03000000cd070000
+    sprite: {fileID: 21300000, guid: 4658f349100595a4eb0facec51f62b9a, type: 3}
+  - cardIds: 742700007527000076270000cc070000
+    sprite: {fileID: 21300000, guid: 6682ef841656e2345bc2a031bab17103, type: 3}
+  - cardIds: 08520000095200000a520000
+    sprite: {fileID: 21300000, guid: 2c70f70b2ae50cf4e98f64146e8dd61f, type: 3}
+  - cardIds: cb070000
+    sprite: {fileID: 21300000, guid: ece00b63d2199014ca21fccba97e6133, type: 3}
+  - cardIds: d6070000ed030000
+    sprite: {fileID: 21300000, guid: 41800c13fbc396b43a4ac6a684509cd0, type: 3}
+  - cardIds: 04000000
+    sprite: {fileID: 21300000, guid: f66513f7ba5132c4a9add5cd3fb2b656, type: 3}
+  - cardIds: ec030000c9070000dc070000
+    sprite: {fileID: 21300000, guid: 5a4827dbc6379e6498824d6f5f358ff8, type: 3}
+  - cardIds: 10000000
+    sprite: {fileID: 21300000, guid: 9ef7cff0aa074fa4fb22baccd7c8ef0b, type: 3}
+  - cardIds: 1b000000
+    sprite: {fileID: 21300000, guid: 9673a34d6c5de0b46a5443d974779e06, type: 3}
+  - cardIds: 14000000
+    sprite: {fileID: 21300000, guid: 508b1d421c3120044ba8b697c98ee329, type: 3}
+  - cardIds: ba0b0000d2070000
+    sprite: {fileID: 21300000, guid: 2520e4d5de827f440b01375dd0d61cf8, type: 3}
+  - cardIds: 180000001e0000001f00000020000000e9030000d4070000
+    sprite: {fileID: 21300000, guid: 66be36d48ed56d84294c88d736a48d23, type: 3}
+  - cardIds: 09000000
+    sprite: {fileID: 21300000, guid: 502c78190a5032a44bee23f66fed9e2b, type: 3}
+  - cardIds: 06000000
+    sprite: {fileID: 21300000, guid: 92eb628381228bf4c9f3566095e6fa2b, type: 3}
+  - cardIds: eb030000ca070000
+    sprite: {fileID: 21300000, guid: d24c7fd385e8c3447ab26c6739b31de8, type: 3}
+  - cardIds: e40700001d000000
+    sprite: {fileID: 21300000, guid: 5e4c2f05c8dfed2499453a5be2287572, type: 3}
+  - cardIds: bb0b0000d3070000
+    sprite: {fileID: 21300000, guid: 58d88adff55b9894c9701d42322fb1de, type: 3}
+  - cardIds: 05000000
+    sprite: {fileID: 21300000, guid: fd41dfe14cdeec1439215d5983e5104a, type: 3}
+  - cardIds: 0f000000e0070000
+    sprite: {fileID: 21300000, guid: 9fabf016b496a5d47bff6eae2c465de9, type: 3}
+  - cardIds: 204e0000
+    sprite: {fileID: 21300000, guid: 0dfbe6f2bc5224c468e18bb2b17b5437, type: 3}
+  - cardIds: e307000026000000
+    sprite: {fileID: 21300000, guid: 6b8e3bdb6e50bc6419eb19b7b461d8a7, type: 3}
+  - cardIds: 0c000000
+    sprite: {fileID: 21300000, guid: fe26e6fdfac69cf419a48ecd2fb25b63, type: 3}
+  - cardIds: 1c000000
+    sprite: {fileID: 21300000, guid: df5d62437ad2a554e83242accb806bb0, type: 3}
+  - cardIds: d0070000b80b0000
+    sprite: {fileID: 21300000, guid: 90feefe0f867b9a48b19709fd19b6ac1, type: 3}
+  - cardIds: 160000002100000022000000230000002400000025000000ea030000d5070000
+    sprite: {fileID: 21300000, guid: dd4c73f02cb96c349baf848a673dae57, type: 3}
+  - cardIds: d1070000b90b0000
+    sprite: {fileID: 21300000, guid: 3100a3d748823924abfc2882d8f988d2, type: 3}
+  - cardIds: 02000000
+    sprite: {fileID: 21300000, guid: 69a1a0434498cf446a179f782b5f9bd9, type: 3}
+  - cardIds: 0b000000d7070000
+    sprite: {fileID: 21300000, guid: e2cc25ba628e5f84a833b218e25162ea, type: 3}
+  - cardIds: ea070000170000004d040000
+    sprite: {fileID: 21300000, guid: 9205549fcdbb6a3409cd963c6711b60f, type: 3}
+  - cardIds: ce0700000a000000
+    sprite: {fileID: 21300000, guid: 43bbad79d87e81040a350b74885d0ed4, type: 3}

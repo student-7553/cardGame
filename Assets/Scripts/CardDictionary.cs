@@ -8,13 +8,13 @@ public static class CardDictionary
 	public static Dictionary<int, CardObject> globalCardDictionary = new Dictionary<int, CardObject>();
 	public static Dictionary<int, List<RawProcessObject>> globalProcessDictionary = new Dictionary<int, List<RawProcessObject>>();
 
-	public static void init(Descriptions descriptions)
+	public static void init(Descriptions descriptions, SO_CardImage cardImages)
 	{
-		globalCardDictionary = getNewCardDictionary(descriptions);
+		globalCardDictionary = getNewCardDictionary(descriptions, cardImages);
 		globalProcessDictionary = getNewProcessDictionary();
 	}
 
-	private static Dictionary<int, CardObject> getNewCardDictionary(Descriptions descriptions)
+	private static Dictionary<int, CardObject> getNewCardDictionary(Descriptions descriptions, SO_CardImage cardImages)
 	{
 		Dictionary<int, CardObject> newCardDictionary = new Dictionary<int, CardObject>();
 		var jsonTextFile = Resources.Load<TextAsset>("Dictionary/card");
@@ -25,7 +25,12 @@ public static class CardDictionary
 		foreach (RawCardObject singleCard in reversedListOfCards)
 		{
 			string cardDescription = descriptions.foodCardIds.Find((single) => single.cardIds.Contains(singleCard.id)).description;
-			CardObject newObject = processRawCardObject(singleCard, cardDescription);
+
+			Sprite sprite = cardImages.cardImageeEntries.Find((single) => single.cardIds.Contains(singleCard.id)).sprite;
+			// Sprite sprite = null;
+
+			CardObject newObject = processRawCardObject(singleCard, cardDescription, sprite);
+
 			newCardDictionary.Add(singleCard.id, newObject);
 		}
 		return newCardDictionary;
@@ -52,7 +57,7 @@ public static class CardDictionary
 		return newProcessDictionary;
 	}
 
-	private static CardObject processRawCardObject(RawCardObject rawCardObject, string description)
+	private static CardObject processRawCardObject(RawCardObject rawCardObject, string description, Sprite cardImage)
 	{
 		CardObject newEntry = new CardObject
 		{
@@ -66,6 +71,7 @@ public static class CardDictionary
 			nodeTransferTimeCost = rawCardObject.nodeTransferTimeCost,
 			foodCost = rawCardObject.foodCost,
 			description = description,
+			cardImage = cardImage
 		};
 
 		switch (rawCardObject.type)

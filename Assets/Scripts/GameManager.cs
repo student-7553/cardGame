@@ -4,16 +4,13 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager current;
 
-	// private GameObject[] cards;
-	// private GameObject[] nodes;
-	// private GameObject[] enemyNodes;
-
 	public GameObject floatingTextPrefab;
 	public GameFoodManager gameFoodManager;
 	public Descriptions descriptions;
 
 	public SO_PlayerRuntime playerRuntime;
 	public SO_Interactable so_Interactable;
+	public SO_CardImage so_CardImage;
 
 	void Awake()
 	{
@@ -25,15 +22,13 @@ public class GameManager : MonoBehaviour
 		current = this;
 		DontDestroyOnLoad(gameObject);
 
-		CardDictionary.init(descriptions);
+		CardDictionary.init(descriptions, so_CardImage);
 		gameSettings();
-		// startGame();
 	}
 
 	public void startGame()
 	{
 		handleNewStart();
-		// findTempLogic();
 		AwakeGameLogic();
 		gameFoodManager = new GameFoodManager { food = 0 };
 	}

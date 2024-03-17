@@ -158,6 +158,7 @@ namespace Core
 		public int foodCost;
 		public CardModuleObject module;
 		public string description;
+		public Sprite cardImage;
 	}
 
 	[System.Serializable]
