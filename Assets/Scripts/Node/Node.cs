@@ -113,6 +113,9 @@ public class Node : MonoBehaviour, BaseNode
 	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
 
+	[SerializeField]
+	private SpriteRenderer cardMainSpriteRenderer;
+
 	public SO_Audio soAudio;
 
 	public int _id;
@@ -165,6 +168,7 @@ public class Node : MonoBehaviour, BaseNode
 			backgroundSpriteRenderer.color = typeBackgroundColor;
 
 			nodeTextHandler.setTextColor(typeTextColor);
+			cardMainSpriteRenderer.sprite = CardDictionary.globalCardDictionary[_id].cardImage;
 		}
 	}
 
