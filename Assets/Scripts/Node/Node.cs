@@ -116,6 +116,8 @@ public class Node : MonoBehaviour, BaseNode
 	[SerializeField]
 	private SpriteRenderer cardMainSpriteRenderer;
 
+	public GameObject dimObject;
+
 	public SO_Audio soAudio;
 
 	public int _id;
@@ -222,6 +224,16 @@ public class Node : MonoBehaviour, BaseNode
 			nodePlaneManager.updatePosition();
 			nodePlaneManager.gameObject.SetActive(true);
 		}
+	}
+
+	public void dimCard()
+	{
+		dimObject.SetActive(true);
+	}
+
+	public void nonDimCard()
+	{
+		dimObject.SetActive(false);
 	}
 
 	public void killNode()

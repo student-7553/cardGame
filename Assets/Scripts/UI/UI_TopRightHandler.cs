@@ -10,12 +10,52 @@ public class UI_TopRightHandler : MonoBehaviour
 	public GameObject contentContainer;
 	public static Dictionary<int, UI_IdeaSingleBarContainer> currentShowingIdeaTabs = new Dictionary<int, UI_IdeaSingleBarContainer>();
 	public GameObject prefabIdeaBar;
+
+	public GameObject containerDimObject;
 	public SO_Interactable so_Interactable;
+	public SO_Highlight so_Highlight;
+
+	private bool isHighlightEnabled = false;
 
 	void Start()
 	{
 		handleStart();
 		so_Interactable.addActionToCardEvent(addSingleIdeaBar);
+	}
+
+	private void FixedUpdate()
+	{
+		if (so_Highlight.isHighlightEnabled != isHighlightEnabled)
+		{
+			if (so_Highlight.isHighlightEnabled)
+			{
+				isHighlightEnabled = true;
+				enableDim();
+			}
+			else
+			{
+				isHighlightEnabled = false;
+				disableDim();
+			}
+		}
+	}
+
+	private void enableDim()
+	{
+		containerDimObject.SetActive(true);
+		foreach (KeyValuePair<int, UI_IdeaSingleBarContainer> entry in currentShowingIdeaTabs)
+		{
+			entry.Value.handleDim();
+		}
+	}
+
+	private void disableDim()
+	{
+		containerDimObject.SetActive(false);
+		foreach (KeyValuePair<int, UI_IdeaSingleBarContainer> entry in currentShowingIdeaTabs)
+		{
+			entry.Value.handleNonDim();
+		}
 	}
 
 	public void handleStart()

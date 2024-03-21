@@ -8,6 +8,8 @@ public class Card : BaseCard, IClickable
 	public SO_Interactable so_Interactable;
 	public SO_Audio soAudio;
 
+	public GameObject dimObject;
+
 	public override Card getCard()
 	{
 		return this;
@@ -75,6 +77,16 @@ public class Card : BaseCard, IClickable
 			CardStack newStack = new CardStack(null, 0, Vector3.zero);
 			newStack.addCardsToStack(newCardStackCards);
 		}
+	}
+
+	public void dimCard()
+	{
+		dimObject.SetActive(true);
+	}
+
+	public void nonDimCard()
+	{
+		dimObject.SetActive(false);
 	}
 
 	public void reflectScreen()

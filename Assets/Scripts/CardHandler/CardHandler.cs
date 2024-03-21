@@ -19,9 +19,6 @@ public class CardHandler : MonoBehaviour
 
 	public GameObject nodeMagnetizeCirclePrefab;
 
-	public Sprite[] cardSprites;
-	public Sprite[] nodeSprites;
-
 	private Vector3 defaultCardPoint;
 	private Vector3 defaultNodePoint;
 
