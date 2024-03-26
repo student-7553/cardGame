@@ -116,7 +116,7 @@ public class Card : BaseCard, IClickable
 
 	private int getFontSize(string title)
 	{
-		if (title.Length > 12)
+		if (title.Length > 10)
 		{
 			return 13;
 		}

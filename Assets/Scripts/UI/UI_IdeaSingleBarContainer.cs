@@ -6,7 +6,9 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 	public TextMeshProUGUI textObject;
 	public GameObject dimGameObject;
 	public SO_PlayerRuntime playerRuntime;
-	private int cardId;
+
+	[SerializeField]
+	public int cardId;
 
 	public void buttonCallBack()
 	{

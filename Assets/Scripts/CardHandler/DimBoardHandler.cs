@@ -34,12 +34,18 @@ public class DimBoardHandler : MonoBehaviour
 
 		foreach (Card card in so_Interactable.cards)
 		{
-			card.dimCard();
+			if (card.id != so_Highlight.cardId)
+			{
+				card.dimCard();
+			}
 		}
 
 		foreach (Node node in so_Interactable.nodes)
 		{
-			node.dimCard();
+			if (node.id != so_Highlight.cardId)
+			{
+				node.dimCard();
+			}
 		}
 	}
 

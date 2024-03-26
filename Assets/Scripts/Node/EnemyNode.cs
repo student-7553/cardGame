@@ -79,6 +79,9 @@ public class EnemyNode : MonoBehaviour, BaseNode
 	private SpriteRenderer borderSpriteRenderer;
 
 	[SerializeField]
+	private SpriteRenderer border2SpriteRenderer;
+
+	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
 
 	[SerializeField]
@@ -124,6 +127,7 @@ public class EnemyNode : MonoBehaviour, BaseNode
 			typeTextColor.a = 1;
 
 			borderSpriteRenderer.color = typeColor;
+			border2SpriteRenderer.color = typeColor;
 			enemyNodeTextHandler.setTextColor(typeTextColor);
 			backgroundSpriteRenderer.color = typeBackgroundColor;
 			cardMainSpriteRenderer.sprite = CardDictionary.globalCardDictionary[_id].cardImage;

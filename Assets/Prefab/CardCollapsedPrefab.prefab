@@ -951,7 +951,8 @@ MonoBehaviour:
   _isInteractiveDisabled: 0
   shadowSpriteRenderer: {fileID: 1623962732896308177}
   borderSpriteRenderer: {fileID: 5428052875742272490}
-  border2SpriteRenderer: {fileID: 7443917411365656781}
+  border2SpriteRenderer: {fileID: 6870091292578126476}
+  borderStackSpriteRenderer: {fileID: 7443917411365656781}
   backgroundSpriteRenderer: {fileID: 8632686561767979356}
   cardMainSpriteRenderer: {fileID: 6472735811669443581}
   titleTextMesh: {fileID: 4809273460834732648}

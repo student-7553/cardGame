@@ -6,25 +6,25 @@ public class SO_Highlight : ScriptableObject
 {
 	public bool isHighlightEnabled = false;
 
-	public string ideaId;
+	public int ideaId;
 
-	public string cardId;
+	public int cardId;
 
 	public string highlightText;
 
 	void OnDisable()
 	{
 		isHighlightEnabled = false;
-		ideaId = null;
-		cardId = null;
+		ideaId = -1;
+		cardId = -1;
 		highlightText = null;
 	}
 
 	void OnEnable()
 	{
 		isHighlightEnabled = false;
-		ideaId = null;
-		cardId = null;
+		ideaId = -1;
+		cardId = -1;
 		highlightText = null;
 	}
 }

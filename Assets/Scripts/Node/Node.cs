@@ -111,6 +111,9 @@ public class Node : MonoBehaviour, BaseNode
 	private SpriteRenderer borderSpriteRenderer;
 
 	[SerializeField]
+	private SpriteRenderer border2SpriteRenderer;
+
+	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
 
 	[SerializeField]
@@ -167,6 +170,8 @@ public class Node : MonoBehaviour, BaseNode
 			typeTextColor.a = 1;
 
 			borderSpriteRenderer.color = typeColor;
+			border2SpriteRenderer.color = typeColor;
+
 			backgroundSpriteRenderer.color = typeBackgroundColor;
 
 			nodeTextHandler.setTextColor(typeTextColor);

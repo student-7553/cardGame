@@ -43,9 +43,13 @@ public class UI_TopRightHandler : MonoBehaviour
 	private void enableDim()
 	{
 		containerDimObject.SetActive(true);
+
 		foreach (KeyValuePair<int, UI_IdeaSingleBarContainer> entry in currentShowingIdeaTabs)
 		{
-			entry.Value.handleDim();
+			if (entry.Value.cardId != so_Highlight.ideaId)
+			{
+				entry.Value.handleDim();
+			}
 		}
 	}
 
