@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f2889749837a94c9206cba95c74590, type: 3}
   m_Name: SO_Highlight
   m_EditorClassIdentifier: 
-  isHighlightEnabled: 0
-  ideaId: 1993
-  cardId: -1
+  isHighlightEnabled: 1
+  ideaId: -1
+  cardIds: 0c000000b80b0000
   highlightText: 

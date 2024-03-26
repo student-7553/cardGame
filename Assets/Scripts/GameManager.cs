@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public SO_PlayerRuntime playerRuntime;
 	public SO_Interactable so_Interactable;
 	public SO_CardImage so_CardImage;
+	public SO_Highlight so_Highlight;
 
 	void Awake()
 	{
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour
 		handleNewStart();
 		AwakeGameLogic();
 		gameFoodManager = new GameFoodManager { food = 0 };
+
+		so_Highlight.cardIds = new int[] { 12, 3000 };
+
+		so_Highlight.isHighlightEnabled = true;
 	}
 
 	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)

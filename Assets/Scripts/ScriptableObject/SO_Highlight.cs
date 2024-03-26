@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ public class SO_Highlight : ScriptableObject
 
 	public int ideaId;
 
-	public int cardId;
+	// public int cardId;
+
+	public int[] cardIds;
 
 	public string highlightText;
 
@@ -16,7 +19,7 @@ public class SO_Highlight : ScriptableObject
 	{
 		isHighlightEnabled = false;
 		ideaId = -1;
-		cardId = -1;
+		cardIds = Array.Empty<int>();
 		highlightText = null;
 	}
 
@@ -24,7 +27,7 @@ public class SO_Highlight : ScriptableObject
 	{
 		isHighlightEnabled = false;
 		ideaId = -1;
-		cardId = -1;
+		cardIds = Array.Empty<int>();
 		highlightText = null;
 	}
 }

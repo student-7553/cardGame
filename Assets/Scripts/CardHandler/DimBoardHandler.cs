@@ -2,6 +2,7 @@ using UnityEngine;
 using Core;
 using System.Collections.Generic;
 using Helpers;
+using System.Linq;
 
 public class DimBoardHandler : MonoBehaviour
 {
@@ -34,18 +35,20 @@ public class DimBoardHandler : MonoBehaviour
 
 		foreach (Card card in so_Interactable.cards)
 		{
-			if (card.id != so_Highlight.cardId)
+			if (so_Highlight.cardIds.Any((cardId) => cardId == card.id))
 			{
-				card.dimCard();
+				continue;
 			}
+			card.dimCard();
 		}
 
 		foreach (Node node in so_Interactable.nodes)
 		{
-			if (node.id != so_Highlight.cardId)
+			if (so_Highlight.cardIds.Any((cardId) => cardId == node.id))
 			{
-				node.dimCard();
+				continue;
 			}
+			node.dimCard();
 		}
 	}
 
