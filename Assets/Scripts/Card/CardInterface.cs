@@ -37,6 +37,9 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 	private SpriteRenderer borderSpriteRenderer;
 
 	[SerializeField]
+	private SpriteRenderer border2SpriteRenderer;
+
+	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
 
 	[SerializeField]
@@ -191,6 +194,13 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 			typeTextColor.a = 1;
 
 			borderSpriteRenderer.color = typeColor;
+			if (border2SpriteRenderer != null)
+			{
+				Color newStackTypeColor = typeColor;
+				newStackTypeColor.a = 0.75f;
+				border2SpriteRenderer.color = newStackTypeColor;
+			}
+
 			backgroundSpriteRenderer.color = typeBackgroundColor;
 			titleTextMesh.color = typeTextColor;
 
