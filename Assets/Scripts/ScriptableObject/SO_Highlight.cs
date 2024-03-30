@@ -6,18 +6,26 @@ using UnityEngine;
 public class SO_Highlight : ScriptableObject
 {
 	public bool isHighlightEnabled = false;
-
 	public int ideaId;
-
-	// public int cardId;
-
+	public bool topLeftHighlighted = false;
 	public int[] cardIds;
+
+	public List<Action> triggerAction = new List<Action>();
+
+	public void triggerRefresh()
+	{
+		foreach (Action singleTriggerAction in triggerAction)
+		{
+			singleTriggerAction.Invoke();
+		}
+	}
 
 	public string highlightText;
 
 	void OnDisable()
 	{
 		isHighlightEnabled = false;
+		topLeftHighlighted = false;
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;
@@ -26,6 +34,7 @@ public class SO_Highlight : ScriptableObject
 	void OnEnable()
 	{
 		isHighlightEnabled = false;
+		topLeftHighlighted = false;
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;

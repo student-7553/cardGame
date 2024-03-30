@@ -51,15 +51,4 @@ public class PlayerCardTrackerObject
 	{
 		return aquiredOneTimeProcessRewardsList.Contains(uniqueId);
 	}
-
-	private T ensureComponent<T>(GameObject gameObject) where T : Component
-	{
-		var cardSpriteRenderer = gameObject.GetComponent(typeof(T)) as T;
-		if (cardSpriteRenderer == null)
-		{
-			cardSpriteRenderer = gameObject.AddComponent<T>();
-		}
-		;
-		return cardSpriteRenderer;
-	}
 }

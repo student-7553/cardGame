@@ -10,12 +10,12 @@ public class SO_Interactable : ScriptableObject
 
 	public NodePlaneHandler currentNodePlaneHandler;
 
-	public List<Action<int>> newCardAction = new List<Action<int>>();
+	public Action<int> newCardAction;
 
 	public void registerCard(Card newCard)
 	{
 		cards.Add(newCard);
-		//Todo call the newCardActionss
+		newCardAction?.Invoke(newCard.id);
 	}
 
 	public void clearCards()
@@ -40,7 +40,7 @@ public class SO_Interactable : ScriptableObject
 
 	public void addActionToCardEvent(Action<int> newAction)
 	{
-		newCardAction.Add(newAction);
+		newCardAction = newAction;
 	}
 
 	public void setActiveNodePlane(NodePlaneHandler newNodePlaneHandler)

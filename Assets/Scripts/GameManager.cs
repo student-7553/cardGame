@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
 		gameFoodManager = new GameFoodManager { food = 0 };
 
 		so_Highlight.cardIds = new int[] { 12, 3000 };
-
 		so_Highlight.isHighlightEnabled = true;
+		so_Highlight.triggerRefresh();
 	}
 
 	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)

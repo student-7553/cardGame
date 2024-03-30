@@ -263,6 +263,13 @@
       "time": 12,
       "addingCardObjects": [
         {
+          "id": 3923423,
+          "odds": 10000000,
+          "addingCardIds": [12, 2, 5, 23, 24, 1997, 2001],
+          "extraUnlockCardIds": [],
+          "isOneTime": true
+        },
+        {
           "odds": 0.2,
           "addingCardIds": [2, 2, 2, 16],
           "extraUnlockCardIds": [],

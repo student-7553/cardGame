@@ -15,28 +15,31 @@ public class UI_TopRightHandler : MonoBehaviour
 	public SO_Interactable so_Interactable;
 	public SO_Highlight so_Highlight;
 
-	private bool isHighlightEnabled = false;
-
-	void Start()
+	private void Awake()
 	{
-		handleStart();
 		so_Interactable.addActionToCardEvent(addSingleIdeaBar);
+		so_Highlight.triggerAction.Add(triggerDimRefresh);
 	}
 
-	private void FixedUpdate()
+	private void Start()
 	{
-		if (so_Highlight.isHighlightEnabled != isHighlightEnabled)
+		handleStart();
+	}
+
+	private void OnDestroy()
+	{
+		so_Highlight.triggerAction.Remove(triggerDimRefresh);
+	}
+
+	private void triggerDimRefresh()
+	{
+		if (so_Highlight.isHighlightEnabled)
 		{
-			if (so_Highlight.isHighlightEnabled)
-			{
-				isHighlightEnabled = true;
-				enableDim();
-			}
-			else
-			{
-				isHighlightEnabled = false;
-				disableDim();
-			}
+			enableDim();
+		}
+		else
+		{
+			disableDim();
 		}
 	}
 

@@ -21,8 +21,15 @@ public class UI_TopLeftHandler : MonoBehaviour
 	public SO_PlayerRuntime playerRuntime;
 
 	public SO_Highlight so_Highlight;
-	private bool isHighlightEnabled = false;
+
 	public GameObject containerDimObject;
+	public GameObject containerDim2Object;
+
+	private void Awake()
+	{
+		playerRuntime.registerActionToPlayerFocus(focusCardIdChanged);
+		so_Highlight.triggerAction.Add(triggerDimRefresh);
+	}
 
 	private void Start()
 	{
@@ -30,29 +37,33 @@ public class UI_TopLeftHandler : MonoBehaviour
 		{
 			focusCardIdChanged();
 		}
-		playerRuntime.registerActionToPlayerFocus(focusCardIdChanged);
-	}
-
-	private void FixedUpdate()
-	{
-		if (so_Highlight.isHighlightEnabled != isHighlightEnabled)
-		{
-			if (so_Highlight.isHighlightEnabled)
-			{
-				isHighlightEnabled = true;
-				containerDimObject.SetActive(true);
-			}
-			else
-			{
-				isHighlightEnabled = false;
-				containerDimObject.SetActive(false);
-			}
-		}
 	}
 
 	private void OnDestroy()
 	{
+		so_Highlight.triggerAction.Remove(triggerDimRefresh);
 		playerRuntime.unRegisterAction(focusCardIdChanged);
+	}
+
+	private void triggerDimRefresh()
+	{
+		if (so_Highlight.isHighlightEnabled)
+		{
+			containerDimObject.SetActive(true);
+			if (!so_Highlight.topLeftHighlighted)
+			{
+				containerDim2Object.SetActive(true);
+			}
+			else
+			{
+				containerDim2Object.SetActive(false);
+			}
+		}
+		else
+		{
+			containerDimObject.SetActive(false);
+			containerDim2Object.SetActive(false);
+		}
 	}
 
 	public void focusCardIdChanged()

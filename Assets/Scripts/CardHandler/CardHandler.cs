@@ -27,6 +27,7 @@ public class CardHandler : MonoBehaviour
 	public SO_Interactable so_Interactable;
 	public StaticVariables staticVariables;
 	public SO_PlayerRuntime playerRuntime;
+	public SO_Highlight so_Highlight;
 
 	public bool disableEnemySpawner = false;
 
@@ -235,21 +236,34 @@ public class CardHandler : MonoBehaviour
 
 	private void roughCardHooks(int cardId)
 	{
+		// 2001 - [Idea][Node] Space dome
+		if (cardId == 2001)
+		{
+			so_Highlight.isHighlightEnabled = true;
+			so_Highlight.cardIds = new int[] { };
+			so_Highlight.ideaId = 2001;
+			so_Highlight.triggerRefresh();
+			return;
+		}
 		// 1004 - Global expidition
 		if (cardId == 1004 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_1);
+			return;
 		}
 
 		// 27 - Core pillar
 		if (cardId == 27 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_2);
+
+			return;
 		}
 
 		if (cardId == staticVariables.endingCardId)
 		{
 			Debug.Log("GAME ENDED");
+			//Todo
 		}
 	}
 }

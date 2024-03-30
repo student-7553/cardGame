@@ -142,6 +142,8 @@ MonoBehaviour:
   textObject: {fileID: 5358864971154585435}
   dimGameObject: {fileID: 2172762829017789722}
   playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
+  so_Highlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  cardId: 0
 --- !u!114 &8114686860921852762
 MonoBehaviour:
   m_ObjectHideFlags: 0

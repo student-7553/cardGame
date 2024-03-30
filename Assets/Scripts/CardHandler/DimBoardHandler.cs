@@ -10,22 +10,25 @@ public class DimBoardHandler : MonoBehaviour
 	public SO_Highlight so_Highlight;
 	public SO_Interactable so_Interactable;
 
-	private bool isHighlightEnabled = false;
-
-	private void FixedUpdate()
+	private void Awake()
 	{
-		if (so_Highlight.isHighlightEnabled != isHighlightEnabled)
+		so_Highlight.triggerAction.Add(triggerDimRefresh);
+	}
+
+	private void OnDestroy()
+	{
+		so_Highlight.triggerAction.Remove(triggerDimRefresh);
+	}
+
+	private void triggerDimRefresh()
+	{
+		if (so_Highlight.isHighlightEnabled)
 		{
-			if (so_Highlight.isHighlightEnabled)
-			{
-				enableDim();
-				isHighlightEnabled = true;
-			}
-			else
-			{
-				disableDim();
-				isHighlightEnabled = false;
-			}
+			enableDim();
+		}
+		else
+		{
+			disableDim();
 		}
 	}
 

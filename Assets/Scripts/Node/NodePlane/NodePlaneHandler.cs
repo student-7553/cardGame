@@ -8,11 +8,36 @@ public class NodePlaneHandler : MonoBehaviour, IStackable
 	private BaseNode connectedNode;
 	public TextMeshPro titleTextMesh;
 	public SO_Interactable so_Interactable;
+	public SO_Highlight so_Highlight;
+	public GameObject dimSpriteObject;
 
 	private void Awake()
 	{
 		Component[] textMeshes = gameObject.GetComponentsInChildren(typeof(TextMeshPro));
 		titleTextMesh = textMeshes[0] as TextMeshPro;
+		so_Highlight.triggerAction.Add(triggerDimRefresh);
+	}
+
+	private void Start()
+	{
+		triggerDimRefresh();
+	}
+
+	private void OnDestroy()
+	{
+		so_Highlight.triggerAction.Remove(triggerDimRefresh);
+	}
+
+	private void triggerDimRefresh()
+	{
+		if (so_Highlight.isHighlightEnabled)
+		{
+			dimSpriteObject.SetActive(true);
+		}
+		else
+		{
+			dimSpriteObject.SetActive(false);
+		}
 	}
 
 	public void init(BaseNode parentNode)
