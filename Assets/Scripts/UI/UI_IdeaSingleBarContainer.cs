@@ -21,6 +21,8 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 			so_Highlight.cardIds = new int[] { };
 			so_Highlight.ideaId = -1;
 			so_Highlight.topLeftHighlighted = true;
+			so_Highlight.highlightText =
+				"You can see detailed information about the card on the left side. Specifically the cards required to make this card";
 			so_Highlight.triggerRefresh();
 			StartCoroutine(stopDim());
 		}
@@ -33,6 +35,7 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 		so_Highlight.cardIds = new int[] { };
 		so_Highlight.ideaId = -1;
 		so_Highlight.topLeftHighlighted = false;
+		so_Highlight.highlightText = "";
 		so_Highlight.triggerRefresh();
 	}
 

@@ -240,8 +240,10 @@ public class CardHandler : MonoBehaviour
 		if (cardId == 2001)
 		{
 			so_Highlight.isHighlightEnabled = true;
-			so_Highlight.cardIds = new int[] { };
+			so_Highlight.cardIds = new int[] { 2001 };
 			so_Highlight.ideaId = 2001;
+			so_Highlight.highlightText =
+				"New cards :v). Right sidebar contains information about all new cards you can create \nClick \"Space dome\" side tab";
 			so_Highlight.triggerRefresh();
 			return;
 		}

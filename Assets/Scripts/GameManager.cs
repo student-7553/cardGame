@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
 
 		so_Highlight.cardIds = new int[] { 12, 3000 };
 		so_Highlight.isHighlightEnabled = true;
+
+		so_Highlight.highlightText =
+			"You can drag cards, try it out\nDrag the \"Rock deposit\" card and drop it on top of \"Small base\" card and wait until the timer finishes";
 		so_Highlight.triggerRefresh();
 	}
 
