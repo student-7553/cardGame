@@ -49,6 +49,7 @@ public class DimBoardHandler : MonoBehaviour
 		{
 			if (so_Highlight.cardIds.Any((cardId) => cardId == node.id))
 			{
+				node.nonDimCard();
 				continue;
 			}
 			node.dimCard();

@@ -11,6 +11,7 @@ public class LeftClickHandler : MonoBehaviour
 	private LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
 	public SO_Audio soAudio;
+	public SO_Highlight soHighlight;
 
 	private bool isHolding;
 
@@ -252,6 +253,19 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void handleCardDrop(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
+		if (soHighlight.isHighlightEnabled && soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(12))
+		{
+			soHighlight.isHighlightEnabled = true;
+			soHighlight.cardIds = new int[] { 3000, 12 };
+
+			soHighlight.highlightText =
+				"Lets now drag the \"Rock deposit\" card and drop it on top of \"Small base\" card and see what happens";
+
+			soHighlight.highlightMainText = "Drop \"Rock deposit\" card on top of \"Small base\" card";
+
+			soHighlight.triggerRefresh();
+		}
+
 		if (draggingObjects[0].isCardType())
 		{
 			IStackable stackableObject = findTargetToStack(draggingObjects[0].getBaseCard());
@@ -261,6 +275,17 @@ public class LeftClickHandler : MonoBehaviour
 				for (int i = 0; i < draggingObjects.Count; i++)
 				{
 					stackableObject.stackOnThis(draggingObjects[i].getBaseCard(), previousStackedNode);
+				}
+
+				if (
+					soHighlight.isHighlightEnabled
+					&& soHighlight.cardIds.Count() == 2
+					&& soHighlight.cardIds.Contains(12)
+					&& soHighlight.cardIds.Contains(3000)
+				)
+				{
+					soHighlight.highlightText = "Wait until the timer finishes";
+					soHighlight.highlightMainText = "";
 				}
 				return;
 			}

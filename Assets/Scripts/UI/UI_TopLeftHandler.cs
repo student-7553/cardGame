@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TopLeftEntry : MonoBehaviour
 {
@@ -88,5 +89,31 @@ public class UI_TopLeftHandler : MonoBehaviour
 			entry2?.Show(currentCardId);
 			entry1?.Hide();
 		}
+
+		if (so_Highlight.isHighlightEnabled && currentCardId == 2001)
+		{
+			so_Highlight.isHighlightEnabled = true;
+			so_Highlight.cardIds = new int[] { };
+			so_Highlight.ideaId = -1;
+			so_Highlight.topLeftHighlighted = true;
+			so_Highlight.highlightText =
+				"By clicking on a card or its associated right sidebar, you can see detailed information about the card on the left side. Specifically the cards required to make this card";
+
+			so_Highlight.highlightMainText = "";
+			so_Highlight.triggerRefresh();
+			StartCoroutine(stopDim());
+		}
+	}
+
+	public IEnumerator stopDim()
+	{
+		yield return new WaitForSeconds(5);
+		so_Highlight.isHighlightEnabled = false;
+		so_Highlight.cardIds = new int[] { };
+		so_Highlight.ideaId = -1;
+		so_Highlight.topLeftHighlighted = false;
+		so_Highlight.highlightText = "";
+		so_Highlight.highlightMainText = "Create the \"Space dome\" card";
+		so_Highlight.triggerRefresh();
 	}
 }

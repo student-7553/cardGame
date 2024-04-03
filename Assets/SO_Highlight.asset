@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f2889749837a94c9206cba95c74590, type: 3}
   m_Name: SO_Highlight
   m_EditorClassIdentifier: 
-  isHighlightEnabled: 1
+  isHighlightEnabled: 0
   ideaId: -1
-  cardIds: 0c000000b80b0000
-  highlightText: 
+  topLeftHighlighted: 0
+  cardIds: 
+  highlightText: Create the Space dome card

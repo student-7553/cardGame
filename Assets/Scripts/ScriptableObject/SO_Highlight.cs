@@ -22,6 +22,8 @@ public class SO_Highlight : ScriptableObject
 
 	public string highlightText;
 
+	public string highlightMainText;
+
 	void OnDisable()
 	{
 		isHighlightEnabled = false;
@@ -29,6 +31,7 @@ public class SO_Highlight : ScriptableObject
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;
+		highlightMainText = null;
 	}
 
 	void OnEnable()
@@ -38,5 +41,6 @@ public class SO_Highlight : ScriptableObject
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;
+		highlightMainText = null;
 	}
 }

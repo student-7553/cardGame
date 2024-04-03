@@ -53,6 +53,10 @@ public class UI_TopRightHandler : MonoBehaviour
 			{
 				entry.Value.handleDim();
 			}
+			else
+			{
+				entry.Value.handleNonDim();
+			}
 		}
 	}
 

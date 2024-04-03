@@ -2,6 +2,7 @@ using UnityEngine;
 using Core;
 using System.Collections.Generic;
 using Helpers;
+using System.Collections;
 
 public class CardHandler : MonoBehaviour
 {
@@ -234,19 +235,45 @@ public class CardHandler : MonoBehaviour
 		return cardSpriteRenderer;
 	}
 
+	private IEnumerator secondHightlightHook()
+	{
+		yield return new WaitForSeconds(5);
+
+		so_Highlight.isHighlightEnabled = true;
+		so_Highlight.cardIds = new int[] { 2001 };
+		so_Highlight.ideaId = 2001;
+
+		so_Highlight.highlightText = "But lets take a close look at a new [Idea] card you just made";
+		so_Highlight.highlightMainText = "Click \"Space dome\" card or right sidebar";
+
+		so_Highlight.triggerRefresh();
+	}
+
 	private void roughCardHooks(int cardId)
 	{
 		// 2001 - [Idea][Node] Space dome
 		if (cardId == 2001)
 		{
 			so_Highlight.isHighlightEnabled = true;
-			so_Highlight.cardIds = new int[] { 2001 };
-			so_Highlight.ideaId = 2001;
+			so_Highlight.cardIds = new int[] { 12, 2, 5, 23, 24, 1997, 2001 };
+
 			so_Highlight.highlightText =
-				"New cards :v). Right sidebar contains information about all new cards you can create \nClick \"Space dome\" side tab";
+				"You just made a bunch of new cards :O \n You can see all the cards you unlocked on you'r right sidebar.";
+
+			so_Highlight.highlightMainText = "";
+
 			so_Highlight.triggerRefresh();
+			StartCoroutine(secondHightlightHook());
 			return;
 		}
+
+		// 1994 - Local Expedition Process
+		if (cardId == 1994)
+		{
+			so_Highlight.highlightMainText = "";
+			return;
+		}
+
 		// 1004 - Global expidition
 		if (cardId == 1004 && disableEnemySpawner == false)
 		{

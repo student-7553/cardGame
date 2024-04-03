@@ -33,11 +33,15 @@ public class GameManager : MonoBehaviour
 		AwakeGameLogic();
 		gameFoodManager = new GameFoodManager { food = 0 };
 
-		so_Highlight.cardIds = new int[] { 12, 3000 };
+		// so_Highlight.cardIds = new int[] { 12, 3000 };
 		so_Highlight.isHighlightEnabled = true;
 
-		so_Highlight.highlightText =
-			"You can drag cards, try it out\nDrag the \"Rock deposit\" card and drop it on top of \"Small base\" card and wait until the timer finishes";
+		so_Highlight.cardIds = new int[] { 12 };
+		so_Highlight.highlightText = "You can move cards by dragging them, try it out :D";
+		so_Highlight.highlightMainText = "Move \"Rock deposit\" card around";
+
+		// so_Highlight.highlightText =
+		// 	"You can drag cards, try it out\nDrag the \"Rock deposit\" card and drop it on top of \"Small base\" card and wait until the timer finishes";
 		so_Highlight.triggerRefresh();
 	}
 
