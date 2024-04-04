@@ -39,6 +39,7 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 6,
+      "ideaCard": 1997,
       "addingCardObjects": [
         {
           "odds": 1,
@@ -57,7 +58,7 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 15,
-      "ideaCard": 1997,
+      "ideaCard": 2027,
       "addingCardObjects": [
         {
           "odds": 0.5,
@@ -261,6 +262,7 @@
       "requiredGold": 0,
       "requiredElectricity": 0,
       "time": 12,
+      "ideaCard": 2029,
       "addingCardObjects": [
         {
           "id": 3923423,

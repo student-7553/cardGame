@@ -986,6 +986,36 @@
       "typeValue": 0
     },
     {
+      "id": 2027,
+      "name": "[Idea] Ice",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2028,
+      "name": "[Idea] Iron",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
+      "id": 2029,
+      "name": "[Idea] Space rock",
+      "type": "Idea",
+      "resourceInventoryCount": 0,
+      "infraInventoryCount": 0,
+      "isSellable": true,
+      "sellingPrice": 1,
+      "typeValue": 0
+    },
+    {
       "id": 3000,
       "name": "Small base",
       "type": "Node"

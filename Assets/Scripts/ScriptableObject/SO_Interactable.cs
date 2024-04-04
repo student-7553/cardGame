@@ -12,6 +12,8 @@ public class SO_Interactable : ScriptableObject
 
 	public Action<int> newCardAction;
 
+	public Action<int> dummyNewCardAction;
+
 	public void registerCard(Card newCard)
 	{
 		cards.Add(newCard);
@@ -41,6 +43,11 @@ public class SO_Interactable : ScriptableObject
 	public void addActionToCardEvent(Action<int> newAction)
 	{
 		newCardAction = newAction;
+	}
+
+	public void addActionToDummyCardEvent(Action<int> newAction)
+	{
+		dummyNewCardAction = newAction;
 	}
 
 	public void setActiveNodePlane(NodePlaneHandler newNodePlaneHandler)

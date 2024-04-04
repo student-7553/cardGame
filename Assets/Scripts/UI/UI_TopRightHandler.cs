@@ -18,6 +18,8 @@ public class UI_TopRightHandler : MonoBehaviour
 	private void Awake()
 	{
 		so_Interactable.addActionToCardEvent(addSingleIdeaBar);
+		so_Interactable.addActionToDummyCardEvent(addSingleIdeaBar);
+
 		so_Highlight.triggerAction.Add(triggerDimRefresh);
 	}
 

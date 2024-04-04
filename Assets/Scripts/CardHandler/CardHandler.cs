@@ -256,6 +256,7 @@ public class CardHandler : MonoBehaviour
 		{
 			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.cardIds = new int[] { 12, 2, 5, 23, 24, 1997, 2001 };
+			so_Highlight.ideaId = -1;
 
 			so_Highlight.highlightText =
 				"You just made a bunch of new cards :O \n You can see all the cards you unlocked on you'r right sidebar.";
@@ -263,6 +264,10 @@ public class CardHandler : MonoBehaviour
 			so_Highlight.highlightMainText = "";
 
 			so_Highlight.triggerRefresh();
+
+			so_Interactable.dummyNewCardAction?.Invoke(2027);
+			so_Interactable.dummyNewCardAction?.Invoke(2028);
+
 			StartCoroutine(secondHightlightHook());
 			return;
 		}
