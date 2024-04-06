@@ -35,11 +35,11 @@ public class UI_TopLeftEntry_1 : TopLeftEntry
 
 		if (process.requiredGold != 0)
 		{
-			addingString.Add($"{process.requiredGold} gold");
+			addingString.Add($"{process.requiredGold} Gold");
 		}
 		if (process.requiredWill != 0)
 		{
-			addingString.Add($"{process.requiredWill} will");
+			addingString.Add($"{process.requiredWill} Will");
 		}
 		List<int> requiredIds = new List<int>(process.requiredIds) { process.baseRequiredId };
 

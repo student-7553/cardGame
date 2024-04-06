@@ -7,6 +7,9 @@ public class UI_OptionsMenu : MonoBehaviour
 	[SerializeField]
 	private GameObject mainObject;
 
+	[SerializeField]
+	private GameObject gameOverObject;
+
 	void FixedUpdate()
 	{
 		bool isOptionEnabled = playerRuntime.getIsOptionMenuEnabled();
@@ -20,6 +23,11 @@ public class UI_OptionsMenu : MonoBehaviour
 			{
 				handleDisable();
 			}
+		}
+
+		if (playerRuntime.isGameFailed && !gameObject.activeSelf)
+		{
+			gameOverObject.SetActive(true);
 		}
 	}
 

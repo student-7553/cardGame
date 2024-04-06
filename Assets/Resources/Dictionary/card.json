@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "name": "Space rock",
+      "name": "Space Rock",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -24,7 +24,7 @@
     },
     {
       "id": 3,
-      "name": "Space brick",
+      "name": "Space Brick",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -35,7 +35,7 @@
     },
     {
       "id": 4,
-      "name": "Glacial deposit",
+      "name": "Glacial Deposit",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -46,7 +46,7 @@
     },
     {
       "id": 5,
-      "name": "Mineral deposit",
+      "name": "Mineral Deposit",
       "type": "Resource",
       "resourceInventoryCount": 3,
       "infraInventoryCount": 0,
@@ -123,7 +123,7 @@
     },
     {
       "id": 12,
-      "name": "Rock deposit",
+      "name": "Rock Deposit",
       "type": "Resource",
       "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
@@ -156,7 +156,7 @@
     },
     {
       "id": 15,
-      "name": "Carbon Nano tube",
+      "name": "Carbon Nano Tube",
       "type": "Resource",
       "resourceInventoryCount": 2,
       "infraInventoryCount": 0,
@@ -428,7 +428,7 @@
     },
     {
       "id": 1001,
-      "name": "Basic hydroponic farming",
+      "name": "Basic Hydroponic Farming",
       "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -440,7 +440,7 @@
     },
     {
       "id": 1002,
-      "name": "Solar power",
+      "name": "Solar Power",
       "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -464,7 +464,7 @@
     },
     {
       "id": 1004,
-      "name": "Global expedition",
+      "name": "Global Expedition",
       "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 2,
@@ -756,7 +756,7 @@
     },
     {
       "id": 2004,
-      "name": "[Idea][Infra] Basic hydroponic farming",
+      "name": "[Idea][Infra] Basic Hydroponic Farming",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -766,7 +766,7 @@
     },
     {
       "id": 2005,
-      "name": "[Idea][Infra] Solar power",
+      "name": "[Idea][Infra] Solar Power",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -816,7 +816,7 @@
     },
     {
       "id": 2010,
-      "name": "[Idea] Combat ship",
+      "name": "[Idea] Combat Ship",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -836,7 +836,7 @@
     },
     {
       "id": 2012,
-      "name": "[Idea][Infra] Global expedition",
+      "name": "[Idea][Infra] Global Expedition",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -846,7 +846,7 @@
     },
     {
       "id": 2013,
-      "name": "[Idea][Infra] Local expedition (Deprecated)",
+      "name": "[Idea][Infra] Local Expedition (Deprecated)",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -876,7 +876,7 @@
     },
     {
       "id": 2016,
-      "name": "[Idea] Carbon Nano tube",
+      "name": "[Idea] Carbon Nano Tube",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -1007,7 +1007,7 @@
     },
     {
       "id": 2029,
-      "name": "[Idea] Space rock",
+      "name": "[Idea] Space Rock",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -1017,17 +1017,17 @@
     },
     {
       "id": 3000,
-      "name": "Small base",
+      "name": "Small Base",
       "type": "Node"
     },
     {
       "id": 3001,
-      "name": "Space dome",
+      "name": "Space Dome",
       "type": "Node"
     },
     {
       "id": 3002,
-      "name": "Hive of Space domes",
+      "name": "Hive of Space Domes",
       "type": "Node"
     },
     {
@@ -1161,7 +1161,7 @@
     },
     {
       "id": 20000,
-      "name": "Combat ship",
+      "name": "Combat Ship",
       "type": "CombatUnit",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -1182,7 +1182,7 @@
     },
     {
       "id": 21001,
-      "name": "Space Pirate2 [2]",
+      "name": "Space Pirate [2]",
       "type": "Enemy",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -1193,7 +1193,7 @@
     },
     {
       "id": 21002,
-      "name": "Space Pirate3 [4]",
+      "name": "Space Pirate [4]",
       "type": "Enemy",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,

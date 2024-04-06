@@ -9,6 +9,7 @@ public class SO_PlayerRuntime : ScriptableObject
 	private int playerFocusingCardId;
 
 	private bool isOptionMenuEnabled = false;
+	public bool isGameFailed = false;
 	private bool isMuted = false;
 
 	private List<Action> playerFocusAction = new List<Action>();

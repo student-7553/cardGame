@@ -3,6 +3,7 @@ using Core;
 using Helpers;
 using System.Linq;
 using System.Collections.Generic;
+using TMPro;
 
 public class NodeHungerHandler : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class NodeHungerHandler : MonoBehaviour
 	private bool isInit = false;
 
 	private float internalTimer = 0f;
+
+	public TextMeshPro nodeHungerTimer;
 
 	[System.NonSerialized]
 	public SO_PlayerRuntime playerRuntime;
@@ -62,6 +65,7 @@ public class NodeHungerHandler : MonoBehaviour
 			intervalTimer = 0;
 			handleHungerInterval();
 		}
+		nodeHungerTimer.text = $"{getHungerCountdown()}";
 	}
 
 	private void handleHungerInterval()
@@ -72,9 +76,9 @@ public class NodeHungerHandler : MonoBehaviour
 	private void handleHunger(int foodValue)
 	{
 		int currentFoodValue = GameManager.current.gameFoodManager.food;
-		if (currentFoodValue < foodValue)
+		if (currentFoodValue == 0)
 		{
-			connectedNode.isActive = false;
+			GameManager.current.gameLost();
 			return;
 		}
 

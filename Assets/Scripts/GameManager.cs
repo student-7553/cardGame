@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 	public SO_CardImage so_CardImage;
 	public SO_Highlight so_Highlight;
 
+	public bool isStartHighlightActive;
+
 	void Awake()
 	{
 		if (current != null)
@@ -33,16 +35,14 @@ public class GameManager : MonoBehaviour
 		AwakeGameLogic();
 		gameFoodManager = new GameFoodManager { food = 0 };
 
-		// so_Highlight.cardIds = new int[] { 12, 3000 };
-		so_Highlight.isHighlightEnabled = true;
-
-		so_Highlight.cardIds = new int[] { 12 };
-		so_Highlight.highlightText = "You can move cards by dragging them, try it out :D";
-		so_Highlight.highlightMainText = "Move \"Rock deposit\" card around";
-
-		// so_Highlight.highlightText =
-		// 	"You can drag cards, try it out\nDrag the \"Rock deposit\" card and drop it on top of \"Small base\" card and wait until the timer finishes";
-		so_Highlight.triggerRefresh();
+		if (isStartHighlightActive)
+		{
+			so_Highlight.isHighlightEnabled = true;
+			so_Highlight.cardIds = new int[] { 12 };
+			so_Highlight.highlightText = "You can move cards by dragging them, try it out :D";
+			so_Highlight.highlightMainText = "Move \"Rock deposit\" card around";
+			so_Highlight.triggerRefresh();
+		}
 	}
 
 	public void SpawnFloatingText(string floatingText, Vector2 spawnLocation)
@@ -126,6 +126,12 @@ public class GameManager : MonoBehaviour
 	private void gameSettings()
 	{
 		Application.targetFrameRate = 60;
+	}
+
+	public void gameLost()
+	{
+		playerRuntime.gameTimeScale = 0;
+		playerRuntime.isGameFailed = true;
 	}
 
 	private void handleNewStart()
