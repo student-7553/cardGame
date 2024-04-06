@@ -66,4 +66,11 @@ public class SO_PlayerRuntime : ScriptableObject
 	{
 		return isMuted;
 	}
+
+	void OnEnable()
+	{
+		isOptionMenuEnabled = false;
+		isGameFailed = false;
+		isMuted = false;
+	}
 }

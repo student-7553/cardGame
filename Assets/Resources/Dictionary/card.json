@@ -234,7 +234,7 @@
     {
       "id": 22,
       "name": "[Dormant] Solar 1",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -244,7 +244,7 @@
     {
       "id": 23,
       "name": "[Dormant] Unity",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -254,7 +254,7 @@
     {
       "id": 24,
       "name": "[Dormant] Hydroponic 1",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -318,7 +318,7 @@
     {
       "id": 30,
       "name": "[Dormant] Hydroponic 2",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -328,7 +328,7 @@
     {
       "id": 31,
       "name": "[Dormant] Hydroponic 3",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -338,7 +338,7 @@
     {
       "id": 32,
       "name": "[Dormant] Hydroponic 4",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -348,7 +348,7 @@
     {
       "id": 33,
       "name": "[Dormant] Solar 2",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -358,7 +358,7 @@
     {
       "id": 34,
       "name": "[Dormant] Solar 3",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -368,7 +368,7 @@
     {
       "id": 35,
       "name": "[Dormant] Solar 4",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -378,7 +378,7 @@
     {
       "id": 36,
       "name": "[Dormant] Solar 5",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,
@@ -388,7 +388,7 @@
     {
       "id": 37,
       "name": "[Dormant] Solar 6",
-      "type": "Resource",
+      "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
       "isSellable": true,

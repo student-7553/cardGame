@@ -25,8 +25,9 @@ public class UI_OptionsMenu : MonoBehaviour
 			}
 		}
 
-		if (playerRuntime.isGameFailed && !gameObject.activeSelf)
+		if (playerRuntime.isGameFailed && !gameOverObject.activeSelf)
 		{
+			Debug.Log("GameOver is called in Options");
 			gameOverObject.SetActive(true);
 		}
 	}

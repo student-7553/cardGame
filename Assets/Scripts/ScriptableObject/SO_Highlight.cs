@@ -24,16 +24,6 @@ public class SO_Highlight : ScriptableObject
 
 	public string highlightMainText;
 
-	void OnDisable()
-	{
-		isHighlightEnabled = false;
-		topLeftHighlighted = false;
-		ideaId = -1;
-		cardIds = Array.Empty<int>();
-		highlightText = null;
-		highlightMainText = null;
-	}
-
 	void OnEnable()
 	{
 		isHighlightEnabled = false;

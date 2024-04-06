@@ -85,6 +85,7 @@ namespace Core
 	public enum CardsTypes
 	{
 		Resource,
+		Dormant,
 		Gold,
 		Electricity,
 		Will,

@@ -1,8 +1,4 @@
 using UnityEngine;
-using Core;
-using Helpers;
-using System.Linq;
-using System.Collections.Generic;
 using TMPro;
 
 public class NodeHungerHandler : MonoBehaviour

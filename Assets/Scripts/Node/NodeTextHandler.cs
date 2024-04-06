@@ -17,7 +17,7 @@ public class NodeTextHandler
 		Component[] textMeshes = _node.gameObject.GetComponentsInChildren(typeof(TextMeshPro));
 		titleTextMesh = textMeshes[0] as TextMeshPro;
 		nodeProcessCountdown = textMeshes[1] as TextMeshPro;
-		hungerCountPerIntervel = textMeshes[2] as TextMeshPro;
+		hungerCountPerIntervel = textMeshes[3] as TextMeshPro;
 	}
 
 	private int getFontSize(string title)

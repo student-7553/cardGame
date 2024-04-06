@@ -79,6 +79,9 @@ public static class CardDictionary
 			case "Resource":
 				newEntry.type = CardsTypes.Resource;
 				break;
+			case "Dormant":
+				newEntry.type = CardsTypes.Dormant;
+				break;
 			case "Infrastructure":
 				newEntry.type = CardsTypes.Infrastructure;
 				break;

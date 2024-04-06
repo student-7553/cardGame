@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
 	public void gameLost()
 	{
 		playerRuntime.gameTimeScale = 0;
+		Debug.Log("Game is lost");
 		playerRuntime.isGameFailed = true;
 	}
 
