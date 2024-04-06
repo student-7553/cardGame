@@ -4,6 +4,8 @@ public class GameFoodManager
 {
 	public int food;
 
+	public bool isEnabled;
+
 	public void addFood(int foodValue)
 	{
 		if (foodValue <= 0)
@@ -15,6 +17,10 @@ public class GameFoodManager
 
 	public void decreaseFood(int foodValue)
 	{
+		if (!isEnabled)
+		{
+			return;
+		}
 		food = Math.Max(0, food - foodValue);
 	}
 }

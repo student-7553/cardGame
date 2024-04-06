@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 	{
 		handleNewStart();
 		AwakeGameLogic();
-		gameFoodManager = new GameFoodManager { food = 0 };
+		gameFoodManager = new GameFoodManager { food = 5, isEnabled = false };
 
 		if (isStartHighlightActive)
 		{
@@ -131,7 +131,6 @@ public class GameManager : MonoBehaviour
 	public void gameLost()
 	{
 		playerRuntime.gameTimeScale = 0;
-		Debug.Log("Game is lost");
 		playerRuntime.isGameFailed = true;
 	}
 

@@ -271,6 +271,10 @@ public class CardHandler : MonoBehaviour
 			StartCoroutine(secondHightlightHook());
 			return;
 		}
+		if (cardId == 1003)
+		{
+			GameManager.current.gameFoodManager.isEnabled = true;
+		}
 
 		// 1994 - Local Expedition Process
 		if (cardId == 1994)
