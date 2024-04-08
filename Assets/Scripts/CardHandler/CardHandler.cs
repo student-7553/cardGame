@@ -245,6 +245,7 @@ public class CardHandler : MonoBehaviour
 
 		so_Highlight.highlightText = "But lets take a close look at a new [Idea] card you just made";
 		so_Highlight.highlightMainText = "Click \"Space dome\" card or right sidebar";
+		so_Highlight.objectiveText = "Click \"Space dome\" card or right sidebar";
 
 		so_Highlight.triggerRefresh();
 	}
@@ -262,6 +263,7 @@ public class CardHandler : MonoBehaviour
 				"You just made a bunch of new cards :O \n You can see all the cards you unlocked on you'r right sidebar.";
 
 			so_Highlight.highlightMainText = "";
+			so_Highlight.objectiveText = "";
 
 			so_Highlight.triggerRefresh();
 
@@ -280,6 +282,10 @@ public class CardHandler : MonoBehaviour
 		if (cardId == 1994)
 		{
 			so_Highlight.highlightMainText = "";
+
+			// Todo add the next
+			so_Highlight.objectiveText = "";
+
 			return;
 		}
 

@@ -100,6 +100,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 				"By clicking on a card or its associated right sidebar, you can see detailed information about the card on the left side. Specifically the cards required to make this card";
 
 			so_Highlight.highlightMainText = "";
+			so_Highlight.objectiveText = "";
 			so_Highlight.triggerRefresh();
 			StartCoroutine(stopDim());
 		}
@@ -114,6 +115,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 		so_Highlight.topLeftHighlighted = false;
 		so_Highlight.highlightText = "";
 		so_Highlight.highlightMainText = "Create the \"Space dome\" card";
+		so_Highlight.objectiveText = "Create the \"Space dome\" card";
 		so_Highlight.triggerRefresh();
 	}
 }

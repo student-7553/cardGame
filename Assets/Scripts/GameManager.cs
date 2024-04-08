@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 		current = this;
 		DontDestroyOnLoad(gameObject);
 
+		gameFoodManager = new GameFoodManager { food = 5, isEnabled = false };
 		CardDictionary.init(descriptions, so_CardImage);
 		gameSettings();
 	}
@@ -33,7 +34,6 @@ public class GameManager : MonoBehaviour
 	{
 		handleNewStart();
 		AwakeGameLogic();
-		gameFoodManager = new GameFoodManager { food = 5, isEnabled = false };
 
 		if (isStartHighlightActive)
 		{
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 			so_Highlight.cardIds = new int[] { 12 };
 			so_Highlight.highlightText = "You can move cards by dragging them, try it out :D";
 			so_Highlight.highlightMainText = "Move \"Rock deposit\" card around";
+			so_Highlight.objectiveText = "Move \"Rock deposit\" card around";
 			so_Highlight.triggerRefresh();
 		}
 	}

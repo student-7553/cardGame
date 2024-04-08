@@ -262,6 +262,7 @@ public class LeftClickHandler : MonoBehaviour
 				"Lets now drag the \"Rock deposit\" card and drop it on top of \"Small base\" card and see what happens";
 
 			soHighlight.highlightMainText = "Drop \"Rock deposit\" card on top of \"Small base\" card";
+			soHighlight.objectiveText = "Drop \"Rock deposit\" card on top of \"Small base\" card";
 
 			soHighlight.triggerRefresh();
 		}
@@ -286,6 +287,7 @@ public class LeftClickHandler : MonoBehaviour
 				{
 					soHighlight.highlightText = "Wait until the timer finishes";
 					soHighlight.highlightMainText = "";
+					soHighlight.objectiveText = "";
 				}
 				return;
 			}

@@ -23,6 +23,7 @@ public class SO_Highlight : ScriptableObject
 	public string highlightText;
 
 	public string highlightMainText;
+	public string objectiveText;
 
 	void OnEnable()
 	{
@@ -32,5 +33,6 @@ public class SO_Highlight : ScriptableObject
 		cardIds = Array.Empty<int>();
 		highlightText = null;
 		highlightMainText = null;
+		objectiveText = null;
 	}
 }
