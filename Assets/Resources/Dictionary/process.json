@@ -267,7 +267,7 @@
         {
           "id": 3923423,
           "odds": 10000000,
-          "addingCardIds": [12, 2, 5, 23, 24, 1997, 2001],
+          "addingCardIds": [12, 12, 2, 5, 23, 24, 1997, 2001],
           "extraUnlockCardIds": [],
           "isOneTime": true
         },
@@ -383,7 +383,7 @@
         {
           "id": 9655323,
           "odds": 1000,
-          "addingCardIds": [1003, 1994, 20, 3003, 10001],
+          "addingCardIds": [1003, 20, 3003, 10001, 1994],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 3001

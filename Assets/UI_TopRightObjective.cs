@@ -31,6 +31,6 @@ public class UI_TopRightObjective : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		textMeshHighlight.text = so_Highlight.highlightMainText;
+		textMeshHighlight.text = so_Highlight.objectiveText;
 	}
 }

@@ -237,7 +237,7 @@ public class CardHandler : MonoBehaviour
 
 	private IEnumerator secondHightlightHook()
 	{
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(10);
 
 		so_Highlight.isHighlightEnabled = true;
 		so_Highlight.cardIds = new int[] { 2001 };
@@ -250,11 +250,30 @@ public class CardHandler : MonoBehaviour
 		so_Highlight.triggerRefresh();
 	}
 
+	private IEnumerator foodHightlightHook()
+	{
+		yield return new WaitForSeconds(10);
+
+		GameManager.current.gameFoodManager.isEnabled = true;
+
+		so_Highlight.isHighlightEnabled = false;
+
+		so_Highlight.highlightMainText = "";
+		so_Highlight.highlightText = "";
+
+		so_Highlight.objectiveText = "Create the \"Hive of Space Domes\" card";
+
+		so_Highlight.triggerRefresh();
+	}
+
 	private void roughCardHooks(int cardId)
 	{
 		// 2001 - [Idea][Node] Space dome
 		if (cardId == 2001)
 		{
+			so_Interactable.dummyNewCardAction?.Invoke(2027);
+			so_Interactable.dummyNewCardAction?.Invoke(2028);
+
 			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.cardIds = new int[] { 12, 2, 5, 23, 24, 1997, 2001 };
 			so_Highlight.ideaId = -1;
@@ -267,9 +286,6 @@ public class CardHandler : MonoBehaviour
 
 			so_Highlight.triggerRefresh();
 
-			so_Interactable.dummyNewCardAction?.Invoke(2027);
-			so_Interactable.dummyNewCardAction?.Invoke(2028);
-
 			StartCoroutine(secondHightlightHook());
 			return;
 		}
@@ -277,13 +293,20 @@ public class CardHandler : MonoBehaviour
 		// first time of Space Dome
 		if (cardId == 1994)
 		{
-			GameManager.current.gameFoodManager.isEnabled = true;
-
 			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.highlightMainText = "";
-			so_Highlight.bottomBarFoodHightlighted = true;
-			so_Highlight.objectiveText = "Create the \"Hive of Space Domes\" card";
+
+			so_Highlight.cardIds = new int[] { };
+			so_Highlight.ideaId = -1;
+
+			so_Highlight.highlightText =
+				"If you look at the bottom left side of you're screen you will see you're total food. You're Space dome card will slowly use those food";
+
+			so_Highlight.highlightMainText = "If you're total food reaches 0 you will lose the game";
+
+			// If you're total food reaches 0 you will lose the game
 			so_Highlight.triggerRefresh();
+			StartCoroutine(foodHightlightHook());
 		}
 
 		// first time creating Hive of Space Domes
