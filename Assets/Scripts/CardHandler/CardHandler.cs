@@ -273,20 +273,35 @@ public class CardHandler : MonoBehaviour
 			StartCoroutine(secondHightlightHook());
 			return;
 		}
-		if (cardId == 1003)
-		{
-			GameManager.current.gameFoodManager.isEnabled = true;
-		}
 
-		// 1994 - Local Expedition Process
+		// first time of Space Dome
 		if (cardId == 1994)
 		{
+			GameManager.current.gameFoodManager.isEnabled = true;
+
+			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.highlightMainText = "";
+			so_Highlight.bottomBarFoodHightlighted = true;
+			so_Highlight.objectiveText = "Create the \"Hive of Space Domes\" card";
+			so_Highlight.triggerRefresh();
+		}
 
-			// Todo add the next
-			so_Highlight.objectiveText = "";
+		// first time creating Hive of Space Domes
+		if (cardId == 2012)
+		{
+			so_Highlight.objectiveText = "Create the \"Global Expedition\" card";
+		}
 
-			return;
+		// First time Global Expedition card
+		if (cardId == 1004)
+		{
+			so_Highlight.objectiveText = "Create the \"Core Pillar\" card";
+		}
+
+		// First time Core Pillar card
+		if (cardId == 2019)
+		{
+			so_Highlight.objectiveText = "Create the \"Zenith\" card";
 		}
 
 		// 1004 - Global expidition
@@ -300,7 +315,6 @@ public class CardHandler : MonoBehaviour
 		if (cardId == 27 && disableEnemySpawner == false)
 		{
 			enemySpawner.Run(EnemySpawer.EnemySpawner_Tier.tier_2);
-
 			return;
 		}
 

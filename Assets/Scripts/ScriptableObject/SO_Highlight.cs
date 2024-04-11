@@ -10,6 +10,11 @@ public class SO_Highlight : ScriptableObject
 	public bool topLeftHighlighted = false;
 	public int[] cardIds;
 
+	public string highlightText;
+	public string highlightMainText;
+	public string objectiveText;
+	public bool bottomBarFoodHightlighted;
+
 	public List<Action> triggerAction = new List<Action>();
 
 	public void triggerRefresh()
@@ -20,15 +25,11 @@ public class SO_Highlight : ScriptableObject
 		}
 	}
 
-	public string highlightText;
-
-	public string highlightMainText;
-	public string objectiveText;
-
 	void OnEnable()
 	{
 		isHighlightEnabled = false;
 		topLeftHighlighted = false;
+		bottomBarFoodHightlighted = false;
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;
