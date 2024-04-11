@@ -10,6 +10,7 @@ public class SO_PlayerRuntime : ScriptableObject
 
 	private bool isOptionMenuEnabled = false;
 	public bool isGameFailed = false;
+	public bool isGameFinished = false;
 	private bool isMuted = false;
 
 	private List<Action> playerFocusAction = new List<Action>();
@@ -71,6 +72,7 @@ public class SO_PlayerRuntime : ScriptableObject
 	{
 		isOptionMenuEnabled = false;
 		isGameFailed = false;
+		isGameFinished = false;
 		isMuted = false;
 	}
 }

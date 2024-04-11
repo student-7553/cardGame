@@ -10,6 +10,9 @@ public class UI_OptionsMenu : MonoBehaviour
 	[SerializeField]
 	private GameObject gameOverObject;
 
+	[SerializeField]
+	private GameObject gameFinishedObject;
+
 	void FixedUpdate()
 	{
 		bool isOptionEnabled = playerRuntime.getIsOptionMenuEnabled();
@@ -23,12 +26,19 @@ public class UI_OptionsMenu : MonoBehaviour
 			{
 				handleDisable();
 			}
+			return;
 		}
 
 		if (playerRuntime.isGameFailed && !gameOverObject.activeSelf)
 		{
-			Debug.Log("GameOver is called in Options");
 			gameOverObject.SetActive(true);
+			return;
+		}
+
+		if (playerRuntime.isGameFinished && !gameFinishedObject.activeSelf)
+		{
+			gameFinishedObject.SetActive(true);
+			return;
 		}
 	}
 

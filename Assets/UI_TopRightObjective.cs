@@ -12,6 +12,11 @@ public class UI_TopRightObjective : MonoBehaviour
 		so_Highlight.triggerAction.Add(triggerDimRefresh);
 	}
 
+	private void OnDestroy()
+	{
+		so_Highlight.triggerAction.Remove(triggerDimRefresh);
+	}
+
 	private void triggerDimRefresh()
 	{
 		if (so_Highlight.isHighlightEnabled)

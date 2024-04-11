@@ -105,11 +105,11 @@ public class EnemySpawer : MonoBehaviour
 	private Vector3 getEnemyNodeSpawnPoint()
 	{
 		Vector3 spawnPosition = new Vector3(0, 0, HelperData.enemyNodeBaseZ);
-		if (UnityEngine.Random.Range(-1f, 1f) > 0)
+		if (Random.Range(-1f, 1f) > 0)
 		{
-			spawnPosition.y = UnityEngine.Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);
-			float widthMinus = UnityEngine.Random.Range(0f, edgeSpawnPadding);
-			if (UnityEngine.Random.Range(-1f, 1f) > 0)
+			spawnPosition.y = Random.Range(-(boardSize.y / 2) + edgeSpawnPadding, boardSize.y / 2 - edgeSpawnPadding);
+			float widthMinus = Random.Range(0f, edgeSpawnPadding);
+			if (Random.Range(-1f, 1f) > 0)
 			{
 				spawnPosition.x = (boardSize.x / 2) - widthMinus;
 			}
@@ -120,9 +120,9 @@ public class EnemySpawer : MonoBehaviour
 		}
 		else
 		{
-			spawnPosition.x = UnityEngine.Random.Range(-(boardSize.x / 2) + edgeSpawnPadding, (boardSize.x / 2) - edgeSpawnPadding);
-			float heightMinus = UnityEngine.Random.Range(0f, edgeSpawnPadding);
-			if (UnityEngine.Random.Range(-1f, 1f) > 0)
+			spawnPosition.x = Random.Range(-(boardSize.x / 2) + edgeSpawnPadding, (boardSize.x / 2) - edgeSpawnPadding);
+			float heightMinus = Random.Range(0f, edgeSpawnPadding);
+			if (Random.Range(-1f, 1f) > 0)
 			{
 				spawnPosition.y = (boardSize.y / 2) - heightMinus;
 			}
