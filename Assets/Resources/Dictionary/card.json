@@ -24,7 +24,7 @@
     },
     {
       "id": 3,
-      "name": "Space Brick",
+      "name": "Building Block",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -233,7 +233,7 @@
     },
     {
       "id": 22,
-      "name": "[Dormant] Solar 1",
+      "name": "[Dormant] Desolate Solar Farm 1",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -253,7 +253,7 @@
     },
     {
       "id": 24,
-      "name": "[Dormant] Hydroponic 1",
+      "name": "[Dormant] Decrepit Module",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -285,7 +285,7 @@
     },
     {
       "id": 27,
-      "name": "Core Pillar",
+      "name": "Great work",
       "type": "Resource",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -296,7 +296,7 @@
     },
     {
       "id": 28,
-      "name": "Singular",
+      "name": "Singular thought",
       "type": "Resource",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
@@ -317,7 +317,7 @@
     },
     {
       "id": 30,
-      "name": "[Dormant] Hydroponic 2",
+      "name": "[Dormant] Decrepit Module 2",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -327,7 +327,7 @@
     },
     {
       "id": 31,
-      "name": "[Dormant] Hydroponic 3",
+      "name": "[Dormant] Decrepit Module 3",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -337,7 +337,7 @@
     },
     {
       "id": 32,
-      "name": "[Dormant] Hydroponic 4",
+      "name": "[Dormant] Decrepit Module 4",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -347,7 +347,7 @@
     },
     {
       "id": 33,
-      "name": "[Dormant] Solar 2",
+      "name": "[Dormant] Desolate Solar Farm 2",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -357,7 +357,7 @@
     },
     {
       "id": 34,
-      "name": "[Dormant] Solar 3",
+      "name": "[Dormant] Desolate Solar Farm 3",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -367,7 +367,7 @@
     },
     {
       "id": 35,
-      "name": "[Dormant] Solar 4",
+      "name": "[Dormant] Desolate Solar Farm 4",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -377,7 +377,7 @@
     },
     {
       "id": 36,
-      "name": "[Dormant] Solar 5",
+      "name": "[Dormant] Desolate Solar Farm 5",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -387,7 +387,7 @@
     },
     {
       "id": 37,
-      "name": "[Dormant] Solar 6",
+      "name": "[Dormant] Desolate Solar Farm 6",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -397,7 +397,7 @@
     },
     {
       "id": 38,
-      "name": "Zenith",
+      "name": "Project: Haven",
       "type": "Resource",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -686,7 +686,7 @@
     },
     {
       "id": 1997,
-      "name": "[Idea] Space brick",
+      "name": "[Idea] Building Block",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
