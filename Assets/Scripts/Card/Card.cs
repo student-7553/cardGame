@@ -101,10 +101,8 @@ public class Card : BaseCard, IClickable
 
 		if (isInteractiveDisabled && cardDisable != null)
 		{
-			string disabledTitle = "[DISABLED] ";
+			string disabledTitle = "[Disabled] ";
 
-			disabledTitle = disabledTitle + $"[{cardDisable}]";
-			if (cardDisable == CardDisableType.AutoMoving) { }
 			cardTitle = disabledTitle + cardTitle;
 		}
 
@@ -120,10 +118,11 @@ public class Card : BaseCard, IClickable
 		{
 			return 18;
 		}
-		if (title.Length > 12)
+		if (title.Length < 13)
 		{
-			return 16;
+			return 14;
 		}
-		return 13;
+
+		return 12;
 	}
 }

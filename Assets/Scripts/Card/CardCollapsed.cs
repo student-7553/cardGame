@@ -121,7 +121,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		if (isInteractiveDisabled && cardDisable != null)
 		{
-			string disabledTitle = "[DISABLED] ";
+			string disabledTitle = "[Disabled] ";
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
 			cardTitle = disabledTitle + cardTitle;
 		}
