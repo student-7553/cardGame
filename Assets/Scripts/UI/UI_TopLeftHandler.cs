@@ -25,6 +25,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	public GameObject containerDimObject;
 	public GameObject containerDim2Object;
+	public GameObject containerDimDesriptionObject;
 
 	private void Awake()
 	{
@@ -51,6 +52,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 		if (so_Highlight.isHighlightEnabled)
 		{
 			containerDimObject.SetActive(true);
+			containerDimDesriptionObject.SetActive(true);
 			if (!so_Highlight.topLeftHighlighted)
 			{
 				containerDim2Object.SetActive(true);
@@ -64,6 +66,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 		{
 			containerDimObject.SetActive(false);
 			containerDim2Object.SetActive(false);
+			containerDimDesriptionObject.SetActive(false);
 		}
 	}
 

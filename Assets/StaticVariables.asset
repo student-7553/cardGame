@@ -82,6 +82,10 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - cardType: 1
     color: {r: 0, g: 0, b: 0, a: 0}
+  - cardType: 4
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - cardType: 11
+    color: {r: 1, g: 0, b: 0.3019608, a: 0}
   cardBackgroundColors:
   - cardType: 0
     color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
@@ -104,6 +108,8 @@ MonoBehaviour:
   - cardType: 6
     color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
   - cardType: 11
+    color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
+  - cardType: 4
     color: {r: 1, g: 0.94509804, b: 0.9098039, a: 0}
   hoveringShadowAdjustment: {x: -0.1, y: 0.1, z: 0}
   nodeProcessTimeDecreaseTick: 0.1

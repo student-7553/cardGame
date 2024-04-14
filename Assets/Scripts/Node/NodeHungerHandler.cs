@@ -50,7 +50,7 @@ public class NodeHungerHandler : MonoBehaviour
 
 	private void handleSecondTick()
 	{
-		if (!isInit || !connectedNode.isActive)
+		if (!isInit || !connectedNode.isActive || !GameManager.current.gameFoodManager.isEnabled)
 		{
 			return;
 		}

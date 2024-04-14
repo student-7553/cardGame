@@ -37,6 +37,11 @@ public class DimBoardHandler : MonoBehaviour
 		{
 			if (so_Highlight.cardIds.Any((cardId) => cardId == card.id))
 			{
+				card.nonDimCard();
+				if (card.isStacked())
+				{
+					card.joinedStack.nonDimCard();
+				}
 				continue;
 			}
 			card.dimCard();
@@ -44,7 +49,6 @@ public class DimBoardHandler : MonoBehaviour
 			{
 				card.joinedStack.dimCard();
 			}
-			// card.dimCard();
 		}
 
 		foreach (Node node in so_Interactable.nodes)
@@ -65,6 +69,10 @@ public class DimBoardHandler : MonoBehaviour
 		foreach (Card card in so_Interactable.cards)
 		{
 			card.nonDimCard();
+			if (card.isStacked())
+			{
+				card.joinedStack.nonDimCard();
+			}
 		}
 
 		foreach (Node node in so_Interactable.nodes)

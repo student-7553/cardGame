@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
 	public bool isStartHighlightActive;
 
+	public bool isFoodDecreasedEnabledForce;
+
 	void Awake()
 	{
 		if (current != null)
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
 		current = this;
 		DontDestroyOnLoad(gameObject);
 
-		gameFoodManager = new GameFoodManager { food = 5, isEnabled = false };
+		gameFoodManager = new GameFoodManager { food = 5, isEnabled = isFoodDecreasedEnabledForce };
 		CardDictionary.init(descriptions, so_CardImage);
 		gameSettings();
 	}
