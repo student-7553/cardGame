@@ -347,8 +347,6 @@ public class CardStack : CardHolder
 		return null;
 	}
 
-	//---------------- START CardHolder------------
-
 	public CardStackType getCardHolderType()
 	{
 		return cardStackType;
@@ -398,6 +396,10 @@ public class CardStack : CardHolder
 		handleAddCardsToStack(addingCards);
 		collapseCardStack();
 	}
+
+	public void dimCard() { }
+
+	public void nonDimCard() { }
 
 	private void handleAddCardsToStack(List<BaseCard> addingCards)
 	{

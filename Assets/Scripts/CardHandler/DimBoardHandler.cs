@@ -40,6 +40,11 @@ public class DimBoardHandler : MonoBehaviour
 				continue;
 			}
 			card.dimCard();
+			if (card.isStacked())
+			{
+				card.joinedStack.dimCard();
+			}
+			// card.dimCard();
 		}
 
 		foreach (Node node in so_Interactable.nodes)

@@ -287,6 +287,8 @@ public interface CardHolder
 	public CardStackType getCardHolderType();
 	public List<BaseCard> getCards();
 	public BaseNode getNode();
+	public void dimCard();
+	public void nonDimCard();
 }
 
 public class CardCorners

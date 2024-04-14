@@ -25,6 +25,8 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public CardCollapsedPlaneHandler cardCollapsedPlaneHandler;
 
+	public GameObject dimObject;
+
 	public override CardCollapsed getCollapsedCard()
 	{
 		return this;
@@ -46,7 +48,6 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 		}
 		else
 		{
-			// cardCollapsedPlaneHandler.updatePosition();
 			cardCollapsedPlaneHandler.gameObject.SetActive(true);
 		}
 
@@ -141,6 +142,16 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			return 13;
 		}
 		return 18;
+	}
+
+	public void dimCard()
+	{
+		dimObject.SetActive(true);
+	}
+
+	public void nonDimCard()
+	{
+		dimObject.SetActive(false);
 	}
 
 	//---------------- START CardHolder ------------

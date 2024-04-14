@@ -250,7 +250,7 @@ public class CardHandler : MonoBehaviour
 		so_Highlight.triggerRefresh();
 	}
 
-	private IEnumerator foodHightlightHook()
+	private IEnumerator foodHightlightAfterHook()
 	{
 		yield return new WaitForSeconds(10);
 
@@ -259,11 +259,18 @@ public class CardHandler : MonoBehaviour
 		so_Highlight.isHighlightEnabled = false;
 
 		so_Highlight.highlightMainText = "";
-		so_Highlight.highlightText = "";
+		so_Highlight.highlightText = "Follow your objective and have fun";
 
 		so_Highlight.objectiveText = "Create the \"Hive of Space Domes\" card";
 
 		so_Highlight.triggerRefresh();
+		StartCoroutine(foodHightlightAfterCleanupHook());
+	}
+
+	private IEnumerator foodHightlightAfterCleanupHook()
+	{
+		yield return new WaitForSeconds(10);
+		so_Highlight.highlightText = "";
 	}
 
 	private void roughCardHooks(int cardId)
@@ -306,7 +313,7 @@ public class CardHandler : MonoBehaviour
 
 			// If you're total food reaches 0 you will lose the game
 			so_Highlight.triggerRefresh();
-			StartCoroutine(foodHightlightHook());
+			StartCoroutine(foodHightlightAfterHook());
 		}
 
 		// first time creating Hive of Space Domes
