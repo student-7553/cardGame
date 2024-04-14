@@ -162,7 +162,7 @@
         {
           "id": 7236586,
           "odds": 0.4,
-          "addingCardIds": [2002, 1995, 9, 9],
+          "addingCardIds": [1995, 9, 9],
           "extraUnlockCardIds": [],
           "addingFood": 2,
           "isOneTime": true
@@ -171,7 +171,7 @@
           "id": 1689686,
           "odds": 0.4,
           "addingCardIds": [2006, 2007, 11, 11, 4],
-          "extraUnlockCardIds": [2002],
+          "extraUnlockCardIds": [1995],
           "isOneTime": true
         },
         {
@@ -383,7 +383,7 @@
         {
           "id": 9655323,
           "odds": 1000,
-          "addingCardIds": [1003, 20, 3003, 10001, 1994],
+          "addingCardIds": [1003, 20, 3003, 10001, 1994, 2002, 1998],
           "extraUnlockCardIds": [],
           "isOneTime": true,
           "updateCurrentNode": 3001

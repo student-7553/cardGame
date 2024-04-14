@@ -264,19 +264,20 @@ public class CardHandler : MonoBehaviour
 		so_Highlight.objectiveText = "Create the \"Hive of Space Domes\" card";
 
 		so_Highlight.triggerRefresh();
-		StartCoroutine(foodHightlightAfterCleanupHook());
+		StartCoroutine(cleanupHook());
 	}
 
-	private IEnumerator foodHightlightAfterCleanupHook()
+	private IEnumerator cleanupHook()
 	{
 		yield return new WaitForSeconds(10);
 		so_Highlight.highlightText = "";
+		so_Highlight.highlightMainText = "";
 	}
 
 	private void roughCardHooks(int cardId)
 	{
 		// 2001 - [Idea][Node] Space dome
-		if (cardId == 2001)
+		if (cardId == 2001 && GameManager.current.isStartHighlightActive)
 		{
 			so_Interactable.dummyNewCardAction?.Invoke(2027);
 			so_Interactable.dummyNewCardAction?.Invoke(2028);
@@ -286,7 +287,7 @@ public class CardHandler : MonoBehaviour
 			so_Highlight.ideaId = -1;
 
 			so_Highlight.highlightText =
-				"You just made a bunch of new cards :O \n You can see all the cards you unlocked on you'r right sidebar.";
+				"You just made a bunch of new cards :O \n You can see some of the cards you created on you'r right sidebar";
 
 			so_Highlight.highlightMainText = "";
 			so_Highlight.objectiveText = "";
@@ -298,7 +299,7 @@ public class CardHandler : MonoBehaviour
 		}
 
 		// first time of Space Dome
-		if (cardId == 1994)
+		if (cardId == 1994 && GameManager.current.isStartHighlightActive)
 		{
 			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.highlightMainText = "";
@@ -320,18 +321,27 @@ public class CardHandler : MonoBehaviour
 		if (cardId == 2012)
 		{
 			so_Highlight.objectiveText = "Create the \"Global Expedition\" card";
+			so_Highlight.highlightMainText = "Create the \"Global Expedition\" card";
+			so_Highlight.highlightText = "You just completed you're objective";
+			StartCoroutine(cleanupHook());
 		}
 
 		// First time Global Expedition card
 		if (cardId == 1004)
 		{
 			so_Highlight.objectiveText = "Create the \"Core Pillar\" card";
+			so_Highlight.highlightMainText = "Create the \"Core Pillar\" card";
+			so_Highlight.highlightText = "You just completed you're objective";
+			StartCoroutine(cleanupHook());
 		}
 
 		// First time Core Pillar card
 		if (cardId == 2019)
 		{
 			so_Highlight.objectiveText = "Create the \"Zenith\" card";
+			so_Highlight.highlightMainText = "Create the \"Zenith\" card";
+			so_Highlight.highlightText = "You just completed you're objective";
+			StartCoroutine(cleanupHook());
 		}
 
 		// 1004 - Global expidition

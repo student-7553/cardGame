@@ -14,6 +14,8 @@ public class NodeHungerHandler : MonoBehaviour
 
 	public TextMeshPro nodeHungerTimer;
 
+	public GameObject nodeBottomPart;
+
 	[System.NonSerialized]
 	public SO_PlayerRuntime playerRuntime;
 
@@ -27,6 +29,7 @@ public class NodeHungerHandler : MonoBehaviour
 		connectedNode = parentNode;
 		if (parentNode.isMarket())
 		{
+			nodeBottomPart.SetActive(false);
 			return;
 		}
 

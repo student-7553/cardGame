@@ -35,7 +35,7 @@ MonoBehaviour:
     description: Once a beacon of promise amidst the cosmos, the Desolate Solar Farm
       now stands as a haunting monument to humanity's struggles. Its once-gleaming
       panels lie shattered and dormant, casting long shadows across the barren landscape..
-  - cardIds: 02000000
+  - cardIds: 02000000ed070000
     description: The Rock drifts silently through the void, a relic of ages past.
       Its rugged surface bears the scars of countless cosmic encounters, a testament
       to the resilience of celestial bodies against the ravages of time. Though seemingly
@@ -63,7 +63,7 @@ MonoBehaviour:
     description: Born from the heart of dying stars, these rubies shimmer with the
       fiery remnants of cosmic cataclysms. Within their depths, they hold the essence
       of celestial flames, offering a glimpse into the fiery forge of creation.
-  - cardIds: 09000000
+  - cardIds: 09000000eb070000
     description: Born from the depths of frozen realms, this ice gleams like crystalline
       diamonds amidst the cosmic expanse. From the icy depths, it whispers tales
       of ancient winters, offering a glimpse into the frozen heart of the universe.
@@ -75,7 +75,7 @@ MonoBehaviour:
     description: Scattered across the cosmos, this iron forms the backbone of interstellar
       civilization. From its sturdy depths, it offers the foundation upon which empires
       rise, forging pathways to greatness amidst the cosmic chaos.
-  - cardIds: 06000000
+  - cardIds: 06000000ec070000
     description: Woven from the fabric of spacetime, this iron embodies the resilience
       of the cosmos. From its sturdy depths, it offers civilizations the strength
       to overcome adversity, forging a path towards a future bathed in celestial

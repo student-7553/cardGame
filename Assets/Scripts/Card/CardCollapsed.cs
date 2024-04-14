@@ -137,11 +137,16 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private int getFontSize(string title)
 	{
-		if (title.Length > 12)
+		if (title.Length < 9)
 		{
-			return 13;
+			return 18;
 		}
-		return 18;
+		if (title.Length < 13)
+		{
+			return 14;
+		}
+
+		return 12;
 	}
 
 	public void dimCard()
@@ -259,12 +264,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		foreach (BaseCard singleCard in cards)
 		{
-			// singleCard.gameObject.transform.SetParent(gameObject.transform);
-			// singleCard.gameObject.SetActive(false);
-			// singleCard.attachToCardHolder(this);
-
 			singleCard.gameObject.transform.SetParent(cardCollapsedPlaneHandler.gameObject.transform);
-			// singleCard.gameObject.SetActive(true);
 			singleCard.attachToCardHolder(this);
 		}
 		alignCards();

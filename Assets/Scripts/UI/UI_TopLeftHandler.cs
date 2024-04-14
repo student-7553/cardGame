@@ -111,14 +111,18 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	public IEnumerator stopDim()
 	{
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(10);
 		so_Highlight.isHighlightEnabled = false;
 		so_Highlight.cardIds = new int[] { };
 		so_Highlight.ideaId = -1;
 		so_Highlight.topLeftHighlighted = false;
 		so_Highlight.highlightText = "Lets create this card. Add the correct cards into \"Small Base\" and create it";
-		so_Highlight.highlightMainText = "Create the \"Space dome\" card";
-		so_Highlight.objectiveText = "Create the \"Space dome\" card";
+		so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
+
+		// so_Highlight.highlightMainText = "Create the \"Space dome\" card";
+		// [Idea][Node] Space dome
+
+		so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
 		so_Highlight.triggerRefresh();
 	}
 }
