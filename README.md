@@ -1,5 +1,6 @@
-# Demo
-Link:  https://soproatlol.itch.io/one-card
+# Card Game
+
+Demo Link:  https://soproatlol.itch.io/one-card
 
 CardGame is a card game that was developed with passion but ultimately abandoned before completion. Hopefully some of the code or assets will help you.
 
