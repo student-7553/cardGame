@@ -1,4 +1,4 @@
-#Demo
+# Demo
 https://soproatlol.itch.io/one-card
 
 A personal card game project. 
