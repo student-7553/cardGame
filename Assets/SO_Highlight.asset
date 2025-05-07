@@ -16,8 +16,7 @@ MonoBehaviour:
   ideaId: -1
   topLeftHighlighted: 0
   cardIds: 
-  highlightText: Lets create this card. Add the correct cards into "Small Base" and
-    create it
-  highlightMainText: Create the "Space dome" card
-  objectiveText: Create the "Space dome" card
+  highlightText: 
+  highlightMainText: 
+  objectiveText: 
   bottomBarFoodHightlighted: 0

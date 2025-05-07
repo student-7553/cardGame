@@ -8,6 +8,7 @@ public class SO_Highlight : ScriptableObject
 	public bool isHighlightEnabled = false;
 	public int ideaId;
 	public bool topLeftHighlighted = false;
+
 	public int[] cardIds;
 
 	public string highlightText;

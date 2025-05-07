@@ -94,6 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3286174979187055916}
   - component: {fileID: 579458359710715011}
+  - component: {fileID: 5994917933785010288}
+  - component: {fileID: 694623234736054829}
   m_Layer: 0
   m_Name: icon_hungerCountPerIntervel
   m_TagString: Untagged
@@ -168,6 +170,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5994917933785010288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274856683776155033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3a2c29c1abcba40bdba20d39798949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  isOverriden: 0
+--- !u!114 &694623234736054829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274856683776155033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab048bd2e9c6ee459a3705caa789375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  node: {fileID: 5339004459602594743}
+  isOverriden: 0
 --- !u!1 &3508376437987380764
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +292,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2936174080194038081}
+  - component: {fileID: 1388114285064897942}
   - component: {fileID: 8063034184025811566}
+  - component: {fileID: 3290800652237010382}
   m_Layer: 0
   m_Name: icon_hungerCountTimer
   m_TagString: Untagged
@@ -284,6 +317,20 @@ Transform:
   m_Father: {fileID: 3400929324684000082}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388114285064897942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102408248394458184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3a2c29c1abcba40bdba20d39798949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  isOverriden: 0
 --- !u!212 &8063034184025811566
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -336,6 +383,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3290800652237010382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102408248394458184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab048bd2e9c6ee459a3705caa789375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  node: {fileID: 5339004459602594743}
+  isOverriden: 0
 --- !u!1 &4891150311999729770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1081,8 @@ GameObject:
   - component: {fileID: 5583032811115747912}
   - component: {fileID: 2784338639649691935}
   - component: {fileID: 288262200986629091}
+  - component: {fileID: 7930986510195387949}
+  - component: {fileID: 3333302257482370494}
   m_Layer: 0
   m_Name: text_hungerCountPerIntervel
   m_TagString: Untagged
@@ -1180,6 +1244,35 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2784338639649691935}
   m_maskType: 0
+--- !u!114 &7930986510195387949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6977950393624305011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d6b0777a4bb4479c7e359a0a2350c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  isOverriden: 0
+--- !u!114 &3333302257482370494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6977950393624305011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187381ff98318b74eb1e74000669f190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  node: {fileID: 5339004459602594743}
+  isOverriden: 0
 --- !u!1 &7046460253080375841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,6 +1456,8 @@ GameObject:
   - component: {fileID: 2709793406028978566}
   - component: {fileID: 3428090222067018970}
   - component: {fileID: 1538244818160880391}
+  - component: {fileID: 961880749910352186}
+  - component: {fileID: 3328737696902906513}
   m_Layer: 0
   m_Name: text_hungerCountTimer
   m_TagString: Untagged
@@ -1524,6 +1619,35 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 3428090222067018970}
   m_maskType: 0
+--- !u!114 &961880749910352186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580802922355788735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7d6b0777a4bb4479c7e359a0a2350c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  isOverriden: 0
+--- !u!114 &3328737696902906513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580802922355788735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187381ff98318b74eb1e74000669f190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soHightlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
+  node: {fileID: 5339004459602594743}
+  isOverriden: 0
 --- !u!1 &8733827495305702484
 GameObject:
   m_ObjectHideFlags: 0
