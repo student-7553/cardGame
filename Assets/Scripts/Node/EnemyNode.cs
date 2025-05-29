@@ -193,6 +193,11 @@ public class EnemyNode : MonoBehaviour, BaseNode
 		}
 	}
 
+	public void OnPress()
+	{
+		// soAudio.cardClickAudioAction?.Invoke();
+	}
+
 	private float getCurrentFigherValue()
 	{
 		float totalFighterValue = processCardStack

@@ -15,8 +15,9 @@ MonoBehaviour:
   isHighlightEnabled: 0
   ideaId: -1
   topLeftHighlighted: 0
-  cardIds: 
-  highlightText: 
-  highlightMainText: 
-  objectiveText: 
+  highlightDisabledForce: 0
+  cardIds: 0c000000
+  highlightText: You can move cards by dragging them, try it out :D
+  highlightMainText: Move "Rock deposit" card around
+  objectiveText: Move "Rock deposit" card around
   bottomBarFoodHightlighted: 0

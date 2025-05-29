@@ -62,7 +62,12 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 			Vector3 newScale = isHovering
 				? shadowSpriteRenderer.transform.localScale + staticVariables.hoveringShadowAdjustment
 				: shadowSpriteRenderer.transform.localScale - staticVariables.hoveringShadowAdjustment;
-			;
+
+			Vector3 newPosition = isHovering
+				? shadowSpriteRenderer.transform.position + staticVariables.hoveringShadowPositionAdjustment
+				: shadowSpriteRenderer.transform.position - staticVariables.hoveringShadowPositionAdjustment;
+
+			shadowSpriteRenderer.transform.position = newPosition;
 			shadowSpriteRenderer.transform.localScale = newScale;
 
 			Color adjustmentColor = new Color(

@@ -1,7 +1,6 @@
 using Core;
-using Helpers;
 
-public interface BaseNode : IStackable, IClickable, Interactable
+public interface BaseNode : IStackable, IClickable, Interactable, IMousePress
 {
 	public NodePlaneHandler nodePlaneManager { get; set; }
 

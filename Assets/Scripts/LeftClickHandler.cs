@@ -163,6 +163,8 @@ public class LeftClickHandler : MonoBehaviour
 
 			yield return new WaitForEndOfFrame();
 		}
+		soAudio.cardDropAudioAction?.Invoke();
+
 		if (isMiddleLogicEnabled)
 		{
 			List<BaseCard> draggingCards = draggingObjects
@@ -189,7 +191,6 @@ public class LeftClickHandler : MonoBehaviour
 				) - new Vector3(0, 0.5f, 0);
 		}
 
-		soAudio.cardDropAudioAction?.Invoke();
 		handleCardDrop(draggingObjects, previousStackedNode);
 	}
 
@@ -288,6 +289,7 @@ public class LeftClickHandler : MonoBehaviour
 					soHighlight.highlightText = "Wait until the timer finishes";
 					soHighlight.highlightMainText = "";
 					soHighlight.objectiveText = "";
+					soHighlight.triggerRefresh();
 				}
 				return;
 			}

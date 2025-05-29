@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "8cbc0792-56ac-402d-a0b5-97056eefb68d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -224,7 +233,7 @@
                     "name": "",
                     "id": "b0ffacf1-74d3-486e-8aab-29094d161776",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Hold(duration=0.15,pressPoint=0.5),Press",
+                    "interactions": "Hold(duration=0.1,pressPoint=0.3),Press(pressPoint=0.3)",
                     "processors": "",
                     "groups": "",
                     "action": "LeftMouseClickAndHold",
@@ -235,7 +244,7 @@
                     "name": "",
                     "id": "5f3eb70d-f970-4ef1-9463-3e01fcae6c33",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "Press(pressPoint=0.2)",
                     "processors": "",
                     "groups": "",
                     "action": "LeftMousePress",
@@ -283,6 +292,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomDecreaseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5526090-cdfe-42c9-9b8f-91cecaf04290",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

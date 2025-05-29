@@ -70,7 +70,6 @@ public class NodeProcess : MonoBehaviour
 			yield return new WaitForSeconds(timer);
 		}
 
-		// node.hadleRemovingCards(data.removingCards);
 		foreach (Card singleRemovingCard in data.removingCards)
 		{
 			if (singleRemovingCard != null)
@@ -303,7 +302,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (isCombo)
 		{
-			GameManager.current.SpawnFloatingText("COMBO", transform.position);
+			GameManager.current.SpawnFloatingTexts(new List<string> { "COMBO" }, transform.position);
 		}
 
 		while (proccessingLeft > 0)
@@ -414,10 +413,10 @@ public class NodeProcess : MonoBehaviour
 			card.isInteractiveDisabled = false;
 		}
 
-		foreach (int newCardId in addingCardsFromProcess)
-		{
-			GameManager.current.SpawnFloatingText("[" + CardDictionary.globalCardDictionary[newCardId].name + "]", transform.position);
-		}
+		GameManager.current.SpawnFloatingTexts(
+			addingCardsFromProcess.Select((e) => CardDictionary.globalCardDictionary[e].name).ToList(),
+			transform.position
+		);
 
 		ejectingBaseCards.AddRange(
 			restNonInteractiveCards.Where(

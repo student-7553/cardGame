@@ -8,6 +8,7 @@ public class SO_Highlight : ScriptableObject
 	public bool isHighlightEnabled = false;
 	public int ideaId;
 	public bool topLeftHighlighted = false;
+	public bool highlightDisabledForce = false;
 
 	public int[] cardIds;
 
@@ -20,6 +21,12 @@ public class SO_Highlight : ScriptableObject
 
 	public void triggerRefresh()
 	{
+		if (highlightDisabledForce)
+		{
+			isHighlightEnabled = false;
+			return;
+		}
+
 		foreach (Action singleTriggerAction in triggerAction)
 		{
 			singleTriggerAction.Invoke();

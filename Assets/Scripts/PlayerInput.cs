@@ -17,9 +17,12 @@ public class PlayerInput : MonoBehaviour
 	public InputActionReference increaseTimeScale;
 	public InputActionReference decreaseTimeScale;
 
+	public InputActionReference menuClick;
+
 	public CameraController cameraController;
 
 	private Vector2 cachedMousePosition;
+	public SO_PlayerRuntime playerRuntime;
 
 	private void OnEnable()
 	{
@@ -38,6 +41,8 @@ public class PlayerInput : MonoBehaviour
 
 		increaseTimeScale.action.performed += handleFastTimeButtonPress;
 		decreaseTimeScale.action.performed += handleNormalTimeButtonPress;
+
+		menuClick.action.performed += handleMenuClick;
 	}
 
 	private void OnDisable()
@@ -58,6 +63,8 @@ public class PlayerInput : MonoBehaviour
 
 		increaseTimeScale.action.performed -= handleFastTimeButtonPress;
 		decreaseTimeScale.action.performed -= handleNormalTimeButtonPress;
+
+		menuClick.action.performed -= handleMenuClick;
 	}
 
 	public void handleFastTimeButtonPress(InputAction.CallbackContext context)
@@ -144,5 +151,11 @@ public class PlayerInput : MonoBehaviour
 	{
 		cameraController.isMouseAccelerationLocked = false;
 		cameraController.moveAcceleration(Vector2.zero);
+	}
+
+	public void handleMenuClick(InputAction.CallbackContext context)
+	{
+		// GameManager.current.handleNormalTime();
+		playerRuntime.toggleOptionMenu();
 	}
 }

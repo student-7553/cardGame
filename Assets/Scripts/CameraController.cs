@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
 
 	private void handleMouseScreenEdge()
 	{
-		if (isMouseAccelerationLocked)
+		if (isMouseAccelerationLocked || !Screen.fullScreen)
 		{
 			return;
 		}

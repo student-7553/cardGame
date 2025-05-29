@@ -231,6 +231,11 @@ public class Node : MonoBehaviour, BaseNode
 		}
 	}
 
+	public void OnPress()
+	{
+		//
+	}
+
 	public void dimCard()
 	{
 		dimObject.SetActive(true);

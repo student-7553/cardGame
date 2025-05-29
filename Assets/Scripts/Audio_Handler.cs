@@ -12,6 +12,9 @@ public class Audio_Handler : MonoBehaviour
 	{
 		audioSource = GetComponent<AudioSource>();
 		audioGlobal.registerToAction(audioType, triggerSound);
+
+		int pickedIndex = Random.Range(0, audioClips.Count);
+		audioSource.clip = audioClips[pickedIndex];
 	}
 
 	void OnDestroy()
@@ -25,11 +28,6 @@ public class Audio_Handler : MonoBehaviour
 		{
 			return;
 		}
-
-		audioSource.Stop();
-
-		int pickedIndex = Random.Range(0, audioClips.Count);
-		audioSource.clip = audioClips[pickedIndex];
 
 		audioSource.Play();
 	}
