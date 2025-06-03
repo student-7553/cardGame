@@ -1,15 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Audio_Handler : MonoBehaviour
 {
 	private AudioSource audioSource;
 	public List<AudioClip> audioClips;
 	public SO_Audio audioGlobal;
+	public SO_PlayerRuntime playerRuntime;
 	public SFX_types audioType;
 
 	void Start()
 	{
+		Assert.IsNotNull(playerRuntime);
+		Assert.IsNotNull(audioGlobal);
 		audioSource = GetComponent<AudioSource>();
 		audioGlobal.registerToAction(audioType, triggerSound);
 
@@ -25,6 +29,10 @@ public class Audio_Handler : MonoBehaviour
 	public void triggerSound()
 	{
 		if (audioClips.Count == 0)
+		{
+			return;
+		}
+		if (playerRuntime.getIsMuted())
 		{
 			return;
 		}

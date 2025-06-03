@@ -235,20 +235,20 @@ public class CardHandler : MonoBehaviour
 		return cardSpriteRenderer;
 	}
 
-	private IEnumerator secondHightlightHook()
-	{
-		yield return new WaitForSeconds(10);
+	// private IEnumerator secondHightlightHook()
+	// {
+	// 	yield return new WaitForSeconds(5);
 
-		so_Highlight.isHighlightEnabled = true;
-		so_Highlight.cardIds = new int[] { 2001 };
-		so_Highlight.ideaId = 2001;
+	// 	so_Highlight.isHighlightEnabled = true;
+	// 	so_Highlight.cardIds = new int[] { 2001 };
+	// 	so_Highlight.ideaId = 2001;
 
-		so_Highlight.highlightText = "But lets take a close look at a new [Idea] card you just made";
-		so_Highlight.highlightMainText = "Click \"Space dome\" card or right sidebar";
-		so_Highlight.objectiveText = "Click \"Space dome\" card or right sidebar";
+	// 	so_Highlight.highlightText = "But lets take a look at a new [Idea] card you just made";
+	// 	so_Highlight.highlightMainText = "Click on the \"Space dome\" card";
+	// 	so_Highlight.objectiveText = "Click on the \"Space dome\" card";
 
-		so_Highlight.triggerRefresh();
-	}
+	// 	so_Highlight.triggerRefresh();
+	// }
 
 	private IEnumerator foodHightlightAfterHook()
 	{
@@ -276,25 +276,23 @@ public class CardHandler : MonoBehaviour
 
 	private void roughCardHooks(int cardId)
 	{
-		// 2001 - [Idea][Node] Space dome
 		if (cardId == 2001 && GameManager.current.isStartHighlightActive)
 		{
 			so_Interactable.dummyNewCardAction?.Invoke(2027);
 			so_Interactable.dummyNewCardAction?.Invoke(2028);
 
 			so_Highlight.isHighlightEnabled = true;
-			so_Highlight.cardIds = new int[] { 12, 2, 5, 23, 24, 1997, 2001 };
-			so_Highlight.ideaId = -1;
 
-			so_Highlight.highlightText =
-				"You just made a bunch of new cards :O \n You can see some of the cards you created on you'r right sidebar";
+			so_Highlight.highlightText = "You just made a bunch of new cards :O \n But lets take a look at a new [Idea] card you just made";
 
-			so_Highlight.highlightMainText = "";
-			so_Highlight.objectiveText = "";
+			so_Highlight.cardIds = new int[] { 2001 };
+			so_Highlight.ideaId = 2001;
+
+			so_Highlight.highlightMainText = "Click on the \"Space dome\" card";
+			so_Highlight.objectiveText = "Click on the \"Space dome\" card";
 
 			so_Highlight.triggerRefresh();
 
-			StartCoroutine(secondHightlightHook());
 			return;
 		}
 

@@ -13,6 +13,9 @@ public class UI_OptionsMenu : MonoBehaviour
 	[SerializeField]
 	private GameObject gameFinishedObject;
 
+	[SerializeField]
+	private GameObject gameTabObject;
+
 	void FixedUpdate()
 	{
 		bool isOptionEnabled = playerRuntime.getIsOptionMenuEnabled();
@@ -26,6 +29,12 @@ public class UI_OptionsMenu : MonoBehaviour
 			{
 				handleDisable();
 			}
+			return;
+		}
+
+		if (playerRuntime.isIdeaTabOpen != gameTabObject.activeSelf)
+		{
+			gameTabObject.SetActive(playerRuntime.isIdeaTabOpen);
 			return;
 		}
 

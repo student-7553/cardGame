@@ -1,28 +1,43 @@
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 public class PlayerInput : MonoBehaviour
 {
 	public InputActionReference cameraMovement;
-
 	public InputActionReference zoomAxis;
 	public InputActionReference zoomIncreaseClick;
 	public InputActionReference zoomDecreaseClick;
-
 	public InputActionReference pauseButton;
 	public InputActionReference leftMouseClickButton;
 	public InputActionReference leftMousePressButton;
-
 	public InputActionReference increaseTimeScale;
 	public InputActionReference decreaseTimeScale;
-
 	public InputActionReference menuClick;
+	public InputActionReference tabClick;
 
 	public CameraController cameraController;
 
 	private Vector2 cachedMousePosition;
 	public SO_PlayerRuntime playerRuntime;
+
+	private void Awake()
+	{
+		Assert.IsNotNull(cameraMovement);
+		Assert.IsNotNull(zoomAxis);
+		Assert.IsNotNull(zoomIncreaseClick);
+		Assert.IsNotNull(pauseButton);
+		Assert.IsNotNull(leftMouseClickButton);
+		Assert.IsNotNull(leftMousePressButton);
+		Assert.IsNotNull(increaseTimeScale);
+		Assert.IsNotNull(decreaseTimeScale);
+		Assert.IsNotNull(menuClick);
+		Assert.IsNotNull(tabClick);
+		Assert.IsNotNull(cameraController);
+		Assert.IsNotNull(playerRuntime);
+	}
 
 	private void OnEnable()
 	{
@@ -43,6 +58,7 @@ public class PlayerInput : MonoBehaviour
 		decreaseTimeScale.action.performed += handleNormalTimeButtonPress;
 
 		menuClick.action.performed += handleMenuClick;
+		tabClick.action.performed += handleTabClick;
 	}
 
 	private void OnDisable()
@@ -65,6 +81,7 @@ public class PlayerInput : MonoBehaviour
 		decreaseTimeScale.action.performed -= handleNormalTimeButtonPress;
 
 		menuClick.action.performed -= handleMenuClick;
+		tabClick.action.performed -= handleTabClick;
 	}
 
 	public void handleFastTimeButtonPress(InputAction.CallbackContext context)
@@ -155,7 +172,11 @@ public class PlayerInput : MonoBehaviour
 
 	public void handleMenuClick(InputAction.CallbackContext context)
 	{
-		// GameManager.current.handleNormalTime();
 		playerRuntime.toggleOptionMenu();
+	}
+
+	public void handleTabClick(InputAction.CallbackContext context)
+	{
+		playerRuntime.toggleIdeaTab();
 	}
 }

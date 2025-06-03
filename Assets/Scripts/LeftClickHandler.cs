@@ -5,13 +5,17 @@ using UnityEngine.InputSystem;
 using Core;
 using Helpers;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class LeftClickHandler : MonoBehaviour
 {
-	private LayerMask baseInteractableLayerMask;
+	public LayerMask baseInteractableLayerMask;
 	public static LeftClickHandler current;
 	public SO_Audio soAudio;
 	public SO_Highlight soHighlight;
+	public GraphicRaycaster raycaster;
+	public EventSystem eventSystem;
 
 	private bool isHolding;
 
@@ -25,9 +29,6 @@ public class LeftClickHandler : MonoBehaviour
 			return;
 		}
 		current = this;
-
-		string[] layerNames = { "Interactable", "EnemyInteractable" };
-		baseInteractableLayerMask = LayerMask.GetMask(layerNames);
 	}
 
 	private GameObject getMouseCloseGameObject(Vector2 mousePosition)
@@ -44,6 +45,14 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void handleClickHold(Vector2 pressMousePosition)
 	{
+		List<RaycastResult> results = new List<RaycastResult>();
+		PointerEventData pointerData = new PointerEventData(eventSystem) { position = pressMousePosition };
+		raycaster.Raycast(pointerData, results);
+		if (results.Count > 0)
+		{
+			return;
+		}
+
 		GameObject hitGameObject = getMouseCloseGameObject(pressMousePosition);
 		if (hitGameObject == null)
 		{
@@ -85,6 +94,15 @@ public class LeftClickHandler : MonoBehaviour
 	public void handleClick()
 	{
 		Vector2 mousePosition = Mouse.current.position.ReadValue();
+
+		List<RaycastResult> results = new List<RaycastResult>();
+		PointerEventData pointerData = new PointerEventData(eventSystem) { position = mousePosition };
+		raycaster.Raycast(pointerData, results);
+		if (results.Count > 0)
+		{
+			return;
+		}
+
 		GameObject hitGameObject = getMouseCloseGameObject(mousePosition);
 		if (hitGameObject == null)
 		{

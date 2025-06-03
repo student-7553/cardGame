@@ -530,7 +530,9 @@
       "module": {
         "minusInterval": {
           "time": 5,
-          "processIds": [6]
+          "processIds": [
+            6
+          ]
         }
       }
     },
@@ -548,7 +550,9 @@
       "module": {
         "minusInterval": {
           "time": 5,
-          "processIds": [7]
+          "processIds": [
+            7
+          ]
         }
       }
     },
@@ -562,7 +566,9 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [6]
+        "isMagnetizedCardIds": [
+          6
+        ]
       }
     },
     {
@@ -575,7 +581,9 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [10]
+        "isMagnetizedCardIds": [
+          10
+        ]
       }
     },
     {
@@ -588,7 +596,9 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [2]
+        "isMagnetizedCardIds": [
+          2
+        ]
       }
     },
     {
@@ -601,7 +611,11 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [19, 25, 26]
+        "isMagnetizedCardIds": [
+          19,
+          25,
+          26
+        ]
       }
     },
     {
@@ -614,7 +628,11 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [10100, 10101, 10102]
+        "isMagnetizedCardIds": [
+          10100,
+          10101,
+          10102
+        ]
       }
     },
     {
@@ -627,7 +645,11 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [4, 5, 12]
+        "isMagnetizedCardIds": [
+          4,
+          5,
+          12
+        ]
       }
     },
     {
@@ -640,10 +662,11 @@
       "sellingPrice": 10,
       "nodeTransferTimeCost": 10,
       "module": {
-        "isMagnetizedCardIds": [9]
+        "isMagnetizedCardIds": [
+          9
+        ]
       }
     },
-
     {
       "id": 1993,
       "name": "[Idea] Global Expedition Process",
@@ -914,7 +937,6 @@
       "sellingPrice": 1,
       "typeValue": 0
     },
-
     {
       "id": 2020,
       "name": "[Idea] Magnetize",
@@ -1114,7 +1136,6 @@
       "sellingPrice": 100,
       "typeValue": 25.1
     },
-
     {
       "id": 10200,
       "name": "1 Food (Deprecated)",

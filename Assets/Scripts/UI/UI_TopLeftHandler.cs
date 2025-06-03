@@ -23,14 +23,9 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	public SO_Highlight so_Highlight;
 
-	public GameObject containerDimObject;
-	public GameObject containerDim2Object;
-	public GameObject containerDimDesriptionObject;
-
 	private void Awake()
 	{
 		playerRuntime.registerActionToPlayerFocus(focusCardIdChanged);
-		so_Highlight.triggerAction.Add(triggerDimRefresh);
 	}
 
 	private void Start()
@@ -43,31 +38,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		so_Highlight.triggerAction.Remove(triggerDimRefresh);
 		playerRuntime.unRegisterAction(focusCardIdChanged);
-	}
-
-	private void triggerDimRefresh()
-	{
-		if (so_Highlight.isHighlightEnabled)
-		{
-			containerDimObject.SetActive(true);
-			containerDimDesriptionObject.SetActive(true);
-			if (!so_Highlight.topLeftHighlighted)
-			{
-				containerDim2Object.SetActive(true);
-			}
-			else
-			{
-				containerDim2Object.SetActive(false);
-			}
-		}
-		else
-		{
-			containerDimObject.SetActive(false);
-			containerDim2Object.SetActive(false);
-			containerDimDesriptionObject.SetActive(false);
-		}
 	}
 
 	public void focusCardIdChanged()
@@ -96,33 +67,31 @@ public class UI_TopLeftHandler : MonoBehaviour
 		if (so_Highlight.isHighlightEnabled && currentCardId == 2001)
 		{
 			so_Highlight.isHighlightEnabled = true;
-			so_Highlight.cardIds = new int[] { };
+			so_Highlight.cardIds = new int[] { 3, 2, 12, 3000 };
 			so_Highlight.ideaId = -1;
 			so_Highlight.topLeftHighlighted = true;
 			so_Highlight.highlightText =
-				"By clicking on a card or its associated right sidebar, you can see detailed information about the card on the left side";
+				"By clicking on a [Idea] card or pressing Tab, you can see more information about new cards, Lets create the Space dome card. Add the correct cards into \"Small Base\" and create it";
 
-			so_Highlight.highlightMainText = "Specifically the cards required to make this card";
-			so_Highlight.objectiveText = "";
+			so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
+			so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
+
 			so_Highlight.triggerRefresh();
-			StartCoroutine(stopDim());
 		}
 	}
 
-	public IEnumerator stopDim()
-	{
-		yield return new WaitForSeconds(10);
-		so_Highlight.isHighlightEnabled = false;
-		so_Highlight.cardIds = new int[] { };
-		so_Highlight.ideaId = -1;
-		so_Highlight.topLeftHighlighted = false;
-		so_Highlight.highlightText = "Lets create this card. Add the correct cards into \"Small Base\" and create it";
-		so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
+	// public IEnumerator stopDim()
+	// {
+	// 	yield return new WaitForSeconds(10);
+	// 	so_Highlight.isHighlightEnabled = false;
+	// 	so_Highlight.cardIds = new int[] { };
+	// 	so_Highlight.ideaId = -1;
+	// 	so_Highlight.topLeftHighlighted = false;
+	// 	so_Highlight.highlightText = "Lets create this card. Add the correct cards into \"Small Base\" and create it";
+	// 	so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
 
-		// so_Highlight.highlightMainText = "Create the \"Space dome\" card";
-		// [Idea][Node] Space dome
 
-		so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
-		so_Highlight.triggerRefresh();
-	}
+	// 	so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
+	// 	so_Highlight.triggerRefresh();
+	// }
 }
