@@ -269,9 +269,10 @@ public class CardHandler : MonoBehaviour
 
 	private IEnumerator cleanupHook()
 	{
-		yield return new WaitForSeconds(10);
+		yield return new WaitForSeconds(5);
 		so_Highlight.highlightText = "";
 		so_Highlight.highlightMainText = "";
+		so_Highlight.triggerRefresh();
 	}
 
 	private void roughCardHooks(int cardId)

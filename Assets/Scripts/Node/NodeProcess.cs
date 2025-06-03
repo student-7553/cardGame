@@ -302,7 +302,7 @@ public class NodeProcess : MonoBehaviour
 
 		if (isCombo)
 		{
-			GameManager.current.SpawnFloatingTexts(new List<string> { "COMBO" }, transform.position);
+			StartCoroutine(GameManager.current.SpawnFloatingTexts(new List<string> { "COMBO" }, transform.position));
 		}
 
 		while (proccessingLeft > 0)
@@ -412,10 +412,11 @@ public class NodeProcess : MonoBehaviour
 			}
 			card.isInteractiveDisabled = false;
 		}
-
-		GameManager.current.SpawnFloatingTexts(
-			addingCardsFromProcess.Select((e) => CardDictionary.globalCardDictionary[e].name).ToList(),
-			transform.position
+		StartCoroutine(
+			GameManager.current.SpawnFloatingTexts(
+				addingCardsFromProcess.Select((e) => CardDictionary.globalCardDictionary[e].name).ToList(),
+				transform.position
+			)
 		);
 
 		ejectingBaseCards.AddRange(

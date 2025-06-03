@@ -8,7 +8,6 @@ public class FloatingText : MonoBehaviour
 {
 	public StaticVariables staticVariables;
 
-	// private readonly float fadeDuration = 0.5f;
 	private readonly float positonY = 15;
 
 	private TextMeshPro textMesh;
@@ -26,8 +25,6 @@ public class FloatingText : MonoBehaviour
 
 	IEnumerator HandleFade()
 	{
-		// yield return new WaitForSeconds(staticVariables.floatingTextDurationSec - fadeDuration);
-		// yield return new WaitForSeconds(fadeDuration);
 		yield return new WaitForSeconds(staticVariables.floatingTextDurationSec);
 		Destroy(gameObject);
 	}

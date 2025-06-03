@@ -21,6 +21,7 @@ public class SO_PlayerRuntime : ScriptableObject
 
 	void Awake()
 	{
+		this.playerFocusingCardId = 0;
 		Assert.IsNotNull(soHighlight);
 	}
 
@@ -37,7 +38,12 @@ public class SO_PlayerRuntime : ScriptableObject
 
 	public void changePlayerFocusingCardId(int playerFocusingCardId)
 	{
-		if (soHighlight.isHighlightEnabled && soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(2001))
+		if (
+			soHighlight.isHighlightEnabled
+			&& soHighlight.cardIds.Count() == 1
+			&& soHighlight.cardIds.Contains(2001)
+			&& playerFocusingCardId == 2001
+		)
 		{
 			isIdeaTabOpen = true;
 		}

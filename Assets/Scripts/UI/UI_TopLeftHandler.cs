@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 public class TopLeftEntry : MonoBehaviour
 {
@@ -71,7 +70,7 @@ public class UI_TopLeftHandler : MonoBehaviour
 			so_Highlight.ideaId = -1;
 			so_Highlight.topLeftHighlighted = true;
 			so_Highlight.highlightText =
-				"By clicking on a [Idea] card or pressing Tab, you can see more information about new cards, Lets create the Space dome card. Add the correct cards into \"Small Base\" and create it";
+				"By clicking on a [Idea] card or pressing Tab, you can see more information about how to create new cards, Lets create the new Space dome card. Add the correct cards into \"Small Base\" and create it";
 
 			so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
 			so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
@@ -79,19 +78,4 @@ public class UI_TopLeftHandler : MonoBehaviour
 			so_Highlight.triggerRefresh();
 		}
 	}
-
-	// public IEnumerator stopDim()
-	// {
-	// 	yield return new WaitForSeconds(10);
-	// 	so_Highlight.isHighlightEnabled = false;
-	// 	so_Highlight.cardIds = new int[] { };
-	// 	so_Highlight.ideaId = -1;
-	// 	so_Highlight.topLeftHighlighted = false;
-	// 	so_Highlight.highlightText = "Lets create this card. Add the correct cards into \"Small Base\" and create it";
-	// 	so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
-
-
-	// 	so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
-	// 	so_Highlight.triggerRefresh();
-	// }
 }

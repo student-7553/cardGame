@@ -20,7 +20,7 @@ MonoBehaviour:
   sellTimer: 1
   bufferProcessingTime: 1
   processingTimeMin: 1
-  floatingTextDurationSec: 1.5
+  floatingTextDurationSec: 1
   magnetizedIntervel: 6
   endingCardId: 38
   enemySpawnIntervals:

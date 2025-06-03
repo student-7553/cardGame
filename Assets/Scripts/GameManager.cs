@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,13 +50,13 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void SpawnFloatingTexts(List<string> floatingTexts, Vector2 spawnLocation)
+	public IEnumerator SpawnFloatingTexts(List<string> floatingTexts, Vector2 spawnLocation)
 	{
-		int baseHeightMin = -3;
-		int baseheightMax = 3;
+		int baseHeightMin = -2;
+		int baseheightMax = 2;
 
-		int widthMin = -6;
-		int widthMax = 6;
+		int widthMin = -2;
+		int widthMax = 2;
 
 		Vector3 newSpawnBaseLocation =
 			(Vector3)spawnLocation + new Vector3(Random.Range(widthMin, widthMax), Random.Range(baseHeightMin, baseheightMax), -8);
@@ -66,16 +67,17 @@ public class GameManager : MonoBehaviour
 		{
 			if (i % 2 == 0)
 			{
-				positionCounter = new Vector3(Random.Range(widthMin, widthMax), -positionCounter.y, 0);
+				positionCounter = new Vector3(Random.Range(widthMin, widthMax), positionCounter.y, 0);
 			}
 			else
 			{
-				positionCounter = new Vector3(Random.Range(widthMin, widthMax), (-positionCounter.y) + 3, 0);
+				positionCounter = new Vector3(Random.Range(widthMin, widthMax), positionCounter.y - 1, 0);
 			}
-			Vector3 spawnPosition = newSpawnBaseLocation + positionCounter;
 
+			Vector3 spawnPosition = newSpawnBaseLocation + positionCounter;
 			GameObject floatingTextObject = Instantiate(floatingTextPrefab, spawnPosition, Quaternion.identity);
 			floatingTextObject.GetComponent<FloatingText>().Run(floatingTexts[i]);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 
