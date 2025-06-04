@@ -235,21 +235,6 @@ public class CardHandler : MonoBehaviour
 		return cardSpriteRenderer;
 	}
 
-	// private IEnumerator secondHightlightHook()
-	// {
-	// 	yield return new WaitForSeconds(5);
-
-	// 	so_Highlight.isHighlightEnabled = true;
-	// 	so_Highlight.cardIds = new int[] { 2001 };
-	// 	so_Highlight.ideaId = 2001;
-
-	// 	so_Highlight.highlightText = "But lets take a look at a new [Idea] card you just made";
-	// 	so_Highlight.highlightMainText = "Click on the \"Space dome\" card";
-	// 	so_Highlight.objectiveText = "Click on the \"Space dome\" card";
-
-	// 	so_Highlight.triggerRefresh();
-	// }
-
 	private IEnumerator foodHightlightAfterHook()
 	{
 		yield return new WaitForSeconds(10);

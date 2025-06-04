@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Core;
+using System.Linq;
 
 public class Card : BaseCard, IClickable
 {
 	public SO_PlayerRuntime playerRuntime;
 	public SO_Interactable so_Interactable;
+	public SO_Highlight soHighlight;
 	public SO_Audio soAudio;
 
 	public GameObject dimObject;
@@ -37,7 +39,6 @@ public class Card : BaseCard, IClickable
 
 	// -------------------- CardInterface Members end -------------------------
 
-	// public TextMeshPro titleTextMesh;
 
 	private void Awake()
 	{
@@ -102,14 +103,41 @@ public class Card : BaseCard, IClickable
 		if (isInteractiveDisabled && cardDisable != null)
 		{
 			string disabledTitle = "[Disabled] ";
-
 			cardTitle = disabledTitle + cardTitle;
+		}
+
+		bool dim = isDim();
+		if (dim)
+		{
+			dimCard();
+		}
+		else
+		{
+			nonDimCard();
 		}
 
 		int fontSize = getFontSize(cardTitle);
 
 		titleTextMesh.fontSize = fontSize;
 		titleTextMesh.text = cardTitle;
+	}
+
+	private bool isDim()
+	{
+		if (isInteractiveDisabled && cardDisable != null)
+		{
+			return true;
+		}
+
+		if (soHighlight.isHighlightEnabled)
+		{
+			if (soHighlight.cardIds.Any((cardId) => cardId == id))
+			{
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	private int getFontSize(string title)
