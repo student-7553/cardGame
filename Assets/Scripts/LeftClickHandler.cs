@@ -304,8 +304,8 @@ public class LeftClickHandler : MonoBehaviour
 					&& soHighlight.cardIds.Contains(3000)
 				)
 				{
-					soHighlight.highlightText = "Wait until the timer finishes";
-					soHighlight.highlightMainText = "";
+					soHighlight.highlightText = "\"Rock deposit\" card is being processed by \"Small base\"";
+					soHighlight.highlightMainText = "Wait until the timer finishes";
 					soHighlight.objectiveText = "";
 					soHighlight.triggerRefresh();
 				}

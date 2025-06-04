@@ -8,6 +8,7 @@ public class UI_DimBottomBar : MonoBehaviour
 	private void Awake()
 	{
 		soHighlight.triggerAction.Add(triggerDimRefresh);
+		triggerDimRefresh();
 	}
 
 	private void OnDestroy()

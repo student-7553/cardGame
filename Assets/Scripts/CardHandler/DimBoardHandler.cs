@@ -33,6 +33,24 @@ public class DimBoardHandler : MonoBehaviour
 	{
 		dimBoardGameObject.SetActive(true);
 
+		foreach (Card card in so_Interactable.cards)
+		{
+			if (so_Highlight.cardIds.Any((cardId) => cardId == card.id))
+			{
+				card.nonDimCard();
+				if (card.isStacked())
+				{
+					card.joinedStack.nonDimCard();
+				}
+				continue;
+			}
+			card.dimCard();
+			if (card.isStacked())
+			{
+				card.joinedStack.dimCard();
+			}
+		}
+
 		foreach (Node node in so_Interactable.nodes)
 		{
 			if (so_Highlight.cardIds.Any((cardId) => cardId == node.id))

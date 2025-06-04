@@ -16,6 +16,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	public SO_Interactable so_Interactable;
 	public SO_PlayerRuntime playerRuntime;
+	public SO_Highlight soHighlight;
 
 	List<BaseCard> cards = new List<BaseCard>();
 
@@ -127,12 +128,40 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			cardTitle = disabledTitle + cardTitle;
 		}
 
+		bool dim = isDim();
+		if (dim)
+		{
+			dimCard();
+		}
+		else
+		{
+			nonDimCard();
+		}
+
 		int fontSize = getFontSize(cardTitle);
 
 		titleTextMesh.fontSize = fontSize;
 		titleTextMesh.text = cardTitle;
 
 		collapsedCountTextMesh.text = $"{cards.Count}";
+	}
+
+	private bool isDim()
+	{
+		if (isInteractiveDisabled && cardDisable != null)
+		{
+			return true;
+		}
+
+		if (soHighlight.isHighlightEnabled)
+		{
+			if (soHighlight.cardIds.Any((cardId) => cardId == id))
+			{
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	private int getFontSize(string title)

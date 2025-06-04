@@ -110,10 +110,18 @@ public class Card : BaseCard, IClickable
 		if (dim)
 		{
 			dimCard();
+			// if (isStacked())
+			// {
+			// 	joinedStack.dimCard();
+			// }
 		}
 		else
 		{
 			nonDimCard();
+			// if (isStacked())
+			// {
+			// 	joinedStack.nonDimCard();
+			// }
 		}
 
 		int fontSize = getFontSize(cardTitle);
