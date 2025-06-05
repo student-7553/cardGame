@@ -11,6 +11,7 @@ public class CameraController : MonoBehaviour
 	private Vector2 currentAcceleration;
 	public StaticVariables staticVariables;
 	public bool isMouseAccelerationLocked;
+	public SO_Highlight soHighlight;
 
 	private float currentZoomAcc;
 	private float currentZoom;
@@ -101,6 +102,7 @@ public class CameraController : MonoBehaviour
 		{
 			return;
 		}
+
 		Vector2 cameraMovement = new Vector2(
 			Mathf.Clamp(currentAcceleration.x * speed, -maxAcceleration, maxAcceleration),
 			Mathf.Clamp(currentAcceleration.y * speed, -maxAcceleration, maxAcceleration)
@@ -132,6 +134,19 @@ public class CameraController : MonoBehaviour
 		if (newCameraCornerPoints.right > staticVariables.cornerPoints.right)
 		{
 			cameraMovement = cameraMovement + new Vector2(staticVariables.cornerPoints.right - newCameraCornerPoints.right, 0);
+		}
+
+		if(cameraMovement == Vector2.zero){
+			return;
+		}
+	
+		if (soHighlight.isHighlightEnabled  &&  soHighlight.objectiveText == "Move screen")
+		{
+			soHighlight.cardIds = new int[] { 12 };
+			soHighlight.highlightText = "You can move cards by dragging them, try it out :D";
+			soHighlight.highlightMainText = "Move \"Rock deposit\" card around";
+			soHighlight.objectiveText = "Move \"Rock deposit\" card around";
+			soHighlight.triggerRefresh();
 		}
 
 		Vector3 newCameraPosition = mainCamera.gameObject.transform.position + new Vector3(cameraMovement.x, cameraMovement.y);

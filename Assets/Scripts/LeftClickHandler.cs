@@ -272,7 +272,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void handleCardDrop(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
-		if (soHighlight.isHighlightEnabled && soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(12))
+		if (soHighlight.isHighlightEnabled  &&  soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(12))
 		{
 			soHighlight.isHighlightEnabled = true;
 			soHighlight.cardIds = new int[] { 3000, 12 };
@@ -335,7 +335,7 @@ public class LeftClickHandler : MonoBehaviour
 		draggingGameObject.transform.position = new Vector3(
 			draggingGameObject.transform.position.x,
 			draggingGameObject.transform.position.y,
-			HelperData.baseZ
+			HelperData.baseNodeZ
 		);
 	}
 

@@ -16,6 +16,7 @@ public class SO_Highlight : ScriptableObject
 	public string highlightMainText;
 
 	public bool isFoodFlashing;
+	public bool isMovementTutorialDone;
 	
 	public string objectiveText;
 	public bool bottomBarFoodHightlighted;
@@ -42,6 +43,7 @@ public class SO_Highlight : ScriptableObject
 		topLeftHighlighted = false;
 		bottomBarFoodHightlighted = false;
 		isFoodFlashing = false;
+		isMovementTutorialDone = false;
 		ideaId = -1;
 		cardIds = Array.Empty<int>();
 		highlightText = null;

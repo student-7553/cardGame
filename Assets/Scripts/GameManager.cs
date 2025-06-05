@@ -42,10 +42,11 @@ public class GameManager : MonoBehaviour
 		if (isStartHighlightActive)
 		{
 			so_Highlight.isHighlightEnabled = true;
-			so_Highlight.cardIds = new int[] { 12 };
-			so_Highlight.highlightText = "You can move cards by dragging them, try it out :D";
-			so_Highlight.highlightMainText = "Move \"Rock deposit\" card around";
-			so_Highlight.objectiveText = "Move \"Rock deposit\" card around";
+
+			so_Highlight.cardIds = new int[] {  };
+			so_Highlight.highlightText = "You can move the screen by pressing WASD";
+			so_Highlight.highlightMainText = "Move screen";
+			so_Highlight.objectiveText = "Move screen";
 			so_Highlight.triggerRefresh();
 		}
 	}
@@ -65,14 +66,7 @@ public class GameManager : MonoBehaviour
 
 		for (int i = 0; i < floatingTexts.Count; i++)
 		{
-			if (i % 2 == 0)
-			{
-				positionCounter = new Vector3(Random.Range(widthMin, widthMax), positionCounter.y, 0);
-			}
-			else
-			{
-				positionCounter = new Vector3(Random.Range(widthMin, widthMax), positionCounter.y - 1, 0);
-			}
+			positionCounter = new Vector3(Random.Range(widthMin, widthMax), positionCounter.y - 1.25f, 0);
 
 			Vector3 spawnPosition = newSpawnBaseLocation + positionCounter;
 			GameObject floatingTextObject = Instantiate(floatingTextPrefab, spawnPosition, Quaternion.identity);

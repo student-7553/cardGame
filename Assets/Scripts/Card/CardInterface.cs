@@ -211,7 +211,7 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 			}
 
 			backgroundSpriteRenderer.color = typeBackgroundColor;
-			titleTextMesh.color = typeTextColor;
+			// titleTextMesh.color = typeTextColor;
 
 			cardMainSpriteRenderer.sprite = CardDictionary.globalCardDictionary[_id].cardImage;
 		}

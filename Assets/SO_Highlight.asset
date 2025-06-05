@@ -16,8 +16,10 @@ MonoBehaviour:
   ideaId: -1
   topLeftHighlighted: 0
   highlightDisabledForce: 0
-  cardIds: 0c000000
-  highlightText: You can move cards by dragging them, try it out :D
-  highlightMainText: Move "Rock deposit" card around
-  objectiveText: Move "Rock deposit" card around
+  cardIds: 
+  highlightText: You can move the screen by pressing WASD
+  highlightMainText: Move screen
+  isFoodFlashing: 0
+  isMovementTutorialDone: 0
+  objectiveText: Move screen
   bottomBarFoodHightlighted: 0

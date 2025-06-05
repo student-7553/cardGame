@@ -40,11 +40,11 @@ MonoBehaviour:
     right: 200
   cardColors:
   - cardType: 0
-    color: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
+    color: {r: 0.7075472, g: 0.5918476, b: 0.5918476, a: 1}
   - cardType: 1
     color: {r: 0.16037738, g: 0.14650826, b: 0.13263915, a: 1}
   - cardType: 2
-    color: {r: 1, g: 0.9254902, b: 0.15294118, a: 1}
+    color: {r: 0.8584906, g: 0.7313346, b: 0.27266517, a: 1}
   - cardType: 3
     color: {r: 0.16078432, g: 0.6784314, b: 1, a: 1}
   - cardType: 5
