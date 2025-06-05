@@ -22,11 +22,11 @@ public class UI_FoodCounterText : MonoBehaviour
 		textMeshProUGUI = GetComponent<TextMeshProUGUI>();
 		iconImage = GetComponentInChildren<Image>();
 		labelText = GetComponentInChildren<Text>();
-		
+
 		originalTextColor = textMeshProUGUI.color;
 		originalLabelColor = labelText.color;
 		originalIconColor = iconImage.color;
-		
+
 		soHighlight.triggerAction.Add(OnHighlightChanged);
 	}
 
@@ -55,7 +55,7 @@ public class UI_FoodCounterText : MonoBehaviour
 		{
 			float flashValue = Mathf.PingPong(Time.time * flashSpeed, flashIntensity);
 			Color flashColor = new Color(1f, flashValue, flashValue, 1f);
-			
+
 			textMeshProUGUI.color = flashColor;
 			labelText.color = flashColor;
 			iconImage.color = flashColor;
