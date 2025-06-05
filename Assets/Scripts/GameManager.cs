@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 		current = this;
 		DontDestroyOnLoad(gameObject);
 
-		gameFoodManager = new GameFoodManager { food = 5, isEnabled = isFoodDecreasedEnabledForce };
+		gameFoodManager = new GameFoodManager(handleFoodIconFlash) { food = 5, isEnabled = isFoodDecreasedEnabledForce };
 		CardDictionary.init(descriptions, so_CardImage);
 		gameSettings();
 	}
@@ -159,5 +159,19 @@ public class GameManager : MonoBehaviour
 		so_Interactable.cards.Clear();
 		so_Interactable.nodes.Clear();
 		playerRuntime.gameTimeScale = 1f;
+	}
+
+	private void handleFoodIconFlash()
+	{
+		StartCoroutine(handleFoodIconFlashAsync());
+	}
+
+	private IEnumerator handleFoodIconFlashAsync()
+	{
+		so_Highlight.isFoodFlashing = true;
+		so_Highlight.triggerRefresh();
+		yield return new WaitForSeconds(2f);
+		so_Highlight.isFoodFlashing = false;
+		so_Highlight.triggerRefresh();
 	}
 }

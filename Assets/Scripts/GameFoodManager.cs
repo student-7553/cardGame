@@ -1,10 +1,17 @@
 using System;
+using UnityEngine.Events;
 
 public class GameFoodManager
 {
 	public int food;
-
 	public bool isEnabled;
+	public UnityAction onFoodDecrease;
+
+	public GameFoodManager(UnityAction onFoodDecrease)
+	{
+		this.onFoodDecrease = onFoodDecrease;
+	}
+
 
 	public void addFood(int foodValue)
 	{
@@ -13,6 +20,8 @@ public class GameFoodManager
 			return;
 		}
 		food = food + foodValue;
+
+	
 	}
 
 	public void decreaseFood(int foodValue)
@@ -22,5 +31,6 @@ public class GameFoodManager
 			return;
 		}
 		food = Math.Max(0, food - foodValue);
+		onFoodDecrease.Invoke();
 	}
 }

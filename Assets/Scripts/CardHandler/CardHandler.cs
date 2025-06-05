@@ -292,11 +292,10 @@ public class CardHandler : MonoBehaviour
 			so_Highlight.cardIds = new int[] { };
 			so_Highlight.ideaId = -1;
 
-// This is <color=#ff0000>red</color> and this is <color=green>green</color>.
 			so_Highlight.highlightText =
-				"If you look at the bottom left side of you're screen you will see you're total <color=#ff0000>food</color>. You're Space dome card will slowly use those <color=#ff0000>food</color>";
+				"If you look at the bottom left side of you're screen you will see you're total <color=#ff4d4d>food</color>. You're Space dome card will slowly use those <color=#ff4d4d>food</color>";
 
-			so_Highlight.highlightMainText = "If you're total <color=#ff0000>food</color> reaches 0 you will lose the game";
+			so_Highlight.highlightMainText = "If you're total <color=#ff4d4d>food</color> reaches 0 you will lose the game";
 			so_Highlight.isFoodFlashing = true;
 
 			// If you're total food reaches 0 you will lose the game

@@ -14561,7 +14561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soHighlight: {fileID: 11400000, guid: 40c46c7dc5933ce4dbaedab48734e9bd, type: 2}
-  flashSpeed: 1
+  flashSpeed: 0.5
   flashIntensity: 0.5
 --- !u!1 &2010664290
 GameObject:
