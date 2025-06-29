@@ -21,7 +21,7 @@ public class GameFoodManager
 		}
 		food = food + foodValue;
 
-	
+
 	}
 
 	public void decreaseFood(int foodValue)

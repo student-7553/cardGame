@@ -411,7 +411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ccccccccccccccccccccccccccccccccccc
+  m_text: <i>Idea</i>\ncccccccccccccccccccccccccccccccccddddddddddddcc
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c5386abfb42a9d4ba49651e9ca1b975, type: 2}
   m_sharedMaterial: {fileID: 611514278870215940, guid: 5c5386abfb42a9d4ba49651e9ca1b975, type: 2}
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: -15
   m_wordSpacing: 0
-  m_lineSpacing: -60
+  m_lineSpacing: -40
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -557,7 +557,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8da86438290b7d64eb1d62723389c0d3, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.29411766}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -929,6 +929,7 @@ MonoBehaviour:
   borderSpriteRenderer: {fileID: 8565221862253218052}
   border2SpriteRenderer: {fileID: 7547724302843376393}
   borderStackSpriteRenderer: {fileID: 0}
+  borderStackSpriteRenderer2: {fileID: 0}
   backgroundSpriteRenderer: {fileID: 7400581176032152306}
   cardMainSpriteRenderer: {fileID: 6472735811669443581}
   titleTextMesh: {fileID: 4809273460834732648}

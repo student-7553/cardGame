@@ -17,7 +17,7 @@ public class SO_Highlight : ScriptableObject
 
 	public bool isFoodFlashing;
 	public bool isMovementTutorialDone;
-	
+
 	public string objectiveText;
 	public bool bottomBarFoodHightlighted;
 

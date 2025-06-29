@@ -13,8 +13,8 @@ public class UI_FoodCounterText : MonoBehaviour
 	private Color originalLabelColor;
 	private Color originalIconColor;
 
-	public float flashSpeed = 0.5f;
-	public float flashIntensity = 0.2f;
+	public float flashSpeed = 1f;
+	public float flashIntensity = 0.5f;
 	private bool isFoodFlashing = false;
 
 	void Start()

@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 		{
 			so_Highlight.isHighlightEnabled = true;
 
-			so_Highlight.cardIds = new int[] {  };
+			so_Highlight.cardIds = new int[] { };
 			so_Highlight.highlightText = "You can move the screen by pressing WASD";
 			so_Highlight.highlightMainText = "Move screen";
 			so_Highlight.objectiveText = "Move screen";
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
 	{
 		so_Highlight.isFoodFlashing = true;
 		so_Highlight.triggerRefresh();
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(5f);
 		so_Highlight.isFoodFlashing = false;
 		so_Highlight.triggerRefresh();
 	}

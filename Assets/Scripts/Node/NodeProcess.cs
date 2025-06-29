@@ -679,7 +679,6 @@ public class NodeProcess : MonoBehaviour
 
 		List<BaseCard> addingCards = new List<BaseCard>(CardHandler.current.handleCreatingCards(addingGoldCardIds));
 		node.processCardStack.addCardsToStack(addingCards);
-		// node.processCardStack.consolidateTypeCards();
 
 		isProccessing = false;
 	}

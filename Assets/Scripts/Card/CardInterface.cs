@@ -27,6 +27,10 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 				cardDisable = null;
 			}
 			_isInteractiveDisabled = value;
+			// if (_isInteractiveDisabled == true & isStacked())
+			// {
+			// 	joinedStack
+			// }
 		}
 	}
 
@@ -41,6 +45,9 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 
 	[SerializeField]
 	private SpriteRenderer borderStackSpriteRenderer;
+
+	[SerializeField]
+	private SpriteRenderer borderStackSpriteRenderer2;
 
 	[SerializeField]
 	private SpriteRenderer backgroundSpriteRenderer;
@@ -205,14 +212,17 @@ public abstract class BaseCard : MonoBehaviour, Interactable, IStackable, Positi
 			border2SpriteRenderer.color = typeColor;
 			if (borderStackSpriteRenderer != null)
 			{
-				Color newStackTypeColor = typeColor;
-				newStackTypeColor.a = 0.75f;
+				Color newStackTypeColor = new Color(typeColor.r - (10f / 255f), typeColor.g - (10f / 255f), typeColor.b - (10f / 255f));
 				borderStackSpriteRenderer.color = newStackTypeColor;
 			}
 
-			backgroundSpriteRenderer.color = typeBackgroundColor;
-			// titleTextMesh.color = typeTextColor;
+			if (borderStackSpriteRenderer2 != null)
+			{
+				Color newStackTypeColor2 = new Color(typeColor.r - (20f / 255f), typeColor.g - (20f / 255f), typeColor.b - (20f / 255f));
+				borderStackSpriteRenderer2.color = newStackTypeColor2;
+			}
 
+			backgroundSpriteRenderer.color = typeBackgroundColor;
 			cardMainSpriteRenderer.sprite = CardDictionary.globalCardDictionary[_id].cardImage;
 		}
 	}

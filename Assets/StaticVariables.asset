@@ -114,4 +114,4 @@ MonoBehaviour:
   hoveringShadowAdjustment: {x: 0, y: 0, z: 0}
   hoveringShadowPositionAdjustment: {x: 0, y: -0.05, z: 0}
   nodeProcessTimeDecreaseTick: 0.1
-  backgroundMusicPlayIntervals: {x: 120, y: 180}
+  backgroundMusicPlayIntervals: {x: 120, y: 150}

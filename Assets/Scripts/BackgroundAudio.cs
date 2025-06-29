@@ -1,6 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public struct AudioClipData
+{
+	public AudioClip clip;
+	public int repeatCount;
+}
 
 struct SavedIndex
 {
@@ -12,8 +18,11 @@ public class BackgroundAudio : MonoBehaviour
 {
 	private AudioSource audioSource;
 	public StaticVariables staticVariables;
-	public List<AudioClip> backgroundClips;
+	public List<AudioClipData> backgroundClips;
 	private float nextPlayTimer;
+	private bool isPlayingTrack;
+	private int currentRepeatLimit;
+	private int currentRepeatIndex;
 
 	private SavedIndex lastIndex;
 	private SavedIndex lastSecondIndex;
@@ -22,15 +31,35 @@ public class BackgroundAudio : MonoBehaviour
 	{
 		audioSource = GetComponent<AudioSource>();
 		nextPlayTimer = Random.Range(staticVariables.backgroundMusicPlayIntervals.x, staticVariables.backgroundMusicPlayIntervals.y);
+		currentRepeatLimit = 0;
+		currentRepeatIndex = 0;
+		isPlayingTrack = false;
 	}
 
 	private void FixedUpdate()
 	{
-		nextPlayTimer = nextPlayTimer - Time.fixedDeltaTime;
+		if (isPlayingTrack)
+		{
+			if (!audioSource.isPlaying)
+			{
+				currentRepeatIndex++;
+				if (currentRepeatIndex < currentRepeatLimit)
+				{
+					audioSource.Play();
+				}
+				else
+				{
+					isPlayingTrack = false;
+				}
+			}
+			return;
 
+		}
+		nextPlayTimer = nextPlayTimer - Time.fixedDeltaTime;
 		if (nextPlayTimer <= 0)
 		{
 			playBackgroundAudio();
+			isPlayingTrack = true;
 			nextPlayTimer = Random.Range(staticVariables.backgroundMusicPlayIntervals.x, staticVariables.backgroundMusicPlayIntervals.y);
 		}
 	}
@@ -39,14 +68,16 @@ public class BackgroundAudio : MonoBehaviour
 	{
 		audioSource.Stop();
 
-		AudioClip randomAudioClip = getRandomClip();
-
-		audioSource.clip = randomAudioClip;
+		AudioClipData randomAudioClipData = getRandomClip();
+		audioSource.clip = randomAudioClipData.clip;
+		currentRepeatLimit = randomAudioClipData.repeatCount;
+		currentRepeatIndex = 0;
 
 		audioSource.Play();
 	}
 
-	private AudioClip getRandomClip()
+
+	private AudioClipData getRandomClip()
 	{
 		int maxIndex = backgroundClips.Count;
 		if (lastIndex.isActive)

@@ -307,8 +307,9 @@ public class CardHandler : MonoBehaviour
 		if (cardId == 2012)
 		{
 			so_Highlight.objectiveText = "Create the \"Global Expedition\" card";
+
 			so_Highlight.highlightMainText = "Create the \"Global Expedition\" card";
-			so_Highlight.highlightText = "You just completed you're objective";
+			so_Highlight.highlightText = "Congratulations! You completed the objective! Next: Create the \"Global Expedition\" card";
 			StartCoroutine(cleanupHook());
 		}
 
@@ -317,7 +318,7 @@ public class CardHandler : MonoBehaviour
 		{
 			so_Highlight.objectiveText = "Create the \"Core Pillar\" card";
 			so_Highlight.highlightMainText = "Create the \"Core Pillar\" card";
-			so_Highlight.highlightText = "You just completed you're objective";
+			so_Highlight.highlightText = "Congratulations! You completed the objective! Next: Create the \"Core Pillar\" card";
 			StartCoroutine(cleanupHook());
 		}
 
@@ -326,7 +327,7 @@ public class CardHandler : MonoBehaviour
 		{
 			so_Highlight.objectiveText = "Create the \"Zenith\" card";
 			so_Highlight.highlightMainText = "Create the \"Zenith\" card";
-			so_Highlight.highlightText = "You just completed you're objective";
+			so_Highlight.highlightText = "Congratulations! You completed the objective! Next: Create the \"Zenith\" card";
 			StartCoroutine(cleanupHook());
 		}
 

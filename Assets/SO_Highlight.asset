@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f2889749837a94c9206cba95c74590, type: 3}
   m_Name: SO_Highlight
   m_EditorClassIdentifier: 
-  isHighlightEnabled: 0
+  isHighlightEnabled: 1
   ideaId: -1
-  topLeftHighlighted: 0
+  topLeftHighlighted: 1
   highlightDisabledForce: 0
-  cardIds: 
-  highlightText: You can move the screen by pressing WASD
-  highlightMainText: Move screen
+  cardIds: 03000000020000000c000000b80b0000
+  highlightText: By clicking on a [Idea] card or pressing Tab, you can see more information
+    about how to create new cards, Lets create the new Space dome card. Add the correct
+    cards into "Small Base" and create it
+  highlightMainText: Create the "[Idea][Node] Space dome" card
   isFoodFlashing: 0
   isMovementTutorialDone: 0
-  objectiveText: Move screen
+  objectiveText: Create the "[Idea][Node] Space dome" card
   bottomBarFoodHightlighted: 0

@@ -100,33 +100,24 @@ public class Card : BaseCard, IClickable
 		string cardTitle = "";
 		cardTitle = cardTitle + CardDictionary.globalCardDictionary[id].name;
 
-		if (isInteractiveDisabled && cardDisable != null)
-		{
-			string disabledTitle = "[Disabled] ";
-			cardTitle = disabledTitle + cardTitle;
-		}
-
 		bool dim = isDim();
 		if (dim)
 		{
 			dimCard();
-			// if (isStacked())
-			// {
-			// 	joinedStack.dimCard();
-			// }
 		}
 		else
 		{
 			nonDimCard();
-			// if (isStacked())
-			// {
-			// 	joinedStack.nonDimCard();
-			// }
 		}
 
 		int fontSize = getFontSize(cardTitle);
 
 		titleTextMesh.fontSize = fontSize;
+
+		cardTitle = cardTitle.Replace("[Idea]", "<i><size=70%>[Idea]</size></i>\n");
+		cardTitle = cardTitle.Replace("[Dorm]", "<i><size=70%>[Dorm]</size></i>\n");
+		cardTitle = cardTitle.Replace("[Node]", "<i><size=70%>[Node]</size></i>\n");
+
 		titleTextMesh.text = cardTitle;
 	}
 

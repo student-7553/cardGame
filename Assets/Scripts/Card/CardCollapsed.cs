@@ -43,6 +43,10 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 	{
 		soAudio.cardClickAudioAction?.Invoke();
 
+		if (isInteractiveDisabled)
+		{
+			return;
+		}
 		if (cardCollapsedPlaneHandler.gameObject.activeSelf == true)
 		{
 			cardCollapsedPlaneHandler.gameObject.SetActive(false);
@@ -74,6 +78,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private void FixedUpdate()
 	{
+		updateInteractable();
 		reflectScreen();
 	}
 
@@ -109,7 +114,23 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 			joinedStack = null;
 		}
 
+		foreach (BaseCard singleCard in cards)
+		{
+			so_Interactable.removeCard(singleCard.getCard());
+		}
 		Destroy(gameObject);
+	}
+
+	public void updateInteractable()
+	{
+		if (cards.Any(card => card.isInteractiveDisabled))
+		{
+			isInteractiveDisabled = true;
+		}
+		else
+		{
+			isInteractiveDisabled = false;
+		}
 	}
 
 	public void reflectScreen()
@@ -121,7 +142,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		string cardTitle = CardDictionary.globalCardDictionary[id].name;
 
-		if (isInteractiveDisabled && cardDisable != null)
+		if (isInteractiveDisabled)
 		{
 			string disabledTitle = "[Disabled] ";
 			disabledTitle = disabledTitle + $"[{cardDisable}]";
@@ -148,7 +169,7 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 	private bool isDim()
 	{
-		if (isInteractiveDisabled && cardDisable != null)
+		if (isInteractiveDisabled)
 		{
 			return true;
 		}

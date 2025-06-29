@@ -69,7 +69,7 @@ public class CardStack : CardHolder
 			}
 
 			Vector3 newPostionForCardInSubject = new Vector3(adjustedOriginPoint.x, adjustedOriginPoint.y, getPositionZ());
-			newPostionForCardInSubject.y = newPostionForCardInSubject.y - (paddingCounter * stackDistance);
+			newPostionForCardInSubject.y = newPostionForCardInSubject.y - (paddingCounter * stackDistance) - 0.5f;
 			newPostionForCardInSubject.z = newPostionForCardInSubject.z - (paddingCounter * zDistancePerCards);
 
 			paddingCounter++;

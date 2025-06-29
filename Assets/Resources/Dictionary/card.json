@@ -233,7 +233,7 @@
     },
     {
       "id": 22,
-      "name": "[Dorm] Desolate Solar Farm 1",
+      "name": "[Dorm] Solar Power 1",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -253,7 +253,7 @@
     },
     {
       "id": 24,
-      "name": "[Dorm] Decrepit Module",
+      "name": "[Dorm]Hydroponic Farm",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -317,7 +317,7 @@
     },
     {
       "id": 30,
-      "name": "[Dorm] Decrepit Module 2",
+      "name": "[Dorm] Hydroponic Farm 2",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -327,7 +327,7 @@
     },
     {
       "id": 31,
-      "name": "[Dorm] Decrepit Module 3",
+      "name": "[Dorm] Hydroponic Farm 3",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -337,7 +337,7 @@
     },
     {
       "id": 32,
-      "name": "[Dorm] Decrepit Module 4",
+      "name": "[Dorm] Hydroponic Farm 4",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -347,7 +347,7 @@
     },
     {
       "id": 33,
-      "name": "[Dorm] Desolate Solar Farm 2",
+      "name": "[Dorm] Solar Power 2",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -357,7 +357,7 @@
     },
     {
       "id": 34,
-      "name": "[Dorm] Desolate Solar Farm 3",
+      "name": "[Dorm] Solar Power 3",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -367,7 +367,7 @@
     },
     {
       "id": 35,
-      "name": "[Dorm] Desolate Solar Farm 4",
+      "name": "[Dorm] Solar Power 4",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -377,7 +377,7 @@
     },
     {
       "id": 36,
-      "name": "[Dorm] Desolate Solar Farm 5",
+      "name": "[Dorm] Solar Power 5",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -387,7 +387,7 @@
     },
     {
       "id": 37,
-      "name": "[Dorm] Desolate Solar Farm 6",
+      "name": "[Dorm] Solar Power 6",
       "type": "Dormant",
       "resourceInventoryCount": 1,
       "infraInventoryCount": 0,
@@ -428,7 +428,7 @@
     },
     {
       "id": 1001,
-      "name": "Basic Hydroponic Farming",
+      "name": "Hydroponic Farm",
       "type": "Infrastructure",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 1,
@@ -779,7 +779,7 @@
     },
     {
       "id": 2004,
-      "name": "[Idea][Infra] Basic Hydroponic Farming",
+      "name": "[Idea][Infra] Hydroponic Farm",
       "type": "Idea",
       "resourceInventoryCount": 0,
       "infraInventoryCount": 0,
