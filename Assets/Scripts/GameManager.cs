@@ -168,4 +168,19 @@ public class GameManager : MonoBehaviour
 		so_Highlight.isFoodFlashing = false;
 		so_Highlight.triggerRefresh();
 	}
+
+	public void startIdeaTabHighlight()
+	{
+		StartCoroutine(nextTuturialObjectiveIdeaTab());
+	}
+
+	private IEnumerator nextTuturialObjectiveIdeaTab()
+	{
+		yield return new WaitForSecondsRealtime(4f);
+
+		so_Highlight.highlightText = "Lets create the new Space dome card. Add the correct cards into \"Small Base\" and create it";
+		so_Highlight.highlightMainText = "Create the \"[Node] Space dome\" card";
+
+		so_Highlight.triggerRefresh();
+	}
 }

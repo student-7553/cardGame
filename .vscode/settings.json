@@ -56,7 +56,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csharp"
+    "editor.defaultFormatter": "csharpier.csharpier-vscode"
   },
   "dotnet.defaultSolution": "cardGame.sln",
   "[json]": {

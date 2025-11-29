@@ -157,7 +157,7 @@ public class CardHandler : MonoBehaviour
 			}
 			else
 			{
-				Card createdCard = createCard(singleAddingCardId);
+				Card createdCard = createCard(singleAddingCardId, new Vector3(1000, 1000, 0));
 				addingCards.Add(createdCard);
 			}
 		}

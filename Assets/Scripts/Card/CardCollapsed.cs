@@ -142,12 +142,12 @@ public class CardCollapsed : BaseCard, CardHolder, IClickable
 
 		string cardTitle = CardDictionary.globalCardDictionary[id].name;
 
-		if (isInteractiveDisabled)
-		{
-			string disabledTitle = "[Disabled] ";
-			disabledTitle = disabledTitle + $"[{cardDisable}]";
-			cardTitle = disabledTitle + cardTitle;
-		}
+		// if (isInteractiveDisabled)
+		// {
+		// 	// string disabledTitle = $"[{cardDisable}]";
+		// 	// disabledTitle = disabledTitle + $"[{cardDisable}]";
+		// 	// cardTitle =  cardTitle;
+		// }
 
 		bool dim = isDim();
 		if (dim)

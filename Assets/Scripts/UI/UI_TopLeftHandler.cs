@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TopLeftEntry : MonoBehaviour
 {
@@ -63,19 +64,22 @@ public class UI_TopLeftHandler : MonoBehaviour
 			entry1?.Hide();
 		}
 
-		if (so_Highlight.isHighlightEnabled && currentCardId == 2001)
+		if (so_Highlight.isHighlightEnabled && currentCardId == 2001 && so_Highlight.ideaId == 2001)
 		{
 			so_Highlight.isHighlightEnabled = true;
 			so_Highlight.cardIds = new int[] { 3, 2, 12, 3000 };
 			so_Highlight.ideaId = -1;
 			so_Highlight.topLeftHighlighted = true;
-			so_Highlight.highlightText =
-				"By clicking on a [Idea] card or pressing Tab, you can see more information about how to create new cards, Lets create the new Space dome card. Add the correct cards into \"Small Base\" and create it";
 
-			so_Highlight.highlightMainText = "Create the \"[Idea][Node] Space dome\" card";
-			so_Highlight.objectiveText = "Create the \"[Idea][Node] Space dome\" card";
+			so_Highlight.highlightText =
+				"By clicking on a Idea card or pressing <b>Tab</b>, you can open the Idea Tab. From here can see more information about how to create new cards.";
+
+			so_Highlight.highlightMainText = "You just opened the Idea Tab";
+
+			so_Highlight.objectiveText = "Create the \"[Node] Space dome\" card";
 
 			so_Highlight.triggerRefresh();
+			GameManager.current.startIdeaTabHighlight();
 		}
 	}
 }

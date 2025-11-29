@@ -16,16 +16,24 @@ public class FloatingText : MonoBehaviour
 	{
 		textMesh = GetComponent<TextMeshPro>();
 		textMesh.text = floatingText;
-		gameObject.transform
-			.DOMoveY(gameObject.transform.position.y + positonY, staticVariables.floatingTextDurationSec)
-			.SetEase(Ease.Linear);
 
-		StartCoroutine(HandleFade());
+		Sequence textSeq = DOTween.Sequence();
+		textSeq.Append(
+			gameObject.transform
+				.DOMoveY(gameObject.transform.position.y + positonY, staticVariables.floatingTextDurationSec)
+				.SetEase(Ease.Linear)
+		);
+		textSeq.Join(
+			textMesh
+				.DOColor(new Color(1f, 1f, 1f, 0f), staticVariables.floatingTextDurationSec)
+				.SetDelay(staticVariables.floatingTextDurationSec * 0.4f)
+				.SetEase(Ease.OutExpo)
+		);
+
+		textSeq.OnComplete(() =>
+		{
+			Destroy(gameObject);
+		});
 	}
 
-	IEnumerator HandleFade()
-	{
-		yield return new WaitForSeconds(staticVariables.floatingTextDurationSec);
-		Destroy(gameObject);
-	}
 }

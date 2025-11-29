@@ -14,9 +14,7 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 	public void buttonCallBack()
 	{
 		playerRuntime.changePlayerFocusingCardId(cardId);
-
 	}
-
 
 	public void handleDim()
 	{
@@ -31,6 +29,6 @@ public class UI_IdeaSingleBarContainer : MonoBehaviour
 	public void setCardId(int cardId)
 	{
 		this.cardId = cardId;
-		textObject.text = $"{CardDictionary.globalCardDictionary[this.cardId].name.Replace("[Idea]","").Trim()}";
+		textObject.text = $"{CardDictionary.globalCardDictionary[this.cardId].name.Replace("[Idea]", "").Trim()}";
 	}
 }

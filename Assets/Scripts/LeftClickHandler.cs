@@ -272,7 +272,7 @@ public class LeftClickHandler : MonoBehaviour
 
 	public void handleCardDrop(List<Interactable> draggingObjects, Node previousStackedNode)
 	{
-		if (soHighlight.isHighlightEnabled  &&  soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(12))
+		if (soHighlight.isHighlightEnabled && soHighlight.cardIds.Count() == 1 && soHighlight.cardIds.Contains(12))
 		{
 			soHighlight.isHighlightEnabled = true;
 			soHighlight.cardIds = new int[] { 3000, 12 };
@@ -306,7 +306,7 @@ public class LeftClickHandler : MonoBehaviour
 				{
 					soHighlight.highlightText = "\"Rock deposit\" card is being processed by \"Small base\"";
 					soHighlight.highlightMainText = "Wait until the timer finishes";
-					soHighlight.objectiveText = "";
+					soHighlight.objectiveText = "Wait until the timer finishes";
 					soHighlight.triggerRefresh();
 				}
 				return;

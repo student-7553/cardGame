@@ -114,9 +114,9 @@ public class Card : BaseCard, IClickable
 
 		titleTextMesh.fontSize = fontSize;
 
-		cardTitle = cardTitle.Replace("[Idea]", "<i><size=70%>[Idea]</size></i>\n");
-		cardTitle = cardTitle.Replace("[Dorm]", "<i><size=70%>[Dorm]</size></i>\n");
-		cardTitle = cardTitle.Replace("[Node]", "<i><size=70%>[Node]</size></i>\n");
+		cardTitle = cardTitle.Replace("[Idea]", "<b><size=70%>[Idea]</size></b>\n");
+		cardTitle = cardTitle.Replace("[Dorm]", "<b><size=100%>[Broken]</size></b>\n");
+		cardTitle = cardTitle.Replace("[Node]", "<b><size=70%>[Node]</size></b>\n");
 
 		titleTextMesh.text = cardTitle;
 	}

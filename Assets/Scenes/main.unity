@@ -4084,7 +4084,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -501.64746}
+  m_SizeDelta: {x: 0, y: -501.87683}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &518217930
 MonoBehaviour:
@@ -5228,7 +5228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -62}
+  m_AnchoredPosition: {x: 0, y: -12}
   m_SizeDelta: {x: 220, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &746621026
@@ -5331,18 +5331,18 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.5
+  m_Pitch: 0.85
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 0
+  Priority: 129
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -7564,7 +7564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1044510926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8334,7 +8334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 3df226f599de3514b8402df8c4b68256, type: 3}
+  - {fileID: 8300000, guid: b109bf346c755f241ad99bda5022dfe8, type: 3}
   audioGlobal: {fileID: 11400000, guid: 4a05702a3d66f1947bd5f42bf62ff451, type: 2}
   playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
   audioType: 3
@@ -8350,8 +8350,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
-  m_Pitch: 1
+  m_Volume: 0.05
+  m_Pitch: 0.75
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -10634,7 +10634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1507286606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13314,7 +13314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -57}
+  m_AnchoredPosition: {x: 0, y: -6.9999843}
   m_SizeDelta: {x: 220, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1905066848
@@ -15298,8 +15298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e001f98499a19b4fbc53b7e9f30b384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 7099274538970382496, guid: 48a74d524d025bc49b853e2459875588, type: 3}
-  cardCollapsedPrefab: {fileID: 7099274538970382496, guid: c407b2fe373368b48963ae6fcafa8814, type: 3}
+  cardPrefab: {fileID: 8620614631107952900, guid: 48a74d524d025bc49b853e2459875588, type: 3}
+  cardCollapsedPrefab: {fileID: 8252522944608678187, guid: c407b2fe373368b48963ae6fcafa8814, type: 3}
   nodePrefab: {fileID: 5000079141684730325, guid: 1e7e095b15ebd4a489137bf13cea1dee, type: 3}
   enemyNodePrefab: {fileID: 3109954551291527156, guid: 91a6f5fcc934466458e1d63128b29185, type: 3}
   nodePlanePrefab: {fileID: 7721505031344563643, guid: 23503702044b6744ea388c7c0eab0533, type: 3}
@@ -15322,7 +15322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d09419a6c1c2884f842b04286980e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingTextPrefab: {fileID: 9042047376566122371, guid: 752f03c1a94e63f46971870b7952654c, type: 3}
+  floatingTextPrefab: {fileID: 5019307878291875053, guid: 752f03c1a94e63f46971870b7952654c, type: 3}
   descriptions: {fileID: 11400000, guid: 0a41cce8a13fc7d478fa7b625a3fc1ab, type: 2}
   playerRuntime: {fileID: 11400000, guid: 5aa165bb4e4f15e459673441d572ec73, type: 2}
   so_Interactable: {fileID: 11400000, guid: 7cbc5b9169806a9408d43dfaf2bcb368, type: 2}
